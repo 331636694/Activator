@@ -20,7 +20,7 @@ namespace Activator
                         {
                             var rawVersion =
                                 c.DownloadString(
-                                    "https://raw.githubusercontent.com/xKurisu/KurisuSolutions/master/Activator/Properties/AssemblyInfo.cs");
+                                    "https://raw.githubusercontent.com/xKurisu/Activator/master/Activator/Properties/AssemblyInfo.cs");
 
                             var match =
                                 new Regex(

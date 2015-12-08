@@ -53,14 +53,15 @@ namespace Activator.Spells.Shields
                 {
                     if (hero.IncomeDamage/hero.Player.MaxHealth*100 >=
                         Menu.Item("selfmuchhp" + Name + "pct").GetValue<Slider>().Value)
-                        UseSpellOn(hero.Player);
+                            UseSpellOn(hero.Player);
 
                     if (hero.Player.Health/hero.Player.MaxHealth*100 <=
                         Menu.Item("selflowhp" + Name + "pct").GetValue<Slider>().Value)
                     {
                         if (hero.IncomeDamage / hero.Player.MaxHealth * 100 >=
-                            Menu.Item("selflowhp" + Name + "th").GetValue<Slider>().Value || hero.MinionDamage > hero.Player.Health)
-                            UseSpellOn(hero.Player);
+                            Menu.Item("selflowhp" + Name + "th").GetValue<Slider>().Value || hero.MinionDamage > hero.Player.Health ||
+                            !Menu.Item("selflowhp" + Name + "useth").GetValue<bool>() && hero.IncomeDamage > 0)
+                                UseSpellOn(hero.Player);
                     }
                 }
             }

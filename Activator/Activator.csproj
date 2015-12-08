@@ -145,6 +145,7 @@
     <Compile Include="Spells\Health\sadism.cs" />
     <Compile Include="Spells\Health\sorakar.cs" />
     <Compile Include="Spells\Health\tahmkenche.cs" />
+    <Compile Include="Spells\Health\threshw.cs" />
     <Compile Include="Spells\Health\undyingrage.cs" />
     <Compile Include="Spells\Health\yorickreviveally.cs" />
     <Compile Include="Spells\Shields\blindmonkwone.cs" />

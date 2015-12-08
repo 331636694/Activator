@@ -75,9 +75,13 @@ namespace Activator.Spells
                         .SetValue(new Slider(DefaultMP));
 
                 if (Category.Any(t => t == MenuType.SelfLowHP))
-                    Menu.AddItem(new MenuItem("selflowhp" + Name + "th", "Minimum Dmg Dealt %"))
-                        .SetValue(new Slider(5))
-                        .SetTooltip("The Minimum Percentage of Damage to Trigger");
+                    Menu.AddItem(new MenuItem("selflowhp" + Name + "useth", "Check Minimum Dmg Dealt"))
+                        .SetValue(false)
+                        .SetTooltip("The Minimum Percentage of Dmg Dealt to Trigger");
+
+                if (Category.Any(t => t == MenuType.SelfLowHP))
+                    Menu.AddItem(new MenuItem("selflowhp" + Name + "th", "-> Minimum Dmg Dealt %"))
+                        .SetValue(new Slider(5));
 
                 if (Category.Any(t => t == MenuType.SelfCount))
                     Menu.AddItem(new MenuItem("selfcount" + Name, "Use on # Near Hero >="))
