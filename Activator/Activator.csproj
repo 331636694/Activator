@@ -182,6 +182,7 @@
     <Compile Include="Summoners\Hero\exhuast.cs" />
     <Compile Include="Summoners\Hero\heal.cs" />
     <Compile Include="Summoners\Hero\mana.cs" />
+    <Compile Include="Summoners\Hero\poro.cs" />
     <Compile Include="Summoners\Hero\smite.cs" />
     <Compile Include="Summoners\Hero\snowball.cs" />
     <Compile Include="Summoners\CoreSum.cs" />
