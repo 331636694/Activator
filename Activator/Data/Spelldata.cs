@@ -3966,18 +3966,18 @@ namespace Activator.Data
 
             Spells.Add(new Spelldata
             {
-                SDataName = "poppydevastatingblow",
+                SDataName = "poppyq",
                 ChampionName = "poppy",
                 Slot = SpellSlot.Q,
-                CastRange = 300f,
+                CastRange = 450f,
                 Delay = 500f,
-                HitType = new[] { Base.HitType.Danger },
+                HitType = new[] { Base.HitType.CrowdControl },
                 MissileSpeed = int.MaxValue
             });
 
             Spells.Add(new Spelldata
             {
-                SDataName = "poppyparagonofdemacia",
+                SDataName = "poppyw",
                 ChampionName = "poppy",
                 Slot = SpellSlot.W,
                 CastRange = 0f,
@@ -3988,7 +3988,7 @@ namespace Activator.Data
 
             Spells.Add(new Spelldata
             {
-                SDataName = "poppyheroiccharge",
+                SDataName = "poppye",
                 ChampionName = "poppy",
                 Slot = SpellSlot.E,
                 CastRange = 525f,
@@ -3999,12 +3999,23 @@ namespace Activator.Data
 
             Spells.Add(new Spelldata
             {
-                SDataName = "poppydiplomaticimmunity",
+                SDataName = "poppyrspell",
                 ChampionName = "poppy",
                 Slot = SpellSlot.R,
-                CastRange = 900f,
-                Delay = 250f,
-                HitType = new[] { Base.HitType.CrowdControl  },
+                CastRange = 1150f,
+                Delay = 300f,
+                HitType = new HitType[] { },
+                MissileSpeed = 1750
+            });
+
+            Spells.Add(new Spelldata
+            {
+                SDataName = "poppyrspellinstant",
+                ChampionName = "poppy",
+                Slot = SpellSlot.R,
+                CastRange = 450f,
+                Delay = 300f,
+                HitType = new[] { Base.HitType.Danger, Base.HitType.Ultimate },
                 MissileSpeed = int.MaxValue
             });
 
