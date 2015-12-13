@@ -253,9 +253,9 @@ namespace Activator
             return
                 Assembly.GetExecutingAssembly()
                     .GetTypes()
-                    .FindAll(t => t.IsClass && t.Namespace == "Activator." + nspace &&
-                                  t.Name != "CoreItem" && t.Name != "CoreSpell" && t.Name != "CoreSum" &&
-                                 !t.Name.Contains("c__") && !t.Name.Contains("<>c")); // kek
+                    .Where(t => t.IsClass && t.Namespace == "Activator." + nspace &&
+                                t.Name != "CoreItem" && t.Name != "CoreSpell" && t.Name != "CoreSum" &&
+                               !t.Name.Contains("c__") && !t.Name.Contains("<>c")).ToList(); // kek
         }
 
         private static void GetTurrets()
