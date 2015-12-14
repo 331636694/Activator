@@ -50,7 +50,7 @@ namespace Activator.Items.Cleansers
 
         internal override int DefaultHP
         {
-            get { return 10; }
+            get { return 5; }
         }
 
         internal override int DefaultMP

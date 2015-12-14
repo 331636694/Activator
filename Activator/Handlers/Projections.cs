@@ -1,8 +1,9 @@
 using System;
 using System.Linq;
-using Activator.Base;
+using System.Collections.Generic;
 using LeagueSharp;
 using LeagueSharp.Common;
+using Activator.Base;
 
 namespace Activator.Handlers
 {
@@ -119,218 +120,100 @@ namespace Activator.Handlers
 
             if (sender.IsEnemy && sender.Type == GameObjectType.obj_AI_Hero)
             {
-                LastCastedTimeStamp = Utils.GameTimeTickCount;
-
                 var attacker = sender as Obj_AI_Hero;
-                if (attacker == null || attacker.IsAlly || !attacker.IsValid<Obj_AI_Hero>())
-                    return;
-
-                foreach (var hero in Activator.Allies())
+                if (attacker != null && attacker.IsValid<Obj_AI_Hero>())
                 {
-                    Essentials.ResetIncomeDamage(hero.Player);
+                    LastCastedTimeStamp = Utils.GameTimeTickCount;
 
-                    #region auto attack
-
-                    if (args.SData.IsAutoAttack())
+                    foreach (var hero in Activator.Allies())
                     {
-                        if (args.Target.NetworkId == hero.Player.NetworkId)
+                        Essentials.ResetIncomeDamage(hero.Player);
+
+                        #region auto attack
+
+                        if (args.SData.IsAutoAttack())
                         {
-                            float dmg = 0;
-
-                            if (attacker != null)
+                            if (args.Target.NetworkId == hero.Player.NetworkId)
                             {
-                                dmg = (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true));
+                                float dmg = 0;
 
-                                if (sender.HasBuff("sheen"))
-                                    dmg += (int) Math.Abs(sender.GetAutoAttackDamage(hero.Player, true) +
-                                                        attacker.GetCustomDamage("sheen", hero.Player));
-
-                                if (sender.HasBuff("lichbane"))
-                                    dmg += (int) Math.Abs(sender.GetAutoAttackDamage(hero.Player, true) +
-                                                        attacker.GetCustomDamage("lichbane", hero.Player));
-
-                                if (sender.HasBuff("itemstatikshankcharge"))
-                                    dmg += dmg; // double it yolo (lazy)
-                            }
-
-                            if (args.SData.Name.ToLower().Contains("critattack"))
-                                dmg = dmg * 2;
-       
-                            var delay = attacker.AttackCastDelay * 1000;
-                            var distance = (int)(1000 * (attacker.ServerPosition.Distance(hero.Player.ServerPosition) / args.SData.MissileSpeed));
-                            var endtime = delay - 100 + Game.Ping / 2f + distance - (Utils.GameTimeTickCount - LastCastedTimeStamp);
-
-                            Utility.DelayAction.Add((int)(endtime - (endtime * 0.7)), () =>
-                            {
-                                hero.Attacker = attacker;
-                                hero.HitTypes.Add(HitType.AutoAttack);
-                                hero.IncomeDamage += dmg;
-
-                                Utility.DelayAction.Add((int) endtime + 150, delegate
+                                if (attacker != null)
                                 {
-                                    hero.Attacker = null;
-                                    hero.IncomeDamage -= dmg;
-                                    hero.HitTypes.Remove(HitType.AutoAttack);
-                                });
-                            });
-                        }
-                    }
+                                    dmg = (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true));
 
-                    #endregion
+                                    if (sender.HasBuff("sheen"))
+                                        dmg += (int) Math.Abs(sender.GetAutoAttackDamage(hero.Player, true) +
+                                                              attacker.GetCustomDamage("sheen", hero.Player));
 
-                    var data = Data.Spelldata.SomeSpells.Find(x => x.SDataName == args.SData.Name.ToLower());
-                    if (data == null)
-                        return;
+                                    if (sender.HasBuff("lichbane"))
+                                        dmg += (int) Math.Abs(sender.GetAutoAttackDamage(hero.Player, true) +
+                                                              attacker.GetCustomDamage("lichbane", hero.Player));
 
-                    #region self/selfaoe
-
-                    if (args.SData.TargettingType == SpellDataTargetType.Self ||
-                        args.SData.TargettingType == SpellDataTargetType.SelfAoe)
-                    {
-                        var fromObj = ObjectManager.Get<GameObject>().FirstOrDefault(
-                            x =>
-                                data.FromObject != null && !x.IsAlly && data.FromObject.Any(y => x.Name.Contains(y)));
-
-                        var correctpos = fromObj != null ? fromObj.Position : attacker.ServerPosition;
-                        if (hero.Player.Distance(correctpos) > data.CastRange)
-                            continue;
-
-                        if (data.SDataName == "kalistaexpungewrapper" && !hero.Player.HasBuff("kalistaexpungemarker"))
-                            continue;
-
-                        var evadetime = 1000 * (data.CastRange - hero.Player.Distance(correctpos) +
-                                                hero.Player.BoundingRadius) / hero.Player.MoveSpeed;
-
-                        if (Activator.Origin.Item("evade").GetValue<bool>())
-                        {
-                            // ignore if can evade
-                            if (hero.Player.NetworkId == Activator.Player.NetworkId)
-                            {
-                                if (hero.Player.CanMove && evadetime < data.Delay)
-                                {
-                                    // check next player
-                                    continue;
+                                    if (sender.HasBuff("itemstatikshankcharge"))
+                                        dmg += dmg; // double it yolo (lazy)
                                 }
+
+                                if (args.SData.Name.ToLower().Contains("critattack"))
+                                    dmg = dmg * 2;
+
+                                var delay = attacker.AttackCastDelay * 1000;
+                                var distance = (int) (1000 * 
+                                    (attacker.ServerPosition.Distance(hero.Player.ServerPosition) / args.SData.MissileSpeed));
+
+                                var endtime = delay - 100 + Game.Ping / 2f + distance - (Utils.GameTimeTickCount - LastCastedTimeStamp);
+
+                                Utility.DelayAction.Add((int) (endtime - (endtime * 0.7)), () =>
+                                {
+                                    hero.Attacker = attacker;
+                                    hero.HitTypes.Add(HitType.AutoAttack);
+                                    hero.IncomeDamage += dmg;
+
+                                    Utility.DelayAction.Add((int) endtime + 150, delegate
+                                    {
+                                        hero.Attacker = null;
+                                        hero.IncomeDamage -= dmg;
+                                        hero.HitTypes.Remove(HitType.AutoAttack);
+                                    });
+                                });
                             }
                         }
 
-                        if (!Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
+                        #endregion
+
+                        var data = Data.Spelldata.SomeSpells.Find(x => x.SDataName == args.SData.Name.ToLower());
+                        if (data == null)
                             continue;
 
-                        var dmg = (int)Math.Abs(attacker.GetSpellDamage(hero.Player, args.SData.Name));
+                        #region self/selfaoe
 
-                        // delay the spell a bit before missile endtime
-                        Utility.DelayAction.Add((int)(data.Delay - (data.Delay * 0.7)), () =>
+                        if (args.SData.TargettingType == SpellDataTargetType.Self ||
+                            args.SData.TargettingType == SpellDataTargetType.SelfAoe)
                         {
-                            hero.Attacker = attacker;
-                            hero.HitTypes.Add(HitType.Spell);
-                            hero.IncomeDamage += dmg;
+                            var fromObj = ObjectManager.Get<GameObject>().FirstOrDefault(
+                                x =>
+                                    data.FromObject != null && !x.IsAlly && data.FromObject.Any(y => x.Name.Contains(y)));
 
-                            if (Activator.Origin.Item(data.SDataName + "danger").GetValue<bool>())
-                                hero.HitTypes.Add(HitType.Danger);
-                            if (Activator.Origin.Item(data.SDataName + "crowdcontrol").GetValue<bool>())
-                                hero.HitTypes.Add(HitType.CrowdControl);
-                            if (Activator.Origin.Item(data.SDataName + "ultimate").GetValue<bool>())
-                                hero.HitTypes.Add(HitType.Ultimate);
-                            if (Activator.Origin.Item(data.SDataName + "forceexhaust").GetValue<bool>())
-                                hero.HitTypes.Add(HitType.ForceExhaust);
+                            var correctpos = fromObj != null ? fromObj.Position : attacker.ServerPosition;
+                            if (hero.Player.Distance(correctpos) > data.CastRange)
+                                continue;
 
-                            // lazy safe reset
-                            Utility.DelayAction.Add((int) data.Delay + 250, () =>
+                            if (data.SDataName == "kalistaexpungewrapper" &&
+                                !hero.Player.HasBuff("kalistaexpungemarker"))
+                                continue;
+
+                            var evadetime = 1000 * (data.CastRange - hero.Player.Distance(correctpos) +
+                                                    hero.Player.BoundingRadius) / hero.Player.MoveSpeed;
+
+                            if (Activator.Origin.Item("evade").GetValue<bool>())
                             {
-                                hero.Attacker = null;
-                                hero.IncomeDamage -= dmg;
-                                hero.HitTypes.Remove(HitType.Spell);
-
-                                if (Activator.Origin.Item(data.SDataName + "danger").GetValue<bool>())
-                                    hero.HitTypes.Remove(HitType.Danger);
-                                if (Activator.Origin.Item(data.SDataName + "crowdcontrol").GetValue<bool>())
-                                    hero.HitTypes.Remove(HitType.CrowdControl);
-                                if (Activator.Origin.Item(data.SDataName + "ultimate").GetValue<bool>())
-                                    hero.HitTypes.Remove(HitType.Ultimate);
-                                if (Activator.Origin.Item(data.SDataName + "forceexhaust").GetValue<bool>())
-                                    hero.HitTypes.Remove(HitType.ForceExhaust);
-                            });
-                        });
-                    }
-
-                    #endregion
-
-                    #region skillshot
-
-                    if (args.SData.TargettingType == SpellDataTargetType.Cone || 
-                        args.SData.TargettingType.ToString().Contains("Location") ||
-                        args.SData.TargettingType == (SpellDataTargetType) 10 && data.SDataName == "azirq")
-                    {
-                        var fromObj =
-                            ObjectManager.Get<GameObject>()
-                                .FirstOrDefault(
-                                    x =>
-                                        !x.IsAlly && data.FromObject != null &&
-                                        data.FromObject.Any(y => x.Name.Contains(y)));
-
-                        var islineskillshot = args.SData.TargettingType == SpellDataTargetType.Cone ||
-                                              args.SData.LineWidth > 0;
-
-                        var startpos = fromObj != null ? fromObj.Position : attacker.ServerPosition;
-
-                        var correctwidth = 0f;
-
-                        if (args.SData.CastRadius > 0) 
-                            correctwidth = args.SData.CastRadius;
-
-                        if (args.SData.CastRadius < 1 && args.SData.CastRadiusSecondary > 0)
-                            correctwidth = args.SData.CastRadiusSecondary;
-
-                        if (args.SData.CastRadiusSecondary < 1 && args.SData.CastRangeDisplayOverride > 0)
-                            correctwidth = args.SData.CastRangeDisplayOverride;
-
-                        if (islineskillshot && args.SData.TargettingType != SpellDataTargetType.Cone)
-                            correctwidth = args.SData.LineWidth;
-
-                        if (data.SDataName == "azirq")
-                        {
-                            correctwidth = 275f;
-                            islineskillshot = true;
-                        }
-
-                        if (hero.Player.Distance(startpos) > data.CastRange)
-                            continue;
-
-                        var distance = (int)(1000 * (startpos.Distance(hero.Player.ServerPosition) / data.MissileSpeed));
-                        var endtime = data.Delay - 100 + Game.Ping / 2f + distance - (Utils.GameTimeTickCount - LastCastedTimeStamp);
-
-                        var iscone = args.SData.TargettingType == SpellDataTargetType.Cone;
-                        var direction = (args.End.To2D() - startpos.To2D()).Normalized();
-                        var endpos = startpos.To2D() + direction * startpos.To2D().Distance(args.End.To2D());
-
-                        if (startpos.To2D().Distance(endpos) > data.CastRange)
-                            endpos = startpos.To2D() + direction * data.CastRange;
-
-                        if (startpos.To2D().Distance(endpos) < data.CastRange && iscone)
-                            endpos = startpos.To2D() + direction * data.CastRange;
-
-                        var proj = hero.Player.ServerPosition.To2D().ProjectOn(startpos.To2D(), endpos);
-                        var projdist = hero.Player.ServerPosition.To2D().Distance(proj.SegmentPoint);
-
-                        int evadetime = 0;
-
-                        if (islineskillshot)
-                            evadetime = (int)(1000 * (correctwidth - projdist + hero.Player.BoundingRadius) / hero.Player.MoveSpeed);
-
-                        if (!islineskillshot)
-                            evadetime = (int)(1000 * (correctwidth - hero.Player.Distance(startpos) + hero.Player.BoundingRadius) /hero.Player.MoveSpeed);
-
-                        if ((!islineskillshot || iscone) && hero.Player.Distance(endpos) <= correctwidth + hero.Player.BoundingRadius + 35 ||
-                            islineskillshot && correctwidth + hero.Player.BoundingRadius + 35 > projdist)
-                        {
-                            
-                            if (hero.Player.NetworkId == Activator.Player.NetworkId &&
-                                (data.Global || Activator.Origin.Item("evade").GetValue<bool>()))
-                            {
-                                if (hero.Player.CanMove && evadetime < endtime)
+                                // ignore if can evade
+                                if (hero.Player.NetworkId == Activator.Player.NetworkId)
                                 {
-                                    continue;
+                                    if (hero.Player.CanMove && evadetime < data.Delay)
+                                    {
+                                        // check next player
+                                        continue;
+                                    }
                                 }
                             }
 
@@ -339,7 +222,8 @@ namespace Activator.Handlers
 
                             var dmg = (int) Math.Abs(attacker.GetSpellDamage(hero.Player, args.SData.Name));
 
-                            Utility.DelayAction.Add((int)(endtime - (endtime * 0.3)), () =>
+                            // delay the spell a bit before missile endtime
+                            Utility.DelayAction.Add((int) (data.Delay - (data.Delay * 0.7)), () =>
                             {
                                 hero.Attacker = attacker;
                                 hero.HitTypes.Add(HitType.Spell);
@@ -354,6 +238,196 @@ namespace Activator.Handlers
                                 if (Activator.Origin.Item(data.SDataName + "forceexhaust").GetValue<bool>())
                                     hero.HitTypes.Add(HitType.ForceExhaust);
 
+                                // lazy safe reset
+                                Utility.DelayAction.Add((int) data.Delay + 250, () =>
+                                {
+                                    hero.Attacker = null;
+                                    hero.IncomeDamage -= dmg;
+                                    hero.HitTypes.Remove(HitType.Spell);
+
+                                    if (Activator.Origin.Item(data.SDataName + "danger").GetValue<bool>())
+                                        hero.HitTypes.Remove(HitType.Danger);
+                                    if (Activator.Origin.Item(data.SDataName + "crowdcontrol").GetValue<bool>())
+                                        hero.HitTypes.Remove(HitType.CrowdControl);
+                                    if (Activator.Origin.Item(data.SDataName + "ultimate").GetValue<bool>())
+                                        hero.HitTypes.Remove(HitType.Ultimate);
+                                    if (Activator.Origin.Item(data.SDataName + "forceexhaust").GetValue<bool>())
+                                        hero.HitTypes.Remove(HitType.ForceExhaust);
+                                });
+                            });
+                        }
+
+                        #endregion
+
+                        #region skillshot
+
+                        if (args.SData.TargettingType == SpellDataTargetType.Cone ||
+                            args.SData.TargettingType.ToString().Contains("Location") ||
+                            args.SData.TargettingType == (SpellDataTargetType) 10 && data.SDataName == "azirq")
+                        {
+                            var fromObj =
+                                ObjectManager.Get<GameObject>()
+                                    .FirstOrDefault(
+                                        x =>
+                                            !x.IsAlly && data.FromObject != null &&
+                                            data.FromObject.Any(y => x.Name.Contains(y)));
+
+                            var islineskillshot = args.SData.TargettingType == SpellDataTargetType.Cone ||
+                                                  args.SData.LineWidth > 0;
+
+                            var startpos = fromObj != null ? fromObj.Position : attacker.ServerPosition;
+
+                            var correctwidth = 0f;
+
+                            if (args.SData.CastRadius > 0)
+                                correctwidth = args.SData.CastRadius;
+
+                            if (args.SData.CastRadius < 1 && args.SData.CastRadiusSecondary > 0)
+                                correctwidth = args.SData.CastRadiusSecondary;
+
+                            if (args.SData.CastRadiusSecondary < 1 && args.SData.CastRangeDisplayOverride > 0)
+                                correctwidth = args.SData.CastRangeDisplayOverride;
+
+                            if (islineskillshot && args.SData.TargettingType != SpellDataTargetType.Cone)
+                                correctwidth = args.SData.LineWidth;
+
+                            if (data.SDataName == "azirq")
+                            {
+                                correctwidth = 275f;
+                                islineskillshot = true;
+                            }
+
+                            if (hero.Player.Distance(startpos) > data.CastRange)
+                                continue;
+
+                            var distance = (int) (1000 * (startpos.Distance(hero.Player.ServerPosition) / data.MissileSpeed));
+                            var endtime = data.Delay - 100 + Game.Ping / 2f + distance -
+                                          (Utils.GameTimeTickCount - LastCastedTimeStamp);
+
+                            var iscone = args.SData.TargettingType == SpellDataTargetType.Cone;
+                            var direction = (args.End.To2D() - startpos.To2D()).Normalized();
+                            var endpos = startpos.To2D() + direction * startpos.To2D().Distance(args.End.To2D());
+
+                            if (startpos.To2D().Distance(endpos) > data.CastRange)
+                                endpos = startpos.To2D() + direction * data.CastRange;
+
+                            if (startpos.To2D().Distance(endpos) < data.CastRange && iscone)
+                                endpos = startpos.To2D() + direction * data.CastRange;
+
+                            var proj = hero.Player.ServerPosition.To2D().ProjectOn(startpos.To2D(), endpos);
+                            var projdist = hero.Player.ServerPosition.To2D().Distance(proj.SegmentPoint);
+
+                            int evadetime = 0;
+
+                            if (islineskillshot)
+                                evadetime =
+                                    (int)
+                                        (1000 * (correctwidth - projdist + hero.Player.BoundingRadius) /
+                                         hero.Player.MoveSpeed);
+
+                            if (!islineskillshot)
+                                evadetime =
+                                    (int)
+                                        (1000 *
+                                         (correctwidth - hero.Player.Distance(startpos) + hero.Player.BoundingRadius) /
+                                         hero.Player.MoveSpeed);
+
+                            if ((!islineskillshot || iscone) &&
+                                hero.Player.Distance(endpos) <= correctwidth + hero.Player.BoundingRadius + 35 ||
+                                islineskillshot && correctwidth + hero.Player.BoundingRadius + 35 > projdist)
+                            {
+                                if (hero.Player.NetworkId == Activator.Player.NetworkId &&
+                                    (data.Global || Activator.Origin.Item("evade").GetValue<bool>()))
+                                {
+                                    if (hero.Player.CanMove && evadetime < endtime)
+                                    {
+                                        continue;
+                                    }
+                                }
+
+                                if (!Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
+                                    continue;
+
+                                var dmg = (int) Math.Abs(attacker.GetSpellDamage(hero.Player, args.SData.Name));
+
+                                Utility.DelayAction.Add((int) (endtime - (endtime * 0.3)), () =>
+                                {
+                                    hero.Attacker = attacker;
+                                    hero.HitTypes.Add(HitType.Spell);
+                                    hero.IncomeDamage += dmg;
+
+                                    if (Activator.Origin.Item(data.SDataName + "danger").GetValue<bool>())
+                                        hero.HitTypes.Add(HitType.Danger);
+                                    if (Activator.Origin.Item(data.SDataName + "crowdcontrol").GetValue<bool>())
+                                        hero.HitTypes.Add(HitType.CrowdControl);
+                                    if (Activator.Origin.Item(data.SDataName + "ultimate").GetValue<bool>())
+                                        hero.HitTypes.Add(HitType.Ultimate);
+                                    if (Activator.Origin.Item(data.SDataName + "forceexhaust").GetValue<bool>())
+                                        hero.HitTypes.Add(HitType.ForceExhaust);
+
+                                    Utility.DelayAction.Add((int) endtime + 250, () =>
+                                    {
+                                        hero.Attacker = null;
+                                        hero.IncomeDamage -= dmg;
+                                        hero.HitTypes.Remove(HitType.Spell);
+
+                                        if (Activator.Origin.Item(data.SDataName + "danger").GetValue<bool>())
+                                            hero.HitTypes.Remove(HitType.Danger);
+                                        if (Activator.Origin.Item(data.SDataName + "crowdcontrol").GetValue<bool>())
+                                            hero.HitTypes.Remove(HitType.CrowdControl);
+                                        if (Activator.Origin.Item(data.SDataName + "ultimate").GetValue<bool>())
+                                            hero.HitTypes.Remove(HitType.Ultimate);
+                                        if (Activator.Origin.Item(data.SDataName + "forceexhaust").GetValue<bool>())
+                                            hero.HitTypes.Remove(HitType.ForceExhaust);
+                                    });
+                                });
+                            }
+                        }
+
+                        #endregion
+
+                        #region unit type
+
+                        if (args.SData.TargettingType == SpellDataTargetType.Unit ||
+                            args.SData.TargettingType == SpellDataTargetType.SelfAndUnit)
+                        {
+                            if (args.Target == null)
+                                continue;
+
+                            // check if is targeteting the hero on our table
+                            if (hero.Player.NetworkId != args.Target.NetworkId)
+                                continue;
+
+                            // target spell dectection
+                            if (hero.Player.Distance(attacker.ServerPosition) > data.CastRange)
+                                continue;
+
+                            var distance =
+                                (int) (1000 * (attacker.Distance(hero.Player.ServerPosition) / data.MissileSpeed));
+                            var endtime = data.Delay - 100 + Game.Ping / 2 + distance -
+                                          (Utils.GameTimeTickCount - LastCastedTimeStamp);
+
+                            if (!Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
+                                continue;
+
+                            var dmg = (int) Math.Abs(attacker.GetSpellDamage(hero.Player, args.SData.Name));
+
+                            Utility.DelayAction.Add((int) (endtime - (endtime * 0.7)), () =>
+                            {
+                                hero.Attacker = attacker;
+                                hero.HitTypes.Add(HitType.Spell);
+                                hero.IncomeDamage += dmg;
+
+                                if (Activator.Origin.Item(data.SDataName + "danger").GetValue<bool>())
+                                    hero.HitTypes.Add(HitType.Danger);
+                                if (Activator.Origin.Item(data.SDataName + "crowdcontrol").GetValue<bool>())
+                                    hero.HitTypes.Add(HitType.CrowdControl);
+                                if (Activator.Origin.Item(data.SDataName + "ultimate").GetValue<bool>())
+                                    hero.HitTypes.Add(HitType.Ultimate);
+                                if (Activator.Origin.Item(data.SDataName + "forceexhaust").GetValue<bool>())
+                                    hero.HitTypes.Add(HitType.ForceExhaust);
+
+                                // lazy reset
                                 Utility.DelayAction.Add((int) endtime + 250, () =>
                                 {
                                     hero.Attacker = null;
@@ -371,68 +445,9 @@ namespace Activator.Handlers
                                 });
                             });
                         }
+
+                        #endregion
                     }
-
-                    #endregion
-
-                    #region unit type
-
-                    if (args.SData.TargettingType == SpellDataTargetType.Unit ||
-                        args.SData.TargettingType == SpellDataTargetType.SelfAndUnit)
-                    {
-                        if (args.Target == null)
-                            continue;
-
-                        // check if is targeteting the hero on our table
-                        if (hero.Player.NetworkId != args.Target.NetworkId)
-                            continue;
-
-                        // target spell dectection
-                        if (hero.Player.Distance(attacker.ServerPosition) > data.CastRange)
-                            continue;
-
-                        var distance = (int)(1000 * (attacker.Distance(hero.Player.ServerPosition) / data.MissileSpeed));
-                        var endtime = data.Delay - 100 + Game.Ping / 2 + distance - (Utils.GameTimeTickCount - LastCastedTimeStamp);
-
-                        if (!Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
-                            continue;
-
-                        var dmg = (int)Math.Abs(attacker.GetSpellDamage(hero.Player, args.SData.Name));
-
-                        Utility.DelayAction.Add((int)(endtime - (endtime * 0.7)), () =>
-                        {
-                            hero.Attacker = attacker;
-                            hero.HitTypes.Add(HitType.Spell);
-                            hero.IncomeDamage += dmg;
-
-                            if (Activator.Origin.Item(data.SDataName + "danger").GetValue<bool>())
-                                hero.HitTypes.Add(HitType.Danger);
-                            if (Activator.Origin.Item(data.SDataName + "crowdcontrol").GetValue<bool>())
-                                hero.HitTypes.Add(HitType.CrowdControl);
-                            if (Activator.Origin.Item(data.SDataName + "ultimate").GetValue<bool>())
-                                hero.HitTypes.Add(HitType.Ultimate);
-                            if (Activator.Origin.Item(data.SDataName + "forceexhaust").GetValue<bool>())
-                                hero.HitTypes.Add(HitType.ForceExhaust);
-
-                            // lazy reset
-                            Utility.DelayAction.Add((int) endtime + 250, () =>
-                            {
-                                hero.Attacker = null;
-                                hero.IncomeDamage -= dmg;
-                                hero.HitTypes.Remove(HitType.Spell);
-
-                                if (Activator.Origin.Item(data.SDataName + "danger").GetValue<bool>())
-                                    hero.HitTypes.Remove(HitType.Danger);
-                                if (Activator.Origin.Item(data.SDataName + "crowdcontrol").GetValue<bool>())
-                                    hero.HitTypes.Remove(HitType.CrowdControl);
-                                if (Activator.Origin.Item(data.SDataName + "ultimate").GetValue<bool>())
-                                    hero.HitTypes.Remove(HitType.Ultimate);
-                                if (Activator.Origin.Item(data.SDataName + "forceexhaust").GetValue<bool>())
-                                    hero.HitTypes.Remove(HitType.ForceExhaust);
-                            });
-                        });
-                    }
-                    #endregion
                 }
             }
 
@@ -443,32 +458,32 @@ namespace Activator.Handlers
             if (sender.IsEnemy && sender.Type == GameObjectType.obj_AI_Turret && args.Target.Type == Activator.Player.Type)
             {
                 var turret = sender as Obj_AI_Turret;
-                if (turret == null || turret.IsAlly || !turret.IsValid<Obj_AI_Turret>())
-                    return;
-
-                foreach (var hero in Activator.Allies())
+                if (turret != null && turret.IsValid<Obj_AI_Turret>())
                 {
-                    if (args.Target.NetworkId == hero.Player.NetworkId && !hero.Immunity)
+                    foreach (var hero in Activator.Allies())
                     {
-                        var dmg = (int)Math.Abs(turret.CalcDamage(hero.Player, Damage.DamageType.Physical,
-                            turret.BaseAttackDamage + turret.FlatPhysicalDamageMod));
-
-                        if (turret.Distance(hero.Player.ServerPosition) <= 900)
+                        if (args.Target.NetworkId == hero.Player.NetworkId && !hero.Immunity)
                         {
-                            if (Activator.Player.Distance(hero.Player.ServerPosition) <= 1000)
-                            {
-                                Utility.DelayAction.Add(450, () =>
-                                {
-                                    hero.HitTypes.Add(HitType.TurretAttack);
-                                    hero.TowerDamage += dmg;
+                            var dmg = (int) Math.Abs(turret.CalcDamage(hero.Player, Damage.DamageType.Physical,
+                                turret.BaseAttackDamage + turret.FlatPhysicalDamageMod));
 
-                                    Utility.DelayAction.Add(150, () =>
+                            if (turret.Distance(hero.Player.ServerPosition) <= 900)
+                            {
+                                if (Activator.Player.Distance(hero.Player.ServerPosition) <= 1000)
+                                {
+                                    Utility.DelayAction.Add(450, () =>
                                     {
-                                        hero.Attacker = null;
-                                        hero.TowerDamage -= dmg;
-                                        hero.HitTypes.Remove(HitType.TurretAttack);
+                                        hero.HitTypes.Add(HitType.TurretAttack);
+                                        hero.TowerDamage += dmg;
+
+                                        Utility.DelayAction.Add(150, () =>
+                                        {
+                                            hero.Attacker = null;
+                                            hero.TowerDamage -= dmg;
+                                            hero.HitTypes.Remove(HitType.TurretAttack);
+                                        });
                                     });
-                                });
+                                }
                             }
                         }
                     }
@@ -482,27 +497,27 @@ namespace Activator.Handlers
             if (sender.IsEnemy && sender.Type == GameObjectType.obj_AI_Minion && args.Target.Type == Activator.Player.Type)
             {
                 var minion = sender as Obj_AI_Minion;
-                if (minion == null || minion.IsAlly || !minion.IsValid<Obj_AI_Minion>())
-                    return;
-
-                foreach (var hero in Activator.Allies())
+                if (minion != null && minion.IsValid<Obj_AI_Minion>())
                 {
-                    if (hero.Player.NetworkId == args.Target.NetworkId && !hero.Immunity)
+                    foreach (var hero in Activator.Allies())
                     {
-                        if (hero.Player.Distance(minion.ServerPosition) <= 750)
+                        if (hero.Player.NetworkId == args.Target.NetworkId && !hero.Immunity)
                         {
-                            if (Activator.Player.Distance(hero.Player.ServerPosition) <= 1000)
+                            if (hero.Player.Distance(minion.ServerPosition) <= 750)
                             {
-                                hero.HitTypes.Add(HitType.MinionAttack);
-                                hero.MinionDamage =
-                                    (int)Math.Abs(minion.CalcDamage(hero.Player, Damage.DamageType.Physical,
-                                        minion.BaseAttackDamage + minion.FlatPhysicalDamageMod));
-
-                                Utility.DelayAction.Add(250, () =>
+                                if (Activator.Player.Distance(hero.Player.ServerPosition) <= 1000)
                                 {
-                                    hero.HitTypes.Remove(HitType.MinionAttack);
-                                    hero.MinionDamage = 0;
-                                });
+                                    hero.HitTypes.Add(HitType.MinionAttack);
+                                    hero.MinionDamage =
+                                        (int) Math.Abs(minion.CalcDamage(hero.Player, Damage.DamageType.Physical,
+                                            minion.BaseAttackDamage + minion.FlatPhysicalDamageMod));
+
+                                    Utility.DelayAction.Add(250, () =>
+                                    {
+                                        hero.HitTypes.Remove(HitType.MinionAttack);
+                                        hero.MinionDamage = 0;
+                                    });
+                                }
                             }
                         }
                     }
@@ -516,51 +531,49 @@ namespace Activator.Handlers
             if (sender.IsEnemy && sender.Type == GameObjectType.obj_AI_Hero)
             {
                 var attacker = sender as Obj_AI_Hero;
-                if (attacker.ChampionName != "Gangplank" || !attacker.IsValid<Obj_AI_Hero>() || attacker.IsAlly)
-                    return;
-
-                foreach (var hero in Activator.Allies())
+                if (attacker.ChampionName == "Gangplank" && attacker.IsValid<Obj_AI_Hero>())
                 {
-                    // reset if needed
-                    Essentials.ResetIncomeDamage(hero.Player);
-
-                    foreach (
-                        var obj in ObjectManager.Get<GameObject>()
-                            .Where(x => x.Name.Contains("E_AoE") && x.Position.Distance(x.Position) <= 400)
-                            .OrderBy(y => y.Position.Distance(hero.Player.ServerPosition)))
+                    foreach (var hero in Activator.Allies())
                     {
-                        if (hero.Player.Distance(obj.Position) > 400 || args.Target.Name != "Barrel")
-                        {
-                            continue;
-                        }
+                        Essentials.ResetIncomeDamage(hero.Player);
+                        List<Obj_AI_Minion> gplist = new List<Obj_AI_Minion>();
 
-                        var dmg = (int)Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true) * 1.6 + 200);
-                        if (args.SData.Name.ToLower().Contains("crit"))
-                        {
-                            dmg = dmg * 2;
-                        }
+                        gplist.Clear();
+                        gplist.AddRange(ObjectManager.Get<Obj_AI_Minion>()
+                            .Where(
+                                x =>
+                                    x.CharData.BaseSkinName == "gangplankbarrel" &&
+                                    x.Position.Distance(x.Position) <= 375 && x.IsHPBarRendered)
+                            .OrderBy(y => y.Position.Distance(hero.Player.ServerPosition)));
 
-                        if (!hero.Player.IsValidTarget(float.MaxValue, false) || hero.Player.IsZombie || hero.Immunity)
+                        for (var i = 0; i < gplist.Count; i++)
                         {
-                            hero.Attacker = null;
-                            hero.IncomeDamage = 0;
-                            hero.HitTypes.Clear();
-                            continue;
-                        }
-
-                        Utility.DelayAction.Add(100, () =>
-                        {
-                            hero.Attacker = attacker;
-                            hero.HitTypes.Add(HitType.Spell);
-                            hero.IncomeDamage += dmg;
-
-                            Utility.DelayAction.Add(400, delegate
+                            var obj = gplist[i];
+                            if (hero.Player.Distance(obj.Position) > 375 || args.Target.Name != "Barrel")
                             {
-                                hero.Attacker = null;
-                                hero.HitTypes.Remove(HitType.Spell);
-                                hero.IncomeDamage -= dmg;
+                                continue;
+                            }
+
+                            var dmg = (int)Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true) * 1.2 + 150);
+                            if (args.SData.Name.ToLower().Contains("crit"))
+                            {
+                                dmg = dmg * 2;
+                            }
+
+                            Utility.DelayAction.Add(100, () =>
+                            {
+                                hero.Attacker = attacker;
+                                hero.HitTypes.Add(HitType.Spell);
+                                hero.IncomeDamage += dmg;
+
+                                Utility.DelayAction.Add(400, delegate
+                                {
+                                    hero.Attacker = null;
+                                    hero.HitTypes.Remove(HitType.Spell);
+                                    hero.IncomeDamage -= dmg;
+                                });
                             });
-                        });
+                        }
                     }
                 }
             }
@@ -571,38 +584,35 @@ namespace Activator.Handlers
 
             if (sender.IsEnemy && Activator.Heroes.Any(x => x.Player.IsValidTarget() && x.Player.ChampionName == "Heimerdinger"))
             {
-                if (args.Target.Type != Activator.Player.Type)
-                    return;
-
                 var attacker = sender as Obj_AI_Hero;
-                if (attacker == null || attacker.IsAlly || !attacker.IsValid<Obj_AI_Hero>())
-                    return;
-
-                foreach (var hero in Activator.Allies())
+                if (attacker != null && attacker.IsValid<Obj_AI_Hero>() && args.Target.Type == Activator.Player.Type)
                 {
-                    // reset if needed
-                    Essentials.ResetIncomeDamage(hero.Player);
-
-                    if (args.SData.Name.ToLower() == "heimertyellowbasicattack" ||
-                        args.SData.Name.ToLower() == "heimertyellowbasicattack2")
+                    foreach (var hero in Activator.Allies())
                     {
-                        if (args.Target.NetworkId == hero.Player.NetworkId)
+                        // reset if needed
+                        Essentials.ResetIncomeDamage(hero.Player);
+
+                        if (args.SData.Name.ToLower() == "heimertyellowbasicattack" ||
+                            args.SData.Name.ToLower() == "heimertyellowbasicattack2")
                         {
-                            var dmg = (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true));
-
-                            Utility.DelayAction.Add(350, () =>
+                            if (args.Target.NetworkId == hero.Player.NetworkId)
                             {
-                                hero.Attacker = attacker;
-                                hero.HitTypes.Add(HitType.AutoAttack);
-                                hero.IncomeDamage += dmg;
+                                var dmg = (int)Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true));
 
-                                Utility.DelayAction.Add(150, delegate
+                                Utility.DelayAction.Add(350, () =>
                                 {
-                                    hero.Attacker = null;
-                                    hero.IncomeDamage -= dmg;
-                                    hero.HitTypes.Remove(HitType.AutoAttack);
+                                    hero.Attacker = attacker;
+                                    hero.HitTypes.Add(HitType.AutoAttack);
+                                    hero.IncomeDamage += dmg;
+
+                                    Utility.DelayAction.Add(150, delegate
+                                    {
+                                        hero.Attacker = null;
+                                        hero.IncomeDamage -= dmg;
+                                        hero.HitTypes.Remove(HitType.AutoAttack);
+                                    });
                                 });
-                            });
+                            }
                         }
                     }
                 }
@@ -615,71 +625,69 @@ namespace Activator.Handlers
             if (sender.IsEnemy && sender.Type == GameObjectType.obj_AI_Hero)
             {
                 var attacker = sender as Obj_AI_Hero;
-                if (attacker == null || attacker.IsAlly || !attacker.IsValid<Obj_AI_Hero>())
-                    return;
-
-                foreach (var hero in Activator.Allies())
+                if (attacker != null && attacker.IsValid<Obj_AI_Hero>())
                 {
-                    // reset if needed
-                    Essentials.ResetIncomeDamage(hero.Player);
-
-                    if (args.Target.NetworkId != hero.Player.NetworkId)
+                    foreach (var hero in Activator.Allies())
                     {
-                        continue;
-                    }
-
-                    if (args.SData.Name.ToLower() == "bilgewatercutlass")
-                    {
-                        var dmg = (float) attacker.GetItemDamage(hero.Player, Damage.DamageItems.Bilgewater);
-
-                        hero.Attacker = attacker;
-                        hero.HitTypes.Add(HitType.AutoAttack);
-                        hero.IncomeDamage += dmg;
-
-                        Utility.DelayAction.Add(250, () =>
+                        Essentials.ResetIncomeDamage(hero.Player);
+                        if (args.Target.NetworkId != hero.Player.NetworkId)
                         {
-                            hero.Attacker = null;
-                            hero.HitTypes.Remove(HitType.AutoAttack);
-                            hero.IncomeDamage -= dmg;
-                        });
-                    }
+                            continue;
+                        }
 
-                    if (args.SData.Name.ToLower() == "itemswordoffeastandfamine")
-                    {
-                        var dmg = (float) attacker.GetItemDamage(hero.Player, Damage.DamageItems.Botrk);
-
-                        hero.Attacker = attacker;
-                        hero.HitTypes.Add(HitType.AutoAttack);
-                        hero.IncomeDamage += dmg;
-
-                        Utility.DelayAction.Add(250, () =>
+                        if (args.SData.Name.ToLower() == "bilgewatercutlass")
                         {
-                            hero.Attacker = null;
-                            hero.HitTypes.Remove(HitType.AutoAttack);
-                            hero.IncomeDamage -= dmg;
-                        });
-                    }
+                            var dmg = (float)attacker.GetItemDamage(hero.Player, Damage.DamageItems.Bilgewater);
 
-                    if (args.SData.Name.ToLower() == "hextechgunblade")
-                    {
-                        var dmg = (float) attacker.GetItemDamage(hero.Player, Damage.DamageItems.Hexgun);
+                            hero.Attacker = attacker;
+                            hero.HitTypes.Add(HitType.AutoAttack);
+                            hero.IncomeDamage += dmg;
 
-                        hero.Attacker = attacker;
-                        hero.HitTypes.Add(HitType.AutoAttack);
-                        hero.IncomeDamage += dmg;
+                            Utility.DelayAction.Add(250, () =>
+                            {
+                                hero.Attacker = null;
+                                hero.HitTypes.Remove(HitType.AutoAttack);
+                                hero.IncomeDamage -= dmg;
+                            });
+                        }
 
-                        Utility.DelayAction.Add(250, () =>
+                        if (args.SData.Name.ToLower() == "itemswordoffeastandfamine")
                         {
-                            hero.Attacker = null;
-                            hero.HitTypes.Remove(HitType.AutoAttack);
-                            hero.IncomeDamage -= dmg;
-                        });
+                            var dmg = (float)attacker.GetItemDamage(hero.Player, Damage.DamageItems.Botrk);
+
+                            hero.Attacker = attacker;
+                            hero.HitTypes.Add(HitType.AutoAttack);
+                            hero.IncomeDamage += dmg;
+
+                            Utility.DelayAction.Add(250, () =>
+                            {
+                                hero.Attacker = null;
+                                hero.HitTypes.Remove(HitType.AutoAttack);
+                                hero.IncomeDamage -= dmg;
+                            });
+                        }
+
+                        if (args.SData.Name.ToLower() == "hextechgunblade")
+                        {
+                            var dmg = (float)attacker.GetItemDamage(hero.Player, Damage.DamageItems.Hexgun);
+
+                            hero.Attacker = attacker;
+                            hero.HitTypes.Add(HitType.AutoAttack);
+                            hero.IncomeDamage += dmg;
+
+                            Utility.DelayAction.Add(250, () =>
+                            {
+                                hero.Attacker = null;
+                                hero.HitTypes.Remove(HitType.AutoAttack);
+                                hero.IncomeDamage -= dmg;
+                            });
+                        }
                     }
                 }
             }
 
             #endregion
-        }
 
+        }
     }
 }
