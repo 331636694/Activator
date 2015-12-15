@@ -163,7 +163,7 @@ namespace Activator.Items
                    (Name.Contains("Pot") || Name.Contains("Flask") || Name.Contains("Biscuit")))
                 {
                     Menu.AddItem(new MenuItem("use" + Name + "cbat", "Use Only In Combat"))
-                        .SetValue(true).SetTooltip("aka Taking damage from Minions and Heroes");
+                        .SetValue(false).SetTooltip("aka Taking damage from Minions and Heroes");
                 }
 
                 if (Category.Any(t => t == MenuType.EnemyLowHP))

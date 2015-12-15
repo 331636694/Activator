@@ -1824,15 +1824,15 @@ namespace Activator.Data
                 Slot = SpellSlot.R,
                 FixedRange = true,
                 CastRange = 1350f,
-                Delay = 50f,
+                Delay = 250f,
                 HitType =
                     new[]
-                    {
+                    {   
                         Base.HitType.Danger, Base.HitType.Ultimate,
                         Base.HitType.CrowdControl
                     },
 
-                MissileName = "hecarimultmissileskn4c",
+                MissileName = "hecarimultmissilesknr1",
                 ExtraMissileNames =
                     new[]
                     {
@@ -2669,15 +2669,16 @@ namespace Activator.Data
                 ChampionName = "kogmaw",
                 Slot = SpellSlot.Q,
                 FixedRange = true,
-                CastRange = 625f,
+                CastRange = 1300f,
                 Delay = 250f,
                 HitType = new HitType[] { },
-                MissileSpeed = int.MaxValue
+                MissileName = "kogmawq",
+                MissileSpeed = 1200
             });
 
             Spells.Add(new Spelldata
             {
-                SDataName = "kogmaww",
+                SDataName = "kogmawbioarcanebarrage",
                 ChampionName = "kogmaw",
                 Slot = SpellSlot.W,
                 CastRange = 0f,
@@ -2946,7 +2947,7 @@ namespace Activator.Data
                 Delay = 250f,
                 HitType = new[] { Base.HitType.CrowdControl },
                 MissileName = "lissandraqmissile",
-                MissileSpeed = 1200
+                MissileSpeed = 2250
             });
 
             Spells.Add(new Spelldata
