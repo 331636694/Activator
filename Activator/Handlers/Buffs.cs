@@ -29,7 +29,7 @@ namespace Activator.Handlers
        {
             foreach (var hero in Activator.Allies())
             {
-                var aura = Auradata.BuffList.Find(au => hero.Player.HasBuff(au.Name));
+                var aura = Auradata.SomeAuras.Find(au => hero.Player.HasBuff(au.Name));
                 if (aura == null)
                 {
                     if (hero.DotTicks > 0)

@@ -62,6 +62,7 @@ namespace Activator
                 GetTurrets();
                 GetSmiteSlot();
                 GetGameTroysInGame();
+                GetAurasInGame();
                 GetHeroesInGame();
                 GetComboDamage();
                 GetSpellsInGame();
@@ -315,6 +316,13 @@ namespace Activator
             foreach (var i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team != Player.Team))
                 foreach (var item in Spelldata.Spells.Where(x => x.ChampionName == i.ChampionName.ToLower()))
                     Spelldata.SomeSpells.Add(item);
+        }
+
+        private static void GetAurasInGame()
+        {
+            foreach (var i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team != Player.Team))
+                foreach (var aura in Auradata.BuffList.Where(x => x.Champion == i.ChampionName))
+                    Auradata.SomeAuras.Add(aura);
         }
 
         public static IEnumerable<Champion> Allies()

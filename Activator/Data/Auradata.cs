@@ -953,5 +953,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
         }
+
+        public static List<Auradata> SomeAuras = new List<Auradata>(); 
     }
 }
