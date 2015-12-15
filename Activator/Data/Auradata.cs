@@ -532,13 +532,13 @@ namespace Activator.Data
             BuffList.Add(new Auradata
             {
                 Champion = "Zed",
-                Name = "zedulttargetmark",
+                Name = "zedultexecute",
                 MenuName = "Zed Mark",
                 Evade = true,
                 DoT = false,
-                EvadeTimer = 2800,
+                EvadeTimer = 2500,
                 Cleanse = true,
-                CleanseTimer = 1500,
+                CleanseTimer = 500,
                 Slot = SpellSlot.R,
                 Interval = 1.0
             });

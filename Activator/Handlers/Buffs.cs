@@ -41,7 +41,7 @@ namespace Activator.Handlers
                     if (hero.IncomeDamage < 0)
                         hero.IncomeDamage = 0;
 
-                    return;
+                    continue;
                 }
 
                 if (aura.Cleanse)
@@ -62,11 +62,19 @@ namespace Activator.Handlers
                 {
                     Utility.DelayAction.Add(aura.EvadeTimer,
                         () =>
-                        {                                
+                        {                           
                             // double check after delay incase we no longer have the buff
                             if (hero.Player.HasBuff(aura.Name))
                             {
                                 hero.HitTypes.Add(HitType.Ultimate);
+
+                                if (Utils.GameTimeTickCount - aura.TickLimiter >= 100)
+                                {
+                                    hero.DotTicks += 1;
+                                    hero.IncomeDamage += 1;
+                                    aura.TickLimiter = Utils.GameTimeTickCount;
+                                }
+
                                 Utility.DelayAction.Add(100, () => hero.HitTypes.Remove(HitType.Ultimate));
                             }
                         });

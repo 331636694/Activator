@@ -22,7 +22,7 @@ namespace Activator.Spells.Evaders
 
         internal override MenuType[] Category
         {
-            get { return new[] { MenuType.SpellShield, MenuType.Zhonyas }; }
+            get { return new[] { MenuType.Zhonyas }; }
         }
 
         internal override int DefaultHP
@@ -47,18 +47,6 @@ namespace Activator.Spells.Evaders
 
                 if (!Parent.Item(Parent.Name + "useon" + hero.Player.NetworkId).GetValue<bool>())
                     continue;
-
-                if (Menu.Item("ss" + Name + "all").GetValue<bool>())
-                {
-                    if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.Spell))
-                        UseSpell();
-                }
-
-                if (Menu.Item("ss" + Name + "cc").GetValue<bool>())
-                {
-                    if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.CrowdControl))
-                        UseSpell();
-                }
 
                 if (Menu.Item("use" + Name + "norm").GetValue<bool>())
                 {

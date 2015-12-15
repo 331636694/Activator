@@ -38,7 +38,11 @@ namespace Activator.Handlers
                 return;
 
             var direction = (endPos - startPos).Normalized();
+
             if (startPos.Distance(endPos) > data.CastRange)
+                endPos = startPos + direction * data.CastRange;
+
+            if (startPos.Distance(endPos) < data.CastRange && data.FixedRange)
                 endPos = startPos + direction * data.CastRange;
 
             foreach (var hero in Activator.Allies())
@@ -221,6 +225,11 @@ namespace Activator.Handlers
                                 continue;
 
                             var dmg = (int) Math.Abs(attacker.GetSpellDamage(hero.Player, args.SData.Name));
+                            if (dmg == 0)
+                            {
+                                dmg = (int)(hero.Player.Health / hero.Player.MaxHealth * 5);
+                                Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName);
+                            }
 
                             // delay the spell a bit before missile endtime
                             Utility.DelayAction.Add((int) (data.Delay - (data.Delay * 0.7)), () =>
@@ -311,7 +320,7 @@ namespace Activator.Handlers
                             if (startpos.To2D().Distance(endpos) > data.CastRange)
                                 endpos = startpos.To2D() + direction * data.CastRange;
 
-                            if (startpos.To2D().Distance(endpos) < data.CastRange && iscone)
+                            if (startpos.To2D().Distance(endpos) < data.CastRange && data.FixedRange)
                                 endpos = startpos.To2D() + direction * data.CastRange;
 
                             var proj = hero.Player.ServerPosition.To2D().ProjectOn(startpos.To2D(), endpos);
@@ -349,6 +358,11 @@ namespace Activator.Handlers
                                     continue;
 
                                 var dmg = (int) Math.Abs(attacker.GetSpellDamage(hero.Player, args.SData.Name));
+                                if (dmg == 0)
+                                {
+                                    dmg = (int) (hero.Player.Health / hero.Player.MaxHealth * 5);
+                                    Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName);
+                                }
 
                                 Utility.DelayAction.Add((int) (endtime - (endtime * 0.3)), () =>
                                 {
@@ -411,6 +425,11 @@ namespace Activator.Handlers
                                 continue;
 
                             var dmg = (int) Math.Abs(attacker.GetSpellDamage(hero.Player, args.SData.Name));
+                            if (dmg == 0)
+                            {
+                                dmg = (int)(hero.Player.Health / hero.Player.MaxHealth * 5);
+                                Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName);
+                            }
 
                             Utility.DelayAction.Add((int) (endtime - (endtime * 0.7)), () =>
                             {
@@ -509,7 +528,7 @@ namespace Activator.Handlers
                                 {
                                     hero.HitTypes.Add(HitType.MinionAttack);
                                     hero.MinionDamage =
-                                        (int) Math.Abs(minion.CalcDamage(hero.Player, Damage.DamageType.Physical,
+                                        (int)Math.Abs(minion.CalcDamage(hero.Player, Damage.DamageType.Physical,
                                             minion.BaseAttackDamage + minion.FlatPhysicalDamageMod));
 
                                     Utility.DelayAction.Add(250, () =>
@@ -584,34 +603,37 @@ namespace Activator.Handlers
 
             if (sender.IsEnemy && Activator.Heroes.Any(x => x.Player.IsValidTarget() && x.Player.ChampionName == "Heimerdinger"))
             {
-                var attacker = sender as Obj_AI_Hero;
-                if (attacker != null && attacker.IsValid<Obj_AI_Hero>() && args.Target.Type == Activator.Player.Type)
+                if (args.SData.Name.ToLower() == "heimertyellowbasicattack" ||
+                    args.SData.Name.ToLower() == "heimertyellowbasicattack2")
                 {
-                    foreach (var hero in Activator.Allies())
+                    var attacker = sender as Obj_AI_Hero;
+                    if (attacker != null && attacker.IsValid<Obj_AI_Hero>())
                     {
-                        // reset if needed
-                        Essentials.ResetIncomeDamage(hero.Player);
-
-                        if (args.SData.Name.ToLower() == "heimertyellowbasicattack" ||
-                            args.SData.Name.ToLower() == "heimertyellowbasicattack2")
+                        if (args.Target.Type == Activator.Player.Type)
                         {
-                            if (args.Target.NetworkId == hero.Player.NetworkId)
+                            foreach (var hero in Activator.Allies())
                             {
-                                var dmg = (int)Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true));
+                                // reset if needed
+                                Essentials.ResetIncomeDamage(hero.Player);
 
-                                Utility.DelayAction.Add(350, () =>
+                                if (args.Target.NetworkId == hero.Player.NetworkId)
                                 {
-                                    hero.Attacker = attacker;
-                                    hero.HitTypes.Add(HitType.AutoAttack);
-                                    hero.IncomeDamage += dmg;
+                                    var dmg = (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true));
 
-                                    Utility.DelayAction.Add(150, delegate
+                                    Utility.DelayAction.Add(350, () =>
                                     {
-                                        hero.Attacker = null;
-                                        hero.IncomeDamage -= dmg;
-                                        hero.HitTypes.Remove(HitType.AutoAttack);
+                                        hero.Attacker = attacker;
+                                        hero.HitTypes.Add(HitType.AutoAttack);
+                                        hero.IncomeDamage += dmg;
+
+                                        Utility.DelayAction.Add(150, delegate
+                                        {
+                                            hero.Attacker = null;
+                                            hero.IncomeDamage -= dmg;
+                                            hero.HitTypes.Remove(HitType.AutoAttack);
+                                        });
                                     });
-                                });
+                                }
                             }
                         }
                     }
@@ -627,60 +649,62 @@ namespace Activator.Handlers
                 var attacker = sender as Obj_AI_Hero;
                 if (attacker != null && attacker.IsValid<Obj_AI_Hero>())
                 {
-                    foreach (var hero in Activator.Allies())
+                    if (args.SData.TargettingType == SpellDataTargetType.Unit)
                     {
-                        Essentials.ResetIncomeDamage(hero.Player);
-                        if (args.Target.NetworkId != hero.Player.NetworkId)
+                        foreach (var hero in Activator.Allies())
                         {
-                            continue;
-                        }
+                            Essentials.ResetIncomeDamage(hero.Player);
 
-                        if (args.SData.Name.ToLower() == "bilgewatercutlass")
-                        {
-                            var dmg = (float)attacker.GetItemDamage(hero.Player, Damage.DamageItems.Bilgewater);
-
-                            hero.Attacker = attacker;
-                            hero.HitTypes.Add(HitType.AutoAttack);
-                            hero.IncomeDamage += dmg;
-
-                            Utility.DelayAction.Add(250, () =>
+                            if (args.Target.NetworkId != hero.Player.NetworkId)
+                                continue;
+  
+                            if (args.SData.Name.ToLower() == "bilgewatercutlass")
                             {
-                                hero.Attacker = null;
-                                hero.HitTypes.Remove(HitType.AutoAttack);
-                                hero.IncomeDamage -= dmg;
-                            });
-                        }
+                                var dmg = (float)attacker.GetItemDamage(hero.Player, Damage.DamageItems.Bilgewater);
 
-                        if (args.SData.Name.ToLower() == "itemswordoffeastandfamine")
-                        {
-                            var dmg = (float)attacker.GetItemDamage(hero.Player, Damage.DamageItems.Botrk);
+                                hero.Attacker = attacker;
+                                hero.HitTypes.Add(HitType.AutoAttack);
+                                hero.IncomeDamage += dmg;
 
-                            hero.Attacker = attacker;
-                            hero.HitTypes.Add(HitType.AutoAttack);
-                            hero.IncomeDamage += dmg;
+                                Utility.DelayAction.Add(250, () =>
+                                {
+                                    hero.Attacker = null;
+                                    hero.HitTypes.Remove(HitType.AutoAttack);
+                                    hero.IncomeDamage -= dmg;
+                                });
+                            }
 
-                            Utility.DelayAction.Add(250, () =>
+                            if (args.SData.Name.ToLower() == "itemswordoffeastandfamine")
                             {
-                                hero.Attacker = null;
-                                hero.HitTypes.Remove(HitType.AutoAttack);
-                                hero.IncomeDamage -= dmg;
-                            });
-                        }
+                                var dmg = (float)attacker.GetItemDamage(hero.Player, Damage.DamageItems.Botrk);
 
-                        if (args.SData.Name.ToLower() == "hextechgunblade")
-                        {
-                            var dmg = (float)attacker.GetItemDamage(hero.Player, Damage.DamageItems.Hexgun);
+                                hero.Attacker = attacker;
+                                hero.HitTypes.Add(HitType.AutoAttack);
+                                hero.IncomeDamage += dmg;
 
-                            hero.Attacker = attacker;
-                            hero.HitTypes.Add(HitType.AutoAttack);
-                            hero.IncomeDamage += dmg;
+                                Utility.DelayAction.Add(250, () =>
+                                {
+                                    hero.Attacker = null;
+                                    hero.HitTypes.Remove(HitType.AutoAttack);
+                                    hero.IncomeDamage -= dmg;
+                                });
+                            }
 
-                            Utility.DelayAction.Add(250, () =>
+                            if (args.SData.Name.ToLower() == "hextechgunblade")
                             {
-                                hero.Attacker = null;
-                                hero.HitTypes.Remove(HitType.AutoAttack);
-                                hero.IncomeDamage -= dmg;
-                            });
+                                var dmg = (float)attacker.GetItemDamage(hero.Player, Damage.DamageItems.Hexgun);
+
+                                hero.Attacker = attacker;
+                                hero.HitTypes.Add(HitType.AutoAttack);
+                                hero.IncomeDamage += dmg;
+
+                                Utility.DelayAction.Add(250, () =>
+                                {
+                                    hero.Attacker = null;
+                                    hero.HitTypes.Remove(HitType.AutoAttack);
+                                    hero.IncomeDamage -= dmg;
+                                });
+                            }
                         }
                     }
                 }

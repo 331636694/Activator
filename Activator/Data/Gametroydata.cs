@@ -167,7 +167,6 @@ namespace Activator.Data
                 ChampionName = "Kennen",
                 Radius = 500f,
                 Slot = SpellSlot.R,
-                DelayFromStart = 1500,
                 HitType = new[] { Base.HitType.Danger, Base.HitType.Ultimate },
                 PredictDmg = true,
                 Interval = 0.5

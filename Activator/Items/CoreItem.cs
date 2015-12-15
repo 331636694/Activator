@@ -206,7 +206,7 @@ namespace Activator.Items
                 if (Category.Any(t => t == MenuType.Cleanse))
                 {
                     var ccmenu = new Menu(Name + " Buff Types", Name.ToLower() + "cdeb");
-                    var ssmenu = new Menu(Name + " Misc Buffs", Name.ToLower() + "xspe");
+                    var ssmenu = new Menu(Name + " Unique Buffs", Name.ToLower() + "xspe");
 
                     foreach (var b in Data.Auradata.BuffList.Where(x => x.MenuName != null && (x.Cleanse || x.DoT)))
                     {
