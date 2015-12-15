@@ -124,7 +124,8 @@ namespace Activator.Spells
 
         public bool IsReady()
         {
-            return Player.GetSpellSlot(Name).IsReady();
+            var ready = Player.GetSpellSlot(Name).IsReady();
+            return ready;
         }
 
         public void UseSpell(bool combo = false)
@@ -133,13 +134,13 @@ namespace Activator.Spells
             {
                 if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration)
                 {
-                    if (Player.GetSpellSlot(Name).IsReady())
+                    if (!Player.IsRecalling() &&
+                        !Player.Spellbook.IsChanneling && 
+                        !Player.IsChannelingImportantSpell() &&
+                        !Player.Spellbook.IsCastingSpell)
                     {
-                        if (!Activator.Player.IsRecalling() &&
-                            !Activator.Player.Spellbook.IsChanneling &&
-                            !Activator.Player.Spellbook.IsCastingSpell)
+                        if (Player.Spellbook.CastSpell(Player.GetSpellSlot(Name)))
                         {
-                            Player.Spellbook.CastSpell(Player.GetSpellSlot(Name));
                             Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
                             Activator.LastUsedDuration = 1000;
                         }
@@ -154,15 +155,15 @@ namespace Activator.Spells
             {
                 if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration)
                 {
-                    if (Player.GetSpellSlot(Name).IsReady())
+                    if (!Player.IsRecalling() &&
+                        !Player.Spellbook.IsChanneling &&
+                        !Player.IsChannelingImportantSpell() &&
+                        !Player.Spellbook.IsCastingSpell)
                     {
-                        if (!Activator.Player.IsRecalling() &&
-                            !Activator.Player.Spellbook.IsChanneling &&
-                            !Activator.Player.Spellbook.IsCastingSpell)
+                        if (Player.Spellbook.CastSpell(Player.GetSpellSlot(Name), targetpos))
                         {
-                            Player.Spellbook.CastSpell(Player.GetSpellSlot(Name), targetpos);
                             Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
-                            Activator.LastUsedDuration = 1000;
+                            Activator.LastUsedDuration = 1000;  
                         }
                     }
                 }
@@ -175,12 +176,16 @@ namespace Activator.Spells
             {
                 if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration)
                 {
-                    if (!Activator.Player.IsRecalling() &&
-                        !Activator.Player.Spellbook.IsChanneling &&
-                        !Activator.Player.Spellbook.IsCastingSpell)
+                    if (!Player.IsRecalling() &&
+                        !Player.Spellbook.IsChanneling &&
+                        !Player.IsChannelingImportantSpell() &&
+                        !Player.Spellbook.IsCastingSpell)
                     {
-                        Player.Spellbook.CastSpell(Player.GetSpellSlot(Name), target);
-                        Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
+                        if (Player.Spellbook.CastSpell(Player.GetSpellSlot(Name), target))
+                        {
+                            Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
+                            Activator.LastUsedDuration = 1000;                
+                        }
                     }
                 }
             }

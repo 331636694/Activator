@@ -47,8 +47,8 @@ namespace Activator.Items
                                !hero.Player.IsZombie).OrderBy(x => x.Player.Distance(Game.CursorPos)).FirstOrDefault();
             }
         }
-        
-        // Item priority, wont add Items to priority list till we need them! (craving :^))
+
+        // Item priority, wont add Items to priority list till we need them!
         public static IEnumerable<CoreItem> PriorityList()
         {
             var hpi = from ii in Lists.Items
@@ -61,7 +61,8 @@ namespace Activator.Items
 
         public bool IsReady()
         {
-            return LeagueSharp.Common.Items.CanUseItem(Id);
+            var ready = LeagueSharp.Common.Items.CanUseItem(Id);
+            return ready;
         }
            
         public void UseItem(bool combo = false)
@@ -81,13 +82,14 @@ namespace Activator.Items
                         {
                             if (!Activator.Player.HasBuffOfType(BuffType.Invisibility))
                             {
-                                LeagueSharp.Common.Items.UseItem(Id);
-                                Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
-                                Activator.LastUsedDuration = Duration;
+                                if (LeagueSharp.Common.Items.UseItem(Id))
+                                {
+                                    Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
+                                    Activator.LastUsedDuration = Duration;
+                                    Utility.DelayAction.Add(100, () => Craving = false);
+                                }
                             }
                         }
-
-                        Craving = false;
                     }
                 }
             }
@@ -110,14 +112,14 @@ namespace Activator.Items
                         {
                             if (!Activator.Player.HasBuffOfType(BuffType.Invisibility))
                             {
-                                LeagueSharp.Common.Items.UseItem(Id, target);
-                                Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
-                                Activator.LastUsedDuration = Duration;
-
+                                if (LeagueSharp.Common.Items.UseItem(Id, target))
+                                {
+                                    Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
+                                    Activator.LastUsedDuration = Duration;
+                                    Utility.DelayAction.Add(100, () => Craving = false);
+                                }
                             }
                         }
-
-                        Craving = false;
                     }
                 }
             }
@@ -138,13 +140,14 @@ namespace Activator.Items
                     {
                         if (!Activator.Player.HasBuffOfType(BuffType.Invisibility))
                         {
-                            LeagueSharp.Common.Items.UseItem(Id, pos);
-                            Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
-                            Activator.LastUsedDuration = Duration;
+                            if (LeagueSharp.Common.Items.UseItem(Id, pos))
+                            {
+                                Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
+                                Activator.LastUsedDuration = Duration;
+                                Utility.DelayAction.Add(100, () => Craving = false);
+                            }
                         }
                     }
-
-                    Craving = false;
                 }
             }
         }

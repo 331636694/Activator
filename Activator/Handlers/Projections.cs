@@ -161,20 +161,16 @@ namespace Activator.Handlers
                                     dmg = dmg * 2;
 
                                 var delay = attacker.AttackCastDelay * 1000;
-                                var distance = (int) (1000 * 
-                                    (attacker.ServerPosition.Distance(hero.Player.ServerPosition) / args.SData.MissileSpeed));
 
-                                var endtime = delay - 100 + Game.Ping / 2f + distance - (Utils.GameTimeTickCount - LastCastedTimeStamp);
-
-                                Utility.DelayAction.Add((int) (endtime - (endtime * 0.7)), () =>
+                                Utility.DelayAction.Add((int) delay, () =>
                                 {
                                     hero.Attacker = attacker;
                                     hero.HitTypes.Add(HitType.AutoAttack);
                                     hero.IncomeDamage += dmg;
 
-                                    Utility.DelayAction.Add((int) endtime + 150, delegate
+                                    Utility.DelayAction.Add((int) (delay + 350), delegate
                                     {
-                                        hero.Attacker = null;
+                                        hero.Attacker = null;   
                                         hero.IncomeDamage -= dmg;
                                         hero.HitTypes.Remove(HitType.AutoAttack);
                                     });
