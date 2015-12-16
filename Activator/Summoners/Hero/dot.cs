@@ -109,7 +109,7 @@ namespace Activator.Summoners
                     if (totaldmg + ignotedmg >= tar.Player.Health)
                     {
                         var nearTurret =
-                            Activator.Turrets.Find(
+                            Activator.Turrets.FirstOrDefault(
                                 x => x.Team == tar.Player.Team && tar.Player.Distance(x.ServerPosition) <= 1250);
 
                         if (nearTurret != null && Menu.Item("itu").GetValue<bool>() &&
@@ -119,7 +119,7 @@ namespace Activator.Summoners
                                 continue;
                         }
 
-                        if (Orbwalking.InAutoAttackRange(tar.Player) && Player.CountAlliesInRange(950) > 0)
+                        if (Orbwalking.InAutoAttackRange(tar.Player) && tar.Player.CountAlliesInRange(400) > 1)
                         {
                             if (totaldmg + ignotedmg / 2.5 >= tar.Player.Health)
                                 continue;

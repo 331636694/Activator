@@ -142,7 +142,7 @@ namespace Activator.Spells
                         if (Player.Spellbook.CastSpell(Player.GetSpellSlot(Name)))
                         {
                             Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
-                            Activator.LastUsedDuration = 1000;
+                            Activator.LastUsedDuration = 100;
                         }
                     }
                 }
@@ -163,7 +163,7 @@ namespace Activator.Spells
                         if (Player.Spellbook.CastSpell(Player.GetSpellSlot(Name), targetpos))
                         {
                             Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
-                            Activator.LastUsedDuration = 1000;  
+                            Activator.LastUsedDuration = 100;  
                         }
                     }
                 }
@@ -184,7 +184,7 @@ namespace Activator.Spells
                         if (Player.Spellbook.CastSpell(Player.GetSpellSlot(Name), target))
                         {
                             Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
-                            Activator.LastUsedDuration = 1000;                
+                            Activator.LastUsedDuration = 100;                
                         }
                     }
                 }
