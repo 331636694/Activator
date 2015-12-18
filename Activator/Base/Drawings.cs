@@ -66,6 +66,8 @@ namespace Activator.Base
 
                 if (!Activator.Player.IsDead && Activator.Origin.Item("drawfill").GetValue<bool>())
                 {
+                    return;
+
                     if (Activator.MapId != (int) MapType.SummonersRift)
                     {
                         return;
@@ -73,8 +75,8 @@ namespace Activator.Base
                         
                     const int height = 6;
                     const int width = 150;
-                    const int yoffset = 20;
-                    const int xoffset = -7;
+                    const int yoffset = -156;
+                    const int xoffset = -49;
 
                     foreach (
                         var minion in

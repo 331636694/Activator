@@ -524,7 +524,7 @@ namespace Activator.Handlers
                                 {
                                     hero.HitTypes.Add(HitType.MinionAttack);
                                     hero.MinionDamage =
-                                        (int)Math.Abs(minion.CalcDamage(hero.Player, Damage.DamageType.Physical,
+                                        (int) Math.Abs(minion.CalcDamage(hero.Player, Damage.DamageType.Physical,
                                             minion.BaseAttackDamage + minion.FlatPhysicalDamageMod));
 
                                     Utility.DelayAction.Add(250, () =>
@@ -553,7 +553,6 @@ namespace Activator.Handlers
                         Essentials.ResetIncomeDamage(hero.Player);
                         List<Obj_AI_Minion> gplist = new List<Obj_AI_Minion>();
 
-                        gplist.Clear();
                         gplist.AddRange(ObjectManager.Get<Obj_AI_Minion>()
                             .Where(
                                 x =>
@@ -569,19 +568,19 @@ namespace Activator.Handlers
                                 continue;
                             }
 
-                            var dmg = (int)Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true) * 1.2 + 150);
+                            var dmg = (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true) * 1.2 + 150);
                             if (args.SData.Name.ToLower().Contains("crit"))
                             {
                                 dmg = dmg * 2;
                             }
 
-                            Utility.DelayAction.Add(100, () =>
+                            Utility.DelayAction.Add(100 + (100 * i), () =>
                             {
                                 hero.Attacker = attacker;
                                 hero.HitTypes.Add(HitType.Spell);
                                 hero.IncomeDamage += dmg;
 
-                                Utility.DelayAction.Add(400, delegate
+                                Utility.DelayAction.Add(400 + (100 * i), delegate
                                 {
                                     hero.Attacker = null;
                                     hero.HitTypes.Remove(HitType.Spell);
@@ -656,7 +655,7 @@ namespace Activator.Handlers
   
                             if (args.SData.Name.ToLower() == "bilgewatercutlass")
                             {
-                                var dmg = (float)attacker.GetItemDamage(hero.Player, Damage.DamageItems.Bilgewater);
+                                var dmg = (float) attacker.GetItemDamage(hero.Player, Damage.DamageItems.Bilgewater);
 
                                 hero.Attacker = attacker;
                                 hero.HitTypes.Add(HitType.AutoAttack);
@@ -672,7 +671,7 @@ namespace Activator.Handlers
 
                             if (args.SData.Name.ToLower() == "itemswordoffeastandfamine")
                             {
-                                var dmg = (float)attacker.GetItemDamage(hero.Player, Damage.DamageItems.Botrk);
+                                var dmg = (float) attacker.GetItemDamage(hero.Player, Damage.DamageItems.Botrk);
 
                                 hero.Attacker = attacker;
                                 hero.HitTypes.Add(HitType.AutoAttack);
@@ -688,7 +687,7 @@ namespace Activator.Handlers
 
                             if (args.SData.Name.ToLower() == "hextechgunblade")
                             {
-                                var dmg = (float)attacker.GetItemDamage(hero.Player, Damage.DamageItems.Hexgun);
+                                var dmg = (float) attacker.GetItemDamage(hero.Player, Damage.DamageItems.Hexgun);
 
                                 hero.Attacker = attacker;
                                 hero.HitTypes.Add(HitType.AutoAttack);

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Activator.Base;
+using LeagueSharp;
 using LeagueSharp.Common;
 
-namespace Activator.Spells.Evaders
+namespace Activator.Spells.Health
 {
     class kindredr : CoreSpell
     {
@@ -17,7 +14,7 @@ namespace Activator.Spells.Evaders
 
         internal override string DisplayName
         {
-            get { return "Lamb's Respite| R"; }
+            get { return "Lamb's Respite | R"; }
         }
 
         internal override float Range
@@ -27,12 +24,12 @@ namespace Activator.Spells.Evaders
 
         internal override MenuType[] Category
         {
-            get { return new[] { MenuType.Zhonyas }; }
+            get { return new[] { MenuType.SelfLowHP }; }
         }
 
         internal override int DefaultHP
         {
-            get { return 10; }
+            get { return 20; }
         }
 
         internal override int DefaultMP
@@ -51,13 +48,15 @@ namespace Activator.Spells.Evaders
                 {
                     if (hero.Player.Distance(Player.ServerPosition) <= Range)
                     {
-                        if (Menu.Item("use" + Name + "norm").GetValue<bool>())
-                            if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.Danger))
-                                UseSpellOn(hero.Player);
-
-                        if (Menu.Item("use" + Name + "ulti").GetValue<bool>())
-                            if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.Ultimate))
-                                UseSpellOn(hero.Player);
+                        if (!hero.Player.HasBuffOfType(BuffType.Invulnerability))
+                        {
+                            if (hero.Player.Health / hero.Player.MaxHealth * 100 <=
+                                Menu.Item("selflowhp" + Name + "pct").GetValue<Slider>().Value)
+                            {
+                                if (hero.IncomeDamage > 0)
+                                    UseSpellOn(hero.Player);
+                            }
+                        }
                     }
                 }
             }
