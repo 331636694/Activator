@@ -730,15 +730,16 @@ namespace Activator.Handlers
 
             if (sender.IsEnemy && args.SData.Name == "LucianQ")
             {
-                foreach (var a in Activator.Allies().Where(x => args.Target.NetworkId == x.Player.NetworkId))
+                foreach (var a in Activator.Allies())
                 {
                     var delay = ((350 - Game.Ping) / 1000f);
 
                     var herodir = (a.Player.ServerPosition - a.Player.Position).Normalized();
-                    var expectedpos = a.Player.Position + herodir * a.Player.MoveSpeed * (delay);
+                    var expectedpos = args.Target.Position + herodir * a.Player.MoveSpeed * (delay);
 
                     if (args.Start.Distance(expectedpos) < 1100)
-                        expectedpos = a.Player.Position + (a.Player.ServerPosition - sender.ServerPosition).Normalized() * 800;
+                        expectedpos = args.Target.Position +
+                                     (args.Target.Position - sender.ServerPosition).Normalized() * 800;
 
                     var proj = a.Player.ServerPosition.To2D().ProjectOn(args.Start.To2D(), expectedpos.To2D());
                     var projdist = a.Player.ServerPosition.To2D().Distance(proj.SegmentPoint);
