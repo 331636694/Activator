@@ -110,12 +110,14 @@ namespace Activator.Summoners
                     {
                         var nearTurret =
                             Activator.Turrets.FirstOrDefault(
-                                x => x.Team == tar.Player.Team && tar.Player.Distance(x.ServerPosition) <= 1250);
+                                x => x.IsValid && x.Team == tar.Player.Team &&
+                                     tar.Player.Distance(x.ServerPosition) <= 1250);
 
                         if (nearTurret != null && Menu.Item("itu").GetValue<bool>() &&
                             Player.Level <= Menu.Item("igtu").GetValue<Slider>().Value)
                         {
-                            if (Player.CountAlliesInRange(750) == 0 && (totaldmg + ignotedmg / 1.85) < tar.Player.Health)
+                            if (Player.CountAlliesInRange(750) == 0 && 
+                               (totaldmg + ignotedmg / 1.85) < tar.Player.Health)
                                 continue;
                         }
 
