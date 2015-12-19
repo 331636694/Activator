@@ -54,9 +54,9 @@ namespace Activator.Handlers
                     dmg += (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true) +
                                             attacker.GetCustomDamage("lichbane", hero.Player));
 
-                if (attacker.HasBuff("itemstatikshankcharge") && 
+                if (attacker.HasBuff("itemstatikshankcharge") &&
                     attacker.GetBuff("itemstatikshankcharge").Count == 100)
-                    dmg += dmg + 40;
+                    dmg += new[] {62, 120, 200} [attacker.Level / 3];
 
                 if (missile.SData.Name.ToLower().Contains("crit"))
                     dmg += (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true));
