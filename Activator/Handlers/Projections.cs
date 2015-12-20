@@ -199,6 +199,53 @@ namespace Activator.Handlers
                     {
                         Essentials.ResetIncomeDamage(hero.Player);
 
+                        #region auto attack
+
+                        if (args.SData.IsAutoAttack() && attacker.IsMelee)
+                        {
+                            if (args.Target.NetworkId == hero.Player.NetworkId)
+                            {
+                                float dmg = 0;
+
+                                dmg += (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true));
+
+                                if (attacker.HasBuff("sheen"))
+                                    dmg += (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true) +
+                                                          attacker.GetCustomDamage("sheen", hero.Player));
+
+                                if (attacker.HasBuff("lichbane"))
+                                    dmg += (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true) +
+                                                          attacker.GetCustomDamage("lichbane", hero.Player));
+
+                                if (attacker.HasBuff("itemstatikshankcharge") &&
+                                    attacker.GetBuff("itemstatikshankcharge").Count == 100)
+                                    dmg += new[] { 62, 120, 200 }[attacker.Level / 3];
+
+                                if (args.SData.Name.ToLower().Contains("crit"))
+                                    dmg += (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true));
+
+                                var endtime = (int)
+                                    (1000 * (args.Start.Distance(hero.Player.ServerPosition) /
+                                             args.SData.MissileSpeed)) + (attacker.AttackCastDelay * 1000 / 2);
+
+                                Utility.DelayAction.Add((int)(endtime / 2), () =>
+                                {
+                                    hero.Attacker = attacker;
+                                    hero.HitTypes.Add(HitType.AutoAttack);
+                                    hero.IncomeDamage += dmg;
+
+                                    Utility.DelayAction.Add((int)endtime + Game.Ping / 2, () =>
+                                    {
+                                        hero.Attacker = null;
+                                        hero.IncomeDamage -= dmg;
+                                        hero.HitTypes.Remove(HitType.AutoAttack);
+                                    });
+                                });
+                            }
+                        }
+
+                        #endregion
+
                         var data = Data.Spelldata.SomeSpells.Find(x => x.SDataName == args.SData.Name.ToLower());
                         if (data == null)
                             continue;

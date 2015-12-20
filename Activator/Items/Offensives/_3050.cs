@@ -63,7 +63,7 @@ namespace Activator.Items.Offensives
                 return;
 
             var highadhero =
-                Activator.Heroes.Where(x => x.Player.IsAlly && !x.Player.IsDead)
+                Activator.Heroes.Where(x => x.Player.IsAlly && !x.Player.IsDead && !x.Player.IsMelee)
                     .OrderByDescending(x => x.Player.FlatPhysicalDamageMod + x.Player.BaseAttackDamage)
                     .FirstOrDefault();
 
