@@ -46,7 +46,7 @@ namespace Activator.Spells.Health
             {
                 if (Parent.Item(Parent.Name + "useon" + hero.Player.NetworkId).GetValue<bool>())
                 {
-                    if (hero.Player.Distance(Player.ServerPosition) <= Range)
+                    if (hero.Player.Distance(Player.ServerPosition) <= 500)
                     {
                         if (!hero.Player.HasBuffOfType(BuffType.Invulnerability))
                         {
@@ -54,8 +54,18 @@ namespace Activator.Spells.Health
                                 Menu.Item("selflowhp" + Name + "pct").GetValue<Slider>().Value)
                             {
                                 if (hero.IncomeDamage > 0)
-                                    UseSpellOn(hero.Player);
+                                    UseSpellOn(Player);
                             }
+                        }
+                    }
+
+                    if (hero.Player.Distance(Player.ServerPosition) <= Range)
+                    {
+                        if (hero.Player.Health / hero.Player.MaxHealth * 100 <=
+                            Menu.Item("selflowhp" + Name + "pct").GetValue<Slider>().Value)
+                        {
+                            if (hero.IncomeDamage > 0 && !hero.Player.IsMe)
+                                UseSpellOn(hero.Player);
                         }
                     }
                 }

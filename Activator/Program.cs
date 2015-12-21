@@ -8,6 +8,7 @@
 // Author:		Robin Kurisu
 #endregion
 
+using SharpDX;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,7 @@ namespace Activator
         internal static Obj_AI_Hero Player;
 
         internal static int MapId;
+        internal static Random Rand;
         internal static int LastUsedTimeStamp;
         internal static int LastUsedDuration;
 
@@ -58,6 +60,8 @@ namespace Activator
             {
                 Player = ObjectManager.Player;
                 MapId = (int) Utility.Map.GetMap().Type;
+
+                Rand = new Random();
 
                 GetTurrets();
                 GetSmiteSlot();
@@ -376,12 +380,15 @@ namespace Activator
         private static void Obj_AI_Base_OnLevelUp(Obj_AI_Base sender, EventArgs args)
         {
             var hero = sender as Obj_AI_Hero;
-            if (hero == null || !hero.IsMe || !Origin.Item("alvl6").GetValue<bool>())
+
+            if (hero == null || !hero.IsMe || 
+               !Origin.Item("alvl6").GetValue<bool>())
             {
                 return;
             }
 
-            if (hero.ChampionName == "Jayce" || hero.ChampionName == "Udyr" ||
+            if (hero.ChampionName == "Jayce" || 
+                hero.ChampionName == "Udyr" ||
                 hero.ChampionName == "Elise")
             {
                 return;
@@ -390,7 +397,7 @@ namespace Activator
             switch (Player.Level)
             {
                 case 6:
-                    Utility.DelayAction.Add(70 + Math.Min(60, Game.Ping), 
+                    Utility.DelayAction.Add(Rand.Next(70, 150) + Math.Max(30, Game.Ping), 
                         () => { Player.Spellbook.LevelSpell(SpellSlot.R); });
                     break;
             }
