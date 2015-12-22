@@ -397,7 +397,7 @@ namespace Activator
             switch (Player.Level)
             {
                 case 6:
-                    Utility.DelayAction.Add(Rand.Next(70, 150) + Math.Max(30, Game.Ping), 
+                    Utility.DelayAction.Add(Rand.Next(500, 2000), 
                         () => { Player.Spellbook.LevelSpell(SpellSlot.R); });
                     break;
             }

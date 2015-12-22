@@ -5772,8 +5772,8 @@ namespace Activator.Data
                 SDataName = "vaynecondemnmissile",
                 ChampionName = "vayne",
                 Slot = SpellSlot.E,
-                CastRange = 450f,
-                Delay = 500f,
+                CastRange = 550f,
+                Delay = 250f,
                 HitType = new[] { Base.HitType.CrowdControl, Base.HitType.Danger  },
                 MissileSpeed = int.MaxValue
             });
@@ -6010,7 +6010,7 @@ namespace Activator.Data
                 SDataName = "vladimirsanguinepool",
                 ChampionName = "vladimir",
                 Slot = SpellSlot.W,
-                CastRange = 350f,
+                CastRange = 0f,
                 Delay = 250f,
                 HitType = new[] { Base.HitType.CrowdControl },
                 MissileSpeed = 1600
@@ -6098,7 +6098,7 @@ namespace Activator.Data
                 SDataName = "hunterscall",
                 ChampionName = "warwick",
                 Slot = SpellSlot.W,
-                CastRange = 1000f,
+                CastRange = 0f,
                 Delay = 0f,
                 HitType = new HitType[] { },
                 MissileSpeed = int.MaxValue
@@ -6109,7 +6109,7 @@ namespace Activator.Data
                 SDataName = "bloodscent",
                 ChampionName = "warwick",
                 Slot = SpellSlot.E,
-                CastRange = 1250f,
+                CastRange = 0f,
                 Delay = 0f,
                 HitType = new HitType[] { },
                 MissileSpeed = int.MaxValue
@@ -6270,7 +6270,7 @@ namespace Activator.Data
                 SDataName = "yasuowmovingwall",
                 ChampionName = "yasuo",
                 Slot = SpellSlot.W,
-                CastRange = 400f,
+                CastRange = 0f,
                 Delay = 250f,
                 HitType = new HitType[] { },
                 MissileSpeed = 500
@@ -6336,7 +6336,7 @@ namespace Activator.Data
                 SDataName = "yorickreviveally",
                 ChampionName = "yorick",
                 Slot = SpellSlot.R,
-                CastRange = 900f,
+                CastRange = 0f,
                 Delay = 250f,
                 HitType = new HitType[] { },
                 MissileSpeed = 1500
@@ -6399,7 +6399,7 @@ namespace Activator.Data
                 HitType = new HitType[] { },
                 MissileName = "zedqmissile",
                 FromObject = new[] { "Zed_Base_W_tar.troy", "Zed_Base_W_cloneswap_buf.troy" },
-                ExtraMissileNames = new[] { "zedshurikenmistwo", "zedshurikenmisthree" },
+                ExtraMissileNames = new[] { "zedqmissiletwo", "zedqmissilethree" },
                 MissileSpeed = 1700
             });
 
@@ -6569,7 +6569,7 @@ namespace Activator.Data
                 SDataName = "zyraseed",
                 ChampionName = "zyra",
                 Slot = SpellSlot.W,
-                CastRange = 800f,
+                CastRange = 0f,
                 Delay = 250f,
                 HitType = new HitType[] { },
                 MissileSpeed = 2200
