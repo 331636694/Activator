@@ -84,6 +84,9 @@ namespace Activator.Summoners
                 {
                     Activator.UseEnemyMenu = true;
 
+                    Menu.AddItem(new MenuItem("idmgcheck", "Damage Check %"))
+                        .SetValue(new Slider(100, 1, 200)).SetTooltip("Lower if Igniting to early. Increase if opposite.");
+
                     switch (Player.ChampionName)
                     {
                         case "Ahri":

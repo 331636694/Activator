@@ -39,10 +39,15 @@ namespace Activator.Summoners
             foreach (var tar in Activator.Heroes)
             {
                 if (!tar.Player.IsValidTarget(600))
+                {
                     continue;
+                }
 
-                if (tar.Player.IsZombie || tar.Player.HasBuff("summonerdot")) 
+                if (tar.Player.HasBuff("kindredrnodeathbuff") || tar.Player.IsZombie ||
+                    tar.Player.HasBuff("summonerdot"))
+                {
                     continue;
+                }
 
                 if (!Parent.Item(Parent.Name + "useon" + tar.Player.NetworkId).GetValue<bool>())
                     continue;
@@ -61,6 +66,7 @@ namespace Activator.Summoners
                 if (Menu.Item("mode" + Name).GetValue<StringList>().SelectedIndex == 1)
                 {
                     var totaldmg = 0d;
+                    var finaldmg = 0d;
                     switch (Player.ChampionName)
                     {
                         case "Ahri":
@@ -106,18 +112,17 @@ namespace Activator.Summoners
                                     ? entry.Key(Player, tar.Player, Player.GetSpell(entry.Value).Level - 1)
                                     : 0);
 
-                    if (totaldmg + ignotedmg >= tar.Player.Health)
+                    finaldmg = totaldmg * Menu.Item("idmgcheck").GetValue<Slider>().Value / 100;
+
+                    if (finaldmg + ignotedmg >= tar.Player.Health)
                     {
                         var nearTurret =
-                            Activator.Turrets.FirstOrDefault(
-                                x => x.IsValid && x.Team == tar.Player.Team &&
-                                     tar.Player.Distance(x.ServerPosition) <= 1250);
-
-                        if (nearTurret != null && Menu.Item("itu").GetValue<bool>() &&
-                            Player.Level <= Menu.Item("igtu").GetValue<Slider>().Value)
+                            Activator.Turrets.MinOrDefault(
+                                x => !x.IsDead && x.Team == tar.Player.Team && tar.Player.Distance(x.ServerPosition) <= 1250);
+                        
+                        if (nearTurret != null && Menu.Item("itu").GetValue<bool>() && Player.Level <= Menu.Item("igtu").GetValue<Slider>().Value)
                         {
-                            if (Player.CountAlliesInRange(750) == 0 && 
-                               (totaldmg + ignotedmg / 1.85) < tar.Player.Health)
+                            if (Player.CountAlliesInRange(750) == 0 && (totaldmg + ignotedmg / 1.85) < tar.Player.Health)
                                 continue;
                         }
 
@@ -128,10 +133,7 @@ namespace Activator.Summoners
                         }
 
                         if (tar.Player.Level <= 4 &&
-                            tar.Player.InventoryItems
-                                .Any(item =>
-                                    item.Id == (ItemId) 2003 ||
-                                    item.Id == (ItemId) 2010))
+                            tar.Player.InventoryItems.Any(item => item.Id == (ItemId) 2003 || item.Id == (ItemId) 2010))
                         {
                             continue;
                         }
