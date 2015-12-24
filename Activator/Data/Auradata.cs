@@ -92,8 +92,8 @@ namespace Activator.Data
             BuffList.Add(new Auradata
             {
                 Champion = "Gangplank",
-                MenuName = "Gangplank Passive Burn",
                 Name = "gangplankpassiveattackdot",
+                MenuName = "Gangplank Passive Burn",
                 Evade = false,
                 DoT = true,
                 EvadeTimer = 0,
@@ -116,7 +116,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown,
                 Interval = 1.0
             });
-
+          
             BuffList.Add(new Auradata
             {
                 Champion = "Teemo",
@@ -219,6 +219,7 @@ namespace Activator.Data
             {
                 Champion = "Hecarim",
                 Name = "hecarimdefilelifeleech",
+                MenuName = "Hecarim Defile Leech",
                 Evade = false,
                 DoT = true,
                 EvadeTimer = 0,
@@ -246,7 +247,7 @@ namespace Activator.Data
             {
                 Champion = "Brand",
                 Name = "brandablaze",
-                MenuName = "Brand Blaze",
+                MenuName = "Brand Burn Passive",
                 Evade = false,
                 DoT = true,
                 EvadeTimer = 0,
@@ -404,7 +405,36 @@ namespace Activator.Data
             BuffList.Add(new Auradata
             {
                 Champion = "Cassiopeia",
+                Name = "cassiopeianoxiousblastpoison",
+                MenuName = "Cassio Noxious Blast",
+                Evade = false,
+                Cleanse = false,
+                DoT = true,
+                EvadeTimer = 0,
+                CleanseTimer = 0,
+                Slot = SpellSlot.Q,
+                Interval = 0.4
+            });
+
+            BuffList.Add(new Auradata
+            {
+                Champion = "Cassiopeia",
+                Name = "cassiopeiamiasmapoison",
+                MenuName = "Cassio Miasma",
+                Evade = false,
+                Cleanse = false,
+                DoT = true,
+                EvadeTimer = 0,
+                CleanseTimer = 0,
+                Slot = SpellSlot.Q,
+                Interval = 1.0
+            });
+
+            BuffList.Add(new Auradata
+            {
+                Champion = "Cassiopeia",
                 Name = "cassiopeiapetrifyinggazestun",
+                MenuName = "Cassio Petrifying Gaze",
                 Evade = false,
                 DoT = false,
                 EvadeTimer = 0,
@@ -418,6 +448,7 @@ namespace Activator.Data
             {
                 Champion = "Lissandra",
                 Name = "lissandrarenemy2",
+                MenuName = "Lissandra Frozen Tomb",
                 Evade = false,
                 DoT = false,
                 EvadeTimer = 0,
@@ -431,12 +462,55 @@ namespace Activator.Data
             {
                 Champion = "Sejuani",
                 Name = "sejuaniglacialprison",
+                MenuName = "Sejuani Glacial Prison",
                 Evade = false,
                 DoT = false,
                 EvadeTimer = 0,
                 Cleanse = true,
                 CleanseTimer = 100,
                 Slot = SpellSlot.R,
+                Interval = 1.0
+            });
+
+            BuffList.Add(new Auradata
+            {
+                Champion = "Fiora",
+                Name = "fiorarmark",
+                MenuName = "Fiora Grand Challenge",
+                Evade = false,
+                DoT = false,
+                EvadeTimer = 0,
+                Cleanse = true,
+                CleanseTimer = 100,
+                Slot = SpellSlot.R,
+                Interval = 1.0
+            });
+
+            BuffList.Add(new Auradata
+            {
+                Champion = "Twitch",
+                Name = "twitchdeadlyvenon",
+                MenuName = "Twitch Deadly Venom",
+                Evade = false,
+                DoT = true,
+                EvadeTimer = 0,
+                Cleanse = false,
+                CleanseTimer = 0,
+                Slot = SpellSlot.E,
+                Interval = 0.6
+            });
+
+            BuffList.Add(new Auradata
+            {
+                Champion = "Urgot",
+                Name = "urgotcorrosivedebuff",
+                MenuName = "Urgot Corrosive Charge",
+                Evade = false,
+                DoT = true,
+                EvadeTimer = 0,
+                Cleanse = true,
+                CleanseTimer = 0,
+                Slot = SpellSlot.E,
                 Interval = 1.0
             });
 
@@ -458,7 +532,7 @@ namespace Activator.Data
             {
                 Champion = "Mordekaiser",
                 Name = "mordekaiserchildrenofthegrave",
-                MenuName = "Morde Children of the Grave",
+                MenuName = "Mordekaiser Children of the Grave",
                 Evade = false,
                 DoT = true,
                 EvadeTimer = 0,
@@ -611,6 +685,7 @@ namespace Activator.Data
             {
                 Champion = "Caitlyn",
                 Name = "caitlynaceinthehole",
+                MenuName = "Caitlyn Ace in the Hole",
                 Evade = true,
                 DoT = false,
                 EvadeTimer = 900,
@@ -630,6 +705,19 @@ namespace Activator.Data
                 Cleanse = true,
                 CleanseTimer = 0,
                 Slot = SpellSlot.R
+            });
+
+            BuffList.Add(new Auradata
+            {
+                Champion = "Diana",
+                Name = "dianamoonlight",
+                MenuName = "Diana Moonlight",
+                Evade = false,
+                DoT = false,
+                EvadeTimer = 0,
+                Cleanse = true,
+                CleanseTimer = 0,
+                Slot = SpellSlot.Q
             });
 
             BuffList.Add(new Auradata
