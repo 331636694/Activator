@@ -234,7 +234,7 @@ namespace Activator.Handlers
                                     hero.HitTypes.Add(HitType.AutoAttack);
                                     hero.IncomeDamage += dmg;
 
-                                    Utility.DelayAction.Add((int)endtime + Game.Ping / 2, () =>
+                                    Utility.DelayAction.Add(450, () =>
                                     {
                                         hero.Attacker = null;
                                         hero.IncomeDamage -= dmg;
@@ -831,7 +831,7 @@ namespace Activator.Handlers
             }
 
             #endregion
-
+     
         }
     }
 }
