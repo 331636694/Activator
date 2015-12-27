@@ -84,8 +84,8 @@ namespace Activator
                 Origin.AddSubMenu(dmenu);
 
                 var smenu = new Menu("Summoners", "smenu");
-                SubMenu(smenu, true, true);
                 GetItemGroup("Summoners").ForEach(t => NewSumm((CoreSum) NewInstance(t), smenu));
+                SubMenu(smenu, true, true);
                 Origin.AddSubMenu(smenu);
 
                 var omenu = new Menu("Offensives", "omenu");
@@ -357,8 +357,15 @@ namespace Activator
             foreach (var hero in both ? HeroManager.AllHeroes : enemy ? HeroManager.Enemies : HeroManager.Allies)
             {
                 var side = hero.Team == Player.Team ? "[Ally]" : "[Enemy]";
-                menu.AddItem(new MenuItem(parent.Name + "useon" + hero.NetworkId,
-                    "Use for " + hero.ChampionName + " " + side).DontSave()).SetValue(true);
+                var mitem = new MenuItem(parent.Name + "useon" + hero.NetworkId,
+                    "Use for " + hero.ChampionName + " " + side);
+
+                menu.AddItem(mitem.DontSave()).SetValue(true);
+
+                if (both)
+                {
+                    mitem.Show(hero.IsAlly && UseAllyMenu || hero.IsEnemy && UseEnemyMenu);
+                }
             }
 
             ireset.ValueChanged += (sender, args) =>
