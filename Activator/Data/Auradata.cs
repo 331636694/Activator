@@ -78,6 +78,20 @@ namespace Activator.Data
 
             BuffList.Add(new Auradata
             {
+                Champion = "Amumu",
+                Name = "curseofthesadmummy",
+                MenuName = "Amumu Curse of the Sad Mummy",
+                Evade = false,
+                DoT = false,
+                EvadeTimer = 0,
+                Cleanse = true,
+                CleanseTimer = 0,
+                Slot = SpellSlot.Unknown,
+                Interval = 1.0
+            });
+
+            BuffList.Add(new Auradata
+            {
                 Name = "itemsmitechallenge",
                 MenuName = "Challenging Smite",
                 Evade = false,

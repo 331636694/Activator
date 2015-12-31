@@ -15,66 +15,7 @@ namespace Activator.Handlers
         public static void Init()
         {
             MissileClient.OnCreate += MissileClient_OnSpellMissileCreate;
-            MissileClient.OnCreate += MissileClient_OnAutoAttackOnCreate;
-
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnUnitSpellCast;
-        }
-
-        private static void MissileClient_OnAutoAttackOnCreate(GameObject obj, EventArgs args)
-        {
-            if (!obj.IsValid<MissileClient>())
-            {
-                return;
-            }
-
-            var missile = (MissileClient) obj;
-            if (missile.SpellCaster == null || missile.SpellCaster.Team == Player.Team || 
-               !missile.SData.IsAutoAttack())
-            {
-                return;
-            }
-
-            var attacker = missile.SpellCaster as Obj_AI_Hero;
-            if (attacker == null || !attacker.IsValid<Obj_AI_Hero>())
-            {
-                return;
-            }
-
-            foreach (var hero in Activator.Allies().Where(x => missile.Target.NetworkId == x.Player.NetworkId))
-            {
-                float dmg = 0;
-                
-                dmg += (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true));
-
-                if (attacker.HasBuff("sheen"))
-                    dmg += (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true) +
-                                            attacker.GetCustomDamage("sheen", hero.Player));
-
-                if (attacker.HasBuff("lichbane"))
-                    dmg += (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true) +
-                                            attacker.GetCustomDamage("lichbane", hero.Player));
-
-                if (attacker.HasBuff("itemstatikshankcharge") &&
-                    attacker.GetBuff("itemstatikshankcharge").Count == 100)
-                    dmg += new[] {62, 120, 200} [attacker.Level / 3];
-
-                if (missile.SData.Name.ToLower().Contains("crit"))
-                    dmg += (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true));
-
-                Utility.DelayAction.Add(100 - Game.Ping/2, () =>
-                {
-                    hero.Attacker = attacker;
-                    hero.HitTypes.Add(HitType.AutoAttack);
-                    hero.IncomeDamage += dmg;
-
-                    Utility.DelayAction.Add((int) (250 + attacker.AttackCastDelay * 1000), () =>
-                    {
-                        hero.Attacker = null;
-                        hero.IncomeDamage -= dmg;
-                        hero.HitTypes.Remove(HitType.AutoAttack);
-                    });
-                });
-            }
         }
 
         private static void MissileClient_OnSpellMissileCreate(GameObject sender, EventArgs args)
@@ -197,7 +138,7 @@ namespace Activator.Handlers
 
                         #region auto attack
 
-                        if (args.SData.IsAutoAttack() && attacker.IsMelee)
+                        if (args.SData.Name.ToLower().Contains("attack") && args.Target != null)
                         {
                             if (args.Target.NetworkId == hero.Player.NetworkId)
                             {
@@ -649,50 +590,7 @@ namespace Activator.Handlers
                 }
             }
 
-            #endregion
-
-            #region Heimerdinger Turret
-
-            if (sender.IsEnemy && Activator.Heroes.Any(x => x.Player.IsValidTarget() && x.Player.ChampionName == "Heimerdinger"))
-            {
-                if (args.SData.Name.ToLower() == "heimertyellowbasicattack" ||
-                    args.SData.Name.ToLower() == "heimertyellowbasicattack2")
-                {
-                    var attacker = sender as Obj_AI_Hero;
-                    if (attacker != null && attacker.IsValid<Obj_AI_Hero>())
-                    {
-                        if (args.Target.Type == Player.Type)
-                        {
-                            foreach (var hero in Activator.Allies())
-                            {
-                                // reset if needed
-                                Essentials.ResetIncomeDamage(hero.Player);
-
-                                if (args.Target.NetworkId == hero.Player.NetworkId)
-                                {
-                                    var dmg = (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true));
-
-                                    Utility.DelayAction.Add(350, () =>
-                                    {
-                                        hero.Attacker = attacker;
-                                        hero.HitTypes.Add(HitType.AutoAttack);
-                                        hero.IncomeDamage += dmg;
-
-                                        Utility.DelayAction.Add(150, delegate
-                                        {
-                                            hero.Attacker = null;
-                                            hero.IncomeDamage -= dmg;
-                                            hero.HitTypes.Remove(HitType.AutoAttack);
-                                        });
-                                    });
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            #endregion
+            #endregion      
 
             #region Items
 
