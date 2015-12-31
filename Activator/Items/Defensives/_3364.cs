@@ -7,50 +7,15 @@ namespace Activator.Items.Defensives
 {
     class _3364 : CoreItem
     {
-        internal override int Id
-        {
-            get { return 3364; }
-        }
-
-        internal override int Priority
-        {
-            get { return 5; }
-        }
-
-        internal override string Name
-        {
-            get { return "Oracles"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Oracle's Lens"; }
-        }
-
-        internal override int Duration
-        {
-            get { return 1000; }
-        }
-
-        internal override float Range
-        {
-            get { return 600f; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 99; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.Stealth, MenuType.ActiveCheck }; }
-        }
-
-        internal override MapType[] Maps
-        {
-            get { return new[] { MapType.SummonersRift }; }
-        }
+        internal override int Id => 3364;
+        internal override int Priority => 5;
+        internal override string Name => "Oracles";
+        internal override string DisplayName => "Oracle's Lens";
+        internal override int Duration => 1000;
+        internal override float Range => 600f;
+        internal override int DefaultHP => 99;
+        internal override MenuType[] Category => new[] { MenuType.Stealth, MenuType.ActiveCheck };
+        internal override MapType[] Maps => new[] { MapType.SummonersRift };
 
         public _3364()
         {

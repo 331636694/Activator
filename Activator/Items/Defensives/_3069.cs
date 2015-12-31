@@ -6,54 +6,16 @@ namespace Activator.Items.Defensives
 {
     class _3069 : CoreItem
     {
-        internal override int Id
-        {
-            get { return 3069; }
-        }
-        internal override int Priority
-        {
-            get { return 4; }
-        }
-
-        internal override string Name
-        {
-            get { return "Talisman"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Talisman of Ascension"; }
-        }
-
-        internal override int Duration
-        {
-            get { return 1000; }
-        }
-
-        internal override float Range
-        {
-            get { return 600f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.EnemyLowHP, MenuType.SelfLowHP, MenuType.Zhonyas }; }
-        }
-
-        internal override MapType[] Maps
-        {
-            get { return new[] { MapType.Common }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 55; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override int Id => 3069;
+        internal override int Priority => 4;
+        internal override string Name => "Talisman";
+        internal override string DisplayName => "Talisman of Ascension";
+        internal override int Duration => 1000;
+        internal override float Range => 600f;
+        internal override MenuType[] Category => new[] { MenuType.EnemyLowHP, MenuType.SelfLowHP, MenuType.Zhonyas };
+        internal override MapType[] Maps => new[] { MapType.Common };
+        internal override int DefaultHP => 55;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {

@@ -6,54 +6,16 @@ namespace Activator.Items.Defensives
 {
     class _3401 : CoreItem
     {
-        internal override int Id
-        {
-            get { return 3401; }
-        }
-        internal override int Priority
-        {
-            get { return 6; }
-        }
-
-        internal override string Name
-        {
-            get { return "Mountain"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Face of the Mountain"; }
-        }
-
-        internal override int Duration
-        {
-            get { return 2000; }
-        }
-
-        internal override float Range
-        {
-            get { return 700f; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 35; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.Zhonyas, MenuType.SelfMuchHP }; }
-        }
-
-        internal override MapType[] Maps
-        {
-            get { return new[] { MapType.Common }; }
-        }
+        internal override int Id => 3401;
+        internal override int Priority => 6;
+        internal override string Name => "Mountain";
+        internal override string DisplayName => "Face of the Mountain";
+        internal override int Duration => 2000;
+        internal override float Range => 700f;
+        internal override int DefaultHP => 35;
+        internal override int DefaultMP => 0;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.Zhonyas, MenuType.SelfMuchHP };
+        internal override MapType[] Maps => new[] { MapType.Common };
 
         public override void OnTick(EventArgs args)
         {

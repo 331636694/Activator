@@ -6,55 +6,16 @@ namespace Activator.Items.Defensives
 {
     class _3090 : CoreItem
     {
-        internal override int Id
-        {
-            get { return 3090; }
-        }
-
-        internal override string Name
-        {
-            get { return "Wooglets"; }
-        }
-
-        internal override int Priority
-        {
-            get { return 7; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Wooglet's Witchcap"; }
-        }
-
-        internal override int Duration
-        {
-            get { return 2500; }
-        }
-
-        internal override float Range
-        {
-            get { return 750f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.Zhonyas }; }
-        }
-
-        internal override MapType[] Maps
-        {
-            get { return new[] { MapType.CrystalScar, MapType.TwistedTreeline }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 35; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override int Id => 3090;
+        internal override string Name => "Wooglets";
+        internal override int Priority => 7;
+        internal override string DisplayName => "Wooglet's Witchcap";
+        internal override int Duration => 2500;
+        internal override float Range => 750f;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.Zhonyas };
+        internal override MapType[] Maps => new[] { MapType.CrystalScar, MapType.TwistedTreeline };
+        internal override int DefaultHP => 35;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {

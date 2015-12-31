@@ -34,8 +34,8 @@ namespace Activator.Items
         internal virtual int DefaultHP { get; set; }
 
         public Menu Menu { get; private set; }
-        public Menu Parent { get { return Menu.Parent; } }
-        public Obj_AI_Hero Player { get { return ObjectManager.Player; } }
+        public Menu Parent => Menu.Parent;
+        public Obj_AI_Hero Player => ObjectManager.Player;
 
         public Champion Tar
         {
@@ -64,7 +64,7 @@ namespace Activator.Items
             var ready = LeagueSharp.Common.Items.CanUseItem(Id);
             return ready;
         }
-           
+
         public void UseItem(bool combo = false)
         {
             if (IsReady())
@@ -74,20 +74,17 @@ namespace Activator.Items
 
             if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
             {
-                if (PriorityList().Any())
+                if (PriorityList().Any() && Name == PriorityList().First().Name)
                 {
-                    if (Name == PriorityList().First().Name)
+                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || Id == 3090 || Id == 3157)
                     {
-                        if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration)
+                        if (!Activator.Player.HasBuffOfType(BuffType.Invisibility))
                         {
-                            if (!Activator.Player.HasBuffOfType(BuffType.Invisibility))
+                            if (LeagueSharp.Common.Items.UseItem(Id))
                             {
-                                if (LeagueSharp.Common.Items.UseItem(Id))
-                                {
-                                    Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
-                                    Activator.LastUsedDuration = Duration;
-                                    Utility.DelayAction.Add(100, () => Craving = false);
-                                }
+                                Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
+                                Activator.LastUsedDuration = Duration;
+                                Utility.DelayAction.Add(100, () => Craving = false);
                             }
                         }
                     }
@@ -104,20 +101,17 @@ namespace Activator.Items
 
             if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
             {
-                if (PriorityList().Any())
+                if (PriorityList().Any() && Name == PriorityList().First().Name)
                 {
-                    if (Name == PriorityList().First().Name)
+                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || Id == 3090 || Id == 3157)
                     {
-                        if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration)
+                        if (!Activator.Player.HasBuffOfType(BuffType.Invisibility))
                         {
-                            if (!Activator.Player.HasBuffOfType(BuffType.Invisibility))
+                            if (LeagueSharp.Common.Items.UseItem(Id, target))
                             {
-                                if (LeagueSharp.Common.Items.UseItem(Id, target))
-                                {
-                                    Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
-                                    Activator.LastUsedDuration = Duration;
-                                    Utility.DelayAction.Add(100, () => Craving = false);
-                                }
+                                Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
+                                Activator.LastUsedDuration = Duration;
+                                Utility.DelayAction.Add(100, () => Craving = false);
                             }
                         }
                     }
@@ -136,7 +130,7 @@ namespace Activator.Items
             {
                 if (PriorityList().Any() && Name == PriorityList().First().Name)
                 {
-                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration)
+                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || Id == 3090 || Id == 3157)
                     {
                         if (!Activator.Player.HasBuffOfType(BuffType.Invisibility))
                         {

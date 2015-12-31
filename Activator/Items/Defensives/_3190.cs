@@ -6,55 +6,16 @@ namespace Activator.Items.Defensives
 {
     class _3190 : CoreItem
     {
-        internal override int Id
-        {
-            get { return 3190; }
-        }
-
-        internal override int Priority
-        {
-            get { return 4; }
-        }
-
-        internal override string Name
-        {
-            get { return "Locket"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Locket of Iron Solari"; }
-        }
-
-        internal override int Duration
-        {
-            get { return 2000; }
-        }
-
-        internal override float Range
-        {
-            get { return 600f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.Zhonyas }; }
-        }
-
-        internal override MapType[] Maps
-        {
-            get { return new[] { MapType.Common }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 55; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override int Id => 3190;
+        internal override int Priority => 4;
+        internal override string Name => "Locket";
+        internal override string DisplayName => "Locket of Iron Solari";
+        internal override int Duration => 2000;
+        internal override float Range => 600f;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.Zhonyas };
+        internal override MapType[] Maps => new[] { MapType.Common };
+        internal override int DefaultHP => 55;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {

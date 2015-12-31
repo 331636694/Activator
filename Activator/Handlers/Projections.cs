@@ -61,17 +61,13 @@ namespace Activator.Handlers
                 if (missile.SData.Name.ToLower().Contains("crit"))
                     dmg += (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true));
 
-                var endtime = (int) 
-                    (1000 * (missile.StartPosition.Distance(hero.Player.ServerPosition) /
-                             missile.SData.MissileSpeed)) + (attacker.AttackCastDelay * 1000/2);
-
-                Utility.DelayAction.Add((int) (endtime/2), () =>
+                Utility.DelayAction.Add(100 - Game.Ping/2, () =>
                 {
                     hero.Attacker = attacker;
                     hero.HitTypes.Add(HitType.AutoAttack);
                     hero.IncomeDamage += dmg;
 
-                    Utility.DelayAction.Add((int) endtime + Game.Ping/2, () =>
+                    Utility.DelayAction.Add((int) (250 + attacker.AttackCastDelay * 1000), () =>
                     {
                         hero.Attacker = null;
                         hero.IncomeDamage -= dmg;
@@ -224,17 +220,13 @@ namespace Activator.Handlers
                                 if (args.SData.Name.ToLower().Contains("crit"))
                                     dmg += (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true));
 
-                                var endtime = (int)
-                                    (1000 * (args.Start.Distance(hero.Player.ServerPosition) /
-                                             args.SData.MissileSpeed)) + (attacker.AttackCastDelay * 1000 / 2);
-
-                                Utility.DelayAction.Add((int)(endtime / 2), () =>
+                                Utility.DelayAction.Add(100 - Game.Ping/2, () =>
                                 {
                                     hero.Attacker = attacker;
                                     hero.HitTypes.Add(HitType.AutoAttack);
                                     hero.IncomeDamage += dmg;
 
-                                    Utility.DelayAction.Add(450, () =>
+                                    Utility.DelayAction.Add((int) (250 + attacker.AttackCastDelay *1000), () =>
                                     {
                                         hero.Attacker = null;
                                         hero.IncomeDamage -= dmg;
@@ -259,7 +251,7 @@ namespace Activator.Handlers
                                 x =>
                                     data.FromObject != null && !x.IsAlly && data.FromObject.Any(y => x.Name.Contains(y)));
 
-                            var correctpos = fromObj != null ? fromObj.Position : attacker.ServerPosition;
+                            var correctpos = fromObj?.Position ?? attacker.ServerPosition;
                             if (hero.Player.Distance(correctpos) > data.CastRange)
                                 continue;
 
@@ -341,12 +333,12 @@ namespace Activator.Handlers
                                     .FirstOrDefault(
                                         x =>
                                             !x.IsAlly && data.FromObject != null &&
-                                            data.FromObject.Any(y => x.Name.Contains(y)));
+                                            data.FromObject.Any(y => x.Name.Contains(y)));                
 
                             var islineskillshot = args.SData.TargettingType == SpellDataTargetType.Cone ||
                                                   args.SData.LineWidth > 0;
 
-                            var startpos = fromObj != null ? fromObj.Position : attacker.ServerPosition;
+                            var startpos = fromObj?.Position ?? attacker.ServerPosition;
 
                             var correctwidth = 0f;
 
@@ -372,8 +364,7 @@ namespace Activator.Handlers
                                 continue;
 
                             var distance = (int) (1000 * (startpos.Distance(hero.Player.ServerPosition) / data.MissileSpeed));
-                            var endtime = data.Delay - 100 + Game.Ping / 2f + distance -
-                                          (Utils.GameTimeTickCount - LastCastedTimeStamp);
+                            var endtime = data.Delay - 100 + Game.Ping / 2f + distance - (Utils.GameTimeTickCount - LastCastedTimeStamp);
 
                             var iscone = args.SData.TargettingType == SpellDataTargetType.Cone;
                             var direction = (args.End.To2D() - startpos.To2D()).Normalized();
@@ -441,7 +432,7 @@ namespace Activator.Handlers
                                     if (Activator.Origin.Item(data.SDataName + "forceexhaust").GetValue<bool>())
                                         hero.HitTypes.Add(HitType.ForceExhaust);
 
-                                    Utility.DelayAction.Add((int) endtime + Game.Ping + 100, () =>
+                                    Utility.DelayAction.Add((int) (150 + data.Delay), () =>
                                     {
                                         hero.Attacker = null;
                                         hero.IncomeDamage -= dmg;

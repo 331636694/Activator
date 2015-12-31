@@ -6,55 +6,16 @@ namespace Activator.Items.Defensives
 {
     class _3048 : CoreItem
     {
-        internal override int Id
-        {
-            get { return 3048; }
-        }
-
-        internal override int Priority
-        {
-            get { return 6; }
-        }
-
-        internal override string Name
-        {
-            get { return "Seraphs"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Seraph's Embrace"; }
-        }
-
-        internal override int Duration
-        {
-            get { return 2000; }
-        }
-
-        internal override float Range
-        {
-            get { return 750f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.Zhonyas }; }
-        }
-
-        internal override MapType[] Maps
-        {
-            get { return new[] { MapType.CrystalScar }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 55; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override int Id => 3048;
+        internal override int Priority => 6;
+        internal override string Name => "Seraphs";
+        internal override string DisplayName => "Seraph's Embrace";
+        internal override int Duration => 2000;
+        internal override float Range => 750f;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.Zhonyas };
+        internal override MapType[] Maps => new[] { MapType.CrystalScar };
+        internal override int DefaultHP => 55;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {

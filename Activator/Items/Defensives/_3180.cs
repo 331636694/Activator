@@ -6,54 +6,16 @@ namespace Activator.Items.Defensives
 {
     class _3180 : CoreItem
     {
-        internal override int Id
-        {
-            get { return 3180; }
-        }
-        internal override int Priority
-        {
-            get { return 4; }
-        }
-
-        internal override string Name
-        {
-            get { return "Odyns"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Odyn's Veil"; }
-        }
-
-        internal override int Duration
-        {
-            get { return 1000; }
-        }
-
-        internal override float Range
-        {
-            get { return 525f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfCount }; }
-        }
-
-        internal override MapType[] Maps
-        {
-            get { return new[] { MapType.CrystalScar }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 55; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override int Id => 3180;
+        internal override int Priority => 4;
+        internal override string Name => "Odyns";
+        internal override string DisplayName => "Odyn's Veil";
+        internal override int Duration => 1000;
+        internal override float Range => 525f;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfCount };
+        internal override MapType[] Maps => new[] { MapType.CrystalScar };
+        internal override int DefaultHP => 55;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {
