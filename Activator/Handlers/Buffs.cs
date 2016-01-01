@@ -29,7 +29,7 @@ namespace Activator.Handlers
        {
             foreach (var hero in Activator.Allies())
             {
-                var aura = Auradata.SomeAuras.Find(au => hero.Player.HasBuff(au.Name));
+                var aura = Buffdata.SomeAuras.Find(au => hero.Player.HasBuff(au.Name));
                 if (aura == null)
                 {
                     if (hero.DotTicks > 0)
@@ -165,7 +165,7 @@ namespace Activator.Handlers
                         hero.DervishHighestBuffTime = 0;
                 }
 
-                foreach (var aura in Auradata.BuffList.Where(au => hero.Player.HasBuff(au.Name)))
+                foreach (var aura in Buffdata.BuffList.Where(au => hero.Player.HasBuff(au.Name)))
                 {
                     if (aura.DoT && hero.Player.Health / hero.Player.MaxHealth * 100 <=
                         Activator.Origin.Item("useDervishdot").GetValue<Slider>().Value)
@@ -208,7 +208,7 @@ namespace Activator.Handlers
                         hero.QSSHighestBuffTime = 0;
                 }
 
-                foreach (var aura in Auradata.BuffList.Where(au => hero.Player.HasBuff(au.Name)))
+                foreach (var aura in Buffdata.BuffList.Where(au => hero.Player.HasBuff(au.Name)))
                 {
                     if (aura.DoT && hero.Player.Health / hero.Player.MaxHealth * 100 <=
                         Activator.Origin.Item("useQuicksilverdot").GetValue<Slider>().Value)
@@ -251,7 +251,7 @@ namespace Activator.Handlers
                         hero.MikaelsHighestBuffTime = 0;
                 }
 
-                foreach (var aura in Auradata.BuffList.Where(au => hero.Player.HasBuff(au.Name)))
+                foreach (var aura in Buffdata.BuffList.Where(au => hero.Player.HasBuff(au.Name)))
                 {
                     if (aura.DoT && hero.Player.Health / hero.Player.MaxHealth * 100 <=
                         Activator.Origin.Item("useMikaelsdot").GetValue<Slider>().Value)
@@ -294,7 +294,7 @@ namespace Activator.Handlers
                         hero.MercurialHighestBuffTime = 0;
                 }
 
-                foreach (var aura in Auradata.BuffList.Where(au => hero.Player.HasBuff(au.Name)))
+                foreach (var aura in Buffdata.BuffList.Where(au => hero.Player.HasBuff(au.Name)))
                 {
                     if (aura.DoT && hero.Player.Health / hero.Player.MaxHealth * 100 <=
                         Activator.Origin.Item("useMercurialdot").GetValue<Slider>().Value)
@@ -311,7 +311,7 @@ namespace Activator.Handlers
         internal static IEnumerable<BuffInstance> GetAuras(Obj_AI_Hero player, string itemname)
         {
             return player.Buffs.Where(buff => 
-                !Auradata.BuffList.Any(b => buff.Name.ToLower() == b.Name && b.QssIgnore) &&
+                !Buffdata.BuffList.Any(b => buff.Name.ToLower() == b.Name && b.QssIgnore) &&
                    (buff.Type == BuffType.Snare &&
                     Activator.Origin.Item(itemname + "csnare").GetValue<bool>() ||
                     buff.Type == BuffType.Charm &&
