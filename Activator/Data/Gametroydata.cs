@@ -212,7 +212,7 @@ namespace Activator.Data
                 ChampionName = "Nautilus",
                 Radius = 250f,
                 Slot = SpellSlot.R,
-                HitType = new[] { Base.HitType.CrowdControl, Base.HitType.Danger },
+                HitType = new[] { Base.HitType.CrowdControl, Base.HitType.Danger, Base.HitType.Ultimate },
                 PredictDmg = false,
                 Interval = 1.0
             });
@@ -241,16 +241,11 @@ namespace Activator.Data
 
             Troys.Add(new Gametroydata
             {
-                Name = "CrowStorm",
+                Name = "Crowstorm",
                 ChampionName = "FiddleSticks",
                 Radius = 450f,
                 Slot = SpellSlot.R,
-                HitType =
-                    new[]
-                    {
-                        Base.HitType.Danger, Base.HitType.Ultimate,
-                        Base.HitType.ForceExhaust
-                    },
+                HitType =  new[] { Base.HitType.Danger, Base.HitType.Ultimate, Base.HitType.ForceExhaust },
                 PredictDmg = true,
                 Interval = 1.0
             });
