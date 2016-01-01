@@ -325,8 +325,8 @@ namespace Activator
         private static void GetAurasInGame()
         {
             foreach (var i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team != Player.Team))
-                foreach (var aura in Auradata.BuffList.Where(x => x.Champion == i.ChampionName))
-                    Auradata.SomeAuras.Add(aura);
+                foreach (var aura in Buffdata.BuffList.Where(x => x.Champion == i.ChampionName))
+                    Buffdata.SomeAuras.Add(aura);
         }
 
         public static IEnumerable<Champion> Allies()

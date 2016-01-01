@@ -8,55 +8,16 @@ namespace Activator.Items.Cleansers
 {
     class _3137 : CoreItem
     {
-        internal override int Id
-        {
-            get { return 3137; }
-        }
-
-        internal override string Name
-        {
-            get { return "Dervish"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Dervish Blade"; }
-        }
-
-        internal override int Priority
-        {
-            get { return 6; }
-        }
-
-        internal override int Duration
-        {
-            get { return 1000; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.Cleanse, MenuType.ActiveCheck }; }
-        }
-
-        internal override MapType[] Maps
-        {
-            get { return new[] { MapType.CrystalScar, MapType.TwistedTreeline }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 5; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override int Id => 3137;
+        internal override string Name => "Dervish";
+        internal override string DisplayName => "Dervish Blade";
+        internal override int Priority => 6;
+        internal override int Duration => 1000;
+        internal override float Range => float.MaxValue;
+        internal override MenuType[] Category => new[] { MenuType.Cleanse, MenuType.ActiveCheck };
+        internal override MapType[] Maps => new[] { MapType.CrystalScar, MapType.TwistedTreeline };
+        internal override int DefaultHP => 5;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {

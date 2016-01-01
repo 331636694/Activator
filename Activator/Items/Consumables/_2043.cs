@@ -7,55 +7,16 @@ namespace Activator.Items.Consumables
 {
     class _2043 : CoreItem
     {
-        internal override int Id
-        {
-            get { return 2043; }
-        }
-
-        internal override string Name
-        {
-            get { return "Vision Ward"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Vision Ward"; }
-        }
-
-        internal override int Duration
-        {
-            get { return 101; }
-        }
-
-        internal override int Priority
-        {
-            get { return 5; }
-        }
-
-        internal override float Range
-        {
-            get { return 600f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.Stealth, MenuType.ActiveCheck }; }
-        }
-
-        internal override MapType[] Maps
-        {
-            get { return new[] { MapType.SummonersRift }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 0; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override int Id => 2043;
+        internal override string Name => "Vision Ward";
+        internal override string DisplayName => "Vision Ward";
+        internal override int Duration => 101;
+        internal override int Priority => 5;
+        internal override float Range => 600f;
+        internal override MenuType[] Category => new[] { MenuType.Stealth, MenuType.ActiveCheck };
+        internal override MapType[] Maps => new[] { MapType.SummonersRift };
+        internal override int DefaultHP => 0;
+        internal override int DefaultMP => 0;
 
         public _2043()
         {

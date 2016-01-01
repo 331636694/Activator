@@ -6,55 +6,16 @@ namespace Activator.Items.Consumables
 {
     class _2003 : CoreItem
     {
-        internal override int Id
-        {
-            get { return 2003; }
-        }
-
-        internal override int Priority
-        {
-            get { return 3; }
-        }
-
-        internal override string Name
-        {
-            get { return "Health Potion"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Health Potion"; }
-        }
-
-        internal override int Duration
-        {
-            get { return 101; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP }; }
-        }
-
-        internal override MapType[] Maps
-        {
-            get { return new[] { MapType.Common }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 55; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override int Id => 2003;
+        internal override int Priority => 3;
+        internal override string Name => "Health Potion";
+        internal override string DisplayName => "Health Potion";
+        internal override int Duration => 101;
+        internal override float Range => float.MaxValue;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP };
+        internal override MapType[] Maps => new[] { MapType.Common };
+        internal override int DefaultHP => 55;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {

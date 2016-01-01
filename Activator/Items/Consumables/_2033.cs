@@ -6,54 +6,16 @@ namespace Activator.Items.Consumables
 {
     class _2033 : CoreItem
     {
-        internal override int Id
-        {
-            get { return 2033; }
-        }
-        internal override int Priority
-        {
-            get { return 3; }
-        }
-
-        internal override string Name
-        {
-            get { return "Corrupting Pot"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Corrupting Pot"; }
-        }
-
-        internal override int Duration
-        {
-            get { return 101; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowMP, MenuType.SelfLowHP, MenuType.SelfMuchHP }; }
-        }
-
-        internal override MapType[] Maps
-        {
-            get { return new[] { MapType.SummonersRift, MapType.TwistedTreeline, MapType.CrystalScar }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 55; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 25; }
-        }
+        internal override int Id => 2033;
+        internal override int Priority => 3;
+        internal override string Name => "Corrupting Pot";
+        internal override string DisplayName => "Corrupting Pot";
+        internal override int Duration => 101;
+        internal override float Range => float.MaxValue;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowMP, MenuType.SelfLowHP, MenuType.SelfMuchHP };
+        internal override MapType[] Maps => new[] { MapType.SummonersRift, MapType.TwistedTreeline, MapType.CrystalScar };
+        internal override int DefaultHP => 55;
+        internal override int DefaultMP => 25;
 
         public override void OnTick(EventArgs args)
         {

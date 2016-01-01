@@ -3,7 +3,7 @@
 // any form or by any means, mechanical, electronical or otherwise, is prohibited
 // without the prior written consent of the copyright owner.
 // 
-// Document:	Data/Auradata.cs
+// Document:	Data/Buffdata.cs
 // Date:		22/09/2015
 // Author:		Robin Kurisu
 #endregion
@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace Activator.Data
 {
-    public class Auradata
+    public class Buffdata
     {
         public string Name { get; set; }
         public string MenuName { get; set; }
@@ -32,11 +32,11 @@ namespace Activator.Data
         public bool Included { get; set; }
         public Obj_AI_Hero Sender { get; set; }
 
-        public static List<Auradata> BuffList = new List<Auradata>();
+        public static List<Buffdata> BuffList = new List<Buffdata>();
 
-        static Auradata()
+        static Buffdata()
         {
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "suppression",
                 MenuName = "Suppresion",
@@ -49,7 +49,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "summonerdot",
                 MenuName = "Summoner Ignite",
@@ -62,7 +62,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Vi",
                 Name = "virknockup",
@@ -76,7 +76,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Amumu",
                 Name = "curseofthesadmummy",
@@ -90,7 +90,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "itemsmitechallenge",
                 MenuName = "Challenging Smite",
@@ -103,7 +103,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Gangplank",
                 Name = "gangplankpassiveattackdot",
@@ -117,7 +117,7 @@ namespace Activator.Data
                 Interval = .8
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Teemo",
                 Name = "bantamtraptarget",
@@ -131,7 +131,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
           
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Teemo",
                 Name = "toxicshotparticle",
@@ -145,7 +145,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Talon",
                 Name = "talonbleeddebuf",
@@ -159,7 +159,7 @@ namespace Activator.Data
                 Interval = .8
             });
 
-            BuffList.Add(new Auradata()
+            BuffList.Add(new Buffdata()
             {
                 Champion = "Malzahar",
                 Name = "alzaharnethergrasp",
@@ -173,7 +173,7 @@ namespace Activator.Data
                 Interval = .8
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Malzahar",
                 Name = "alzaharmaleficvisions",
@@ -187,7 +187,7 @@ namespace Activator.Data
                 Interval = .8
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "FiddleSticks",
                 Name = "drainchannel",
@@ -201,7 +201,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Galio",
                 Name = "galioidolofdurand",
@@ -215,7 +215,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Nasus",
                 Name = "nasusw",
@@ -229,7 +229,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Hecarim",
                 Name = "hecarimdefilelifeleech",
@@ -243,7 +243,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Swain",
                 Name = "swaintorment",
@@ -257,7 +257,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Brand",
                 Name = "brandablaze",
@@ -271,7 +271,7 @@ namespace Activator.Data
                 Interval = 0.5
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Fizz",
                 Name = "fizzseastonetrident",
@@ -285,7 +285,7 @@ namespace Activator.Data
                 Interval = .8
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Tristana",
                 Name = "tristanaechargesound",
@@ -299,7 +299,7 @@ namespace Activator.Data
                 Interval = .8
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Darius",
                 Name = "dariushemo",
@@ -313,7 +313,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Nidalee",
                 Name = "bushwackdamage",
@@ -327,7 +327,7 @@ namespace Activator.Data
                 Interval = .8
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Nidalee",
                 Name = "nidaleepassivehunted",
@@ -341,7 +341,7 @@ namespace Activator.Data
                 Interval = .8
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "shyvanaimmolationaura",
                 Evade = false,
@@ -353,7 +353,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "missfortunescattershotslow",
                 Evade = false,
@@ -365,7 +365,7 @@ namespace Activator.Data
                 Interval = 0.5
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "missfortunepassivestack",
                 Evade = false,
@@ -377,7 +377,7 @@ namespace Activator.Data
                 Interval = 0.5
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "shyvanaimmolatedragon",
                 Evade = false,
@@ -389,7 +389,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Zilean",
                 Name = "zileanqenemybomb",
@@ -403,7 +403,7 @@ namespace Activator.Data
                 Interval = 3.8
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Wukong",
                 Name = "monkeykingspintowin",
@@ -416,7 +416,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Cassiopeia",
                 Name = "cassiopeianoxiousblastpoison",
@@ -430,7 +430,7 @@ namespace Activator.Data
                 Interval = 0.4
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Cassiopeia",
                 Name = "cassiopeiamiasmapoison",
@@ -444,7 +444,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Cassiopeia",
                 Name = "cassiopeiapetrifyinggazestun",
@@ -458,7 +458,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Lissandra",
                 Name = "lissandrarenemy2",
@@ -472,7 +472,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Sejuani",
                 Name = "sejuaniglacialprison",
@@ -486,7 +486,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Fiora",
                 Name = "fiorarmark",
@@ -500,7 +500,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Twitch",
                 Name = "twitchdeadlyvenon",
@@ -514,7 +514,7 @@ namespace Activator.Data
                 Interval = 0.6
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Urgot",
                 Name = "urgotcorrosivedebuff",
@@ -528,7 +528,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Zac",
                 Name = "zacr",
@@ -542,7 +542,7 @@ namespace Activator.Data
 
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Mordekaiser",
                 Name = "mordekaiserchildrenofthegrave",
@@ -556,7 +556,7 @@ namespace Activator.Data
                 Interval = 1.5
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "burningagony",
                 Evade = false,
@@ -568,7 +568,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "garene",
                 Evade = false,
@@ -580,7 +580,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "auraofdespair",
                 Evade = false,
@@ -592,7 +592,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "hecarimw",
                 Evade = false,
@@ -604,7 +604,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Braum",
                 Name = "braummark",
@@ -614,24 +614,24 @@ namespace Activator.Data
                 EvadeTimer = 0,
                 Cleanse = true,
                 CleanseTimer = 200,
-                Slot = SpellSlot.Q
+                Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Zed",
                 Name = "zedultexecute",
                 MenuName = "Zed Mark",
                 Evade = true,
                 DoT = false,
-                EvadeTimer = 2500,
+                EvadeTimer = 2600,
                 Cleanse = true,
                 CleanseTimer = 500,
                 Slot = SpellSlot.R,
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Karthus",
                 Name = "fallenonetarget",
@@ -643,7 +643,7 @@ namespace Activator.Data
                 Slot = SpellSlot.R
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Karthus",
                 Name = "karthusfallenonetarget",
@@ -655,7 +655,7 @@ namespace Activator.Data
                 Slot = SpellSlot.R
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Fizz",
                 Name = "fizzmarinerdoombomb",
@@ -668,7 +668,7 @@ namespace Activator.Data
                 Slot = SpellSlot.R
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Morgana",
                 Name = "soulshackles",
@@ -682,7 +682,7 @@ namespace Activator.Data
                 Interval = 3.9
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Varus",
                 Name = "varusrsecondary",
@@ -695,7 +695,7 @@ namespace Activator.Data
                 Slot = SpellSlot.R
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Caitlyn",
                 Name = "caitlynaceinthehole",
@@ -708,7 +708,7 @@ namespace Activator.Data
                 Slot = SpellSlot.R
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Vladimir",
                 Name = "vladimirhemoplague",
@@ -721,7 +721,7 @@ namespace Activator.Data
                 Slot = SpellSlot.R
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Diana",
                 Name = "dianamoonlight",
@@ -734,7 +734,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Urgot",
                 Name = "urgotswap2",
@@ -747,7 +747,7 @@ namespace Activator.Data
                 Slot = SpellSlot.R
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Skarner",
                 Name = "skarnerimpale",
@@ -760,7 +760,7 @@ namespace Activator.Data
                 Slot = SpellSlot.R
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Poppy",
                 Name = "poppyulttargetmark",
@@ -773,7 +773,7 @@ namespace Activator.Data
                 Slot = SpellSlot.R
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "LeeSin",
                 Name = "blindmonkqonechaos",
@@ -786,7 +786,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Leblanc",
                 Name = "leblancsoulshackle",
@@ -799,7 +799,7 @@ namespace Activator.Data
                 Slot = SpellSlot.E
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Champion = "Leblanc",
                 Name = "leblancsoulshacklem",
@@ -812,7 +812,20 @@ namespace Activator.Data
                 Slot = SpellSlot.E
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
+            {
+                Champion = "Rammus",
+                Name = "puncturingtauntarmordebuff",
+                MenuName = "Rammus Puncturing Taunt",
+                Evade = false,
+                DoT = false,
+                Cleanse = true,
+                CleanseTimer = 0,
+                EvadeTimer = 0,
+                Slot = SpellSlot.E
+            });
+
+            BuffList.Add(new Buffdata
             {
                 Name = "vir",
                 Evade = false,
@@ -824,7 +837,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "virknockup",
                 Evade = false,
@@ -836,7 +849,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "yasuorknockupcombo",
                 Evade = false,
@@ -848,7 +861,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "yasuorknockupcombotar",
                 Evade = false,
@@ -860,7 +873,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "zyrabramblezoneknockup",
                 Evade = false,
@@ -872,7 +885,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "velkozresearchstack",
                 Evade = false,
@@ -885,7 +898,7 @@ namespace Activator.Data
                 Interval = 0.3
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "frozenheartaura",
                 Evade = false,
@@ -897,7 +910,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "dariusaxebrabcone",
                 Evade = false,
@@ -909,7 +922,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "frozenheartauracosmetic",
                 Evade = false,
@@ -921,7 +934,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "itemsunfirecapeaura",
                 Evade = false,
@@ -934,7 +947,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "fizzmoveback",
                 Evade = false,
@@ -946,7 +959,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "blessingofthelizardelderslow",
                 Evade = false,
@@ -959,7 +972,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "dragonburning",
                 Evade = false,
@@ -971,7 +984,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "rocketgrab2",
                 Evade = false,
@@ -983,7 +996,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "frostarrow",
                 Evade = false,
@@ -995,9 +1008,9 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
-                Name = "Pulverize",
+                Name = "pulverize",
                 Evade = false,
                 DoT = false,
                 Cleanse = false,
@@ -1007,7 +1020,55 @@ namespace Activator.Data
                 Slot = SpellSlot.Q
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
+            {
+                Name = "chilled",
+                Evade = false,
+                DoT = false,
+                Cleanse = false,
+                CleanseTimer = 0,
+                EvadeTimer = 0,
+                QssIgnore = true,
+                Slot = SpellSlot.Unknown
+            });
+
+            BuffList.Add(new Buffdata
+            {
+                Name = "azirqslow",
+                Evade = false,
+                DoT = false,
+                Cleanse = false,
+                CleanseTimer = 0,
+                EvadeTimer = 0,
+                QssIgnore = true,
+                Slot = SpellSlot.Q
+            });
+
+            BuffList.Add(new Buffdata
+            {
+                Name = "powerballslow",
+                Evade = false,
+                DoT = false,
+                Cleanse = false,
+                CleanseTimer = 0,
+                EvadeTimer = 0,
+                QssIgnore = true,
+                Slot = SpellSlot.Q
+            });
+
+            BuffList.Add(new Buffdata
+            {
+                Name = "powerballstun",
+                Evade = false,
+                DoT = false,
+                Cleanse = false,
+                CleanseTimer = 0,
+                EvadeTimer = 0,
+                QssIgnore = true,
+                Slot = SpellSlot.Q
+            });
+
+            BuffList.Add(new Buffdata
             {
                 Name = "monkeykingspinknockup",
                 Evade = false,
@@ -1019,7 +1080,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "headbutttarget",
                 Evade = false,
@@ -1031,7 +1092,19 @@ namespace Activator.Data
                 Slot = SpellSlot.W
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
+            {
+                Name = "snare",
+                Evade = false,
+                DoT = false,
+                Cleanse = false,
+                CleanseTimer = 0,
+                EvadeTimer = 0,
+                QssIgnore = true,
+                Slot = SpellSlot.Unknown,
+            });
+
+            BuffList.Add(new Buffdata
             {
                 Name = "hecarimrampstuncheck",
                 Evade = false,
@@ -1043,7 +1116,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Auradata
+            BuffList.Add(new Buffdata
             {
                 Name = "hecarimrampattackknockback",
                 Evade = false,
@@ -1056,6 +1129,6 @@ namespace Activator.Data
             });
         }
 
-        public static List<Auradata> SomeAuras = new List<Auradata>(); 
+        public static List<Buffdata> SomeAuras = new List<Buffdata>(); 
     }
 }

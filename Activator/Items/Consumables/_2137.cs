@@ -6,54 +6,16 @@ namespace Activator.Items.Consumables
 {
     class _2137 : CoreItem
     {
-        internal override int Id
-        {
-            get { return 2137; }
-        }
-        internal override int Priority
-        {
-            get { return 3; }
-        }
-
-        internal override string Name
-        {
-            get { return "Elixir of Ruin"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Elixir of Ruin"; }
-        }
-
-        internal override int Duration
-        {
-            get { return 101; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP }; }
-        }
-
-        internal override MapType[] Maps
-        {
-            get { return new[] { MapType.SummonersRift, MapType.TwistedTreeline, MapType.HowlingAbyss }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 10; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override int Id => 2137;
+        internal override int Priority => 3;
+        internal override string Name => "Elixir of Ruin";
+        internal override string DisplayName => "Elixir of Ruin";
+        internal override int Duration => 101;
+        internal override float Range => float.MaxValue;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP };
+        internal override MapType[] Maps => new[] { MapType.SummonersRift, MapType.TwistedTreeline, MapType.HowlingAbyss };
+        internal override int DefaultHP => 10;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {
