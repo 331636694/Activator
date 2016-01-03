@@ -34,8 +34,8 @@ namespace Activator.Items.Cleansers
                     if (hero.ForceQSS)
                     {
                         UseItem();
-                        hero.QSSBuffCount = 0;
-                        hero.QSSHighestBuffTime = 0;
+                        hero.DervishBuffCount = 0;
+                        hero.DervishHighestBuffTime = 0;
                     }
 
                     Buffs.CheckDervish(hero.Player);

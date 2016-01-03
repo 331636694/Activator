@@ -147,6 +147,20 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Ahri",
+                Name = "ahriseduce",
+                MenuName = "Ahri Charm",
+                Evade = false,
+                DoT = false,
+                EvadeTimer = 0,
+                Cleanse = true,
+                CleanseTimer = 0,
+                Slot = SpellSlot.E,
+                Interval = 1.0
+            });
+
+            BuffList.Add(new Buffdata
+            {
                 Champion = "Talon",
                 Name = "talonbleeddebuf",
                 MenuName = "Talon Bleed",
@@ -455,6 +469,20 @@ namespace Activator.Data
                 Cleanse = true,
                 CleanseTimer = 100,
                 Slot = SpellSlot.R,
+                Interval = 1.0
+            });
+
+            BuffList.Add(new Buffdata
+            {
+                Champion = "Ekko",
+                Name = "ekkowstun",
+                MenuName = "Ekko Parellel Convergence",
+                Evade = false,
+                DoT = false,
+                EvadeTimer = 0,
+                Cleanse = true,
+                CleanseTimer = 0,
+                Slot = SpellSlot.W,
                 Interval = 1.0
             });
 

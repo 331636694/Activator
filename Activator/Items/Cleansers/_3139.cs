@@ -34,8 +34,8 @@ namespace Activator.Items.Cleansers
                     if (hero.ForceQSS)
                     {
                         UseItem();
-                        hero.QSSBuffCount = 0;
-                        hero.QSSHighestBuffTime = 0;
+                        hero.MercurialBuffCount = 0;
+                        hero.MercurialHighestBuffTime = 0;
                     }
 
                     Buffs.CheckMercurial(hero.Player);

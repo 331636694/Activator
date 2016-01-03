@@ -34,9 +34,9 @@ namespace Activator.Items.Cleansers
 
                 if (hero.ForceQSS)
                 {
-                    UseItem();
-                    hero.QSSBuffCount = 0;
-                    hero.QSSHighestBuffTime = 0;
+                    UseItem(hero.Player);
+                    hero.MikaelsBuffCount = 0;
+                    hero.MikaelsHighestBuffTime = 0;
                 }
 
                 Buffs.CheckMikaels(hero.Player);
