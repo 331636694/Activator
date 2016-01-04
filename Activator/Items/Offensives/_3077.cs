@@ -7,55 +7,16 @@ namespace Activator.Items.Offensives
 {
     class _3077 : CoreItem
     {
-        internal override int Id
-        {
-            get { return 3077; }
-        }
-
-        internal override int Priority
-        {
-            get { return 6; }
-        }
-
-        internal override string Name
-        {
-            get { return "Tiamat"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Tiamat"; }
-        }
-
-        internal override int Duration
-        {
-            get { return 100; }
-        }
-
-        internal override float Range
-        {
-            get { return 350f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.EnemyLowHP }; }
-        }
-
-        internal override MapType[] Maps
-        {
-            get { return new[] { MapType.Common }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 95; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override int Id => 3077;
+        internal override int Priority => 5;
+        internal override string Name => "Tiamat";
+        internal override string DisplayName => "Tiamat";
+        internal override int Duration => 100;
+        internal override float Range => 350f;    
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.EnemyLowHP };
+        internal override MapType[] Maps => new[] { MapType.Common };
+        internal override int DefaultHP => 95;
+        internal override int DefaultMP => 0;
 
         public _3077()
         {

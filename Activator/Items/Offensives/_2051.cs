@@ -6,55 +6,16 @@ namespace Activator.Items.Offensives
 {
     class _2051 : CoreItem
     {
-        internal override int Id
-        {
-            get { return 2051; }
-        }
-
-        internal override int Priority
-        {
-            get { return 7; }
-        }
-
-        internal override string Name
-        {
-            get { return "Guardians"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Guardian's Horn"; }
-        }
-
-        internal override MapType[] Maps
-        {
-            get { return new[] { MapType.HowlingAbyss }; }
-        }
-
-        internal override int Duration
-        {
-            get { return 100; }
-        }
-
-        internal override float Range
-        {
-            get { return 750f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.EnemyLowHP, MenuType.SelfCount }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 95; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override int Id => 2051;
+        internal override int Priority => 5;
+        internal override string Name => "Guardians";
+        internal override string DisplayName => "Guardian's Horn";
+        internal override MapType[] Maps => new[] { MapType.HowlingAbyss };
+        internal override int Duration => 100;
+        internal override float Range => 750f;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.EnemyLowHP, MenuType.SelfCount };
+        internal override int DefaultHP => 95;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {

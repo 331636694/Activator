@@ -7,54 +7,16 @@ namespace Activator.Items.Offensives
 {
     class _3042 : CoreItem
     {
-        internal override int Id
-        {
-            get { return 3042; }
-        }
-        internal override int Priority
-        {
-            get { return 7; }
-        }
-
-        internal override string Name
-        {
-            get { return "Muramana"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Muramana"; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override int Duration
-        {
-            get { return 100; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfMinMP,  MenuType.ActiveCheck }; }
-        }
-
-        internal override MapType[] Maps
-        {
-            get { return new[] { MapType.SummonersRift, MapType.HowlingAbyss }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 95; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 35; }
-        }
+        internal override int Id => 3042;
+        internal override int Priority => 5;
+        internal override string Name => "Muramana";
+        internal override string DisplayName => "Muramana";
+        internal override float Range => float.MaxValue;
+        internal override int Duration => 100;
+        internal override MenuType[] Category => new[] { MenuType.SelfMinMP,  MenuType.ActiveCheck };
+        internal override MapType[] Maps => new[] { MapType.SummonersRift, MapType.HowlingAbyss };
+        internal override int DefaultHP => 95;
+        internal override int DefaultMP => 35;
 
         public _3042()
         {

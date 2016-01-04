@@ -6,50 +6,15 @@ namespace Activator.Items.Offensives
 {
     class _3092 : CoreItem
     {
-        internal override int Id 
-        {
-            get { return 3092; }
-        }
-
-        internal override int Priority
-        {
-            get { return 6; }
-        }
-
-        internal override string Name 
-        {
-            get { return "Queens"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Frost Queen's Claim"; }
-        }
-
-        internal override float Range
-        {
-            get { return 1550f; }
-        }
-
-        internal override int Duration
-        {
-            get { return 2000; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 55; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.EnemyLowHP, MenuType.SelfLowHP }; }
-        }
-
-        internal override MapType[] Maps
-        {
-            get { return new[] { MapType.Common }; }
-        }
+        internal override int Id => 3092;
+        internal override int Priority => 5;
+        internal override string Name => "Queens";
+        internal override string DisplayName => "Frost Queen's Claim";
+        internal override float Range => 1550f;
+        internal override int Duration => 2000;
+        internal override int DefaultHP => 55;
+        internal override MenuType[] Category => new[] { MenuType.EnemyLowHP, MenuType.SelfLowHP };
+        internal override MapType[] Maps => new[] { MapType.Common };
 
         public override void OnTick(EventArgs args)
         {

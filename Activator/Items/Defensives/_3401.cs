@@ -7,7 +7,7 @@ namespace Activator.Items.Defensives
     class _3401 : CoreItem
     {
         internal override int Id => 3401;
-        internal override int Priority => 6;
+        internal override int Priority => 5;
         internal override string Name => "Mountain";
         internal override string DisplayName => "Face of the Mountain";
         internal override int Duration => 2000;

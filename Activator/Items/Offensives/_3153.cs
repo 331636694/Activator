@@ -6,55 +6,16 @@ namespace Activator.Items.Offensives
 {
     class _3153 : CoreItem
     {
-        internal override int Id
-        {
-            get { return 3153; }
-        }
-
-        internal override int Priority
-        {
-            get { return 7; }
-        }
-
-        internal override string Name
-        {
-            get { return "Botrk"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Blade of the Ruined King"; }
-        }
-
-        internal override int Duration
-        {
-            get { return 100; }
-        }
-
-        internal override float Range
-        {
-            get { return 550f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.EnemyLowHP }; }
-        }
-
-        internal override MapType[] Maps
-        {
-            get { return new[] { MapType.Common }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 90; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override int Id => 3153;
+        internal override int Priority => 5;
+        internal override string Name => "Botrk";
+        internal override string DisplayName => "Blade of the Ruined King";
+        internal override int Duration => 100;
+        internal override float Range => 550f;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.EnemyLowHP };
+        internal override MapType[] Maps => new[] { MapType.Common };
+        internal override int DefaultHP => 90;
+        internal override int DefaultMP => 0;
 
 
         public override void OnTick(EventArgs args)

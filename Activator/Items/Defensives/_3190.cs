@@ -7,7 +7,7 @@ namespace Activator.Items.Defensives
     class _3190 : CoreItem
     {
         internal override int Id => 3190;
-        internal override int Priority => 4;
+        internal override int Priority => 5;
         internal override string Name => "Locket";
         internal override string DisplayName => "Locket of Iron Solari";
         internal override int Duration => 2000;

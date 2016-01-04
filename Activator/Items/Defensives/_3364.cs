@@ -8,7 +8,7 @@ namespace Activator.Items.Defensives
     class _3364 : CoreItem
     {
         internal override int Id => 3364;
-        internal override int Priority => 5;
+        internal override int Priority => 4;
         internal override string Name => "Oracles";
         internal override string DisplayName => "Oracle's Lens";
         internal override int Duration => 1000;
