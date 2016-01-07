@@ -29,6 +29,16 @@ namespace Activator.Handlers
        {
             foreach (var hero in Activator.Allies())
             {
+                if (hero.Player.IsMe && Activator.Origin.Item("acdebug").GetValue<bool>())
+                {
+                    foreach (var t in hero.HitTypes)
+                    {
+                        Console.WriteLine("HitType: " + t);
+                        Console.WriteLine("TroyTicks: " + hero.TroyTicks);
+                        Console.WriteLine("DotTicks: " + hero.DotTicks);
+                    }
+                }
+
                 var aura = Buffdata.SomeAuras.Find(au => hero.Player.HasBuff(au.Name));
                 if (aura == null)
                 {
@@ -66,7 +76,11 @@ namespace Activator.Handlers
                             // double check after delay incase we no longer have the buff
                             if (hero.Player.HasBuff(aura.Name))
                             {
-                                hero.HitTypes.Add(HitType.Ultimate);
+                                if (!hero.HitTypes.Contains(HitType.Ultimate))
+                                {
+                                    Utility.DelayAction.Add(500, () => hero.HitTypes.Remove(HitType.Ultimate));
+                                    hero.HitTypes.Add(HitType.Ultimate);
+                                }
 
                                 if (Utils.GameTimeTickCount - aura.TickLimiter >= 100)
                                 {
@@ -74,8 +88,6 @@ namespace Activator.Handlers
                                     hero.IncomeDamage += 1;
                                     aura.TickLimiter = Utils.GameTimeTickCount;
                                 }
-
-                                Utility.DelayAction.Add(100, () => hero.HitTypes.Remove(HitType.Ultimate));
                             }
                         });
                 }
