@@ -117,8 +117,8 @@ namespace Activator.Summoners
                     if (finaldmg + ignotedmg >= tar.Player.Health)
                     {
                         var nearTurret =
-                            Activator.Turrets.MinOrDefault(
-                                x => !x.IsDead && x.Team == tar.Player.Team && tar.Player.Distance(x.ServerPosition) <= 1250);
+                            ObjectManager.Get<Obj_AI_Turret>().FirstOrDefault(
+                                x => !x.IsDead && x.IsValid && x.Team == tar.Player.Team && tar.Player.Distance(x.Position) <= 1250);
                         
                         if (nearTurret != null && Menu.Item("itu").GetValue<bool>() && Player.Level <= Menu.Item("igtu").GetValue<Slider>().Value)
                         {

@@ -35,7 +35,6 @@ namespace Activator
         internal static Obj_AI_Hero Player;
 
         internal static int MapId;
-        internal static Random Rand;
         internal static int LastUsedTimeStamp;
         internal static int LastUsedDuration;
 
@@ -46,7 +45,6 @@ namespace Activator
 
         public static System.Version Version;
         public static List<Champion> Heroes = new List<Champion>();
-        public static List<Obj_AI_Turret> Turrets = new List<Obj_AI_Turret>(); 
 
         private static void Main(string[] args)
         {
@@ -61,9 +59,6 @@ namespace Activator
                 Player = ObjectManager.Player;
                 MapId = (int) Utility.Map.GetMap().Type;
 
-                Rand = new Random();
-
-                GetTurrets();
                 GetSmiteSlot();
                 GetGameTroysInGame();
                 GetAurasInGame();
@@ -119,7 +114,6 @@ namespace Activator
 
                 zmenu.AddItem(new MenuItem("acdebug", "Debug")).SetValue(false);
                 zmenu.AddItem(new MenuItem("evade", "Evade Integration")).SetValue(true);
-                zmenu.AddItem(new MenuItem("alvl6", "Auto Level Ultimate")).SetValue(true).SetTooltip("Level 6 only. Must not be Jayce or Udyr");
                 zmenu.AddItem(new MenuItem("healthp", "Ally Priority:")).SetValue(new StringList(new[] { "Low HP", "Most AD/AP", "Most HP" }, 1));
                 zmenu.AddItem(new MenuItem("usecombo", "Combo (active)")).SetValue(new KeyBind(32, KeyBindType.Press, true));
 
@@ -142,7 +136,7 @@ namespace Activator
                 // tracks gameobjects 
                 Gametroys.StartOnUpdate();
 
-                Obj_AI_Base.OnLevelUp += Obj_AI_Base_OnLevelUp;
+                // on bought item
                 Obj_AI_Base.OnPlaceItemInSlot += Obj_AI_Base_OnPlaceItemInSlot;
 
                 Game.PrintChat("<b>Activator#</b> - Loaded!");
@@ -263,12 +257,6 @@ namespace Activator
                                !t.Name.Contains("c__") && !t.Name.Contains("<>c")).ToList(); // kek
         }
 
-        private static void GetTurrets()
-        {
-            foreach (var t in ObjectManager.Get<Obj_AI_Turret>().Where(i => i.IsValid))
-                Turrets.Add(t);
-        }
-
         private static void GetComboDamage()
         {
             foreach (KeyValuePair<string, List<DamageSpell>> entry in Damage.Spells)
@@ -382,32 +370,6 @@ namespace Activator
             };
 
             parent.AddSubMenu(menu);
-        }
-
-        private static void Obj_AI_Base_OnLevelUp(Obj_AI_Base sender, EventArgs args)
-        {
-            var hero = sender as Obj_AI_Hero;
-
-            if (hero == null || !hero.IsMe || 
-               !Origin.Item("alvl6").GetValue<bool>())
-            {
-                return;
-            }
-
-            if (hero.ChampionName == "Jayce" || 
-                hero.ChampionName == "Udyr" ||
-                hero.ChampionName == "Elise")
-            {
-                return;
-            }
-
-            switch (Player.Level)
-            {
-                case 6:
-                    Utility.DelayAction.Add(Rand.Next(500, 2000), 
-                        () => { Player.Spellbook.LevelSpell(SpellSlot.R); });
-                    break;
-            }
         }
 
         private static void LoadSpellMenu(Menu parent)
