@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Security;
 using System.Security.Permissions;
 
@@ -139,6 +140,7 @@ namespace Activator
                 // on bought item
                 Obj_AI_Base.OnPlaceItemInSlot += Obj_AI_Base_OnPlaceItemInSlot;
 
+                Game.OnChat += Game_OnChat;
                 Game.PrintChat("<b>Activator#</b> - Loaded!");
                 Updater.UpdateCheck();
 
@@ -420,8 +422,18 @@ namespace Activator
         {
             try
             {
-                new PermissionSet(PermissionState.Unrestricted).Assert();
-                return System.Activator.CreateInstance(type);
+                var target = type.GetConstructor(Type.EmptyTypes);
+                var dynamic = new DynamicMethod(string.Empty, type, new Type[0], target.DeclaringType);
+                var il = dynamic.GetILGenerator();
+
+                il.DeclareLocal(target.DeclaringType);
+                il.Emit(OpCodes.Newobj, target);
+                il.Emit(OpCodes.Stloc_0);
+                il.Emit(OpCodes.Ldloc_0);
+                il.Emit(OpCodes.Ret);
+
+                var method = (Func<object>) dynamic.CreateDelegate(typeof(Func<object>));
+                return method();
             }
 
             catch (Exception e)
@@ -430,11 +442,28 @@ namespace Activator
                 Game.PrintChat("Exception thrown at <font color=\"#FFF280\">Activator.NewInstance</font>");
                 return null;
             }
+        }
 
-            finally 
+        private static void Game_OnChat(GameChatEventArgs args)
+        {
+            if (args.Sender.IsMe && args.Message == ".changelog")
             {
-                // revert permisions
-                CodeAccessPermission.RevertAssert();
+                try
+                {
+                    new PermissionSet(PermissionState.Unrestricted).Assert();
+                    System.Diagnostics.Process.Start("https://github.com/xKurisu/Activator/commits/master");
+                    args.Process = false;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    Game.PrintChat("Exception thrown at <font color=\"#FFF280\">Activator.Changelog</font>");
+                }
+
+                finally
+                {
+                    CodeAccessPermission.RevertAssert();
+                }
             }
         }
     }

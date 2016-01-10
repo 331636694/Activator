@@ -62,4 +62,5 @@ namespace Activator.Base
         SelfMinHP,
         EnemyLowHP
     }
+
 }

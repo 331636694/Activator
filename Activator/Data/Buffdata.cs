@@ -64,6 +64,19 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Name = "masteryburndebuff",
+                MenuName = "Deathfire Touch",
+                Evade = false,
+                DoT = true,
+                EvadeTimer = 0,
+                Cleanse = false,
+                CleanseTimer = 0,
+                Slot = SpellSlot.Unknown,
+                Interval = 0.5
+            });
+
+            BuffList.Add(new Buffdata
+            {
                 Champion = "Vi",
                 Name = "virknockup",
                 MenuName = "Vi R Knockup",
@@ -97,10 +110,10 @@ namespace Activator.Data
                 Evade = false,
                 DoT = true,
                 EvadeTimer = 0,
-                Cleanse = true,
-                CleanseTimer = 100,
+                Cleanse = false,
+                CleanseTimer = 0,
                 Slot = SpellSlot.Unknown,
-                Interval = 1.0
+                Interval = 0.7
             });
 
             BuffList.Add(new Buffdata
@@ -155,6 +168,34 @@ namespace Activator.Data
                 EvadeTimer = 0,
                 Cleanse = true,
                 CleanseTimer = 0,
+                Slot = SpellSlot.E,
+                Interval = 1.0
+            });
+
+            BuffList.Add(new Buffdata
+            {
+                Champion = "Elise",
+                Name = "elisehumane",
+                MenuName = "Elise Cocoon",
+                Evade = false,
+                DoT = false,
+                EvadeTimer = 0,
+                Cleanse = true,
+                CleanseTimer = 25,
+                Slot = SpellSlot.E,
+                Interval = 1.0
+            });
+
+            BuffList.Add(new Buffdata
+            {
+                Champion = "Heimerdinger",
+                Name = "heimerdingerespell",
+                MenuName = "Heimerdinger Grenade",
+                Evade = false,
+                DoT = false,
+                EvadeTimer = 0,
+                Cleanse = true,
+                CleanseTimer = 25,
                 Slot = SpellSlot.E,
                 Interval = 1.0
             });
@@ -241,6 +282,62 @@ namespace Activator.Data
                 CleanseTimer = 0,
                 Slot = SpellSlot.W,
                 Interval = 1.0
+            });
+
+            BuffList.Add(new Buffdata
+            {
+                Champion = "Gnar",
+                Name = "gnarstun",
+                MenuName = "Gnar Ultimate",
+                Evade = false,
+                DoT = false,
+                EvadeTimer = 0,
+                Cleanse = true,
+                CleanseTimer = 100,
+                Slot = SpellSlot.R,
+                Interval = 1.0
+            });
+
+            BuffList.Add(new Buffdata
+            {
+                Champion = "Gragas",
+                Name = "gragasestun",
+                MenuName = "Gragas Body Slam",
+                Evade = false,
+                DoT = false,
+                EvadeTimer = 0,
+                Cleanse = true,
+                CleanseTimer = 100,
+                Slot = SpellSlot.E,
+                Interval = 1.0
+            });
+
+            BuffList.Add(new Buffdata
+            {
+                Champion = "Bard",
+                Name = "bardqshackledebuff",
+                MenuName = "Bard Cosmic Binding",
+                Evade = false,
+                DoT = false,
+                EvadeTimer = 0,
+                Cleanse = true,
+                CleanseTimer = 25,
+                Slot = SpellSlot.Q,
+                Interval = 1.0
+            });
+
+            BuffList.Add(new Buffdata
+            {
+                Champion = "Akali",
+                Name = "akalimota",
+                MenuName = "Akali Mark of the Assassin",
+                Evade = false,
+                DoT = true,
+                EvadeTimer = 0,
+                Cleanse = false,
+                CleanseTimer = 0,
+                Slot = SpellSlot.Q,
+                Interval = 1.5
             });
 
             BuffList.Add(new Buffdata
@@ -428,6 +525,34 @@ namespace Activator.Data
                 CleanseTimer = 0,
                 Slot = SpellSlot.R,
                 Interval = 1.0
+            });
+
+            BuffList.Add(new Buffdata
+            {
+                Champion = "Katarina",
+                Name = "katarinaqmark",
+                MenuName = "Katarina Bouncing Blades",
+                Evade = false,
+                DoT = true,
+                EvadeTimer = 0,
+                Cleanse = false,
+                CleanseTimer = 0,
+                Slot = SpellSlot.Q,
+                Interval = 1.5
+            });
+
+            BuffList.Add(new Buffdata
+            {
+                Champion = "Kindred",
+                Name = "kindredecharge",
+                MenuName = "Kindred Mounting Dread",
+                Evade = false,
+                DoT = true,
+                EvadeTimer = 0,
+                Cleanse = false,
+                CleanseTimer = 0,
+                Slot = SpellSlot.E,
+                Interval = 2.0
             });
 
             BuffList.Add(new Buffdata
@@ -790,15 +915,15 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
-                Champion = "Poppy",
-                Name = "poppyulttargetmark",
-                MenuName = "Poppy Diplomatic Immunity",
+                Champion = "Maokai",
+                Name = "maokaiunstablegrowthroot",
+                MenuName = "Maokai Root",
                 Evade = false,
                 DoT = false,
                 EvadeTimer = 0,
                 Cleanse = true,
                 CleanseTimer = 0,
-                Slot = SpellSlot.R
+                Slot = SpellSlot.W
             });
 
             BuffList.Add(new Buffdata
@@ -807,11 +932,12 @@ namespace Activator.Data
                 Name = "blindmonkqonechaos",
                 MenuName = "Lee Sonic Wave",
                 Evade = false,
-                DoT = false,
+                DoT = true,
                 EvadeTimer = 0,
-                Cleanse = true,
+                Cleanse = false,
                 CleanseTimer = 0,
-                Slot = SpellSlot.Q
+                Slot = SpellSlot.Q,
+                Interval = 3.0
             });
 
             BuffList.Add(new Buffdata

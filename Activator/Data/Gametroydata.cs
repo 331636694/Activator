@@ -66,7 +66,7 @@ namespace Activator.Data
             {
                 Name = "Hecarim_Defile",
                 ChampionName = "Hecarim",
-                Radius = 500f,
+                Radius = 425f,
                 Slot = SpellSlot.W,
                 HitType = new[] { Base.HitType.None },
                 PredictDmg = true,
@@ -77,7 +77,7 @@ namespace Activator.Data
             {
                 Name = "W_AoE",
                 ChampionName = "Hecarim",
-                Radius = 500f,
+                Radius = 425f,
                 Slot = SpellSlot.W,
                 HitType = new[] { Base.HitType.None },
                 PredictDmg = true,
@@ -88,7 +88,7 @@ namespace Activator.Data
             {
                 Name = "R_AoE",
                 ChampionName = "Gangplank",
-                Radius = 500f,
+                Radius = 450f,
                 Slot = SpellSlot.R,
                 HitType = new[] { Base.HitType.None },
                 PredictDmg = true,
@@ -99,7 +99,7 @@ namespace Activator.Data
             {
                 Name = "W_Shield",
                 ChampionName = "Diana",
-                Radius = 200f,
+                Radius = 225f,
                 Slot = SpellSlot.W,
                 HitType = new[] { Base.HitType.None },
                 PredictDmg = true,
@@ -110,7 +110,7 @@ namespace Activator.Data
             {
                 Name = "W_aoe_red",
                 ChampionName = "Malzahar",
-                Radius = 475f,
+                Radius = 325f,
                 Slot = SpellSlot.W,
                 HitType = new[] { Base.HitType.None },
                 PredictDmg = true,
@@ -121,7 +121,7 @@ namespace Activator.Data
             {
                 Name = "E_Defile",
                 ChampionName = "Karthus",
-                Radius = 475f,
+                Radius = 425f,
                 Slot = SpellSlot.E,
                 HitType = new[] { Base.HitType.None },
                 PredictDmg = true,
@@ -165,7 +165,7 @@ namespace Activator.Data
             {
                 Name = "ss_aoe",
                 ChampionName = "Kennen",
-                Radius = 500f,
+                Radius = 475f,
                 Slot = SpellSlot.R,
                 HitType = new[] { Base.HitType.Danger, Base.HitType.Ultimate },
                 PredictDmg = true,
@@ -243,7 +243,7 @@ namespace Activator.Data
             {
                 Name = "Crowstorm",
                 ChampionName = "FiddleSticks",
-                Radius = 450f,
+                Radius = 425f,
                 Slot = SpellSlot.R,
                 HitType =  new[] { Base.HitType.Danger, Base.HitType.Ultimate, Base.HitType.ForceExhaust },
                 PredictDmg = true,
@@ -309,7 +309,7 @@ namespace Activator.Data
             {
                 Name = "cryo_storm",
                 ChampionName = "Anivia",
-                Radius = 450f,
+                Radius = 400f,
                 Slot = SpellSlot.R,
                 HitType = new[] { Base.HitType.CrowdControl },
                 PredictDmg = true,
@@ -320,7 +320,7 @@ namespace Activator.Data
             {
                 Name = "ZiggsE",
                 ChampionName = "Ziggs",
-                Radius = 400f,
+                Radius = 325f,
                 Slot = SpellSlot.E,
                 HitType = new []{ Base.HitType.CrowdControl },
                 PredictDmg = true,
@@ -331,7 +331,7 @@ namespace Activator.Data
             {
                 Name = "ZiggsWRing",
                 ChampionName = "Ziggs",
-                Radius = 350f,
+                Radius = 325f,
                 Slot = SpellSlot.W,
                 HitType = new []{ Base.HitType.CrowdControl },
                 PredictDmg = false,
@@ -364,7 +364,7 @@ namespace Activator.Data
             {
                 Name = "W_Tar",
                 ChampionName = "Morgana",
-                Radius = 375f,
+                Radius = 275f,
                 Slot = SpellSlot.W,
                 HitType = new []{ Base.HitType.None },
                 PredictDmg = true,

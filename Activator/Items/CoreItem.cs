@@ -205,7 +205,8 @@ namespace Activator.Items
                     var ccmenu = new Menu(Name + " Buff Types", Name.ToLower() + "cdeb");
                     var ssmenu = new Menu(Name + " Unique Buffs", Name.ToLower() + "xspe");
 
-                    foreach (var b in Data.Buffdata.BuffList.Where(x => x.MenuName != null && (x.Cleanse || x.DoT)))
+                    foreach (var b in Data.Buffdata.BuffList.Where(x => x.MenuName != null && (x.Cleanse || x.DoT))
+                        .OrderByDescending(x => x.DoT).ThenBy(x => x.Evade).ThenBy(x => x.MenuName))
                     {
                         string xdot = b.DoT && b.Cleanse ? "[Danger]" : (b.DoT ? "[DoT]" : "[Danger]");
 
@@ -237,11 +238,11 @@ namespace Activator.Items
                         .SetValue(new Slider(DefaultHP / 5, 1, 5)).SetTooltip("Will Only " + Name + " if Your Buff Count is >= Value");
                     Menu.AddItem(new MenuItem("use" + Name + "time", "Min Durration to Use"))
                         .SetValue(new Slider(1, 1, 5)).SetTooltip("Will Only " + Name + " if the Buff is >= Value (Seconds)");
-                    Menu.AddItem(new MenuItem("use" + Name + "od", "Use for Dangerous Only"))
-                        .SetValue(false).SetTooltip("Will Save " + Name + " for Buffs Like Zed R, Suppresion, etc");
+                    Menu.AddItem(new MenuItem("use" + Name + "od", "Use for Unique Only"))
+                        .SetValue(false).SetTooltip("Will ignore buff types. See unique buffs menu above");
                     Menu.AddItem(new MenuItem("use" + Name + "dot", "Use for DoTs only if HP% <"))
                         .SetValue(new Slider(35)).SetTooltip("Will " + Name + " Damage Spells if Below HP%");
-                    Menu.AddItem(new MenuItem("use" + Name + "delay", "Activation Delay (in ms)")).SetValue(new Slider(150, 0, 500));
+                    Menu.AddItem(new MenuItem("use" + Name + "delay", "Activation Delay (in ms)")).SetValue(new Slider(100, 0, 500));
                 }
 
                 if (Category.Any(t => t == MenuType.ActiveCheck))
