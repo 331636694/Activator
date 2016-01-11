@@ -446,7 +446,7 @@ namespace Activator
 
         private static void Game_OnChat(GameChatEventArgs args)
         {
-            if (args.Sender.IsMe && args.Message == ".changelog")
+            if ((args.Sender?.IsMe ?? false) && args.Message == ".changelog")
             {
                 try
                 {
