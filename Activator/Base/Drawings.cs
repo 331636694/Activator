@@ -95,6 +95,11 @@ namespace Activator.Base
 
                 if (!Activator.Player.IsDead && Activator.Origin.Item("drawfill").GetValue<bool>())
                 {
+                    if (Activator.MapId != (int) MapType.SummonersRift)
+                    {
+                        return;
+                    }
+
                     foreach (var minion in 
                         MinionManager.GetMinions(Activator.Player.Position, 1200f, MinionTypes.All, MinionTeam.Neutral)
                             .Where(th => Essentials.IsEpicMinion(th) || Essentials.IsLargeMinion(th)))
