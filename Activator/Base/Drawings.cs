@@ -1,13 +1,42 @@
 ﻿using System;
-using System.Drawing;
+using System.Collections.Generic;
 using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
+using SharpDX;
+using Color = System.Drawing.Color;
 
 namespace Activator.Base
 {
+    struct Offset
+    {
+        public float X;
+        public float Y;
+        public int Width;
+        public int Height;
+
+        internal Offset(Vector2 vec, int width, int height)
+        {
+            X = vec.X;
+            Y = vec.Y;
+            Width = width;
+            Height = height;
+        }
+    }
+
     class Drawings
     {
+        private static Dictionary<string, Offset> Offsets = new Dictionary<string, Offset>
+        {
+            { "SRU_Blue1.1.1" , new Offset(new Vector2(-2, 22), 150, 6) },
+            { "SRU_Red4.1.1" , new Offset(new Vector2(-2, 22), 150, 6) },
+            { "SRU_Dragon6.1.1" , new Offset(new Vector2(1, 23), 150, 6) },
+            { "SRU_Blue7.1.1" , new Offset(new Vector2(-2, 22), 150, 6) },
+            { "SRU_Red10.1.1" , new Offset(new Vector2(-2, 22), 150, 6) },
+            { "SRU_Baron12.1.1" , new Offset(new Vector2(57, 24), 165, 11) },
+            { "SRU_RiftHerald17.1.1" , new Offset(new Vector2(-1, 22), 155, 6) },
+        };
+
         public static void Init()
         {
             Drawing.OnDraw += args =>
@@ -66,24 +95,15 @@ namespace Activator.Base
 
                 if (!Activator.Player.IsDead && Activator.Origin.Item("drawfill").GetValue<bool>())
                 {
-                    return;
-
-                    if (Activator.MapId != (int) MapType.SummonersRift)
+                    foreach (var minion in 
+                        MinionManager.GetMinions(Activator.Player.Position, 1200f, MinionTypes.All, MinionTeam.Neutral)
+                            .Where(th => Essentials.IsEpicMinion(th) || Essentials.IsLargeMinion(th)))
                     {
-                        return;
-                    }
-                        
-                    const int height = 6;
-                    const int width = 150;
-                    const int yoffset = -156;
-                    const int xoffset = -49;
+                        var yoffset = Offsets[minion.Name].Y;
+                        var xoffset = Offsets[minion.Name].X;
+                        var width = Offsets[minion.Name].Width;
+                        var height = Offsets[minion.Name].Height;
 
-                    foreach (
-                        var minion in
-                            MinionManager.GetMinions(Activator.Player.Position, 1200f, MinionTypes.All,
-                                MinionTeam.Neutral)
-                                .Where(th => Essentials.IsEpicMinion(th) || Essentials.IsLargeMinion(th)))
-                    {
                         if (!minion.IsHPBarRendered)
                         {
                             continue;
@@ -108,11 +128,11 @@ namespace Activator.Base
                         for (var i = 0; i < ana; i++)
                         {
                             if (Activator.Origin.Item("usesmite").GetValue<KeyBind>().Active)
-                                Drawing.DrawLine((float) pos + i, yaxis, (float) pos + i, yaxis + height, 1,
+                                Drawing.DrawLine((float) pos + i, yaxis, (float)pos + i, yaxis + height, 1,
                                     Color.White);
 
                             if (!Activator.Origin.Item("usesmite").GetValue<KeyBind>().Active)
-                                Drawing.DrawLine((float) pos + i, yaxis, (float) pos + i, yaxis + height, 1,
+                                Drawing.DrawLine((float) pos + i, yaxis, (float)pos + i, yaxis + height, 1,
                                     Color.Gray);
                         }
                     }
