@@ -399,7 +399,7 @@ namespace Activator.Handlers
                         if (args.SData.TargettingType == SpellDataTargetType.Unit ||
                             args.SData.TargettingType == SpellDataTargetType.SelfAndUnit)
                         {
-                            if (args.Target == null)
+                            if (args.Target == null || args.Target.Type != GameObjectType.obj_AI_Hero)
                                 continue;
 
                             // check if is targeteting the hero on our table

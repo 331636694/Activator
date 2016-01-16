@@ -6,30 +6,11 @@ namespace Activator.Summoners
 {
     internal class dot : CoreSum
     {
-        internal override string Name
-        {
-            get { return "summonerdot"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Ignite"; }
-        }
-
-        internal override string[] ExtraNames
-        {
-            get { return new[] { "" }; }
-        }
-
-        internal override float Range
-        {
-            get { return 600f; }
-        }
-
-        internal override int Duration
-        {
-            get { return 100; }
-        }
+        internal override string Name => "summonerdot";
+        internal override string DisplayName => "Ignite";
+        internal override string[] ExtraNames => new[] { "" };
+        internal override float Range => 600f;
+        internal override int Duration => 100;
 
         public override void OnTick(EventArgs args)
         {

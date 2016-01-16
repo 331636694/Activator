@@ -333,10 +333,8 @@ namespace Activator.Handlers
                     buff.Type == BuffType.Stun &&
                     Activator.Origin.Item(itemname + "cstun").GetValue<bool>() ||
                     buff.Type == BuffType.Fear &&
-                    Activator.Origin.Item(itemname + "cfear").GetValue<bool>() ||
-                    buff.Type == BuffType.Flee &&
                     Activator.Origin.Item(itemname + "cflee").GetValue<bool>() ||
-                    buff.Type == BuffType.Polymorph &&
+                    buff.Type == BuffType.Flee &&
                     Activator.Origin.Item(itemname + "cpolymorph").GetValue<bool>() ||
                     buff.Type == BuffType.Blind &&
                     Activator.Origin.Item(itemname + "cblind").GetValue<bool>() ||
@@ -354,38 +352,21 @@ namespace Activator.Handlers
 
         public static int GetCustomDamage(this Obj_AI_Hero source, string auraname, Obj_AI_Hero target)
         {
-            switch (auraname)
+            if (auraname == "sheen")
             {
-                case "itemsunfirecapeaura":
-                    return
-                        (int)
-                            source.CalcDamage(target, Damage.DamageType.Magical,
-                                25 + (1 * source.Level));
+                return
+                    (int)
+                        source.CalcDamage(target, Damage.DamageType.Physical,
+                            1.0 * source.FlatPhysicalDamageMod + source.BaseAttackDamage);
+            }
 
-                case "gangplankattackdotpassive":
-                    return
-                        (int)
-                            source.CalcDamage(target, Damage.DamageType.True,
-                                20 + (10 * source.Level) + 1.2 * (source.BaseAttackDamage + source.FlatPhysicalDamageMod));
-
-                case "bantamtraptarget":
-                    return
-                        (int)
-                            source.CalcDamage(target, Damage.DamageType.Magical,
-                                new[] { 50, 81, 112 }[source.Level / 6] + 0.25 * (source.FlatMagicDamageMod));
-
-                case "sheen":
-                    return
-                        (int)
-                            source.CalcDamage(target, Damage.DamageType.Physical,
-                                1.0 * source.FlatPhysicalDamageMod + source.BaseAttackDamage);
-
-
-                case "lichbane":
-                    return
-                        (int)
-                            source.CalcDamage(target, Damage.DamageType.Magical,
-                                (0.75*source.FlatPhysicalDamageMod + source.BaseAttackDamage) + (0.50*source.FlatMagicDamageMod));
+            if (auraname == "lichbane")
+            {
+                return
+                    (int)
+                        source.CalcDamage(target, Damage.DamageType.Magical,
+                            (0.75 * source.FlatPhysicalDamageMod + source.BaseAttackDamage) +
+                            (0.50 * source.FlatMagicDamageMod));
             }
 
             return 0;

@@ -9,37 +9,15 @@ namespace Activator.Summoners
 {
     internal class smite : CoreSum
     {
-        internal override string Name
+        internal override string Name => "summonersmite";
+        internal override string DisplayName => "Smite";
+        internal override float Range => 500f;
+        internal override int Duration => 0;
+        internal override string[] ExtraNames => new[]
         {
-            get { return "summonersmite"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Smite"; }
-        }
-
-        internal override float Range
-        {
-            get { return 500f; }
-        }
-
-        internal override int Duration
-        {
-            get { return 0; }
-        }
-
-        internal override string[] ExtraNames
-        {
-            get
-            {
-                return new[]
-                {
-                    "s5_summonersmiteplayerganker", "s5_summonersmiteduel",
-                    "s5_summonersmitequick", "itemsmiteaoe"
-                };
-            }
-        }
+            "s5_summonersmiteplayerganker", "s5_summonersmiteduel",
+            "s5_summonersmitequick", "itemsmiteaoe"
+        };
 
         internal static void L33TSmite(Obj_AI_Base unit, float smitedmg)
         {

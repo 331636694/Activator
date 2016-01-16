@@ -7,30 +7,11 @@ namespace Activator.Summoners
 {
     internal class boost : CoreSum
     {
-        internal override string Name
-        {
-            get { return "summonerboost"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Cleanse"; }
-        }
-
-        internal override string[] ExtraNames
-        {
-            get { return new[] { "" }; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override int Duration
-        {
-            get { return 3000; }
-        }
+        internal override string Name => "summonerboost";
+        internal override string DisplayName => "Cleanse";
+        internal override string[] ExtraNames => new[] { "" };
+        internal override float Range => float.MaxValue;
+        internal override int Duration => 3000;
 
         public override void OnTick(EventArgs args)
         {

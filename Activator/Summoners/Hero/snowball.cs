@@ -6,25 +6,10 @@ namespace Activator.Summoners
 {
     class snowball : CoreSum
     {
-        internal override string Name
-        {
-            get { return "summonersnowball"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Mark"; }
-        }
-
-        internal override float Range
-        {
-            get { return 1500f; }
-        }
-
-        internal override int Duration
-        {
-            get { return 100; }
-        }
+        internal override string Name => "summonersnowball";
+        internal override string DisplayName => "Mark";
+        internal override float Range => 1500f;
+        internal override int Duration => 100;
 
         private static Spell mark;
 

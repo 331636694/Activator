@@ -27,8 +27,9 @@ namespace Activator.Spells
         internal virtual int DefaultHP { get; set; }
 
         public Menu Menu { get; private set; }
-        public Menu Parent { get { return Menu.Parent; } }
-        public Obj_AI_Hero Player { get { return ObjectManager.Player; } }
+        public Menu Parent => Menu.Parent;
+        public Obj_AI_Hero Player => ObjectManager.Player;
+
         public Obj_AI_Hero LowTarget
         {
             get
@@ -115,11 +116,19 @@ namespace Activator.Spells
 
         public void CastOnBestTarget(Obj_AI_Hero primary, bool nonhero = false)
         {
-            if (TargetSelector.GetPriority(primary) >= 2)
-                UseSpellOn(primary);
-
-            else if (LowTarget != null)
-                UseSpellOn(LowTarget);
+            if (LowTarget != null)
+            {
+                if (!Player.IsRecalling() &&
+                    !Player.Spellbook.IsChanneling &&
+                    !Player.IsChannelingImportantSpell())
+                {
+                    if (Player.Spellbook.CastSpell(Player.GetSpellSlot(Name), LowTarget))
+                    {
+                        Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
+                        Activator.LastUsedDuration = 100;
+                    }
+                }
+            }
         }
 
         public bool IsReady()

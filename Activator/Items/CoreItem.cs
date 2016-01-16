@@ -23,7 +23,7 @@ namespace Activator.Items
         internal virtual int Id { get; set; }
         internal virtual int Priority { get; set; }
         internal virtual int Duration { get; set; }
-        internal virtual bool Craving { get; set; }
+        internal virtual bool Needed { get; set; }
         internal virtual string Name { get; set; }
         internal virtual string DisplayName { get; set; }
         internal virtual float Range { get; set; }
@@ -48,11 +48,9 @@ namespace Activator.Items
             }
         }
 
-        // Item priority, wont add Items to priority list till we need them!
         public static IEnumerable<CoreItem> PriorityList()
         {
-            var hpi = from ii in Lists.Items
-                      where  LeagueSharp.Common.Items.CanUseItem(ii.Id) && ii.Craving
+            var hpi = from ii in Lists.Items where  LeagueSharp.Common.Items.CanUseItem(ii.Id) && ii.Needed
                       orderby ii.Menu.Item("prior" + ii.Name).GetValue<Slider>().Value descending 
                       select ii;
 
@@ -65,18 +63,20 @@ namespace Activator.Items
             return ready;
         }
 
+        public int[] Excluded => new[] { 3090, 3157, 3137, 3139, 3140, 3222 };
+
         public void UseItem(bool combo = false)
         {
             if (IsReady())
             {
-                Utility.DelayAction.Add(80 - Priority * 10, () => Craving = true);
+                Utility.DelayAction.Add(80 - Priority * 10, () => Needed = true);
             }
 
             if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
             {
                 if (PriorityList().Any() && Name == PriorityList().First().Name)
                 {
-                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || Id == 3090 || Id == 3157)
+                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || Excluded.Any(ex => Id.Equals(ex)))
                     {
                         if (!Activator.Player.HasBuffOfType(BuffType.Invisibility))
                         {
@@ -84,7 +84,7 @@ namespace Activator.Items
                             {
                                 Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
                                 Activator.LastUsedDuration = Duration;
-                                Utility.DelayAction.Add(100, () => Craving = false);
+                                Utility.DelayAction.Add(100, () => Needed = false);
                             }
                         }
                     }
@@ -96,14 +96,14 @@ namespace Activator.Items
         {
             if (IsReady())
             {
-                Utility.DelayAction.Add(80 - Priority * 10, () => Craving = true);
+                Utility.DelayAction.Add(80 - Priority * 10, () => Needed = true);
             }
 
             if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
             {
                 if (PriorityList().Any() && Name == PriorityList().First().Name)
                 {
-                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || Id == 3090 || Id == 3157)
+                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || Excluded.Any(ex => Id.Equals(ex)))
                     {
                         if (!Activator.Player.HasBuffOfType(BuffType.Invisibility))
                         {
@@ -111,7 +111,7 @@ namespace Activator.Items
                             {
                                 Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
                                 Activator.LastUsedDuration = Duration;
-                                Utility.DelayAction.Add(100, () => Craving = false);
+                                Utility.DelayAction.Add(100, () => Needed = false);
                             }
                         }
                     }
@@ -123,14 +123,14 @@ namespace Activator.Items
         {
             if (IsReady())
             {
-                Utility.DelayAction.Add(80 - Priority * 10, () => Craving = true);
+                Utility.DelayAction.Add(80 - Priority * 10, () => Needed = true);
             }
 
             if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
             {
                 if (PriorityList().Any() && Name == PriorityList().First().Name)
                 {
-                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || Id == 3090 || Id == 3157)
+                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || Excluded.Any(ex => Id.Equals(ex)))
                     {
                         if (!Activator.Player.HasBuffOfType(BuffType.Invisibility))
                         {
@@ -138,7 +138,7 @@ namespace Activator.Items
                             {
                                 Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
                                 Activator.LastUsedDuration = Duration;
-                                Utility.DelayAction.Add(100, () => Craving = false);
+                                Utility.DelayAction.Add(100, () => Needed = false);
                             }
                         }
                     }
@@ -219,18 +219,17 @@ namespace Activator.Items
 
                     ccmenu.AddItem(new MenuItem(Name + "cignote", "Ignite")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "cexhaust", "Exhaust")).SetValue(true);
+                    ccmenu.AddItem(new MenuItem(Name + "csupp", "Supression")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "cstun", "Stuns")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "ccharm", "Charms")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "ctaunt", "Taunts")).SetValue(true);
-                    ccmenu.AddItem(new MenuItem(Name + "cfear", "Fears")).SetValue(true);
-                    ccmenu.AddItem(new MenuItem(Name + "cflee", "Flee")).SetValue(true);
+                    ccmenu.AddItem(new MenuItem(Name + "cflee", "Flee/Fear")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "csnare", "Snares")).SetValue(true);
-                    ccmenu.AddItem(new MenuItem(Name + "csilence", "Silences")).SetValue(true);
-                    ccmenu.AddItem(new MenuItem(Name + "csupp", "Supression")).SetValue(true);
-                    ccmenu.AddItem(new MenuItem(Name + "cpolymorph", "Polymorphs")).SetValue(true);
-                    ccmenu.AddItem(new MenuItem(Name + "cblind", "Blinds")).SetValue(true);
+                    ccmenu.AddItem(new MenuItem(Name + "csilence", "Silences")).SetValue(false);
+                    ccmenu.AddItem(new MenuItem(Name + "cpolymorph", "Polymorphs")).SetValue(false);
+                    ccmenu.AddItem(new MenuItem(Name + "cblind", "Blinds")).SetValue(false);
                     ccmenu.AddItem(new MenuItem(Name + "cslow", "Slows")).SetValue(false);
-                    ccmenu.AddItem(new MenuItem(Name + "cpoison", "Poisons")).SetValue(true);
+                    ccmenu.AddItem(new MenuItem(Name + "cpoison", "Poisons")).SetValue(false);
                     Menu.AddSubMenu(ccmenu);
                     Menu.AddSubMenu(ssmenu);
 

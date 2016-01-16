@@ -5,30 +5,11 @@ namespace Activator.Summoners
 {
     internal class heal : CoreSum
     {
-        internal override string Name
-        {
-            get { return "summonerheal"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Heal"; }
-        }
-
-        internal override string[] ExtraNames
-        {
-            get { return new[] { "" }; }
-        }
-
-        internal override float Range
-        {
-            get { return 850f; }
-        }
-
-        internal override int Duration
-        {
-            get { return 0; }
-        }
+        internal override string Name => "summonerheal";
+        internal override string DisplayName => "Heal";
+        internal override string[] ExtraNames => new[] { "" };
+        internal override float Range => 850f;
+        internal override int Duration => 0;
 
         public override void OnTick(EventArgs args)
         {

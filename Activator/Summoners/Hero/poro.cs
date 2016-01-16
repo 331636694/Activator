@@ -6,25 +6,10 @@ namespace Activator.Summoners
 {
     class poro : CoreSum
     {
-        internal override string Name
-        {
-            get { return "summonerporothrow"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Poro Toss"; }
-        }
-
-        internal override float Range
-        {
-            get { return 1500f; }
-        }
-
-        internal override int Duration
-        {
-            get { return 100; }
-        }
+        internal override string Name => "summonerporothrow";
+        internal override string DisplayName => "Poro Toss";
+        internal override float Range => 1500f;
+        internal override int Duration => 100;
 
         private static Spell mark;
 

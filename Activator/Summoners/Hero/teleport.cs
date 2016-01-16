@@ -8,32 +8,14 @@ namespace Activator.Summoners
 {
     class teleport : CoreSum
     {
-        internal override string Name
-        {
-            get { return "summonerteleport"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Teleport"; }
-        }
-
-        internal override string[] ExtraNames
-        {
-            get { return new[] { "" }; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override int Duration
-        {
-            get { return 3500; }
-        }
+        internal override string Name => "summonerteleport";
+        internal override string DisplayName => "Teleport";
+        internal override string[] ExtraNames => new[] { "" };
+        internal override float Range => float.MaxValue;
+        internal override int Duration => 3500;
 
         private static int _lastPing;
+        private static Random _rand => new Random();
         private static Vector3 _lastPingLocation;
 
         // ping credits to Honda :^)
@@ -48,10 +30,10 @@ namespace Activator.Summoners
             _lastPingLocation = pos;
 
             SimplePing();
-            Utility.DelayAction.Add(150, SimplePing);
-            Utility.DelayAction.Add(300, SimplePing);
-            Utility.DelayAction.Add(400, SimplePing);
-            Utility.DelayAction.Add(800, SimplePing);
+            Utility.DelayAction.Add(99 + _rand.Next(90, 300), SimplePing);
+            Utility.DelayAction.Add(299 + _rand.Next(90, 300), SimplePing);
+            Utility.DelayAction.Add(399 + _rand.Next(90, 300), SimplePing);
+            Utility.DelayAction.Add(799 + _rand.Next(90, 300), SimplePing);
         }
 
         private static void SimplePing()

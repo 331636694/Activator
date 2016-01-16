@@ -8,30 +8,11 @@ namespace Activator.Summoners
 {
     internal class exhuast : CoreSum
     {
-        internal override string Name
-        {
-            get { return "summonerexhaust"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Exhaust"; }
-        }
-        internal override string[] ExtraNames
-        {
-            get { return new[] { "" }; }
-        }
-
-        internal override float Range
-        {
-            get { return 650f; }
-        }
-
-        internal override int Duration
-        {
-            get { return 100; }
-        }
-
+        internal override string Name => "summonerexhaust";
+        internal override string DisplayName => "Exhaust";
+        internal override string[] ExtraNames => new[] { "" };
+        internal override float Range => 650f;
+        internal override int Duration => 100;
         public override void OnTick(EventArgs args)
         {
             if (!Menu.Item("use" + Name).GetValue<bool>() || !IsReady())

@@ -26,9 +26,9 @@ namespace Activator.Summoners
         internal virtual int DefaultHP { get; set; }
 
         public Menu Menu { get; private set; }
-        public Menu Parent { get { return Menu.Parent; } }
-        public SpellSlot Slot { get { return Player.GetSpellSlot(Name); } }
-        public Obj_AI_Hero Player { get { return ObjectManager.Player; } }
+        public Menu Parent => Menu.Parent;
+        public SpellSlot Slot => Player.GetSpellSlot(Name);
+        public Obj_AI_Hero Player => ObjectManager.Player;
 
         public CoreSum CreateMenu(Menu root)
         {
@@ -47,7 +47,7 @@ namespace Activator.Summoners
                     Activator.UseAllyMenu = true;
                     Menu.AddItem(new MenuItem("selflowhp" + Name + "pct", "Use on Hero HP % <=")).SetValue(new Slider(20));
                     Menu.AddItem(new MenuItem("selfmuchhp" + Name + "pct", "Use on Hero Dmg Dealt % >=")).SetValue(new Slider(45));
-                    Menu.AddItem(new MenuItem("use" + Name + "tower", "Include Tower Damage")).SetValue(true);
+                    Menu.AddItem(new MenuItem("use" + Name + "tower", "Include Tower Damage")).SetValue(false);
                     Menu.AddItem(new MenuItem("mode" + Name, "Mode: ")).SetValue(new StringList(new[] { "Always", "Combo" }, 1));
                 }
 
@@ -57,18 +57,17 @@ namespace Activator.Summoners
                     var ccmenu = new Menu(DisplayName + " Buff Types", DisplayName.ToLower() + "cdeb");
                     ccmenu.AddItem(new MenuItem(Name + "cignote", "Ignite")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "cexhaust", "Exhaust")).SetValue(true);
+                    ccmenu.AddItem(new MenuItem(Name + "csupp", "Supression")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "cstun", "Stuns")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "ccharm", "Charms")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "ctaunt", "Taunts")).SetValue(true);
-                    ccmenu.AddItem(new MenuItem(Name + "cfear", "Fears")).SetValue(true);
-                    ccmenu.AddItem(new MenuItem(Name + "cflee", "Flee")).SetValue(true);
+                    ccmenu.AddItem(new MenuItem(Name + "cflee", "Flee/Fear")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "csnare", "Snares")).SetValue(true);
-                    ccmenu.AddItem(new MenuItem(Name + "csilence", "Silences")).SetValue(true);
-                    ccmenu.AddItem(new MenuItem(Name + "csupp", "Supression")).SetValue(true);
-                    ccmenu.AddItem(new MenuItem(Name + "cpolymorph", "Polymorphs")).SetValue(true);
-                    ccmenu.AddItem(new MenuItem(Name + "cblind", "Blinds")).SetValue(true);
+                    ccmenu.AddItem(new MenuItem(Name + "csilence", "Silences")).SetValue(false);
+                    ccmenu.AddItem(new MenuItem(Name + "cpolymorph", "Polymorphs")).SetValue(false);
+                    ccmenu.AddItem(new MenuItem(Name + "cblind", "Blinds")).SetValue(false);
                     ccmenu.AddItem(new MenuItem(Name + "cslow", "Slows")).SetValue(false);
-                    ccmenu.AddItem(new MenuItem(Name + "cpoison", "Poisons")).SetValue(true);
+                    ccmenu.AddItem(new MenuItem(Name + "cpoison", "Poisons")).SetValue(false);
                     Menu.AddSubMenu(ccmenu);
 
                     Menu.AddItem(new MenuItem("use" + Name + "number", "Min Buffs to Use")).SetValue(new Slider(1, 1, 5))
@@ -83,7 +82,6 @@ namespace Activator.Summoners
                 if (Name == "summonerdot")
                 {
                     Activator.UseEnemyMenu = true;
-
                     Menu.AddItem(new MenuItem("idmgcheck", "Combo Damage Check %"))
                         .SetValue(new Slider(100, 1, 200)).SetTooltip("Lower if Igniting to early. Increase if opposite.");
 
@@ -177,12 +175,13 @@ namespace Activator.Summoners
                 ExtraNames.Any(exname => Player.GetSpellSlot(exname).IsReady());
         }
 
+        public string[] Excluded = { "summonerexhaust", "summonerboost" };
+
         public void UseSpell(bool combo = false)
         {
             if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
             {
-                if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration
-                    || Name == "summonerexhaust") // ignore limit
+                if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration || Excluded.Any(ex => Name.Equals(ex))) // ignore limit
                 {
                     if (Player.GetSpell(Slot).State == SpellState.Ready)
                     {
@@ -196,7 +195,7 @@ namespace Activator.Summoners
 
         public void UseSpellOn(Obj_AI_Base target, bool combo = false)
         {
-            if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
+            if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active || Excluded.Any(ex => Name.Equals(ex)))
             {
                 if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration
                     || Name == "summonerexhaust") // ignore limit

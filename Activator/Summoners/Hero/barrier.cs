@@ -6,30 +6,11 @@ namespace Activator.Summoners
 {
     internal class barrier : CoreSum
     {
-        internal override string Name
-        {
-            get { return "summonerbarrier"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Barrier"; }
-        }
-
-        internal override string[] ExtraNames
-        {
-            get { return new[] { "" }; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override int Duration
-        {
-            get { return 1500; }
-        }
+        internal override string Name => "summonerbarrier";
+        internal override string DisplayName => "Barrier";
+        internal override string[] ExtraNames => new[] { "" };
+        internal override float Range => float.MaxValue;
+        internal override int Duration => 1500;
 
         public override void OnTick(EventArgs args)
         {

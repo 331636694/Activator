@@ -62,19 +62,16 @@ namespace Activator.Handlers
         {
             #region Stealth
 
-            if (sender.IsEnemy && sender.Type == GameObjectType.obj_AI_Hero)
-            {
-                var attacker = sender as Obj_AI_Hero;
-                if (attacker == null || attacker.IsAlly || !attacker.IsValid<Obj_AI_Hero>())
-                    return;
+            var attacker = sender as Obj_AI_Hero;
+            if (attacker == null || attacker.IsAlly || !attacker.IsValid<Obj_AI_Hero>())
+                return;
 
-                foreach (var hero in Activator.Heroes.Where(h => h.Player.Distance(attacker) <= 1200))
+            foreach (var hero in Activator.Heroes.Where(h => h.Player.Distance(attacker) <= 1200))
+            {
+                if (Data.Spelldata.Spells.Any(x => args.SData.Name.ToLower() == x.SDataName && x.HitType.Contains(HitType.Stealth)))
                 {
-                    if (Data.Spelldata.Spells.Any(x => args.SData.Name.ToLower() == x.SDataName && x.HitType.Contains(HitType.Stealth)))
-                    {
-                        hero.HitTypes.Add(HitType.Stealth);
-                        Utility.DelayAction.Add(200, () => hero.HitTypes.Remove(HitType.Stealth));
-                    }
+                    hero.HitTypes.Add(HitType.Stealth);
+                    Utility.DelayAction.Add(200, () => hero.HitTypes.Remove(HitType.Stealth));
                 }
             }
 

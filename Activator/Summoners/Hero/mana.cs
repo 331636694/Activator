@@ -5,29 +5,11 @@ namespace Activator.Summoners
 {
     internal class mana : CoreSum
     {
-        internal override string Name
-        {
-            get { return "summonermana"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Clarity"; }
-        }
-        internal override string[] ExtraNames
-        {
-            get { return new[] { "" }; }
-        }
-
-        internal override float Range
-        {
-            get { return 600f; }
-        }
-
-        internal override int Duration
-        {
-            get { return 1000; }
-        }
+        internal override string Name => "summonermana";
+        internal override string DisplayName => "Clarity";
+        internal override string[] ExtraNames => new[] { "" };
+        internal override float Range => 600f;
+        internal override int Duration => 1000;
 
         public override void OnTick(EventArgs args)
         {
