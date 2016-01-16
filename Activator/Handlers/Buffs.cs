@@ -332,9 +332,9 @@ namespace Activator.Handlers
                     Activator.Origin.Item(itemname + "ctaunt").GetValue<bool>() ||
                     buff.Type == BuffType.Stun &&
                     Activator.Origin.Item(itemname + "cstun").GetValue<bool>() ||
-                    buff.Type == BuffType.Fear &&
-                    Activator.Origin.Item(itemname + "cflee").GetValue<bool>() ||
                     buff.Type == BuffType.Flee &&
+                    Activator.Origin.Item(itemname + "cflee").GetValue<bool>() ||
+                    buff.Type == BuffType.Polymorph &&
                     Activator.Origin.Item(itemname + "cpolymorph").GetValue<bool>() ||
                     buff.Type == BuffType.Blind &&
                     Activator.Origin.Item(itemname + "cblind").GetValue<bool>() ||
