@@ -10,7 +10,7 @@ namespace Activator.Handlers
     public class Projections
     {
         internal static int LastCastedTimeStamp;
-        internal static Obj_AI_Hero Player = ObjectManager.Player;
+        internal static Obj_AI_Hero Player => ObjectManager.Player;
 
         public static void Init()
         {
@@ -188,11 +188,10 @@ namespace Activator.Handlers
                         if (args.SData.TargettingType == SpellDataTargetType.Self ||
                             args.SData.TargettingType == SpellDataTargetType.SelfAoe)
                         {
-                            var fromObj = ObjectManager.Get<GameObject>().FirstOrDefault(
-                                x =>
-                                    data.FromObject != null && !x.IsAlly && data.FromObject.Any(y => x.Name.Contains(y)));
+                            var fromobj = ObjectManager.Get<GameObject>().FirstOrDefault(
+                                x => data.FromObject != null && !x.IsAlly && data.FromObject.Any(y => x.Name.Contains(y)));
 
-                            var correctpos = fromObj?.Position ?? attacker.ServerPosition;
+                            var correctpos = fromobj?.Position ?? attacker.ServerPosition;
                             if (hero.Player.Distance(correctpos) > data.CastRange)
                                 continue;
 
@@ -266,20 +265,18 @@ namespace Activator.Handlers
                         #region skillshot
 
                         if (args.SData.TargettingType == SpellDataTargetType.Cone ||
-                            args.SData.TargettingType.ToString().Contains("Location") ||
-                            args.SData.TargettingType == (SpellDataTargetType) 10 && data.SDataName == "azirq")
+                            args.SData.TargettingType.ToString().Contains("Location"))
                         {
-                            var fromObj =
+
+                            var fromobj =
                                 ObjectManager.Get<GameObject>()
                                     .FirstOrDefault(
-                                        x =>
-                                            !x.IsAlly && data.FromObject != null &&
-                                            data.FromObject.Any(y => x.Name.Contains(y)));                
+                                        x => !x.IsAlly && data.FromObject != null && data.FromObject.Any(y => x.Name.Contains(y)));                
 
-                            var islineskillshot = args.SData.TargettingType == SpellDataTargetType.Cone ||
-                                                  args.SData.LineWidth > 0;
+                            var isline = args.SData.TargettingType == SpellDataTargetType.Cone || 
+                                args.SData.LineWidth > 0;
 
-                            var startpos = fromObj?.Position ?? attacker.ServerPosition;
+                            var startpos = fromobj?.Position ?? attacker.ServerPosition;
 
                             var correctwidth = 0f;
 
@@ -292,20 +289,24 @@ namespace Activator.Handlers
                             if (args.SData.CastRadiusSecondary < 1 && args.SData.CastRangeDisplayOverride > 0)
                                 correctwidth = args.SData.CastRangeDisplayOverride;
 
-                            if (islineskillshot && args.SData.TargettingType != SpellDataTargetType.Cone)
+                            if (isline && args.SData.TargettingType != SpellDataTargetType.Cone)
                                 correctwidth = args.SData.LineWidth;
 
                             if (data.SDataName == "azirq")
                             {
                                 correctwidth = 275f;
-                                islineskillshot = true;
+                                isline = true;
                             }
 
-                            if (hero.Player.Distance(startpos) > data.CastRange)
+                            if ((data.SDataName == "azirq" || data.SDataName == "azire") && fromobj == null)
+                                continue;
+
+                            if (hero.Player.Distance(startpos) > data.CastRange + hero.Player.BoundingRadius)
                                 continue;
 
                             var distance = (int) (1000 * (startpos.Distance(hero.Player.ServerPosition) / data.MissileSpeed));
-                            var endtime = data.Delay - 100 + Game.Ping / 2f + distance - (Utils.GameTimeTickCount - LastCastedTimeStamp);
+                            var endtime = data.Delay - 100 + Game.Ping / 2f + 
+                                distance - (Utils.GameTimeTickCount - LastCastedTimeStamp);
 
                             var iscone = args.SData.TargettingType == SpellDataTargetType.Cone;
                             var direction = (args.End.To2D() - startpos.To2D()).Normalized();
@@ -322,27 +323,23 @@ namespace Activator.Handlers
 
                             int evadetime = 0;
 
-                            if (islineskillshot)
+                            if (isline)
                                 evadetime =
-                                    (int)
-                                        (1000 * (correctwidth - projdist + hero.Player.BoundingRadius) /
-                                         hero.Player.MoveSpeed);
+                                    (int) (1000 * (correctwidth - projdist + hero.Player.BoundingRadius) / hero.Player.MoveSpeed);
 
-                            if (!islineskillshot)
-                                evadetime =
-                                    (int)
-                                        (1000 *
-                                         (correctwidth - hero.Player.Distance(startpos) + hero.Player.BoundingRadius) /
-                                         hero.Player.MoveSpeed);
+                            if (!isline || iscone)
+                                 evadetime =
+                                     (int) (1000 * (correctwidth - hero.Player.Distance(startpos) + hero.Player.BoundingRadius) / hero.Player.MoveSpeed);
 
-                            if ((!islineskillshot || iscone) &&
+
+                            if ((!isline || iscone) &&
                                 hero.Player.Distance(endpos) <= correctwidth + hero.Player.BoundingRadius + 35 ||
-                                islineskillshot && correctwidth + hero.Player.BoundingRadius + 35 > projdist)
+                                isline && correctwidth + hero.Player.BoundingRadius + 35 > projdist)
                             {
-                                if (hero.Player.NetworkId == Player.NetworkId &&
-                                   (data.Global || Activator.Origin.Item("evade").GetValue<bool>()))
+                                if (hero.Player.NetworkId == Player.NetworkId)
                                 {
-                                    if (hero.Player.CanMove && evadetime < endtime)
+                                    if ((hero.Player.CanMove && evadetime < endtime) &&
+                                        (data.Global || Activator.Origin.Item("evade").GetValue<bool>()))
                                     {
                                         continue;
                                     }
@@ -355,7 +352,7 @@ namespace Activator.Handlers
                                 if (dmg == 0)
                                 {
                                     dmg = (int) (hero.Player.Health / hero.Player.MaxHealth * 5);
-                                    Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName);
+                                    // Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName);
                                 }
 
                                 Utility.DelayAction.Add((int) (endtime - (endtime * 0.7)), () =>
