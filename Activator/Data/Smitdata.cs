@@ -46,6 +46,10 @@ namespace Activator.Data
                     if (Activator.Player.CharData.BaseSkinName != "elisespider")
                         return false;
                     break;
+                case "Nidalee":
+                    if (Activator.Player.CharData.BaseSkinName == "Nidalee")
+                        return false;
+                    break;
             }
 
             return true;
@@ -53,6 +57,69 @@ namespace Activator.Data
 
         static Smitdata()
         {
+            SpellList.Add(new Smitdata
+            {
+                Name = "DrMundo",
+                CastRange = 500f,
+                Stage = 0,
+                Type = SpellDataTargetType.Location,
+                Slot = SpellSlot.Q
+            });
+
+            SpellList.Add(new Smitdata
+            {
+                Name = "Ekko",
+                CastRange = 425f,
+                Stage = 0,
+                Type = SpellDataTargetType.SelfAndUnit,
+                Slot = SpellSlot.E
+            });
+
+            SpellList.Add(new Smitdata
+            {
+                Name = "Wukong",
+                CastRange = 305f,
+                Stage = 0,
+                Type = SpellDataTargetType.SelfAndUnit,
+                Slot = SpellSlot.Q
+            });
+
+            SpellList.Add(new Smitdata
+            {
+                Name = "Quinn",
+                CastRange = 675f,
+                Stage = 0,
+                Type = SpellDataTargetType.Unit,
+                Slot = SpellSlot.E
+            });
+
+            SpellList.Add(new Smitdata
+            {
+                Name = "Fiora",
+                CastRange = 375f,
+                Stage = 0,
+                Type = SpellDataTargetType.Location,
+                Slot = SpellSlot.Q
+            });
+
+            SpellList.Add(new Smitdata
+            {
+                Name = "Nidalee",
+                CastRange = 375f,
+                Stage = 1,
+                Type = SpellDataTargetType.SelfAndUnit,
+                Slot = SpellSlot.Q
+            });
+
+            SpellList.Add(new Smitdata
+            {
+                Name = "Alistar",
+                CastRange = 350f,
+                Stage = 0,
+                Type = SpellDataTargetType.Self,
+                Slot = SpellSlot.Q
+            });
+
             SpellList.Add(new Smitdata
             {
                 Name = "FiddleSticks",
@@ -132,6 +199,15 @@ namespace Activator.Data
                 Slot = SpellSlot.Q,
                 Stage = 0,
                 Type = SpellDataTargetType.Unit
+            });
+
+            SpellList.Add(new Smitdata
+            {
+                Name = "Trundle",
+                CastRange = 180f,
+                Slot = SpellSlot.Q,
+                Stage = 0,
+                Type = SpellDataTargetType.SelfAndUnit
             });
 
             SpellList.Add(new Smitdata
@@ -245,6 +321,15 @@ namespace Activator.Data
 
             SpellList.Add(new Smitdata
             {
+                Name = "Vi",
+                CastRange = 125f,
+                Slot = SpellSlot.E,
+                Stage = 0,
+                Type = SpellDataTargetType.SelfAndUnit
+            });
+
+            SpellList.Add(new Smitdata
+            {
                 Name = "Tryndamere",
                 CastRange = 400f,
                 Slot = SpellSlot.E,
@@ -282,7 +367,7 @@ namespace Activator.Data
             SpellList.Add(new Smitdata
             {
                 Name = "Amumu",
-                CastRange = 150f,
+                CastRange = 350f,
                 Slot = SpellSlot.E,
                 Stage = 0,
                 Type = SpellDataTargetType.Self
@@ -300,7 +385,7 @@ namespace Activator.Data
             SpellList.Add(new Smitdata
             {
                 Name = "Chogath",
-                CastRange = 175f,
+                CastRange =  175 + new [] { 23f, 37f, 50f} [Activator.Player.Level/3],
                 Slot = SpellSlot.R,
                 Stage = 0,
                 Type = SpellDataTargetType.Unit

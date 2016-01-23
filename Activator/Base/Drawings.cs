@@ -28,13 +28,13 @@ namespace Activator.Base
     {
         private static Dictionary<string, Offset> Offsets = new Dictionary<string, Offset>
         {
-            { "SRU_Blue1.1.1" , new Offset(new Vector2(-2, 22), 150, 6) },
-            { "SRU_Red4.1.1" , new Offset(new Vector2(-2, 22), 150, 6) },
+            { "SRU_Blue1.1.1" , new Offset(new Vector2(-2, 23), 150, 6) },
+            { "SRU_Red4.1.1" , new Offset(new Vector2(-2, 23), 150, 6) },
             { "SRU_Dragon6.1.1" , new Offset(new Vector2(1, 23), 150, 6) },
-            { "SRU_Blue7.1.1" , new Offset(new Vector2(-2, 22), 150, 6) },
-            { "SRU_Red10.1.1" , new Offset(new Vector2(-2, 22), 150, 6) },
+            { "SRU_Blue7.1.1" , new Offset(new Vector2(-2, 23), 150, 6) },
+            { "SRU_Red10.1.1" , new Offset(new Vector2(-2, 23), 150, 6) },
             { "SRU_Baron12.1.1" , new Offset(new Vector2(57, 24), 165, 11) },
-            { "SRU_RiftHerald17.1.1" , new Offset(new Vector2(-1, 22), 155, 6) },
+            { "SRU_RiftHerald17.1.1" , new Offset(new Vector2(-2, 23), 155, 6) },
         };
 
         public static void Init()
@@ -100,6 +100,9 @@ namespace Activator.Base
                         return;
                     }
 
+                    var smitespell = Data.Smitdata.SpellList
+                        .FirstOrDefault(s => s.Name == Activator.Player.ChampionName);
+
                     foreach (var minion in 
                         MinionManager.GetMinions(Activator.Player.Position, 1200f, MinionTypes.All, MinionTeam.Neutral)
                             .Where(th => Essentials.IsEpicMinion(th) || Essentials.IsLargeMinion(th)))
@@ -116,11 +119,15 @@ namespace Activator.Base
 
                         var barPos = minion.HPBarPosition;
 
+                        var sdamage = smitespell != null && Activator.Player.GetSpell(smitespell.Slot).State == SpellState.Ready
+                            ? Activator.Player.GetSpellDamage(minion, smitespell.Slot, smitespell.Stage)
+                            : 0;
+
                         var smite = Activator.Player.GetSpell(Activator.Smite).State == SpellState.Ready
                             ? Activator.Player.GetSummonerSpellDamage(minion, Damage.SummonerSpell.Smite)
                             : 0;
 
-                        var damage = smite; // + ddmg;
+                        var damage = smite + sdamage;
                         var pctafter = Math.Max(0, minion.Health - damage) / minion.MaxHealth;
 
                         var yaxis = barPos.Y + yoffset;

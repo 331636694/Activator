@@ -19,6 +19,7 @@ namespace Activator.Summoners
             "s5_summonersmitequick", "itemsmiteaoe"
         };
 
+        internal static int Limiter;
         internal static void L33TSmite(Obj_AI_Base unit, float smitedmg)
         {
             foreach (var hero in Smitdata.SpellList.Where(x => x.Name == Activator.Player.ChampionName))
@@ -40,6 +41,17 @@ namespace Activator.Summoners
                                     break;
                                 case SpellDataTargetType.Self:
                                     Activator.Player.Spellbook.CastSpell(hero.Slot);
+                                    break;
+                                case SpellDataTargetType.SelfAndUnit:
+                                    Activator.Player.Spellbook.CastSpell(hero.Slot);
+                                    if (Utils.GameTimeTickCount - Limiter >= 200 && Orbwalking.InAutoAttackRange(unit))
+                                    {
+                                        Utility.DelayAction.Add(Game.Ping, () =>
+                                        {
+                                            Activator.Player.IssueOrder(GameObjectOrder.AttackUnit, unit);
+                                            Limiter = Utils.GameTimeTickCount;
+                                        });
+                                    }
                                     break;
                             }
                         }
