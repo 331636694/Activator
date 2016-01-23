@@ -40,8 +40,9 @@ namespace Activator.Items.Cleansers
 
                     Buffs.CheckMercurial(hero.Player);
 
+                    var d = Convert.ToDouble(Menu.Item("use" + Name + "time").GetValue<StringList>().SelectedValue);
                     if (hero.MercurialBuffCount >= Menu.Item("use" + Name + "number").GetValue<Slider>().Value &&
-                        hero.MercurialHighestBuffTime >= Menu.Item("use" + Name + "time").GetValue<Slider>().Value)
+                        hero.MercurialHighestBuffTime >= d * 1000)
                     {
                         if (!Menu.Item("use" + Name + "od").GetValue<bool>())
                         {

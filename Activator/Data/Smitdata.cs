@@ -77,6 +77,15 @@ namespace Activator.Data
 
             SpellList.Add(new Smitdata
             {
+                Name = "Rengar",
+                CastRange = 150f,
+                Stage = Activator.Player.Mana > 4 ? 1 : 0,
+                Type = SpellDataTargetType.SelfAndUnit,
+                Slot = SpellSlot.Q
+            });
+
+            SpellList.Add(new Smitdata
+            {
                 Name = "Wukong",
                 CastRange = 305f,
                 Stage = 0,

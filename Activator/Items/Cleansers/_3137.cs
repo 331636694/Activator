@@ -40,8 +40,9 @@ namespace Activator.Items.Cleansers
 
                     Buffs.CheckDervish(hero.Player);
 
+                    var d = Convert.ToDouble(Menu.Item("use" + Name + "time").GetValue<StringList>().SelectedValue);
                     if (hero.DervishBuffCount >= Menu.Item("use" + Name + "number").GetValue<Slider>().Value &&
-                        hero.DervishHighestBuffTime >= Menu.Item("use" + Name + "time").GetValue<Slider>().Value)
+                        hero.DervishHighestBuffTime >= d * 1000)
                     {
                         if (!Menu.Item("use" + Name + "od").GetValue<bool>())
                         {

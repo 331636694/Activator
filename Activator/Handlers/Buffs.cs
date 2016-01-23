@@ -126,10 +126,10 @@ namespace Activator.Handlers
                 {
                     foreach (var buff in GetAuras(hero.Player, "summonerboost"))
                     {
-                        var duration = (int) Math.Ceiling(buff.EndTime - buff.StartTime);
+                        var duration = (int) (buff.EndTime - buff.StartTime);
                         if (duration > hero.CleanseHighestBuffTime)
                         {
-                            hero.CleanseHighestBuffTime = duration;
+                            hero.CleanseHighestBuffTime = duration * 1000;
                         }
                     }
 
@@ -159,10 +159,10 @@ namespace Activator.Handlers
                 {
                     foreach (var buff in GetAuras(hero.Player, "Dervish"))
                     {
-                        var duration = (int) Math.Ceiling(buff.EndTime - buff.StartTime);
+                        var duration = (int) (buff.EndTime - buff.StartTime);
                         if (duration > hero.DervishHighestBuffTime)
                         {
-                            hero.DervishHighestBuffTime = duration;
+                            hero.DervishHighestBuffTime = duration * 1000;
                         }
                     }
 
@@ -202,10 +202,10 @@ namespace Activator.Handlers
                 {
                     foreach (var buff in GetAuras(hero.Player, "Quicksilver"))
                     {
-                        var duration = (int)Math.Ceiling(buff.EndTime - buff.StartTime);
+                        var duration = (int) (buff.EndTime - buff.StartTime);
                         if (duration > hero.QSSHighestBuffTime)
                         {
-                            hero.QSSHighestBuffTime = duration;
+                            hero.QSSHighestBuffTime = duration * 1000;
                         }
                     }
 
@@ -245,10 +245,10 @@ namespace Activator.Handlers
                 {
                     foreach (var buff in GetAuras(hero.Player, "Mikaels"))
                     {
-                        var duration = (int) Math.Ceiling(buff.EndTime - buff.StartTime);
+                        var duration = (int) (buff.EndTime - buff.StartTime);
                         if (duration > hero.MikaelsHighestBuffTime)
                         {
-                            hero.MikaelsHighestBuffTime = duration;
+                            hero.MikaelsHighestBuffTime = duration * 1000;
                         }
                     }
 
@@ -288,10 +288,10 @@ namespace Activator.Handlers
                 {
                     foreach (var buff in GetAuras(hero.Player, "Mercurial"))
                     {
-                        var duration = (int) Math.Ceiling(buff.EndTime - buff.StartTime);
+                        var duration = (int) (buff.EndTime - buff.StartTime);
                         if (duration > hero.MercurialHighestBuffTime)
                         {
-                            hero.MercurialHighestBuffTime = duration;
+                            hero.MercurialHighestBuffTime = duration * 1000;
                         }
                     }
 

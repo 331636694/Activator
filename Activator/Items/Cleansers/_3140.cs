@@ -40,8 +40,9 @@ namespace Activator.Items.Cleansers
 
                     Buffs.CheckQSS(hero.Player);
 
+                    var d = Convert.ToDouble(Menu.Item("use" + Name + "time").GetValue<StringList>().SelectedValue);
                     if (hero.QSSBuffCount >= Menu.Item("use" + Name + "number").GetValue<Slider>().Value &&
-                        hero.QSSHighestBuffTime >= Menu.Item("use" + Name + "time").GetValue<Slider>().Value)
+                        hero.QSSHighestBuffTime >= d * 1000)
                     {
                         if (!Menu.Item("use" + Name + "od").GetValue<bool>())
                         {

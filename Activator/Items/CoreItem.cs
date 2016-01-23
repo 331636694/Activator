@@ -236,7 +236,7 @@ namespace Activator.Items
                     Menu.AddItem(new MenuItem("use" + Name + "number", "Min Buffs to Use"))
                         .SetValue(new Slider(DefaultHP / 5, 1, 5)).SetTooltip("Will Only " + Name + " if Your Buff Count is >= Value");
                     Menu.AddItem(new MenuItem("use" + Name + "time", "Min Durration to Use"))
-                        .SetValue(new Slider(1, 1, 5)).SetTooltip("Will Only " + Name + " if the Buff is >= Value (Seconds)");
+                        .SetValue(new StringList(new [] {".50", ".75", "1.0", "1.25", "1.5", "1.75", "2.0"}));
                     Menu.AddItem(new MenuItem("use" + Name + "od", "Use for Unique Only"))
                         .SetValue(false).SetTooltip("Will ignore buff types. See unique buffs menu above");
                     Menu.AddItem(new MenuItem("use" + Name + "dot", "Use for DoTs only if HP% <"))

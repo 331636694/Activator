@@ -41,8 +41,9 @@ namespace Activator.Items.Cleansers
 
                 Buffs.CheckMikaels(hero.Player);
 
+                var d = Convert.ToDouble(Menu.Item("use" + Name + "time").GetValue<StringList>().SelectedValue);
                 if (hero.MikaelsBuffCount >= Menu.Item("use" + Name + "number").GetValue<Slider>().Value &&
-                    hero.MikaelsHighestBuffTime >= Menu.Item("use" + Name + "time").GetValue<Slider>().Value)
+                    hero.MikaelsHighestBuffTime >= d * 1000)
                 {
                     if (!Menu.Item("use" + Name + "od").GetValue<bool>())
                     {
