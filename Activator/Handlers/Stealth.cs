@@ -24,38 +24,25 @@ namespace Activator.Handlers
         {
             if (!_loaded)
             {
-                //GameObject.OnCreate += GameObject_OnCreate;
+                Obj_AI_Base.OnBuffAdd += Obj_AI_Base_OnBuffAdd;
                 Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnStealth;
                 _loaded = true;
             }
         }
 
-        static void GameObject_OnCreate(GameObject sender, EventArgs args)
+        static void Obj_AI_Base_OnBuffAdd(Obj_AI_Base sender, Obj_AI_BaseBuffAddEventArgs args)
         {
-            #region Rengar/Leblanc (Stealth)
-
-            foreach (var hero in Activator.Allies())
+            foreach (var ally in Activator.Allies())
             {
-                if (sender.IsEnemy && sender.Name.Contains("Rengar_Base_R_Alert"))
+                if (sender.IsValidTarget(1000) && !sender.IsZombie && sender.NetworkId == ally.Player.NetworkId)
                 {
-                    if (hero.Player.Distance(sender.Position) <= 1200)
+                    if (args.Buff.Name == "rengarralertsound")
                     {
-                        hero.HitTypes.Add(HitType.Stealth);
-                        Utility.DelayAction.Add(200, () => hero.HitTypes.Remove(HitType.Stealth));
-                    }
-                }
-
-                if (sender.IsEnemy && sender.Name == "LeBlanc_Base_P_poof.troy")
-                {
-                    if (hero.Player.Distance(sender.Position) <= 1200)
-                    {
-                        hero.HitTypes.Add(HitType.Stealth);
-                        Utility.DelayAction.Add(200, () => hero.HitTypes.Remove(HitType.Stealth));
+                        ally.HitTypes.Add(HitType.Stealth);
+                        Utility.DelayAction.Add(200, () => ally.HitTypes.Remove(HitType.Stealth));
                     }
                 }
             }
-
-            #endregion
         }
 
         static void Obj_AI_Base_OnStealth(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
@@ -64,9 +51,11 @@ namespace Activator.Handlers
 
             var attacker = sender as Obj_AI_Hero;
             if (attacker == null || attacker.IsAlly || !attacker.IsValid<Obj_AI_Hero>())
+            {
                 return;
+            }
 
-            foreach (var hero in Activator.Heroes.Where(h => h.Player.Distance(attacker) <= 1200))
+            foreach (var hero in Activator.Heroes.Where(h => h.Player.Distance(attacker) <= 1000))
             {
                 if (Data.Spelldata.Spells.Any(x => args.SData.Name.ToLower() == x.SDataName && x.HitType.Contains(HitType.Stealth)))
                 {
