@@ -24,7 +24,7 @@ namespace Activator.Handlers
         {
             if (!_loaded)
             {
-                GameObject.OnCreate += GameObject_OnCreate;
+                //GameObject.OnCreate += GameObject_OnCreate;
                 Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnStealth;
                 _loaded = true;
             }
