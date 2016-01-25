@@ -7,35 +7,12 @@ namespace Activator.Spells.Health
 {
     class lulur : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "lulur"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Wild Growth | R"; }
-        }
-
-        internal override float Range
-        {
-            get { return 900f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfCount  }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 20; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override string Name => "lulur";
+        internal override string DisplayName => "Wild Growth | R";
+        internal override float Range => 900f;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfCount  };
+        internal override int DefaultHP => 20;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {

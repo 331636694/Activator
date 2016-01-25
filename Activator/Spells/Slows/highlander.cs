@@ -7,20 +7,9 @@ namespace Activator.Spells.Slows
 {
     class highlander : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "highlander"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Highlander | R"; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SlowRemoval, MenuType.ActiveCheck }; }
-        }
+        internal override string Name => "highlander";
+        internal override string DisplayName => "Highlander | R";
+        internal override MenuType[] Category => new[] { MenuType.SlowRemoval, MenuType.ActiveCheck };
 
         public override void OnTick(EventArgs args)
         {

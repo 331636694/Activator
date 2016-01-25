@@ -7,35 +7,12 @@ namespace Activator.Spells.Shields
 {
     class rivenfeint : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "rivenfeint"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Valor | E"; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 65; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 55; }
-        }
+        internal override string Name => "rivenfeint";
+        internal override string DisplayName => "Valor | E";
+        internal override float Range => float.MaxValue;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP };
+        internal override int DefaultHP => 65;
+        internal override int DefaultMP => 55;
 
         public override void OnTick(EventArgs args)
         {

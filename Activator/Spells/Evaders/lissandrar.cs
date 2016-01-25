@@ -6,35 +6,12 @@ namespace Activator.Spells.Evaders
 {
     class lissandrar : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "lissandrar"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Frozen Tomb | R"; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.Zhonyas }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 30; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override string Name => "lissandrar";
+        internal override string DisplayName => "Frozen Tomb | R";
+        internal override float Range => float.MaxValue;
+        internal override MenuType[] Category => new[] { MenuType.Zhonyas };
+        internal override int DefaultHP => 30;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {

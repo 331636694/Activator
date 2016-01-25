@@ -6,35 +6,12 @@ namespace Activator.Spells.Evaders
 {
     class chronobreak : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "ekkor"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Chronobreak | R"; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.Zhonyas }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 20; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override string Name => "ekkor";
+        internal override string DisplayName => "Chronobreak | R";
+        internal override float Range => float.MaxValue;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.Zhonyas };
+        internal override int DefaultHP => 20;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {

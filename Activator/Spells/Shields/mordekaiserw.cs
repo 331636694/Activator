@@ -6,35 +6,12 @@ namespace Activator.Spells.Shields
 {
     class mordekaiserw : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "mordekaisercreepindeathcast"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Iron Man | W"; }
-        }
-
-        internal override float Range
-        {
-            get { return 600f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinHP }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 95; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 55; }
-        }
+        internal override string Name => "mordekaisercreepindeathcast";
+        internal override string DisplayName => "Harvester of Sorrow | W";
+        internal override float Range => 600f;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinHP };
+        internal override int DefaultHP => 95;
+        internal override int DefaultMP => 55;
 
         public override void OnTick(EventArgs args)
         {

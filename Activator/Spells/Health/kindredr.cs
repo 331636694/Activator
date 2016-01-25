@@ -7,35 +7,12 @@ namespace Activator.Spells.Health
 {
     class kindredr : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "kindredr"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Lamb's Respite | R"; }
-        }
-
-        internal override float Range
-        {
-            get { return 400f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 20; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override string Name => "kindredr";
+        internal override string DisplayName => "Lamb's Respite | R";
+        internal override float Range => 400f;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP };
+        internal override int DefaultHP => 20;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {

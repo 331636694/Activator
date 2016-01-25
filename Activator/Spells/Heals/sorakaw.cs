@@ -6,35 +6,12 @@ namespace Activator.Spells.Heals
 {
     class sorakaw : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "sorakaw"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Astral Infusion | W"; }
-        }
-
-        internal override float Range
-        {
-            get { return 550f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinHP }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 90; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 55; }
-        }
+        internal override string Name => "sorakaw";
+        internal override string DisplayName => "Astral Infusion | W";
+        internal override float Range => 550f;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinHP };
+        internal override int DefaultHP => 90;
+        internal override int DefaultMP => 55;
 
         public override void OnTick(EventArgs args)
         {

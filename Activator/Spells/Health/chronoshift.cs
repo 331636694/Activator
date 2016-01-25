@@ -7,35 +7,12 @@ namespace Activator.Spells.Health
 {
     class chronoshift : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "chronoshift"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Chronoshift | R"; }
-        }
-
-        internal override float Range
-        {
-            get { return 900f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 20; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override string Name => "chronoshift";
+        internal override string DisplayName => "Chronoshift | R";
+        internal override float Range => 900f;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP };
+        internal override int DefaultHP => 20;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {

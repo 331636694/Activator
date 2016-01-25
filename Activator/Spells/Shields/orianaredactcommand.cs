@@ -6,35 +6,12 @@ namespace Activator.Spells.Shields
 {
     class orianaredactcommand : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "orianaredactcommand"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Command Protect | E"; }
-        }
-
-        internal override float Range
-        {
-            get { return 1100f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinMP }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 95; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 55; }
-        }
+        internal override string Name => "orianaredactcommand";
+        internal override string DisplayName => "Command Protect | E";
+        internal override float Range => 1100f;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinMP };
+        internal override int DefaultHP => 95;
+        internal override int DefaultMP => 55;
 
         public override void OnTick(EventArgs args)
         {

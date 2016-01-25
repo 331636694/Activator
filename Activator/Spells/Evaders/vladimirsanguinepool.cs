@@ -5,35 +5,12 @@ namespace Activator.Spells.Evaders
 {
     class vladimirsanguinepool : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "vladimirsanguinepool"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Sanguine Pool | W"; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.Zhonyas }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 0; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 45; }
-        }
+        internal override string Name => "vladimirsanguinepool";
+        internal override string DisplayName => "Sanguine Pool | W";
+        internal override float Range => float.MaxValue;
+        internal override MenuType[] Category => new[] { MenuType.Zhonyas };
+        internal override int DefaultHP => 0;
+        internal override int DefaultMP => 45;
 
         public override void OnTick(EventArgs args)
         {

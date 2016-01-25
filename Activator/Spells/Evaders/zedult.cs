@@ -7,25 +7,10 @@ namespace Activator.Spells.Evaders
 {
     class zedult : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "ZedR"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Death Mark | R"; }
-        }
-
-        internal override float Range
-        {
-            get { return 625f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.Zhonyas }; }
-        }
+        internal override string Name => "ZedR";
+        internal override string DisplayName => "Death Mark | R";
+        internal override float Range => 625f;
+        internal override MenuType[] Category => new[] { MenuType.Zhonyas };
 
         public override void OnTick(EventArgs args)
         {

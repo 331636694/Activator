@@ -7,35 +7,12 @@ namespace Activator.Spells.Health
 {
     class undyingrage : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "undyingrage"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Undying Rage | R"; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 15; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override string Name => "undyingrage";
+        internal override string DisplayName => "Undying Rage | R";
+        internal override float Range => float.MaxValue;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP };
+        internal override int DefaultHP => 15;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {

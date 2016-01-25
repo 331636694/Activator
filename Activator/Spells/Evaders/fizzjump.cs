@@ -7,35 +7,12 @@ namespace Activator.Spells.Evaders
 {
     class fizzjump : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "fizzjump"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Playful / Trickster | E"; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfMuchHP, MenuType.Zhonyas, MenuType.SelfMinMP }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 30; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 45; }
-        }
+        internal override string Name => "fizzjump";
+        internal override string DisplayName => "Playful / Trickster | E";
+        internal override float Range => float.MaxValue;
+        internal override MenuType[] Category => new[] { MenuType.SelfMuchHP, MenuType.Zhonyas, MenuType.SelfMinMP };
+        internal override int DefaultHP => 30;
+        internal override int DefaultMP => 45;
 
         public override void OnTick(EventArgs args)
         {

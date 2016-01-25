@@ -6,35 +6,12 @@ namespace Activator.Spells.Shields
 {
     class shenfeint : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "shenfeint"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Feint | W"; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinMP  }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 95; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 45; }
-        }
+        internal override string Name => "shenfeint";
+        internal override string DisplayName => "Feint | W";
+        internal override float Range => float.MaxValue;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinMP  };
+        internal override int DefaultHP => 95;
+        internal override int DefaultMP => 45;
 
         public override void OnTick(EventArgs args)
         {

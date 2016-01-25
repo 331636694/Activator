@@ -7,35 +7,12 @@ namespace Activator.Spells.Health
 {
     class tahmkenche : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "tahmkenche"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Thick Skin | E"; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 20; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override string Name => "tahmkenche";
+        internal override string DisplayName => "Thick Skin | E";
+        internal override float Range => float.MaxValue;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP };
+        internal override int DefaultHP => 20;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {

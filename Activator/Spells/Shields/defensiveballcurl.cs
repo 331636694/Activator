@@ -6,35 +6,12 @@ namespace Activator.Spells.Shields
 {
     class defensiveballcurl : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "defensiveballcurl"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Defensive Ball Curl | W"; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinMP }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 95; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 55; }
-        }
+        internal override string Name => "defensiveballcurl";
+        internal override string DisplayName => "Defensive Ball Curl | W";
+        internal override float Range => float.MaxValue;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinMP };
+        internal override int DefaultHP => 95;
+        internal override int DefaultMP => 55;
 
         public override void OnTick(EventArgs args)
         {

@@ -6,35 +6,12 @@ namespace Activator.Spells.Heals
 {
     class imbue : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "imbue"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Imbue | Q"; }
-        }
-
-        internal override float Range
-        {
-            get { return 750f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinMP  }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 90; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 55; }
-        }
+        internal override string Name => "imbue";
+        internal override string DisplayName => "Imbue | Q";
+        internal override float Range => 750f;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinMP  };
+        internal override int DefaultHP => 90;
+        internal override int DefaultMP => 55;
 
         public override void OnTick(EventArgs args)
         {

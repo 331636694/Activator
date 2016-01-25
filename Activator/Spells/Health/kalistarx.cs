@@ -8,35 +8,12 @@ namespace Activator.Spells.Health
 {
     internal class kalistarx : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "kalistarx"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Fate's Call | R"; }
-        }
-
-        internal override float Range
-        {
-            get { return 1200f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 20; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override string Name => "kalistarx";
+        internal override string DisplayName => "Fate's Call | R";
+        internal override float Range => 1200f;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP };
+        internal override int DefaultHP => 20;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {
@@ -49,7 +26,7 @@ namespace Activator.Spells.Health
 
             foreach (var hero in Activator.Allies())
             {
-                if (cooptarget != null && hero.Player.NetworkId == cooptarget.NetworkId)
+                if (cooptarget?.NetworkId == hero.Player.NetworkId)
                 {
                     if (hero.Player.Distance(cooptarget.ServerPosition) <= Range)
                     {
@@ -70,5 +47,4 @@ namespace Activator.Spells.Health
             }
         }
     }
-
 }

@@ -6,35 +6,12 @@ namespace Activator.Spells.Shields
 {
     class bruame : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "braume"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Unbreakable | E"; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfMuchHP, MenuType.Zhonyas, MenuType.SpellShield }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 95; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 55; }
-        }
+        internal override string Name => "braume";
+        internal override string DisplayName => "Unbreakable | E";
+        internal override float Range => float.MaxValue;
+        internal override MenuType[] Category => new[] { MenuType.SelfMuchHP, MenuType.Zhonyas, MenuType.SpellShield };
+        internal override int DefaultHP => 95;
+        internal override int DefaultMP => 55;
 
         public override void OnTick(EventArgs args)
         {

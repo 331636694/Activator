@@ -7,35 +7,12 @@ namespace Activator.Spells.Health
 {
     class threshw : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "threshw"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Dark Passage | W"; }
-        }
-
-        internal override float Range
-        {
-            get { return 950f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.Zhonyas, MenuType.SelfCount }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 20; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override string Name => "threshw";
+        internal override string DisplayName => "Dark Passage | W";
+        internal override float Range => 950f;
+        internal override MenuType[] Category => new[] { MenuType.Zhonyas, MenuType.SelfCount };
+        internal override int DefaultHP => 20;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {

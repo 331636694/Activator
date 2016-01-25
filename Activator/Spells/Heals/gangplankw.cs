@@ -6,35 +6,12 @@ namespace Activator.Spells.Heals
 {
     class gangplankw : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "gangplankw"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Remove Scurvy | W"; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfMinMP }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 20; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 55; }
-        }
+        internal override string Name => "gangplankw";
+        internal override string DisplayName => "Remove Scurvy | W";
+        internal override float Range => float.MaxValue;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMinMP };
+        internal override int DefaultHP => 20;
+        internal override int DefaultMP => 55;
 
         public override void OnTick(EventArgs args)
         {

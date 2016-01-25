@@ -6,35 +6,12 @@ namespace Activator.Spells.Evaders
 {
     class blackshield : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "blackshield"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Black Shield | E"; }
-        }
-
-        internal override float Range
-        {
-            get { return 750f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.Zhonyas, MenuType.SpellShield, MenuType.SelfMinMP }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 0; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override string Name => "blackshield";
+        internal override string DisplayName => "Black Shield | E";
+        internal override float Range => 750f;
+        internal override MenuType[] Category => new[] { MenuType.Zhonyas, MenuType.SpellShield, MenuType.SelfMinMP };
+        internal override int DefaultHP => 0;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {

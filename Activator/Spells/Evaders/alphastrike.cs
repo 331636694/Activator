@@ -7,25 +7,10 @@ namespace Activator.Spells.Evaders
 {
     class alphastrike : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "alphastrike"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Alpha Strike | Q"; }
-        }
-
-        internal override float Range
-        {
-            get { return 600f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SpellShield, MenuType.Zhonyas }; }
-        }
+        internal override string Name => "alphastrike";
+        internal override string DisplayName => "Alpha Strike | Q";
+        internal override float Range => 600f;
+        internal override MenuType[] Category => new[] { MenuType.SpellShield, MenuType.Zhonyas };
 
         public override void OnTick(EventArgs args)
         {

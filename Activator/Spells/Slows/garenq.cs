@@ -7,20 +7,9 @@ namespace Activator.Spells.Slows
 {
     class garenq : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "garenq"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Decisive Strike| Q"; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SlowRemoval, MenuType.ActiveCheck }; }
-        }
+        internal override string Name => "garenq";
+        internal override string DisplayName => "Decisive Strike| Q";
+        internal override MenuType[] Category => new[] { MenuType.SlowRemoval, MenuType.ActiveCheck };
 
         public override void OnTick(EventArgs args)
         {

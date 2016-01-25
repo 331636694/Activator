@@ -6,35 +6,12 @@ namespace Activator.Spells.Shields
 {
     class garenw : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "garenw"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Courage | W"; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 95; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override string Name => "garenw";
+        internal override string DisplayName => "Courage | W";
+        internal override float Range => float.MaxValue;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP };
+        internal override int DefaultHP => 95;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {

@@ -6,35 +6,12 @@ namespace Activator.Spells.Evaders
 {
     class judicatorintervention : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "judicatorintervention"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Intervention | R"; }
-        }
-
-        internal override float Range
-        {
-            get { return 900f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP,  MenuType.Zhonyas }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 10; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 0; }
-        }
+        internal override string Name => "judicatorintervention";
+        internal override string DisplayName => "Intervention | R";
+        internal override float Range => 900f;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP,  MenuType.Zhonyas };
+        internal override int DefaultHP => 10;
+        internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
         {

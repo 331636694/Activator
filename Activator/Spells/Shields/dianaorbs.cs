@@ -6,35 +6,12 @@ namespace Activator.Spells.Shields
 {
     class dianaorbs : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "dianaorbs"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Pale Cascade | W"; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinMP }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 95; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 55; }
-        }
+        internal override string Name => "dianaorbs";
+        internal override string DisplayName => "Pale Cascade | W";
+        internal override float Range => float.MaxValue;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinMP };
+        internal override int DefaultHP => 95;
+        internal override int DefaultMP => 55;
 
         public override void OnTick(EventArgs args)
         {

@@ -6,35 +6,12 @@ namespace Activator.Spells.Shields
 {
     class lulue : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "lulue"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Help Pix! | E"; }
-        }
-
-        internal override float Range
-        {
-            get { return 650f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinMP }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 95; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 55; }
-        }
+        internal override string Name => "lulue";
+        internal override string DisplayName => "Help Pix! | E";
+        internal override float Range => 650f;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinMP };
+        internal override int DefaultHP => 95;
+        internal override int DefaultMP => 55;
 
         public override void OnTick(EventArgs args)
         {

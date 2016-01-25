@@ -5,25 +5,10 @@ namespace Activator.Spells.Evaders
 {
     internal class hallucinatefull : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "hallucinatefull"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Hallucinate | R"; }
-        }
-
-        internal override float Range
-        {
-            get { return float.MaxValue; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.Zhonyas }; }
-        }
+        internal override string Name => "hallucinatefull";
+        internal override string DisplayName => "Hallucinate | R";
+        internal override float Range => float.MaxValue;
+        internal override MenuType[] Category => new[] { MenuType.Zhonyas };
 
         public override void OnTick(EventArgs args)
         {

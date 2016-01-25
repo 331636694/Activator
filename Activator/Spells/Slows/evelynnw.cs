@@ -7,20 +7,9 @@ namespace Activator.Spells.Slows
 {
     class evelynnw : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "evelynnw"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Dark Frenzy | W"; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SlowRemoval, MenuType.ActiveCheck }; }
-        }
+        internal override string Name => "evelynnw";
+        internal override string DisplayName => "Dark Frenzy | W";
+        internal override MenuType[] Category => new[] { MenuType.SlowRemoval, MenuType.ActiveCheck };
 
         public override void OnTick(EventArgs args)
         {

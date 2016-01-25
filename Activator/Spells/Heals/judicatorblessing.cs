@@ -6,35 +6,12 @@ namespace Activator.Spells.Heals
 {
     class judicatorblessing : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "judicatorblessing"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Divine Blessing | W"; }
-        }
-
-        internal override float Range
-        {
-            get { return 900f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinMP }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 90; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 55; }
-        }
+        internal override string Name => "judicatorblessing";
+        internal override string DisplayName => "Divine Blessing | W";
+        internal override float Range => 900f;
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinMP };
+        internal override int DefaultHP => 90;
+        internal override int DefaultMP => 55;
 
         public override void OnTick(EventArgs args)
         {

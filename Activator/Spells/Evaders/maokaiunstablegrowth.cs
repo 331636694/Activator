@@ -7,35 +7,12 @@ namespace Activator.Spells.Evaders
 {
     class maokaiunstablegrowth : CoreSpell
     {
-        internal override string Name
-        {
-            get { return "maokaiunstablegrowth"; }
-        }
-
-        internal override string DisplayName
-        {
-            get { return "Twisted Advance | W"; }
-        }
-
-        internal override float Range
-        {
-            get { return 525f; }
-        }
-
-        internal override MenuType[] Category
-        {
-            get { return new[] { MenuType.SpellShield, MenuType.Zhonyas, MenuType.SelfMinMP }; }
-        }
-
-        internal override int DefaultHP
-        {
-            get { return 0; }
-        }
-
-        internal override int DefaultMP
-        {
-            get { return 45; }
-        }
+        internal override string Name => "maokaiunstablegrowth";
+        internal override string DisplayName => "Twisted Advance | W";
+        internal override float Range => 525f;
+        internal override MenuType[] Category => new[] { MenuType.SpellShield, MenuType.Zhonyas, MenuType.SelfMinMP };
+        internal override int DefaultHP => 0;
+        internal override int DefaultMP => 45;
 
         public override void OnTick(EventArgs args)
         {
