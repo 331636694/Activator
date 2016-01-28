@@ -13,7 +13,7 @@ namespace Activator.Items.Offensives
         internal override float Range => 1550f;
         internal override int Duration => 2000;
         internal override int DefaultHP => 55;
-        internal override MenuType[] Category => new[] { MenuType.EnemyLowHP, MenuType.SelfLowHP };
+        internal override MenuType[] Category => new[] { MenuType.EnemyLowHP, MenuType.SelfLowHP, MenuType.ActiveCheck };
         internal override MapType[] Maps => new[] { MapType.Common };
 
         public override void OnTick(EventArgs args)
@@ -46,7 +46,7 @@ namespace Activator.Items.Offensives
 
                 if (Tar.Player.Health / Tar.Player.MaxHealth * 100 <= Menu.Item("enemylowhp" + Name + "pct").GetValue<Slider>().Value)
                 {
-                    UseItem();
+                    UseItem(Menu.Item("mode" + Name).GetValue<StringList>().SelectedIndex == 1);
                 }
             }
         }

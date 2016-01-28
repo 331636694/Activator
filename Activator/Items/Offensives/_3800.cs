@@ -22,16 +22,16 @@ namespace Activator.Items.Offensives
             if (!Menu.Item("use" + Name).GetValue<bool>() || !IsReady())
                 return;
 
-            if (Menu.Item("use" + Name).GetValue<bool>() && Tar != null)
+            if (Player.Health / Player.MaxHealth * 100 <= Menu.Item("selflowhp" + Name + "pct").GetValue<Slider>().Value)
             {
-                if (Player.Health / Player.MaxHealth * 100 <= Menu.Item("selflowhp" + Name + "pct").GetValue<Slider>().Value)
+                if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp >= 3000 || Player.CountEnemiesInRange(Range) >= 1)
                 {
-                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp >= 3000 || Player.CountEnemiesInRange(Range) >= 1)
-                    {
-                        UseItem();
-                    }
+                    UseItem();
                 }
+            }
 
+            if (Tar != null)
+            {
                 if (!Parent.Item(Parent.Name + "useon" + Tar.Player.NetworkId).GetValue<bool>())
                 {
                     return;
@@ -39,7 +39,11 @@ namespace Activator.Items.Offensives
 
                 if (Tar.Player.Health / Tar.Player.MaxHealth * 100 <= Menu.Item("enemylowhp" + Name + "pct").GetValue<Slider>().Value)
                 {
-                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp >= 3000 || Player.CountEnemiesInRange(Range) >= 1)
+                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp >= 3000)
+                    {
+                        UseItem();
+                    }
+                    else if (Player.CountEnemiesInRange(Range) >= 1)
                     {
                         UseItem(Menu.Item("mode" + Name).GetValue<StringList>().SelectedIndex == 1);
                     }

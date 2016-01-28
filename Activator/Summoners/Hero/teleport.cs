@@ -30,15 +30,15 @@ namespace Activator.Summoners
             _lastPingLocation = pos;
 
             SimplePing();
-            Utility.DelayAction.Add(99 + _rand.Next(90, 300), SimplePing);
+            Utility.DelayAction.Add(109 + _rand.Next(90, 300), SimplePing);
             Utility.DelayAction.Add(299 + _rand.Next(90, 300), SimplePing);
             Utility.DelayAction.Add(399 + _rand.Next(90, 300), SimplePing);
             Utility.DelayAction.Add(799 + _rand.Next(90, 300), SimplePing);
         }
 
         private static void SimplePing()
-        {
-            Game.ShowPing(PingCategory.Danger, _lastPingLocation, true);
+        {   
+            Game.ShowPing(PingCategory.Fallback, _lastPingLocation, false);
         }
 
         public override void OnTick(EventArgs args)

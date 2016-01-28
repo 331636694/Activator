@@ -22,19 +22,19 @@ namespace Activator.Items.Offensives
             if (!Menu.Item("use" + Name).GetValue<bool>() || !IsReady())
                 return;
 
-            if (Tar != null)
+            if (Player.Health / Player.MaxHealth * 100 <= Menu.Item("selflowhp" + Name + "pct").GetValue<Slider>().Value)
             {
-                if (Player.Health / Player.MaxHealth * 100 <= Menu.Item("selflowhp" + Name + "pct").GetValue<Slider>().Value)
-                {
-                    UseItem(Tar.Player, true);
-                }
+                UseItem();
+            }
 
+            if (Tar != null)
+            {          
                 if (!Parent.Item(Parent.Name + "useon" + Tar.Player.NetworkId).GetValue<bool>())
                     return;
 
                 if (Tar.Player.Health / Tar.Player.MaxHealth * 100 <= Menu.Item("enemylowhp" + Name + "pct").GetValue<Slider>().Value)
                 {
-                    UseItem(Tar.Player, true);
+                    UseItem(true);
                 }
             }
         }

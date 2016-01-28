@@ -38,11 +38,14 @@ namespace Activator.Spells.Health
 
                     if (hero.Player.Distance(Player.ServerPosition) <= Range)
                     {
-                        if (hero.Player.Health / hero.Player.MaxHealth * 100 <=
-                            Menu.Item("selflowhp" + Name + "pct").GetValue<Slider>().Value)
+                        if (!hero.Player.HasBuffOfType(BuffType.Invulnerability))
                         {
-                            if (hero.IncomeDamage > 0 && !hero.Player.IsMe)
-                                UseSpellOn(hero.Player);
+                            if (hero.Player.Health / hero.Player.MaxHealth * 100 <=
+                                Menu.Item("selflowhp" + Name + "pct").GetValue<Slider>().Value)
+                            {
+                                if (hero.IncomeDamage > 0 && !hero.Player.IsMe)
+                                    UseSpellOn(hero.Player);
+                            }
                         }
                     }
                 }

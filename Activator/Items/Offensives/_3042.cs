@@ -59,17 +59,15 @@ namespace Activator.Items.Offensives
 
         private void OnCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if (!sender.IsMe || !LeagueSharp.Common.Items.HasItem(Id))
+            if (!sender.IsMe || !IsReady())
             {
                 return;
             }
 
             var spellslot = Player.GetSpellSlot(args.SData.Name);
 
-            if (spellslot == SpellSlot.Q ||
-                spellslot == SpellSlot.W ||
-                spellslot == SpellSlot.E ||
-                spellslot == SpellSlot.R)
+            if (spellslot == SpellSlot.Q || spellslot == SpellSlot.W ||
+                spellslot == SpellSlot.E || spellslot == SpellSlot.R)
             {
                 muramana = true;
             }
@@ -91,8 +89,8 @@ namespace Activator.Items.Offensives
 
             else
             {
-                Utility.DelayAction.Add(650 + (int)((args.SData.CastFrame / 30) * 1000),
-                    () => muramana = false);
+                Utility.DelayAction.Add(
+                    650 + (int)((args.SData.CastFrame / 30) * 1000), () => muramana = false);
             }
         }
     }

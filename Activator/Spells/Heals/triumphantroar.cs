@@ -18,7 +18,7 @@ namespace Activator.Spells.Heals
             if (!Menu.Item("use" + Name).GetValue<bool>() || !IsReady())
                 return;
 
-            if (Player.Mana/Player.MaxMana*100 <
+            if (Player.Mana/Player.MaxMana * 100 <
                 Menu.Item("selfminmp" + Name + "pct").GetValue<Slider>().Value)
                 return;
 

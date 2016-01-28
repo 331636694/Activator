@@ -21,7 +21,7 @@ namespace Activator.Spells.Heals
             if (Activator.Player.CharData.BaseSkinName != "Nidalee")
                 return;
 
-            if (Player.Mana/Player.MaxMana*100 <
+            if (Player.Mana/Player.MaxMana * 100 <
                 Menu.Item("selfminmp" + Name + "pct").GetValue<Slider>().Value)
                 return;
 
