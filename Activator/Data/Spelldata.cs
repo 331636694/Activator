@@ -2227,6 +2227,55 @@ namespace Activator.Data
 
             Spells.Add(new Spelldata
             {
+                SDataName = "jhinq",
+                ChampionName = "jhin",
+                Slot = SpellSlot.Q,
+                CastRange = 575f,
+                Delay = 250f,
+                HitType = new HitType[] { },
+                MissileSpeed = 2200
+            });
+
+            Spells.Add(new Spelldata
+            {
+                SDataName = "jhinq",
+                ChampionName = "jhin",
+                Slot = SpellSlot.W,
+                CastRange = 2250f,
+                Delay = 750f,
+                FixedRange = true,
+                HitType = new HitType[] { },
+                MissileName = "jhinwmissile",
+                MissileSpeed = 5000
+            });
+
+            Spells.Add(new Spelldata
+            {
+                SDataName = "jhine",
+                ChampionName = "jhin",
+                Slot = SpellSlot.E,
+                CastRange = 2250f,
+                Delay = 250f,
+                HitType = new HitType[] { },
+                MissileSpeed = 1600
+            });
+
+            Spells.Add(new Spelldata
+            {
+                SDataName = "jhinrshot",
+                ChampionName = "jhin",
+                Slot = SpellSlot.R,
+                CastRange = 3500f,
+                Delay = 250f,
+                FixedRange = true,
+                MissileName = "jhinrshotmis",
+                HitType = new HitType[] { },
+                ExtraMissileNames = new [] { "jhinRMissile" },
+                MissileSpeed = 5000
+            });
+
+            Spells.Add(new Spelldata
+            {
                 SDataName = "jinxq",
                 ChampionName = "jinx",
                 Slot = SpellSlot.Q,
@@ -4511,7 +4560,7 @@ namespace Activator.Data
                 SDataName = "ryzer",
                 ChampionName = "ryze",
                 Slot = SpellSlot.R,
-                CastRange = 625f,
+                CastRange = 0f,
                 Delay = 250f,
                 HitType = new HitType[] { },
                 MissileSpeed = 1400
@@ -4615,18 +4664,19 @@ namespace Activator.Data
 
             Spells.Add(new Spelldata
             {
-                SDataName = "shenvorpalstar",
+                SDataName = "shenq",
                 ChampionName = "shen",
                 Slot = SpellSlot.Q,
-                CastRange = 475f,
-                Delay = 250f,
+                CastRange = 1650f,
+                Delay = 0f,
                 HitType = new HitType[] { },
-                MissileSpeed = 1500
+                FromObject = new [] { "ShenArrowVfxHostMinion" },
+                MissileSpeed = 1350
             });
 
             Spells.Add(new Spelldata
             {
-                SDataName = "shenfeint",
+                SDataName = "shenw",
                 ChampionName = "shen",
                 Slot = SpellSlot.W,
                 CastRange = 0f,
@@ -4637,19 +4687,19 @@ namespace Activator.Data
 
             Spells.Add(new Spelldata
             {
-                SDataName = "shenshadowdash",
+                SDataName = "shene",
                 ChampionName = "shen",
                 Slot = SpellSlot.E,
-                CastRange = 600f,
+                CastRange = 675f,
                 Delay = 250f,
                 HitType = new[] { Base.HitType.CrowdControl },
-                MissileName = "shenshadowdash",
-                MissileSpeed = 1250
+                MissileName = "shene",
+                MissileSpeed = 1600
             });
 
             Spells.Add(new Spelldata
             {
-                SDataName = "shenstandunited",
+                SDataName = "shenr",
                 ChampionName = "shen",
                 Slot = SpellSlot.R,
                 CastRange = 0f,
@@ -6420,7 +6470,7 @@ namespace Activator.Data
                 ChampionName = "zed",
                 Slot = SpellSlot.E,
                 CastRange = 300f,
-                Delay = 0f,
+                Delay = 250f,
                 HitType = new[] { Base.HitType.CrowdControl },
                 MissileSpeed = int.MaxValue
             });
@@ -6431,7 +6481,7 @@ namespace Activator.Data
                 ChampionName = "zed",
                 Slot = SpellSlot.R,
                 CastRange = 850f,
-                Delay = 250f,
+                Delay = 450f,
                 HitType = new[] { Base.HitType.Danger },
                 MissileSpeed = int.MaxValue
             });
