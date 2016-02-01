@@ -156,7 +156,7 @@ namespace Activator.Handlers
 
                                 if (attacker.HasBuff("itemstatikshankcharge") &&
                                     attacker.GetBuff("itemstatikshankcharge").Count == 100)
-                                    dmg += new[] { 62, 120, 200 }[attacker.Level / 3];
+                                    dmg += new[] { 62, 120, 200 }[attacker.Level / 6];
 
                                 if (args.SData.Name.ToLower().Contains("crit"))
                                     dmg += (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true));

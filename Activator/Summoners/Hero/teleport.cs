@@ -55,7 +55,7 @@ namespace Activator.Summoners
 
                 if (hero.Player.Distance(Player.ServerPosition) > 3000 && hero.Player.Distance(Game.CursorPos) > 3000)
                 {
-                    if (hero.HitTypes.Contains(HitType.Ultimate) && Menu.Item("teleult").GetValue<bool>())
+                    if (hero.HitTypes.Contains(HitType.Ultimate) && Menu.Item("teleulthp").GetValue<bool>())
                     {
                         if (hero.IncomeDamage > 0)
                         {
@@ -63,7 +63,7 @@ namespace Activator.Summoners
                         }
                     }
 
-                    if (hero.Player.Health / hero.Player.MaxHealth * 100 <= 35 && Menu.Item("telehp").GetValue<bool>())
+                    if (hero.Player.Health / hero.Player.MaxHealth * 100 <= 35 && Menu.Item("telelowhp").GetValue<bool>())
                     {
                         if (hero.IncomeDamage > 0)
                         {
