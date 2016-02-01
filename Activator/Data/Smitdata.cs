@@ -394,7 +394,7 @@ namespace Activator.Data
             SpellList.Add(new Smitdata
             {
                 Name = "Chogath",
-                CastRange =  175 + new [] { 23f, 37f, 50f} [Activator.Player.Level/3],
+                CastRange =  175 + new [] { 23f, 37f, 50f} [Activator.Player.Level / 6],
                 Slot = SpellSlot.R,
                 Stage = 0,
                 Type = SpellDataTargetType.Unit
