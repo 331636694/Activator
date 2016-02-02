@@ -131,7 +131,7 @@ namespace Activator.Summoners
                     }
 
                     // Combo Smite
-                    if (Menu.Item("smitemode").GetValue<StringList>().SelectedIndex == 1 ||
+                    if (Menu.Item("smitemode").GetValue<StringList>().SelectedIndex == 1 &&
                         Player.GetSpell(Activator.Smite).Name.ToLower() == "s5_summonersmiteduel")
                     {
                         if (Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
