@@ -8,7 +8,6 @@
 // Author:		Robin Kurisu
 #endregion
 
-using SharpDX;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,8 +33,10 @@ namespace Activator
     {
         internal static Menu Origin;
         internal static Obj_AI_Hero Player;
+        internal static float PlayerZ;
 
         internal static int MapId;
+        internal static int LastZUpdate;
         internal static int LastUsedTimeStamp;
         internal static int LastUsedDuration;
 
@@ -136,6 +137,7 @@ namespace Activator
 
                 // tracks gameobjects 
                 Gametroys.StartOnUpdate();
+                Game.OnUpdate += OnUpdateZ;
 
                 // on bought item
                 Obj_AI_Base.OnPlaceItemInSlot += Obj_AI_Base_OnPlaceItemInSlot;
@@ -176,6 +178,15 @@ namespace Activator
             {
                 Console.WriteLine(e);
                 Game.PrintChat("Exception thrown at <font color=\"#FFF280\">Activator.OnGameLoad</font>");
+            }
+        }
+
+        private static void OnUpdateZ(EventArgs args)
+        {
+            if (!Player.IsDead && Utils.GameTimeTickCount - LastZUpdate >= 6000)
+            {
+                PlayerZ = Player.Position.Z;
+                LastZUpdate = Utils.GameTimeTickCount;
             }
         }
 

@@ -28,6 +28,11 @@ namespace Activator.Summoners
                     if (hero.Player.Distance(Player.ServerPosition) > Range)
                         return;
 
+                    if (hero.Player.Position.Z > Activator.PlayerZ + 200)
+                    {
+                        return;
+                    }
+
                     Buffs.CheckCleanse(hero.Player);
 
                     var d = Convert.ToDouble(Menu.Item("use" + Name + "time").GetValue<StringList>().SelectedValue);

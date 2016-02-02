@@ -31,6 +31,11 @@ namespace Activator.Items.Cleansers
                     if (!Parent.Item(Parent.Name + "useon" + hero.Player.NetworkId).GetValue<bool>())
                         continue;
 
+                    if (hero.Player.Position.Z > Activator.PlayerZ + 200)
+                    {
+                        return;
+                    }
+
                     if (hero.ForceQSS)
                     {
                         UseItem();

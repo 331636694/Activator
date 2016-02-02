@@ -180,7 +180,8 @@ namespace Activator.Summoners
         {
             if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
             {
-                if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration || Excluded.Any(ex => Name.Equals(ex))) // ignore limit
+                if (Excluded.Any(ex => Name.Equals(ex)) || // ignore limit
+                    Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration)
                 {
                     if (Player.GetSpell(Slot).State == SpellState.Ready)
                     {
@@ -194,10 +195,10 @@ namespace Activator.Summoners
 
         public void UseSpellOn(Obj_AI_Base target, bool combo = false)
         {
-            if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active || Excluded.Any(ex => Name.Equals(ex)))
+            if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
             {
-                if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration
-                    || Name == "summonerexhaust") // ignore limit
+                if (Excluded.Any(ex => Name.Equals(ex)) || // ignore limit
+                    Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration) 
                 {
                     if (Player.GetSpell(Slot).State == SpellState.Ready)
                     {
