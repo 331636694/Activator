@@ -53,6 +53,9 @@ namespace Activator.Summoners
                 if (!Parent.Item(Parent.Name + "useon" + hero.Player.NetworkId).GetValue<bool>())
                     continue;
 
+                if (hero.Player.IsDead || !hero.Player.IsValid || hero.Player.IsZombie)
+                    continue;
+
                 if (hero.Player.Distance(Player.ServerPosition) > 3000 && hero.Player.Distance(Game.CursorPos) > 3000)
                 {
                     if (hero.HitTypes.Contains(HitType.Ultimate) && Menu.Item("teleulthp").GetValue<bool>())
