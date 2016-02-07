@@ -31,9 +31,6 @@ namespace Activator.Summoners
 
             SimplePing();
             Utility.DelayAction.Add(109 + _rand.Next(90, 300), SimplePing);
-            Utility.DelayAction.Add(299 + _rand.Next(90, 300), SimplePing);
-            Utility.DelayAction.Add(399 + _rand.Next(90, 300), SimplePing);
-            Utility.DelayAction.Add(799 + _rand.Next(90, 300), SimplePing);
         }
 
         private static void SimplePing()

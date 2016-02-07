@@ -152,7 +152,7 @@ namespace Activator.Summoners
                 if (Name == "summonerteleport")
                 {
                     Activator.UseAllyMenu = true;
-                    Menu.AddItem(new MenuItem("telelowhp", "Ping Low Health Allies")).SetValue(true);
+                    Menu.AddItem(new MenuItem("telelowhp", "Ping Low Health Allies")).SetValue(false);
                     Menu.AddItem(new MenuItem("teleulthp", "Ping Dangerous Activity")).SetValue(true);
                 }
 
