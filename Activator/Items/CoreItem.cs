@@ -217,8 +217,6 @@ namespace Activator.Items
                             ssmenu.AddItem(new MenuItem(Name + b.Name + "cc", b.MenuName + " " + xdot)).SetValue(true);
                     }
 
-                    ccmenu.AddItem(new MenuItem(Name + "cignote", "Ignite")).SetValue(true);
-                    ccmenu.AddItem(new MenuItem(Name + "cexhaust", "Exhaust")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "csupp", "Supression")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "cstun", "Stuns")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "ccharm", "Charms")).SetValue(true);
@@ -240,8 +238,8 @@ namespace Activator.Items
                     Menu.AddItem(new MenuItem("use" + Name + "od", "Use for Unique Only"))
                         .SetValue(false).SetTooltip("Use for Unique Only, Or Everything");
                     Menu.AddItem(new MenuItem("use" + Name + "dot", "Use for DoTs only if HP% <"))
-                        .SetValue(new Slider(35)).SetTooltip("Will " + Name + " Damage Spells if Below HP%");
-                    Menu.AddItem(new MenuItem("use" + Name + "delay", "Activation Delay (in ms)")).SetValue(new Slider(100, 0, 500));
+                        .SetValue(new Slider(35)).SetTooltip("Will " + Name + " DoTs Spells if Below HP%");
+                    Menu.AddItem(new MenuItem("use" + Name + "delay", "Activation Delay (in ms)")).SetValue(new Slider(55, 0, 500));
                 }
 
                 if (Category.Any(t => t == MenuType.ActiveCheck))

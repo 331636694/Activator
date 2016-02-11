@@ -33,14 +33,18 @@ namespace Activator
     {
         internal static Menu Origin;
         internal static Obj_AI_Hero Player;
+        internal static Random Rand;
         internal static float PlayerZ;
 
         internal static int MapId;
+        internal static int TrinketId;
+
         internal static int LastZUpdate;
         internal static int LastUsedTimeStamp;
         internal static int LastUsedDuration;
 
         internal static SpellSlot Smite;
+        internal static bool Upgrade;
         internal static bool SmiteInGame;
         internal static bool TroysInGame;
         internal static bool UseEnemyMenu, UseAllyMenu;
@@ -60,6 +64,7 @@ namespace Activator
             {
                 Player = ObjectManager.Player;
                 MapId = (int) Utility.Map.GetMap().Type;
+                Rand = new Random();
 
                 GetSmiteSlot();
                 GetGameTroysInGame();
@@ -116,6 +121,8 @@ namespace Activator
 
                 zmenu.AddItem(new MenuItem("acdebug", "Debug")).SetValue(false);
                 zmenu.AddItem(new MenuItem("evade", "Evade Integration")).SetValue(true);
+                zmenu.AddItem(new MenuItem("autoevelup", "Level Up Ultimate"))
+                    .SetValue(true).SetTooltip("Level 6 Only");
                 zmenu.AddItem(new MenuItem("healthp", "Ally Priority:")).SetValue(new StringList(new[] { "Low HP", "Most AD/AP", "Most HP" }, 1));
                 zmenu.AddItem(new MenuItem("usecombo", "Combo (active)")).SetValue(new KeyBind(32, KeyBindType.Press, true));
 
@@ -141,6 +148,9 @@ namespace Activator
 
                 // on bought item
                 Obj_AI_Base.OnPlaceItemInSlot += Obj_AI_Base_OnPlaceItemInSlot;
+
+                // on level up
+                Obj_AI_Base.OnLevelUp += Obj_AI_Base_OnLevelUp;
 
                 Game.OnChat += Game_OnChat;
                 Game.PrintChat("<b>Activator#</b> - Loaded!");
@@ -181,6 +191,35 @@ namespace Activator
             }
         }
 
+        private static void Obj_AI_Base_OnLevelUp(Obj_AI_Base sender, EventArgs args)
+        {
+            var hero = sender as Obj_AI_Hero;
+            if (hero == null || !hero.IsMe)
+            {
+                return;
+            }
+
+            /* place 
+               holder */
+
+            if (Origin.Item("autolevelup").GetValue<bool>() && !MenuGUI.IsShopOpen)
+            {
+                if (hero.ChampionName == "Jayce" || hero.ChampionName == "Udyr" || 
+                    hero.ChampionName == "Elise")
+                {
+                    return;
+                }
+
+                switch (Player.Level)
+                {
+                    case 6:
+                        Utility.DelayAction.Add(Rand.Next(250, 950) + Math.Max(30, Game.Ping),
+                            () => { Player.Spellbook.LevelSpell(SpellSlot.R); });
+                        break;
+                }
+            }
+        }
+
         private static void OnUpdateZ(EventArgs args)
         {
             if (!Player.IsDead && Utils.GameTimeTickCount - LastZUpdate >= 6000)
@@ -193,11 +232,25 @@ namespace Activator
         private static void Obj_AI_Base_OnPlaceItemInSlot(Obj_AI_Base sender, Obj_AI_BasePlaceItemInSlotEventArgs args)
         {
             if (!sender.IsMe)
+            {
                 return;
+            }
+
+            var itemid = (int) args.Id;
+
+            switch (itemid)
+            {
+                case 3340:
+                    TrinketId = 3340; // ward
+                    break;
+                case 3341:
+                    TrinketId = 3341; // sweeper
+                    break;
+            }
 
             foreach (var item in Lists.Items)
             {
-                if (item.Id == (int) args.Id)
+                if (item.Id == itemid)
                 {
                     if (!Lists.BoughtItems.Contains(item))
                     {

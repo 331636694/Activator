@@ -343,11 +343,7 @@ namespace Activator.Handlers
                     buff.Type == BuffType.Poison &&
                     Activator.Origin.Item(itemname + "cpoison").GetValue<bool>() ||
                     buff.Type == BuffType.Slow &&
-                    Activator.Origin.Item(itemname + "cslow").GetValue<bool>() ||
-                    buff.Name == "summonerexhaust" &&
-                    Activator.Origin.Item(itemname + "cexhaust").GetValue<bool>() ||
-                    buff.Name == "summonerdot" &&
-                    Activator.Origin.Item(itemname + "cignote").GetValue<bool>()));
+                    Activator.Origin.Item(itemname + "cslow").GetValue<bool>()));
         }
 
         public static int GetCustomDamage(this Obj_AI_Hero source, string auraname, Obj_AI_Hero target)
