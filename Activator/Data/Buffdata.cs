@@ -90,6 +90,19 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Name = "itemdusknightfall",
+                MenuName = "Duskblade (Nightfall)",
+                Evade = false,
+                DoT = false,
+                EvadeTimer = 0,
+                Cleanse = true,
+                CleanseTimer = 1000,
+                Slot = SpellSlot.Unknown,
+                Interval = 1.0
+            });
+
+            BuffList.Add(new Buffdata
+            {
                 Champion = "Vi",
                 Name = "virknockup",
                 MenuName = "Vi R Knockup",

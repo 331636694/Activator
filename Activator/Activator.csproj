@@ -60,7 +60,7 @@
   <ItemGroup>
     <Compile Include="Base\Essentials.cs" />
     <Compile Include="Base\Champion.cs" />
-    <Compile Include="Data\Smitdata.cs" />
+    <Compile Include="Data\Smitedata.cs" />
     <Compile Include="Base\Gametroy.cs">
       <SubType>Code</SubType>
     </Compile>

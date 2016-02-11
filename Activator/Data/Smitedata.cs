@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace Activator.Data
 {
-    public class Smitdata
+    public class Smitedata
     {
         public string Name;
         public float CastRange;
@@ -21,7 +21,7 @@ namespace Activator.Data
         public int Stage;
         public SpellDataTargetType Type;
 
-        public static List<Smitdata> SpellList = new List<Smitdata>();
+        public static List<Smitedata> SpellList = new List<Smitedata>();
 
         public bool HeroReqs(Obj_AI_Base unit)
         {
@@ -55,9 +55,9 @@ namespace Activator.Data
             return true;
         }
 
-        static Smitdata()
+        static Smitedata()
         {
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "DrMundo",
                 CastRange = 500f,
@@ -66,7 +66,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Ekko",
                 CastRange = 425f,
@@ -75,7 +75,7 @@ namespace Activator.Data
                 Slot = SpellSlot.E
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Rengar",
                 CastRange = 150f,
@@ -84,7 +84,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Wukong",
                 CastRange = 305f,
@@ -93,7 +93,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Quinn",
                 CastRange = 675f,
@@ -102,7 +102,7 @@ namespace Activator.Data
                 Slot = SpellSlot.E
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Fiora",
                 CastRange = 375f,
@@ -111,7 +111,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Nidalee",
                 CastRange = 375f,
@@ -120,7 +120,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Alistar",
                 CastRange = 350f,
@@ -129,7 +129,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "FiddleSticks",
                 CastRange = 750f,
@@ -138,7 +138,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Unit
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "JarvanIV",
                 CastRange = 770f,
@@ -147,7 +147,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Location
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Twitch",
                 CastRange = 950f,
@@ -156,7 +156,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Self
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Riven",
                 CastRange = 150f,
@@ -165,7 +165,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Self
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Malphite",
                 CastRange = 200f,
@@ -174,7 +174,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Self
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Nunu",
                 CastRange = 200f,
@@ -183,7 +183,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Unit
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Olaf",
                 CastRange = 325f,
@@ -192,7 +192,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Unit
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Elise",
                 CastRange = 475f,
@@ -201,7 +201,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Unit
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Warwick",
                 CastRange = 400f,
@@ -210,7 +210,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Unit
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Trundle",
                 CastRange = 180f,
@@ -219,7 +219,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.SelfAndUnit
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "MasterYi",
                 CastRange = 600f,
@@ -228,7 +228,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Unit
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Kayle",
                 CastRange = 650f,
@@ -237,7 +237,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Unit
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Khazix",
                 CastRange = 325f,
@@ -246,7 +246,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Unit
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "MonkeyKing",
                 CastRange = 300f,
@@ -255,7 +255,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Unit
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Darius",
                 CastRange = 425f,
@@ -264,7 +264,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Self
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Diana",
                 CastRange = 825f,
@@ -273,7 +273,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Unit
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Fizz",
                 CastRange = 550f,
@@ -282,7 +282,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Unit
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Evelynn",
                 CastRange = 225f,
@@ -292,7 +292,7 @@ namespace Activator.Data
             });
 
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Maokai",
                 CastRange = 600f,
@@ -301,7 +301,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Location
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Nocturne",
                 CastRange = 500f,
@@ -310,7 +310,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Location
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Pantheon",
                 CastRange = 600f,
@@ -319,7 +319,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Unit
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Volibear",
                 CastRange = 400f,
@@ -328,7 +328,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Unit
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Vi",
                 CastRange = 125f,
@@ -337,7 +337,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.SelfAndUnit
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Tryndamere",
                 CastRange = 400f,
@@ -346,7 +346,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Location
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Zac",
                 CastRange = 550f,
@@ -355,7 +355,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Location
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Shen",
                 CastRange = 475f,
@@ -364,7 +364,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Unit
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "XinZhao",
                 CastRange = 600f,
@@ -373,7 +373,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Unit
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Amumu",
                 CastRange = 350f,
@@ -382,7 +382,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Self
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "LeeSin",
                 CastRange = 1300f,
@@ -391,7 +391,7 @@ namespace Activator.Data
                 Type = SpellDataTargetType.Self
             });
 
-            SpellList.Add(new Smitdata
+            SpellList.Add(new Smitedata
             {
                 Name = "Chogath",
                 CastRange =  175 + new [] { 23f, 37f, 50f} [Activator.Player.Level / 6],

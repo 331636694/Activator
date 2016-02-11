@@ -100,7 +100,7 @@ namespace Activator.Base
                         return;
                     }
 
-                    var smitespell = Data.Smitdata.SpellList
+                    var smitespell = Data.Smitedata.SpellList
                         .FirstOrDefault(s => s.Name == Activator.Player.ChampionName);
 
                     foreach (var minion in 

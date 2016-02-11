@@ -154,7 +154,7 @@ namespace Activator.Items
                 Menu.AddItem(new MenuItem("use" + Name, "Use " + DisplayName ?? Name)).SetValue(true);
                 Menu.AddItem(new MenuItem("prior" + Name, DisplayName + " Priority"))
                     .SetValue(new Slider(Priority, 1, 7))
-                    .SetTooltip("The Priority " + Name + " Will Have Over Another Item (7 = Highest)");
+                    .SetTooltip("The Priority " + Name + " Will Activate Over Another Item (7 = Highest)");
 
                 if (Category.Any(t => t == MenuType.SelfLowHP) &&
                    (Name.Contains("Pot") || Name.Contains("Flask") || Name.Contains("Biscuit")))
@@ -238,7 +238,7 @@ namespace Activator.Items
                     Menu.AddItem(new MenuItem("use" + Name + "time", "Min Durration to Use"))
                         .SetValue(new StringList(new [] {".50", ".75", "1.0", "1.25", "1.5", "1.75", "2.0"}));
                     Menu.AddItem(new MenuItem("use" + Name + "od", "Use for Unique Only"))
-                        .SetValue(false).SetTooltip("Will ignore buff types. See unique buffs menu above");
+                        .SetValue(false).SetTooltip("Use for Unique Only, Or Everything");
                     Menu.AddItem(new MenuItem("use" + Name + "dot", "Use for DoTs only if HP% <"))
                         .SetValue(new Slider(35)).SetTooltip("Will " + Name + " Damage Spells if Below HP%");
                     Menu.AddItem(new MenuItem("use" + Name + "delay", "Activation Delay (in ms)")).SetValue(new Slider(100, 0, 500));

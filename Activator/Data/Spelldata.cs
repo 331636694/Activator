@@ -202,10 +202,10 @@ namespace Activator.Data
                 SDataName = "headbutt",
                 ChampionName = "alistar",
                 Slot = SpellSlot.W,
-                CastRange = 650f,
+                CastRange = 660f,
                 Delay = 250f,
                 HitType = new HitType[] { },
-                MissileSpeed = int.MaxValue
+                MissileSpeed = 1200
             });
 
             Spells.Add(new Spelldata
@@ -227,7 +227,7 @@ namespace Activator.Data
                 CastRange = 0f,
                 Delay = 0f,
                 HitType = new HitType[] { },
-                MissileSpeed = 828
+                MissileSpeed = int.MaxValue
             });
 
             Spells.Add(new Spelldata
@@ -5357,7 +5357,7 @@ namespace Activator.Data
                 CastRange = 420f,
                 Delay = 300f,
                 HitType = new HitType[] { },
-                MissileSpeed = int.MaxValue
+                MissileSpeed = 1550
             });
 
             Spells.Add(new Spelldata

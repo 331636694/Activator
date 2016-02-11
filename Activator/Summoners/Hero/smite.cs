@@ -22,7 +22,7 @@ namespace Activator.Summoners
         internal static int Limiter;
         internal static void L33TSmite(Obj_AI_Base unit, float smitedmg)
         {
-            foreach (var hero in Smitdata.SpellList.Where(x => x.Name == Activator.Player.ChampionName))
+            foreach (var hero in Smitedata.SpellList.Where(x => x.Name == Activator.Player.ChampionName))
             {
                 if (Activator.Player.GetSpellDamage(unit, hero.Slot, hero.Stage) + smitedmg >= unit.Health)
                 {
