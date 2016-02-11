@@ -16,7 +16,7 @@ namespace Activator.Items.Cleansers
         internal override float Range => 750f;
         internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.Cleanse, MenuType.ActiveCheck  };
         internal override MapType[] Maps => new[] { MapType.Common };
-        internal override int DefaultHP => 15;
+        internal override int DefaultHP => 5;
         internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
