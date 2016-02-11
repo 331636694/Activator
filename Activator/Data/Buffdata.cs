@@ -96,7 +96,7 @@ namespace Activator.Data
                 DoT = false,
                 EvadeTimer = 0,
                 Cleanse = true,
-                CleanseTimer = 1000,
+                CleanseTimer = 1650,
                 Slot = SpellSlot.Unknown,
                 Interval = 1.0
             });
