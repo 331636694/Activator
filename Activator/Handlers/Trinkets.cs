@@ -96,7 +96,7 @@ namespace Activator.Handlers
 
                     if (TrinketId == 3340 && !LeagueSharp.Common.Items.HasItem(3364))
                     {
-                        if (Essentials.GetRole(Player) == PrimaryRole.Mage)
+                        if (Essentials.GetRole(Player) == PrimaryRole.Assassin)
                             if (Player.BuyItem((ItemId) 3364))
                                 Upgrade = false;
                     }
