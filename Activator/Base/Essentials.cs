@@ -14,7 +14,18 @@ using LeagueSharp.Common;
 
 namespace Activator.Base
 {
-    class Essentials
+    public enum PrimaryRole
+    {
+        Unknown,
+        Assassin,
+        Fighter,
+        Mage,
+        Support,
+        Marksman,
+        Tank
+    }
+
+    internal class Essentials
     {
         /// <summary>
         /// Returns if the minion is an "Epic" minion (baron, dragon, etc)
@@ -74,6 +85,86 @@ namespace Activator.Base
                     unit.HitTypes.Clear();
                 }       
             }
+        }
+
+        /// <summary>
+        /// Returns the primary role of a hero.
+        /// </summary>
+        /// <param name="hero"></param>
+        /// <returns></returns>
+        public static PrimaryRole GetRole(Obj_AI_Hero hero)
+        {
+            var assassins = new[]
+            {
+                "Akali", "Ekko", "Evelynn", "Fizz", "Kassadin", "Katarina", "Khazix", "Leblanc", "MasterYi", "Nidalee",
+                "Nocturne", "Rengar", "Shaco", "Talon", "Zed"
+            };
+
+            var fighters = new[]
+            {
+                "Aatrox", "Darius", "Diana", "DrMundo", "Fiora", "Gangplank", "Garen", "Gnar", "Gragas", "Hecarim",
+                "Illaoi", "Irelia", "Jax", "Jayce", "Kayle", "LeeSin", "Mordekaiser", "Nasus", "Olaf", "Pantheon",
+                "RekSai", "Renekton", "Riven", "Rumble", "Shyvana", "Skarner", "Trundle", "Tryndamere", "Udyr", "Vi",
+                "Volibear", "Warwick", "Wukong", "XinZhao", "Yasuo", "Yorick"
+            };
+
+            var mages = new[]
+            {
+                "Ahri", "Anivia", "Annie", "Azir", "Brand", "Cassiopeia", "Elise", "Fiddlesticks", "Heimerdinger", "Karma",
+                "Karthus", "Kennen", "Lissandra", "Lux", "Malzahar", "Orianna", "Ryze", "Swain", "Syndra", "Twistedfate",
+                "Veigar", "Velkoz", "Viktor", "Vladimir", "Xerath", "Ziggs"
+            };
+
+            var supports = new[]
+            {
+                "Bard", "Braum", "Janna", "Lulu", "Morgana", "Nami", "Nunu", "Sona", "Soraka", "TahmKench", "Taric", "Thresh",
+                "Zilean", "Zyra"
+            };
+
+            var tanks = new[]
+            {
+                "Alistar", "Amumu", "Tank", "Chogath", "Galio", "JarvanIV", "Leona", "Malphite", "Maokai", "Nautilus",
+                "Poppy", "Rammus", "Sejuani", "Shen", "Singed", "Sion", "Zac"
+            };
+
+            var marksmen = new[]
+            {
+                "Ashe", "Caitlyn", "Corki", "Draven", "Ezreal", "Graves", "Jhin", "Jinx", "Kalista", "Kindred",
+                "Kogmaw", "Lucain", "MissFortune", "Quinn", "Sivir", "Teemo", "Tristana", "Twitch", "Urgot", "Varus",
+                "Vayne"
+            };
+
+            if (assassins.Contains(hero.ChampionName))
+            {
+                return PrimaryRole.Assassin;
+            }
+
+            if (fighters.Contains(hero.ChampionName))
+            {
+                return PrimaryRole.Fighter;
+            }
+
+            if (mages.Contains(hero.ChampionName))
+            {
+                return PrimaryRole.Mage;
+            }
+
+            if (supports.Contains(hero.ChampionName))
+            {
+                return PrimaryRole.Support;
+            }
+
+            if (tanks.Contains(hero.ChampionName))
+            {
+                return PrimaryRole.Marksman;
+            }
+
+            if (marksmen.Contains(hero.ChampionName))
+            {
+                return PrimaryRole.Marksman;
+            }
+
+            return PrimaryRole.Unknown;
         }
     }
 }

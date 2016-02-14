@@ -72,6 +72,7 @@
     <Compile Include="Handlers\Gametroys.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Handlers\Trinkets.cs" />
     <Compile Include="Items\Consumables\_2031.cs" />
     <Compile Include="Items\Consumables\_2032.cs" />
     <Compile Include="Items\Consumables\_2033.cs" />
