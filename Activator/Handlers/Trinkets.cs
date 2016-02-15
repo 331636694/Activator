@@ -79,9 +79,9 @@ namespace Activator.Handlers
                 return;         
             }
 
-            if (MenuGUI.IsShopOpen && !ObjectManager.Player.IsDead)
+            if (MenuGUI.IsShopOpen && !Player.IsDead)
             {
-                if (ObjectManager.Player.Distance(Utility.MiniCache.AllyFountain) <= 700)
+                if (Player.InShop())
                 {
                     if (TrinketId == 3340 && !LeagueSharp.Common.Items.HasItem(3363))
                     {
