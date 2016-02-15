@@ -11,10 +11,11 @@ namespace Activator.Handlers
         internal static int Limiter;
         internal static int TrinketId;
         internal static bool Upgrade;
-        internal static Obj_AI_Hero Player => ObjectManager.Player;
+        internal static Obj_AI_Hero Player;
 
         public static void Init()
         {
+            Player = ObjectManager.Player;
             Game.OnUpdate += Game_OnUpdate;
             Obj_AI_Base.OnLevelUp += Obj_AI_Base_OnLevelUp;
             Obj_AI_Base.OnPlaceItemInSlot += Obj_AI_Base_OnPlaceItemInSlot;
