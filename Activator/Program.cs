@@ -461,7 +461,20 @@ namespace Activator
         private static void CheckEvade()
         {
             if (Menu.GetMenu("ezEvade", "ezEvade") != null)
+            {
                 Origin.Item("evade").SetValue(true);
+
+                try
+                {
+                    if (Menu.GetMenu("ezEvade", "ezEvade").Item("Dodging").GetValue<bool>())
+                    {                 
+                    }
+                }
+                catch
+                {
+                    Game.PrintChat("<b>Activator#</b>: Evade integration error, Please update ezEvade to 2.2.0.4 :^)");
+                }
+            }
 
             if (Menu.GetMenu("Evade", "Evade") != null)
                 Origin.Item("evade").SetValue(true);

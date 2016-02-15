@@ -72,6 +72,19 @@ namespace Activator.Handlers
                         // ignore if can evade
                         if (hero.Player.NetworkId == Player.NetworkId)
                         {
+                            if (Menu.GetMenu("ezEvade", "ezEvade") != null)
+                            {
+                                try
+                                {
+                                    if (Menu.GetMenu("ezEvade", "Dodging").Item("Dodging").GetValue<bool>())
+                                        continue;
+                                }
+                                catch 
+                                {
+                                    Console.WriteLine("Evade integration null error, please update ezEvade to 2.2.0.4");
+                                }
+                            }
+
                             if (hero.Player.CanMove && evadetime < endtime)
                             {
                                 // check next player
@@ -222,7 +235,7 @@ namespace Activator.Handlers
                             if (dmg == 0)
                             {
                                 dmg = (int)(hero.Player.Health / hero.Player.MaxHealth * 5);
-                                Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName);
+                                // Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName);
                             }
 
                             // delay the spell a bit before missile endtime
@@ -336,12 +349,27 @@ namespace Activator.Handlers
                                 hero.Player.Distance(endpos) <= correctwidth + hero.Player.BoundingRadius + 35 ||
                                 isline && correctwidth + hero.Player.BoundingRadius + 35 > projdist)
                             {
-                                if (hero.Player.NetworkId == Player.NetworkId)
+                                if (data.Global || Activator.Origin.Item("evade").GetValue<bool>())
                                 {
-                                    if ((hero.Player.CanMove && evadetime < endtime) &&
-                                        (data.Global || Activator.Origin.Item("evade").GetValue<bool>()))
+                                    if (hero.Player.NetworkId == Player.NetworkId)
                                     {
-                                        continue;
+                                        if (Menu.GetMenu("ezEvade", "ezEvade") != null)
+                                        {
+                                            try
+                                            {
+                                                if (Menu.GetMenu("ezEvade", "Dodging").Item("Dodging").GetValue<bool>())
+                                                    continue;
+                                            }
+                                            catch 
+                                            {
+                                                Console.WriteLine("Evade integration null error, please update ezEvade to 2.2.0.4");
+                                            }
+                                        }
+
+                                        if (hero.Player.CanMove && evadetime < endtime)
+                                        {
+                                            continue;
+                                        }
                                     }
                                 }
 
@@ -418,8 +446,8 @@ namespace Activator.Handlers
                             var dmg = (int) Math.Abs(attacker.GetSpellDamage(hero.Player, args.SData.Name));
                             if (dmg == 0)
                             {
-                                dmg = (int)(hero.Player.Health / hero.Player.MaxHealth * 5);
-                                Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName);
+                                dmg = (int) (hero.Player.Health / hero.Player.MaxHealth * 5);
+                                // Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName);
                             }
 
                             Utility.DelayAction.Add((int) (endtime - (endtime * 0.7)), () =>
