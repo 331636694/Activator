@@ -460,27 +460,36 @@ namespace Activator
 
         private static void CheckEvade()
         {
-            if (Menu.GetMenu("ezEvade", "ezEvade") != null)
-            {
-                Origin.Item("evade").SetValue(true);
+            CheckEvadeDodging(true);
 
-                try
-                {
-                    if (Menu.GetMenu("ezEvade", "ezEvade").Item("Dodging").GetValue<bool>())
-                    {                 
-                    }
-                }
-                catch
-                {
-                    Game.PrintChat("<b>Activator#</b>: Evade integration error, Please update ezEvade to 2.2.0.4 :^)");
-                }
-            }
+            if (Menu.GetMenu("ezEvade", "ezEvade") != null)
+                Origin.Item("evade").SetValue(true);
 
             if (Menu.GetMenu("Evade", "Evade") != null)
                 Origin.Item("evade").SetValue(true);
 
             if (Menu.GetMenu("Evade", "Evade") == null && Menu.GetMenu("ezEvade", "ezEvade") == null)
                 Origin.Item("evade").SetValue(false);
+        }
+
+        internal static bool CheckEvadeDodging(bool onlyonce = false)
+        {
+            if (Menu.GetMenu("ezEvade", "ezEvade") != null)
+            {
+                try
+                {
+                    return Menu.GetMenu("ezEvade", "ezEvade").Item("Dodging").GetValue<bool>();
+                }
+                catch
+                {
+                    if (onlyonce)
+                        Game.PrintChat("<b>Activator#</b> - ezEvade integration error, Please update ezEvade to 2.2.0.4 :^)");
+
+                    Console.WriteLine("Activator#: ezEvade integration error, Please update ezEvade to 2.2.0.4 :^)");
+                }
+            }
+
+            return false;
         }
 
         private static object NewInstance(Type type)

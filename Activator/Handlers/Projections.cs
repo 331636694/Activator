@@ -72,20 +72,7 @@ namespace Activator.Handlers
                         // ignore if can evade
                         if (hero.Player.NetworkId == Player.NetworkId)
                         {
-                            if (Menu.GetMenu("ezEvade", "ezEvade") != null)
-                            {
-                                try
-                                {
-                                    if (Menu.GetMenu("ezEvade", "Dodging").Item("Dodging").GetValue<bool>())
-                                        continue;
-                                }
-                                catch 
-                                {
-                                    Console.WriteLine("Evade integration null error, please update ezEvade to 2.2.0.4");
-                                }
-                            }
-
-                            if (hero.Player.CanMove && evadetime < endtime)
+                            if (hero.Player.CanMove && evadetime < endtime || Activator.CheckEvadeDodging())
                             {
                                 // check next player
                                 continue;
@@ -353,20 +340,7 @@ namespace Activator.Handlers
                                 {
                                     if (hero.Player.NetworkId == Player.NetworkId)
                                     {
-                                        if (Menu.GetMenu("ezEvade", "ezEvade") != null)
-                                        {
-                                            try
-                                            {
-                                                if (Menu.GetMenu("ezEvade", "Dodging").Item("Dodging").GetValue<bool>())
-                                                    continue;
-                                            }
-                                            catch 
-                                            {
-                                                Console.WriteLine("Evade integration null error, please update ezEvade to 2.2.0.4");
-                                            }
-                                        }
-
-                                        if (hero.Player.CanMove && evadetime < endtime)
+                                        if (hero.Player.CanMove && evadetime < endtime || Activator.CheckEvadeDodging())
                                         {
                                             continue;
                                         }
