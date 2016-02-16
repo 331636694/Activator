@@ -468,7 +468,8 @@ namespace Activator
             if (Menu.GetMenu("Evade", "Evade") != null)
                 Origin.Item("evade").SetValue(true);
 
-            if (Menu.GetMenu("Evade", "Evade") == null && Menu.GetMenu("ezEvade", "ezEvade") == null)
+            if (Menu.GetMenu("Evade", "Evade") == null && 
+                Menu.GetMenu("ezEvade", "ezEvade") == null)
                 Origin.Item("evade").SetValue(false);
         }
 
@@ -483,9 +484,32 @@ namespace Activator
                 catch
                 {
                     if (onlyonce)
-                        Game.PrintChat("<b>Activator#</b> - ezEvade integration error, Please update ezEvade to 2.2.0.4 :^)");
+                    {
+                        Game.PrintChat("<b>Activator#</b> - <font color=\"#FFF280\">ezEvade</font> integration error, " +
+                                       "Please update ezEvade to <font color=\"#FFF280\">2.2.0.4</font> :^)");
+                    }
 
                     Console.WriteLine("Activator#: ezEvade integration error, Please update ezEvade to 2.2.0.4 :^)");
+                }
+            }
+
+            if (Menu.GetMenu("Evade", "Evade") != null)
+            {
+                try
+                {
+                    return Menu.GetMenu("Evade", "Evade").Item("Dodging").GetValue<bool>();
+                }
+                catch
+                {
+                    if (onlyonce)
+                    {
+                        Game.PrintChat("<b>Activator#</b> - <font color=\"#FFF280\">Evade#</font> integration error, P" +
+                                       "lease update Evade# to <font color=\"#FFF280\">5.16.0.2</font> :^)");
+                    }
+
+                    Console.WriteLine(
+                        "Activator#: <font color=\"#FFF280\">Evade#</font> integration error, " +
+                        "Please update Evade# to 5.16.0.2 :^)");
                 }
             }
 

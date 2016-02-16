@@ -72,7 +72,7 @@ namespace Activator.Handlers
                         // ignore if can evade
                         if (hero.Player.NetworkId == Player.NetworkId)
                         {
-                            if (hero.Player.CanMove && evadetime < endtime || Activator.CheckEvadeDodging())
+                            if (evadetime < endtime && Activator.CheckEvadeDodging())
                             {
                                 // check next player
                                 continue;
@@ -207,7 +207,7 @@ namespace Activator.Handlers
                                 // ignore if can evade
                                 if (hero.Player.NetworkId == Player.NetworkId)
                                 {
-                                    if (hero.Player.CanMove && evadetime < data.Delay)
+                                    if (evadetime < data.Delay && Activator.CheckEvadeDodging())
                                     {
                                         // check next player
                                         continue;
@@ -340,7 +340,7 @@ namespace Activator.Handlers
                                 {
                                     if (hero.Player.NetworkId == Player.NetworkId)
                                     {
-                                        if (hero.Player.CanMove && evadetime < endtime || Activator.CheckEvadeDodging())
+                                        if (evadetime < endtime && Activator.CheckEvadeDodging())
                                         {
                                             continue;
                                         }
