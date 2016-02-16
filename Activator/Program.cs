@@ -118,7 +118,7 @@ namespace Activator
 
                 zmenu.AddItem(new MenuItem("acdebug", "Debug")).SetValue(false);
                 zmenu.AddItem(new MenuItem("evade", "Evade Integration")).SetValue(true);
-                zmenu.AddItem(new MenuItem("autoevelup", "Auto Level Ultimate")).SetValue(true).SetTooltip("Level 6 Only");
+                zmenu.AddItem(new MenuItem("autolevelup", "Auto Level Ultimate")).SetValue(true).SetTooltip("Level 6 Only");
                 zmenu.AddItem(new MenuItem("autotrinket", "Auto Upgrade Trinket")).SetValue(false);
                 zmenu.AddItem(new MenuItem("healthp", "Ally Priority:")).SetValue(new StringList(new[] { "Low HP", "Most AD/AP", "Most HP" }, 1));
                 zmenu.AddItem(new MenuItem("usecombo", "Combo (active)")).SetValue(new KeyBind(32, KeyBindType.Press, true));
