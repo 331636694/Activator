@@ -3994,11 +3994,11 @@ namespace Activator.Data
                 ChampionName = "orianna",
                 Slot = SpellSlot.W,
                 CastRange = 400f,
-                Delay = 350f,
+                Delay = 250f,
                 HitType = new[] { Base.HitType.CrowdControl },
                 MissileName = "orianadissonancecommand",
                 FromObject = new[] { "yomu_ring" },
-                MissileSpeed = 1200
+                MissileSpeed = int.MaxValue
             });
 
             Spells.Add(new Spelldata
@@ -4152,11 +4152,12 @@ namespace Activator.Data
                 ChampionName = "quinn",
                 Slot = SpellSlot.Q,
                 FixedRange = true,
-                CastRange = 1025f,
+                CastRange = 1050f,
                 Delay = 250f,
                 HitType = new[] { Base.HitType.CrowdControl },
                 MissileName = "quinnqmissile",
-                MissileSpeed = 1200
+                ExtraMissileNames = new [] { "quinnq" },
+                MissileSpeed = 1550
             });
 
             Spells.Add(new Spelldata
@@ -4516,9 +4517,10 @@ namespace Activator.Data
                 ChampionName = "rumble",
                 Slot = SpellSlot.R,
                 CastRange = 1700f,
-                Delay = 250f,
+                Delay = 400f,
                 HitType = new HitType[] { },
-                MissileSpeed = 1400
+                MissileName = "rumblecarpetbombmissile",
+                MissileSpeed = 1600
             });
 
             Spells.Add(new Spelldata
@@ -4530,6 +4532,8 @@ namespace Activator.Data
                 CastRange = 625f,
                 Delay = 250f,
                 HitType = new HitType[] { },
+                MissileName = "ryzeqmissile",
+                ExtraMissileNames = new [] { "ryzeq" },
                 MissileSpeed = 1400
             });
 
