@@ -26,7 +26,7 @@ namespace Activator.Items.Offensives
         private bool muramana;
         public override void OnTick(EventArgs args)
         {
-            if (!Menu.Item("use" + Name).GetValue<bool>())
+            if (!Menu.Item("use" + Name).GetValue<bool>() || Game.Version.Contains("6.4"))
                 return;
 
             if (muramana)
@@ -59,7 +59,7 @@ namespace Activator.Items.Offensives
 
         private void OnCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if (!sender.IsMe || !IsReady())
+            if (!sender.IsMe || !IsReady() || Game.Version.Contains("6.4"))
             {
                 return;
             }
