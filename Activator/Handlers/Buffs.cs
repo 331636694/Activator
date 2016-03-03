@@ -322,10 +322,15 @@ namespace Activator.Handlers
 
         internal static IEnumerable<BuffInstance> GetAuras(Obj_AI_Hero player, string itemname)
         {
+            if (player.HasBuffOfType(BuffType.Knockback) || player.HasBuffOfType(BuffType.Knockup))
+                return Enumerable.Empty<BuffInstance>();
+
             return player.Buffs.Where(buff => 
                 !Buffdata.BuffList.Any(b => buff.Name.ToLower() == b.Name && b.QssIgnore) &&
                    (buff.Type == BuffType.Snare &&
                     Activator.Origin.Item(itemname + "csnare").GetValue<bool>() ||
+                    buff.Type == BuffType.Silence &&
+                    Activator.Origin.Item(itemname + "csilence").GetValue<bool>() ||
                     buff.Type == BuffType.Charm &&
                     Activator.Origin.Item(itemname + "ccharm").GetValue<bool>() ||
                     buff.Type == BuffType.Taunt &&

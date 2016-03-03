@@ -37,7 +37,6 @@ namespace Activator
         internal static float PlayerZ;
 
         internal static int MapId;
-        internal static int LastZUpdate;
         internal static int LastUsedTimeStamp;
         internal static int LastUsedDuration;
 
@@ -142,7 +141,6 @@ namespace Activator
 
                 // tracks gameobjects 
                 Gametroys.StartOnUpdate();
-                Game.OnUpdate += OnUpdateZ;
 
                 // on bought item
                 Obj_AI_Base.OnPlaceItemInSlot += Obj_AI_Base_OnPlaceItemInSlot;
@@ -215,15 +213,6 @@ namespace Activator
                     Utility.DelayAction.Add(Rand.Next(250, 950) + Math.Max(30, Game.Ping),
                         () => { Player.Spellbook.LevelSpell(SpellSlot.R); });
                     break;
-            }
-        }
-
-        private static void OnUpdateZ(EventArgs args)
-        {
-            if (!Player.IsDead && Utils.GameTimeTickCount - LastZUpdate >= 6000)
-            {
-                PlayerZ = Player.Position.Z;
-                LastZUpdate = Utils.GameTimeTickCount;
             }
         }
 

@@ -32,11 +32,6 @@ namespace Activator.Items.Cleansers
                 if (hero.Player.Distance(Player.ServerPosition) > Range)
                     continue;
 
-                if (hero.Player.Position.Z > Activator.PlayerZ + 200)
-                {
-                    return;
-                }
-
                 if (hero.ForceQSS)
                 {
                     UseItem(hero.Player);
