@@ -67,7 +67,7 @@
     <Compile Include="Data\Gametroydata.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Base\Drawings.cs" />
+    <Compile Include="Handlers\Drawings.cs" />
     <Compile Include="Handlers\Projections.cs" />
     <Compile Include="Handlers\Gametroys.cs">
       <SubType>Code</SubType>

@@ -19,6 +19,7 @@ namespace Activator.Handlers
 {
     public class Gametroys
     {
+        private static int limiter;
         public static void StartOnUpdate()
         {
             Game.OnUpdate += Game_OnUpdate;
@@ -28,6 +29,9 @@ namespace Activator.Handlers
 
         static void GameObject_OnDelete(GameObject obj, EventArgs args)
         {
+            if (obj.IsValid<MissileClient>())
+                return;
+
             foreach (var troy in Gametroy.Objects)
             {
                 if (obj.Name.Contains(troy.Name))
@@ -44,24 +48,32 @@ namespace Activator.Handlers
 
         static void GameObject_OnCreate(GameObject obj, EventArgs args)
         {
+            if (obj.IsValid<MissileClient>())
+                return;
+
             foreach (var troy in Gametroy.Objects)
             {
-                if (obj.Name.Contains(troy.Name) && obj.IsValid<GameObject>())
-                {
+                if (obj.Name.ToLower().Contains(troy.Name) && obj.IsValid<GameObject>())
+                {                    
                     troy.Obj = obj;
                     troy.Start = Utils.GameTimeTickCount;
 
                     if (!troy.Included)
-                         troy.Included = true;
+                         troy.Included = Essentials.HeroInGame(troy.Owner);
                 }
             }
         }
 
         static void Game_OnUpdate(EventArgs args)
         {
+            if (Utils.GameTimeTickCount - limiter < 100)
+            {
+                return;
+            }
+
             foreach (var hero in Activator.Allies())
             {
-                var troy = Gametroy.Objects.FirstOrDefault(x => !x.Owner.IsAlly && x.Included);
+                var troy = Gametroy.Objects.FirstOrDefault(x => x.Included);
                 if (troy == null || !troy.Obj.IsValid)
                 {
                     // reset damage if obj deleted
@@ -93,7 +105,6 @@ namespace Activator.Handlers
                             // limit the damage using an interval
                             if (Utils.GameTimeTickCount - troy.Limiter >= item.Interval * 1000)
                             {
-                                hero.Attacker = troy.Owner;
                                 hero.IncomeDamage += 5; // todo: get actuall spell damage
                                 hero.TroyTicks += 1;
                                 troy.Limiter = Utils.GameTimeTickCount;
@@ -114,6 +125,8 @@ namespace Activator.Handlers
                         hero.HitTypes.Clear();
                 }
             }
+
+            limiter = Utils.GameTimeTickCount;
         }
     }
 }

@@ -341,7 +341,7 @@ namespace Activator
                 foreach (var item in Gametroydata.Troys.Where(x => x.ChampionName == i.ChampionName))
                 {
                     TroysInGame = true;
-                    Gametroy.Objects.Add(new Gametroy(i, item.Slot, item.Name, 0, false));
+                    Gametroy.Objects.Add(new Gametroy(i.ChampionName, item.Slot, item.Name, 0, false));
                 }
             }
         }

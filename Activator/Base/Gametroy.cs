@@ -19,13 +19,13 @@ namespace Activator.Base
         public bool Included;
         public string Name;
         public GameObject Obj;
-        public Obj_AI_Hero Owner;
+        public string Owner;
         public SpellSlot Slot;
         public int Start;
         public int Limiter;
 
         public Gametroy(
-            Obj_AI_Hero owner, 
+            string owner, 
             SpellSlot slot, 
             string name, 
             int start, 

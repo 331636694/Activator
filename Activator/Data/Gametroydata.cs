@@ -31,6 +31,17 @@ namespace Activator.Data
         {
             Troys.Add(new Gametroydata
             {
+                Name = "Q_Hit",
+                ChampionName = "Sion",
+                Radius = 600f,
+                Slot = SpellSlot.Q,
+                HitType = new[] { Base.HitType.Danger },
+                PredictDmg = true,
+                Interval = 0.75
+            });
+
+            Troys.Add(new Gametroydata
+            {
                 Name = "R_Cas",
                 ChampionName = "Nunu",
                 Radius = 650f,
@@ -101,6 +112,18 @@ namespace Activator.Data
                 ChampionName = "Diana",
                 Radius = 225f,
                 Slot = SpellSlot.W,
+                HitType = new[] { Base.HitType.None },
+                PredictDmg = true,
+                Interval = 1.0
+            });
+
+            Troys.Add(new Gametroydata
+            {
+                Name = "W_Shield",
+                ChampionName = "Sion",
+                Radius = 225f,
+                Slot = SpellSlot.W,
+                DelayFromStart = 2800,
                 HitType = new[] { Base.HitType.None },
                 PredictDmg = true,
                 Interval = 1.0

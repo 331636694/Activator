@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Activator.Base;
 using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
 using Color = System.Drawing.Color;
 
-namespace Activator.Base
+namespace Activator.Handlers
 {
     struct Offset
     {

@@ -80,7 +80,7 @@ namespace Activator.Summoners
                 if (Name == "summonerdot")
                 {
                     Activator.UseEnemyMenu = true;
-                    Menu.AddItem(new MenuItem("idmgcheck", "Combo Damage Check %"))
+                    Menu.AddItem(new MenuItem("idmgcheck", "Combo Damage Check %", true)).SetValue(95)
                         .SetValue(new Slider(100, 1, 200)).SetTooltip("Lower if Igniting to early. Increase if opposite.");
 
                     switch (Player.ChampionName)

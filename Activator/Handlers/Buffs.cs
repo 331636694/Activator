@@ -29,13 +29,15 @@ namespace Activator.Handlers
        {
             foreach (var hero in Activator.Allies())
             {
-                if (hero.Player.IsMe && Activator.Origin.Item("acdebug").GetValue<bool>())
+                if (Activator.Origin.Item("acdebug").GetValue<bool>())
                 {
                     foreach (var t in hero.HitTypes)
                     {
+                        Console.WriteLine("== " + hero.Player.Name);
                         Console.WriteLine("HitType: " + t);
                         Console.WriteLine("TroyTicks: " + hero.TroyTicks);
                         Console.WriteLine("DotTicks: " + hero.DotTicks);
+                        Console.WriteLine("");
                     }
                 }
 

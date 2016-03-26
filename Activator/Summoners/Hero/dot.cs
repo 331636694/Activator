@@ -2,6 +2,7 @@
 using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
+    
 namespace Activator.Summoners
 {
     internal class dot : CoreSum
@@ -93,7 +94,7 @@ namespace Activator.Summoners
                                     ? entry.Key(Player, tar.Player, Player.GetSpell(entry.Value).Level - 1)
                                     : 0);
 
-                    finaldmg = totaldmg * Menu.Item("idmgcheck").GetValue<Slider>().Value / 100;
+                    finaldmg = totaldmg * Menu.Item("idmgcheck", true).GetValue<Slider>().Value / 100;
 
                     if (finaldmg + ignotedmg >= tar.Player.Health)
                     {
@@ -107,7 +108,7 @@ namespace Activator.Summoners
                                 continue;
                         }
 
-                        if (Orbwalking.InAutoAttackRange(tar.Player) && tar.Player.CountAlliesInRange(400) > 1)
+                        if (Orbwalking.InAutoAttackRange(tar.Player) && tar.Player.CountAlliesInRange(350) > 1)
                         {
                             if (totaldmg + ignotedmg / 2.5 >= tar.Player.Health)
                                 continue;

@@ -4849,14 +4849,14 @@ namespace Activator.Data
                 Slot = SpellSlot.Q,
                 FixedRange = true,
                 CastRange = 600f,
-                Delay = 2000f,
+                Delay = 250f,
                 HitType = new[] { Base.HitType.CrowdControl },
                 MissileSpeed = int.MaxValue
             });
 
             Spells.Add(new Spelldata
             {
-                SDataName = "sionw",
+                SDataName = "sionwdetonate",
                 ChampionName = "sion",
                 Slot = SpellSlot.W,
                 CastRange = 0f,
