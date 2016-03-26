@@ -53,7 +53,7 @@ namespace Activator.Handlers
 
             foreach (var troy in Gametroy.Objects)
             {
-                if (obj.Name.ToLower().Contains(troy.Name) && obj.IsValid<GameObject>())
+                if (obj.Name.Contains(troy.Name) && obj.IsValid<GameObject>())
                 {                    
                     troy.Obj = obj;
                     troy.Start = Utils.GameTimeTickCount;
