@@ -144,22 +144,25 @@ namespace Activator.Handlers
                             {
                                 float dmg = 0;
 
-                                dmg += (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true));
+                                var dist = sender.Distance(args.Target.Position) / args.SData.MissileSpeed;
+                                var end = sender.AttackCastDelay * 1000 + dist + 100 - Game.Ping;
+
+                                dmg += (int) Math.Max(attacker.GetAutoAttackDamage(hero.Player, true), 0);
 
                                 if (attacker.HasBuff("sheen"))
-                                    dmg += (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true) +
-                                                          attacker.GetCustomDamage("sheen", hero.Player));
+                                    dmg += (int) Math.Max(attacker.GetAutoAttackDamage(hero.Player, true) +
+                                                          attacker.GetCustomDamage("sheen", hero.Player), 0);
 
                                 if (attacker.HasBuff("lichbane"))
-                                    dmg += (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true) +
-                                                          attacker.GetCustomDamage("lichbane", hero.Player));
+                                    dmg += (int) Math.Max(attacker.GetAutoAttackDamage(hero.Player, true) +
+                                                          attacker.GetCustomDamage("lichbane", hero.Player), 0);
 
                                 if (attacker.HasBuff("itemstatikshankcharge") &&
                                     attacker.GetBuff("itemstatikshankcharge").Count == 100)
                                     dmg += new[] { 62, 120, 200 }[attacker.Level / 6];
 
                                 if (args.SData.Name.ToLower().Contains("crit"))
-                                    dmg += (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true));
+                                    dmg += (int) Math.Max(attacker.GetAutoAttackDamage(hero.Player, true), 0);
 
                                 Utility.DelayAction.Add(100 - Game.Ping/2, () =>
                                 {
@@ -167,7 +170,7 @@ namespace Activator.Handlers
                                     hero.HitTypes.Add(HitType.AutoAttack);
                                     hero.IncomeDamage += dmg;
 
-                                    Utility.DelayAction.Add((int) (250 + attacker.AttackCastDelay *1000), () =>
+                                    Utility.DelayAction.Add(Math.Min((int) (end * 2), 250), () =>
                                     {
                                         hero.Attacker = null;
                                         hero.IncomeDamage -= dmg;
@@ -192,7 +195,7 @@ namespace Activator.Handlers
                                 x => data.FromObject != null && !x.IsAlly && data.FromObject.Any(y => x.Name.Contains(y)));
 
                             var correctpos = fromobj?.Position ?? attacker.ServerPosition;
-                            if (hero.Player.Distance(correctpos) > data.CastRange)
+                            if (hero.Player.Distance(correctpos) > data.CastRange + 125)
                                 continue;
 
                             if (data.SDataName == "kalistaexpungewrapper" &&
@@ -218,7 +221,7 @@ namespace Activator.Handlers
                             if (!Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
                                 continue;
 
-                            var dmg = (int) Math.Abs(attacker.GetSpellDamage(hero.Player, data.SDataName));
+                            var dmg = (int) Math.Max(attacker.GetSpellDamage(hero.Player, data.SDataName), 0);
                             if (dmg == 0)
                             {
                                 dmg = (int)(hero.Player.Health / hero.Player.MaxHealth * 5);
@@ -278,6 +281,9 @@ namespace Activator.Handlers
 
                             var startpos = fromobj?.Position ?? attacker.ServerPosition;
 
+                            if (hero.Player.Distance(startpos) > data.CastRange + 125)
+                                continue;
+
                             var correctwidth = 0f;
 
                             if (args.SData.CastRadius > 0)
@@ -299,9 +305,6 @@ namespace Activator.Handlers
                             }
 
                             if ((data.SDataName == "azirq" || data.SDataName == "azire") && fromobj == null)
-                                continue;
-
-                            if (hero.Player.Distance(startpos) > data.CastRange + hero.Player.BoundingRadius)
                                 continue;
 
                             var distance = (int) (1000 * (startpos.Distance(hero.Player.ServerPosition) / data.MissileSpeed));
@@ -350,7 +353,7 @@ namespace Activator.Handlers
                                 if (!Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
                                     continue;
 
-                                var dmg = (int) Math.Abs(attacker.GetSpellDamage(hero.Player, data.SDataName));
+                                var dmg = (int) Math.Max(attacker.GetSpellDamage(hero.Player, data.SDataName), 0);
                                 if (dmg == 0)
                                 {
                                     dmg = (int) (hero.Player.Health / hero.Player.MaxHealth * 5);
@@ -372,7 +375,7 @@ namespace Activator.Handlers
                                     if (Activator.Origin.Item(data.SDataName + "forceexhaust").GetValue<bool>())
                                         hero.HitTypes.Add(HitType.ForceExhaust);
 
-                                    Utility.DelayAction.Add((int) (150 + data.Delay), () =>
+                                    Utility.DelayAction.Add((int) (endtime + Game.Ping), () =>
                                     {
                                         hero.Attacker = null;
                                         hero.IncomeDamage -= dmg;
@@ -406,7 +409,7 @@ namespace Activator.Handlers
                                 continue;
 
                             // target spell dectection
-                            if (hero.Player.Distance(attacker.ServerPosition) > data.CastRange)
+                            if (hero.Player.Distance(attacker.ServerPosition) > data.CastRange + 100)
                                 continue;
 
                             var distance =
@@ -417,7 +420,7 @@ namespace Activator.Handlers
                             if (!Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
                                 continue;
 
-                            var dmg = (int) Math.Abs(attacker.GetSpellDamage(hero.Player, args.SData.Name));
+                            var dmg = (int) Math.Max(attacker.GetSpellDamage(hero.Player, args.SData.Name), 0);
                             if (dmg == 0)
                             {
                                 dmg = (int) (hero.Player.Health / hero.Player.MaxHealth * 5);
@@ -476,8 +479,8 @@ namespace Activator.Handlers
                     {
                         if (args.Target.NetworkId == hero.Player.NetworkId && !hero.Immunity)
                         {
-                            var dmg = (int) Math.Abs(turret.CalcDamage(hero.Player, Damage.DamageType.Physical,
-                                turret.BaseAttackDamage + turret.FlatPhysicalDamageMod));
+                            var dmg = (int) Math.Max(turret.CalcDamage(hero.Player, Damage.DamageType.Physical,
+                                turret.BaseAttackDamage + turret.FlatPhysicalDamageMod), 0);
 
                             if (turret.Distance(hero.Player.ServerPosition) <= 900)
                             {
@@ -521,8 +524,8 @@ namespace Activator.Handlers
                                 {
                                     hero.HitTypes.Add(HitType.MinionAttack);
                                     hero.MinionDamage =
-                                        (int) Math.Abs(minion.CalcDamage(hero.Player, Damage.DamageType.Physical,
-                                            minion.BaseAttackDamage + minion.FlatPhysicalDamageMod));
+                                        (int) Math.Max(minion.CalcDamage(hero.Player, Damage.DamageType.Physical,
+                                            minion.BaseAttackDamage + minion.FlatPhysicalDamageMod), 0);
 
                                     Utility.DelayAction.Add(250, () =>
                                     {
