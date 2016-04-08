@@ -20,14 +20,13 @@ namespace Activator.Items.Offensives
 
         public _3043()
         {
-            Obj_AI_Base.OnProcessSpellCast += OnCast;
+            // Obj_AI_Base.OnProcessSpellCast += OnCast;
         }
 
         private bool muramana;
         public override void OnTick(EventArgs args)
         {
-            if (!Menu.Item("use" + Name).GetValue<bool>() || Game.Version.Contains("6.4"))
-                return;
+            return;
 
             if (muramana)
             {
