@@ -43,7 +43,7 @@ namespace Activator.Items
             {
                 return
                     Activator.Heroes.Where(
-                        hero => hero.Player.IsEnemy && hero.Player.IsValidTarget(Range) &&
+                        hero => hero.Player.IsEnemy && hero.Player.IsValidTarget(Range + 100) &&
                                !hero.Player.IsZombie).OrderBy(x => x.Player.Distance(Game.CursorPos)).FirstOrDefault();
             }
         }

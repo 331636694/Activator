@@ -121,7 +121,7 @@ namespace Activator.Base
 
             var mages = new[]
             {
-                "Ahri", "Anivia", "Annie", "Azir", "Brand", "Cassiopeia", "Elise", "Fiddlesticks", "Heimerdinger", "Karma",
+                "Ahri", "Anivia", "Annie", "AurelionSol", "Azir", "Brand", "Cassiopeia", "Elise", "Fiddlesticks", "Heimerdinger", "Karma",
                 "Karthus", "Kennen", "Lissandra", "Lux", "Malzahar", "Orianna", "Ryze", "Swain", "Syndra", "Twistedfate",
                 "Veigar", "Velkoz", "Viktor", "Vladimir", "Xerath", "Ziggs"
             };

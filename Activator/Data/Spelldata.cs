@@ -4859,7 +4859,7 @@ namespace Activator.Data
                 SDataName = "sionwdetonate",
                 ChampionName = "sion",
                 Slot = SpellSlot.W,
-                CastRange = 0f,
+                CastRange = 350f,
                 Delay = 250f,
                 HitType = new HitType[] { },
                 MissileSpeed = int.MaxValue
