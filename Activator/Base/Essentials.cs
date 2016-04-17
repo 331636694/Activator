@@ -105,24 +105,25 @@ namespace Activator.Base
         /// <returns></returns>
         public static PrimaryRole GetRole(Obj_AI_Hero hero)
         {
-            var assassins = new[]
+            var assassins = new[] // heroes who use sweepers
             {
-                "Akali", "Ekko", "Evelynn", "Fizz", "Kassadin", "Katarina", "Khazix", "Leblanc", "MasterYi", "Nidalee",
-                "Nocturne", "Rengar", "Shaco", "Talon", "Zed"
+                "Ahri", "Akali", "Annie", "Diana", "Ekko", "Elise", "Evelynn", "Fizz", "Gragas", "Kassadin", "Katarina",
+                "Khazix", "Leblanc", "Lissandra", "MasterYi", "Nidalee", "Nocturne", "Rengar", "Shaco",
+                "Syndra", "Talon", "Zed", "Kindred"
             };
 
-            var fighters = new[]
+            var fighters = new[] // heroes who may not upgrade trinket
             {
-                "Aatrox", "Darius", "Diana", "DrMundo", "Fiora", "Gangplank", "Garen", "Gnar", "Gragas", "Hecarim",
-                "Illaoi", "Irelia", "Jax", "Jayce", "Kayle", "LeeSin", "Mordekaiser", "Nasus", "Olaf", "Pantheon",
-                "RekSai", "Renekton", "Riven", "Rumble", "Shyvana", "Skarner", "Trundle", "Tryndamere", "Udyr", "Vi",
+                "Aatrox", "Darius", "DrMundo", "Fiora", "Gangplank", "Garen", "Gnar", "Hecarim",
+                "Illaoi", "Irelia", "Jax", "Jayce", "Kayle", "Kennen", "LeeSin", "Mordekaiser", "Nasus", "Olaf", "Pantheon",
+                "RekSai", "Renekton", "Riven", "Rumble", "Shyvana", "Skarner", "Teemo", "Trundle", "Tryndamere", "Udyr", "Vi",
                 "Volibear", "Warwick", "Wukong", "XinZhao", "Yasuo", "Yorick"
             };
 
-            var mages = new[]
+            var mages = new[] // mage heroes who may prefer farsight orb
             {
-                "Ahri", "Anivia", "Annie", "AurelionSol", "Azir", "Brand", "Cassiopeia", "Elise", "Fiddlesticks", "Heimerdinger", "Karma",
-                "Karthus", "Kennen", "Lissandra", "Lux", "Malzahar", "Orianna", "Ryze", "Swain", "Syndra", "Twistedfate",
+                "Anivia", "AurelionSol", "Azir", "Brand", "Cassiopeia", "Fiddlesticks", "Heimerdinger", "Karma",
+                "Karthus", "Lux", "Malzahar", "Orianna", "Ryze", "Swain", "Twistedfate",
                 "Veigar", "Velkoz", "Viktor", "Vladimir", "Xerath", "Ziggs"
             };
 
@@ -138,10 +139,10 @@ namespace Activator.Base
                 "Poppy", "Rammus", "Sejuani", "Shen", "Singed", "Sion", "Zac"
             };
 
-            var marksmen = new[]
+            var marksmen = new[] // heroes that will 100% buy farsight orb
             {
-                "Ashe", "Caitlyn", "Corki", "Draven", "Ezreal", "Graves", "Jhin", "Jinx", "Kalista", "Kindred",
-                "Kogmaw", "Lucain", "MissFortune", "Quinn", "Sivir", "Teemo", "Tristana", "Twitch", "Urgot", "Varus",
+                "Ashe", "Caitlyn", "Corki", "Draven", "Ezreal", "Graves", "Jhin", "Jinx", "Kalista",
+                "Kogmaw", "Lucian", "MissFortune", "Quinn", "Sivir", "Tristana", "Twitch", "Urgot", "Varus",
                 "Vayne"
             };
 

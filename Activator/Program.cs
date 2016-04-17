@@ -292,12 +292,22 @@ namespace Activator
 
         private static List<Type> GetItemGroup(string nspace)
         {
-            return
-                Assembly.GetExecutingAssembly()
-                    .GetTypes()
-                    .Where(t => t.IsClass && t.Namespace == "Activator." + nspace &&
-                                t.Name != "CoreItem" && t.Name != "CoreSpell" && t.Name != "CoreSum" &&
-                               !t.Name.Contains("c__") && !t.Name.Contains("<>c")).ToList(); // kek
+            try
+            {
+                return
+                    Assembly.GetExecutingAssembly()
+                        .GetTypes()
+                        .Where(t => t.IsClass && t.Namespace == "Activator." + nspace &&
+                                    t.Name != "CoreItem" && t.Name != "CoreSpell" && t.Name != "CoreSum" &&
+                                    !t.Name.Contains("c__") && !t.Name.Contains("<>c")).ToList(); // kek
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Game.PrintChat("Exception thrown at <font color=\"#FFF280\">Activator.GetItemGroup</font>");
+                return null;
+            }
         }
 
         private static void GetComboDamage()

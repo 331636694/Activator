@@ -11,6 +11,13 @@ namespace Activator.Handlers
     {
         internal static int LastCastedTimeStamp;
         internal static Obj_AI_Hero Player => ObjectManager.Player;
+        internal static List<HitType> MenuTypes = new List<HitType>
+        {
+            HitType.Danger,
+            HitType.CrowdControl,
+            HitType.Ultimate,
+            HitType.ForceExhaust
+        };
 
         public static void Init()
         {
@@ -232,17 +239,13 @@ namespace Activator.Handlers
                             Utility.DelayAction.Add((int) (data.Delay - (data.Delay * 0.7)), () =>
                             {
                                 hero.Attacker = attacker;
-                                hero.HitTypes.Add(HitType.Spell);
                                 hero.IncomeDamage += dmg;
-
-                                if (Activator.Origin.Item(data.SDataName + "danger").GetValue<bool>())
-                                    hero.HitTypes.Add(HitType.Danger);
-                                if (Activator.Origin.Item(data.SDataName + "crowdcontrol").GetValue<bool>())
-                                    hero.HitTypes.Add(HitType.CrowdControl);
-                                if (Activator.Origin.Item(data.SDataName + "ultimate").GetValue<bool>())
-                                    hero.HitTypes.Add(HitType.Ultimate);
-                                if (Activator.Origin.Item(data.SDataName + "forceexhaust").GetValue<bool>())
-                                    hero.HitTypes.Add(HitType.ForceExhaust);
+                                hero.HitTypes.Add(HitType.Spell);
+                                hero.HitTypes.AddRange(
+                                    MenuTypes.Where(
+                                        x =>
+                                            Activator.Origin.Item(data.SDataName + x.ToString().ToLower())
+                                                .GetValue<bool>()));
 
                                 // lazy safe reset
                                 Utility.DelayAction.Add((int) data.Delay + Game.Ping + 100, () =>
@@ -250,15 +253,12 @@ namespace Activator.Handlers
                                     hero.Attacker = null;
                                     hero.IncomeDamage -= dmg;
                                     hero.HitTypes.Remove(HitType.Spell);
-
-                                    if (Activator.Origin.Item(data.SDataName + "danger").GetValue<bool>())
-                                        hero.HitTypes.Remove(HitType.Danger);
-                                    if (Activator.Origin.Item(data.SDataName + "crowdcontrol").GetValue<bool>())
-                                        hero.HitTypes.Remove(HitType.CrowdControl);
-                                    if (Activator.Origin.Item(data.SDataName + "ultimate").GetValue<bool>())
-                                        hero.HitTypes.Remove(HitType.Ultimate);
-                                    if (Activator.Origin.Item(data.SDataName + "forceexhaust").GetValue<bool>())
-                                        hero.HitTypes.Remove(HitType.ForceExhaust);
+                                    hero.HitTypes.RemoveAll(
+                                        x =>
+                                            !x.Equals(HitType.Spell) &&
+                                            Activator.Origin.Item(data.SDataName + x.ToString().ToLower())
+                                                .GetValue<bool>());
+                                    hero.HitTypes.Remove(HitType.Spell);
                                 });
                             });
                         }
@@ -281,7 +281,7 @@ namespace Activator.Handlers
 
                             var startpos = fromobj?.Position ?? attacker.ServerPosition;
 
-                            if (hero.Player.Distance(startpos) > data.CastRange + 125)
+                            if (hero.Player.Distance(startpos) > data.CastRange + 35)
                                 continue;
 
                             var correctwidth = 0f;
@@ -363,32 +363,24 @@ namespace Activator.Handlers
                                 Utility.DelayAction.Add((int) (endtime - (endtime * 0.7)), () =>
                                 {
                                     hero.Attacker = attacker;
-                                    hero.HitTypes.Add(HitType.Spell);
                                     hero.IncomeDamage += dmg;
-
-                                    if (Activator.Origin.Item(data.SDataName + "danger").GetValue<bool>())
-                                        hero.HitTypes.Add(HitType.Danger);
-                                    if (Activator.Origin.Item(data.SDataName + "crowdcontrol").GetValue<bool>())
-                                        hero.HitTypes.Add(HitType.CrowdControl);
-                                    if (Activator.Origin.Item(data.SDataName + "ultimate").GetValue<bool>())
-                                        hero.HitTypes.Add(HitType.Ultimate);
-                                    if (Activator.Origin.Item(data.SDataName + "forceexhaust").GetValue<bool>())
-                                        hero.HitTypes.Add(HitType.ForceExhaust);
+                                    hero.HitTypes.Add(HitType.Spell);
+                                    hero.HitTypes.AddRange(
+                                        MenuTypes.Where(
+                                            x =>
+                                                Activator.Origin.Item(data.SDataName + x.ToString().ToLower())
+                                                    .GetValue<bool>()));
 
                                     Utility.DelayAction.Add((int) (endtime + Game.Ping), () =>
                                     {
                                         hero.Attacker = null;
                                         hero.IncomeDamage -= dmg;
+                                        hero.HitTypes.RemoveAll(
+                                            x =>
+                                                !x.Equals(HitType.Spell) &&
+                                                Activator.Origin.Item(data.SDataName + x.ToString().ToLower())
+                                                    .GetValue<bool>());
                                         hero.HitTypes.Remove(HitType.Spell);
-
-                                        if (Activator.Origin.Item(data.SDataName + "danger").GetValue<bool>())
-                                            hero.HitTypes.Remove(HitType.Danger);
-                                        if (Activator.Origin.Item(data.SDataName + "crowdcontrol").GetValue<bool>())
-                                            hero.HitTypes.Remove(HitType.CrowdControl);
-                                        if (Activator.Origin.Item(data.SDataName + "ultimate").GetValue<bool>())
-                                            hero.HitTypes.Remove(HitType.Ultimate);
-                                        if (Activator.Origin.Item(data.SDataName + "forceexhaust").GetValue<bool>())
-                                            hero.HitTypes.Remove(HitType.ForceExhaust);
                                     });
                                 });
                             }
@@ -430,33 +422,25 @@ namespace Activator.Handlers
                             Utility.DelayAction.Add((int) (endtime - (endtime * 0.7)), () =>
                             {
                                 hero.Attacker = attacker;
-                                hero.HitTypes.Add(HitType.Spell);
                                 hero.IncomeDamage += dmg;
-
-                                if (Activator.Origin.Item(data.SDataName + "danger").GetValue<bool>())
-                                    hero.HitTypes.Add(HitType.Danger);
-                                if (Activator.Origin.Item(data.SDataName + "crowdcontrol").GetValue<bool>())
-                                    hero.HitTypes.Add(HitType.CrowdControl);
-                                if (Activator.Origin.Item(data.SDataName + "ultimate").GetValue<bool>())
-                                    hero.HitTypes.Add(HitType.Ultimate);
-                                if (Activator.Origin.Item(data.SDataName + "forceexhaust").GetValue<bool>())
-                                    hero.HitTypes.Add(HitType.ForceExhaust);
+                                hero.HitTypes.Add(HitType.Spell);
+                                hero.HitTypes.AddRange(
+                                    MenuTypes.Where(
+                                        x =>
+                                            Activator.Origin.Item(data.SDataName + x.ToString().ToLower())
+                                                .GetValue<bool>()));
 
                                 // lazy reset
                                 Utility.DelayAction.Add((int) endtime + Game.Ping + 100, () =>
                                 {
                                     hero.Attacker = null;
                                     hero.IncomeDamage -= dmg;
+                                    hero.HitTypes.RemoveAll(
+                                        x =>
+                                            !x.Equals(HitType.Spell) &&
+                                            Activator.Origin.Item(data.SDataName + x.ToString().ToLower())
+                                                .GetValue<bool>());
                                     hero.HitTypes.Remove(HitType.Spell);
-
-                                    if (Activator.Origin.Item(data.SDataName + "danger").GetValue<bool>())
-                                        hero.HitTypes.Remove(HitType.Danger);
-                                    if (Activator.Origin.Item(data.SDataName + "crowdcontrol").GetValue<bool>())
-                                        hero.HitTypes.Remove(HitType.CrowdControl);
-                                    if (Activator.Origin.Item(data.SDataName + "ultimate").GetValue<bool>())
-                                        hero.HitTypes.Remove(HitType.Ultimate);
-                                    if (Activator.Origin.Item(data.SDataName + "forceexhaust").GetValue<bool>())
-                                        hero.HitTypes.Remove(HitType.ForceExhaust);
                                 });
                             });
                         }

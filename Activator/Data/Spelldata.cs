@@ -443,12 +443,60 @@ namespace Activator.Data
 
             Spells.Add(new Spelldata
             {
+                SDataName = "aurelionsolq",
+                ChampionName = "aurelionsol",
+                Slot = SpellSlot.Q,
+                CastRange = 1500f,
+                Delay = 250f,
+                HitType = new[] { Base.HitType.CrowdControl },
+                MissileName = "aurelionsolqmissile",
+                MissileSpeed = 850
+            });
+
+            Spells.Add(new Spelldata
+            {
+                SDataName = "aurelionsolw",
+                ChampionName = "aurelionsol",
+                Slot = SpellSlot.W,
+                CastRange = 0f,
+                Delay = 250f,
+                HitType = new[] { Base.HitType.None },
+                MissileName = "aurelionsolwmis",
+                MissileSpeed = 450
+            });
+
+            Spells.Add(new Spelldata
+            {
+                SDataName = "aurelionsole",
+                ChampionName = "aurelionsol",
+                Slot = SpellSlot.E,
+                CastRange = 0f,
+                Delay = 250f,
+                HitType = new[] { Base.HitType.None },
+                MissileName = "aurelionsole",
+                MissileSpeed = 900
+            });
+
+            Spells.Add(new Spelldata
+            {
+                SDataName = "aurelionsolr",
+                ChampionName = "aurelionsol",
+                Slot = SpellSlot.R,
+                CastRange = 1420f,
+                Delay = 300f,
+                HitType = new[] { Base.HitType.CrowdControl, Base.HitType.Ultimate, Base.HitType.Danger },
+                MissileName = "aurelionsolrbeammissile",
+                MissileSpeed = 4600
+            });
+
+            Spells.Add(new Spelldata
+            {
                 SDataName = "azirq",
                 ChampionName = "azir",
                 Slot = SpellSlot.Q,
                 CastRange = 875f,
                 Delay = 250f,
-                HitType = new[] {Base.HitType.CrowdControl },
+                HitType = new[] { Base.HitType.CrowdControl },
                 MissileName = "azirsoldiermissile",
                 FromObject = new []{ "AzirSoldier" },
                 MissileSpeed = 1200
@@ -5393,7 +5441,7 @@ namespace Activator.Data
                 Slot = SpellSlot.E,
                 CastRange = 625f,
                 Delay = 250f,
-                HitType = new HitType[] { },
+                HitType = new[] { Base.HitType.Danger },
                 MissileSpeed = 1400
             });
 
@@ -5404,7 +5452,7 @@ namespace Activator.Data
                 Slot = SpellSlot.R,
                 CastRange = 700f,
                 Delay = 250f,
-                HitType = new HitType[] { },
+                HitType = new[] { Base.HitType.Danger },
                 MissileSpeed = 1600
             });
 

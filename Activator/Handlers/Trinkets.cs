@@ -100,6 +100,17 @@ namespace Activator.Handlers
                         if (Essentials.GetRole(Player) == PrimaryRole.Assassin)
                             if (Player.BuyItem((ItemId) 3364))
                                 Upgrade = false;
+
+                        if (Essentials.GetRole(Player) == PrimaryRole.Support)
+                        {
+                            if (LeagueSharp.Common.Items.HasItem(2049) || LeagueSharp.Common.Items.HasItem(2045) ||
+                                LeagueSharp.Common.Items.HasItem(2301) || LeagueSharp.Common.Items.HasItem(2302) ||
+                                LeagueSharp.Common.Items.HasItem(2303))
+                            {
+                                if (Player.BuyItem((ItemId) 3364))
+                                    Upgrade = false;
+                            }
+                        }
                     }
 
                     if (TrinketId == 3341 && !LeagueSharp.Common.Items.HasItem(3364))

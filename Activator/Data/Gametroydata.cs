@@ -208,6 +208,17 @@ namespace Activator.Data
 
             Troys.Add(new Gametroydata
             {
+                Name = "AurelionSol_Base_P",
+                ChampionName = "AurelionSol",
+                Radius = 165f,
+                Slot = SpellSlot.W,
+                HitType = new[] { Base.HitType.None },
+                PredictDmg = true,
+                Interval = 1.0
+            });
+
+            Troys.Add(new Gametroydata
+            {
                 Name = "Fizz_Ring_Red",
                 ChampionName = "Fizz",
                 Radius = 300f,

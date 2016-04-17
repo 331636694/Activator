@@ -18,12 +18,14 @@ namespace Activator.Handlers
 {
     public class Stealth
     {
+        private static Random _random;
         private static bool _loaded;
 
         public static void Init()
         {
             if (!_loaded)
             {
+                _random = new Random();
                 Obj_AI_Base.OnBuffAdd += Obj_AI_Base_OnBuffAdd;
                 Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnStealth;
                 _loaded = true;
@@ -39,7 +41,7 @@ namespace Activator.Handlers
                     if (args.Buff.Name == "rengarralertsound")
                     {
                         ally.HitTypes.Add(HitType.Stealth);
-                        Utility.DelayAction.Add(200, () => ally.HitTypes.Remove(HitType.Stealth));
+                        Utility.DelayAction.Add(100 + _random.Next(200, 450), () => ally.HitTypes.Remove(HitType.Stealth));
                     }
                 }
             }
@@ -62,7 +64,7 @@ namespace Activator.Handlers
                     if (args.SData.Name.ToLower() == x.SDataName && x.HitType.Contains(HitType.Stealth))
                     {
                         hero.HitTypes.Add(HitType.Stealth);
-                        Utility.DelayAction.Add(200, () => hero.HitTypes.Remove(HitType.Stealth));
+                        Utility.DelayAction.Add(100 + _random.Next(200, 450), () => hero.HitTypes.Remove(HitType.Stealth));
                         break;
                     }
                 }
