@@ -107,7 +107,7 @@ namespace Activator.Base
         {
             var assassins = new[] // heroes who use sweepers
             {
-                "Ahri", "Akali", "Annie", "Diana", "Ekko", "Elise", "Evelynn", "Fizz", "Gragas", "Kassadin", "Katarina",
+                "Ahri", "Akali", "Annie", "Diana", "Ekko", "Elise", "Evelynn", "Fiddlesticks", "Fizz", "Gragas", "Kassadin", "Katarina",
                 "Khazix", "Leblanc", "Lissandra", "MasterYi", "Nidalee", "Nocturne", "Rengar", "Shaco",
                 "Syndra", "Talon", "Zed", "Kindred"
             };
@@ -116,15 +116,15 @@ namespace Activator.Base
             {
                 "Aatrox", "Darius", "DrMundo", "Fiora", "Gangplank", "Garen", "Gnar", "Hecarim",
                 "Illaoi", "Irelia", "Jax", "Jayce", "Kayle", "Kennen", "LeeSin", "Mordekaiser", "Nasus", "Olaf", "Pantheon",
-                "RekSai", "Renekton", "Riven", "Rumble", "Shyvana", "Skarner", "Teemo", "Trundle", "Tryndamere", "Udyr", "Vi",
+                "RekSai", "Renekton", "Riven", "Rumble", "Shyvana", "Skarner", "Teemo", "Trundle", "Tryndamere", "Udyr", "Vi", "Vladimir",
                 "Volibear", "Warwick", "Wukong", "XinZhao", "Yasuo", "Yorick"
             };
 
             var mages = new[] // mage heroes who may prefer farsight orb
             {
-                "Anivia", "AurelionSol", "Azir", "Brand", "Cassiopeia", "Fiddlesticks", "Heimerdinger", "Karma",
+                "Anivia", "AurelionSol", "Azir", "Brand", "Cassiopeia", "Heimerdinger", "Karma",
                 "Karthus", "Lux", "Malzahar", "Orianna", "Ryze", "Swain", "Twistedfate",
-                "Veigar", "Velkoz", "Viktor", "Vladimir", "Xerath", "Ziggs"
+                "Veigar", "Velkoz", "Viktor", "Xerath", "Ziggs"
             };
 
             var supports = new[]

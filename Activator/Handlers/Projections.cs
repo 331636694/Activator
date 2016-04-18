@@ -198,8 +198,16 @@ namespace Activator.Handlers
                         if (args.SData.TargettingType == SpellDataTargetType.Self ||
                             args.SData.TargettingType == SpellDataTargetType.SelfAoe)
                         {
-                            var fromobj = ObjectManager.Get<GameObject>().FirstOrDefault(
-                                x => data.FromObject != null && !x.IsAlly && data.FromObject.Any(y => x.Name.Contains(y)));
+                            GameObject fromobj = null;
+                            if (data.FromObject != null)
+                            {
+                                fromobj =
+                                    ObjectManager.Get<GameObject>()
+                                        .FirstOrDefault(
+                                            x =>
+                                                data.FromObject != null && !x.IsAlly &&
+                                                data.FromObject.Any(y => x.Name.Contains(y)));
+                            }
 
                             var correctpos = fromobj?.Position ?? attacker.ServerPosition;
                             if (hero.Player.Distance(correctpos) > data.CastRange + 125)
@@ -270,11 +278,16 @@ namespace Activator.Handlers
                         if (args.SData.TargettingType == SpellDataTargetType.Cone ||
                             args.SData.TargettingType.ToString().Contains("Location"))
                         {
-
-                            var fromobj =
-                                ObjectManager.Get<GameObject>()
-                                    .FirstOrDefault(
-                                        x => !x.IsAlly && data.FromObject != null && data.FromObject.Any(y => x.Name.Contains(y)));                
+                            GameObject fromobj = null;
+                            if (data.FromObject != null)
+                            {
+                                fromobj =
+                                    ObjectManager.Get<GameObject>()
+                                        .FirstOrDefault(
+                                            x =>
+                                                data.FromObject != null && !x.IsAlly &&
+                                                data.FromObject.Any(y => x.Name.Contains(y)));
+                            }
 
                             var isline = args.SData.TargettingType == SpellDataTargetType.Cone || 
                                 args.SData.LineWidth > 0;
@@ -406,6 +419,7 @@ namespace Activator.Handlers
 
                             var distance =
                                 (int) (1000 * (attacker.Distance(hero.Player.ServerPosition) / data.MissileSpeed));
+
                             var endtime = data.Delay - 100 + Game.Ping / 2 + distance -
                                           (Utils.GameTimeTickCount - LastCastedTimeStamp);
 

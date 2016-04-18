@@ -82,7 +82,7 @@ namespace Activator.Handlers
                         hero.IncomeDamage -= 5;
                         hero.TroyTicks -= 1;
 
-                        if (hero.TroyTicks == 0)
+                        if (hero.TroyTicks <= 1)
                             hero.HitTypes.Clear();
                     }
 
@@ -121,7 +121,7 @@ namespace Activator.Handlers
                     hero.IncomeDamage -= 5;
                     hero.TroyTicks -= 1;
 
-                    if (hero.TroyTicks == 0)
+                    if (hero.TroyTicks <= 1)
                         hero.HitTypes.Clear();
                 }
             }
