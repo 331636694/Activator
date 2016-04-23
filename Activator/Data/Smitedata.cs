@@ -8,6 +8,7 @@
 // Author:		Robin Kurisu
 #endregion
 
+using System;
 using LeagueSharp;
 using System.Collections.Generic;
 
@@ -394,7 +395,7 @@ namespace Activator.Data
             SpellList.Add(new Smitedata
             {
                 Name = "Chogath",
-                CastRange =  175 + new [] { 23f, 37f, 50f} [Activator.Player.Level / 6],
+                CastRange =  175 + new [] { 23f, 37f, 50f} [Math.Min(Activator.Player.Level, 18) / 6],
                 Slot = SpellSlot.R,
                 Stage = 0,
                 Type = SpellDataTargetType.Unit

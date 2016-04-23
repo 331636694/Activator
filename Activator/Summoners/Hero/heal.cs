@@ -36,7 +36,7 @@ namespace Activator.Summoners
                     if (hero.IncomeDamage / hero.Player.MaxHealth * 100 >=
                         Menu.Item("selfmuchhp" + Name + "pct").GetValue<Slider>().Value)
                     {
-                        if (hero.Player.MaxHealth - hero.Player.Health > (75 + (15 * Activator.Player.Level)))
+                        if (hero.Player.MaxHealth - hero.Player.Health > 75 + 15 * Math.Min(Activator.Player.Level, 18))
                         {
                             if (!hero.Player.IsRecalling() && !hero.Player.InFountain())
                                 UseSpell(Menu.Item("mode" + Name).GetValue<StringList>().SelectedIndex == 1);
