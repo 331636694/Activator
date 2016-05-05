@@ -31,12 +31,12 @@ namespace Activator.Items.Cleansers
                     if (!Parent.Item(Parent.Name + "useon" + hero.Player.NetworkId).GetValue<bool>())
                         continue;
 
-                    if (hero.ForceQSS)
-                    {
-                        UseItem();
-                        hero.QSSBuffCount = 0;
-                        hero.QSSHighestBuffTime = 0;
-                    }
+                    //if (hero.ForceQSS)
+                    //{
+                    //    UseItem();
+                    //    hero.QSSBuffCount = 0;
+                    //    hero.QSSHighestBuffTime = 0;
+                    //}
 
                     Buffs.CheckQSS(hero.Player);
 
