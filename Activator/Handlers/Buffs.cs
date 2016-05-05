@@ -178,16 +178,6 @@ namespace Activator.Handlers
                     else
                         hero.DervishHighestBuffTime = 0;
                 }
-
-                foreach (var aura in Buffdata.BuffList.Where(au => hero.Player.HasBuff(au.Name)))
-                {
-                    if (aura.DoT && hero.Player.Health / hero.Player.MaxHealth * 100 <=
-                        Activator.Origin.Item("useDervishdot").GetValue<Slider>().Value)
-                    {
-                        hero.ForceQSS = true;
-                        Utility.DelayAction.Add(100, () => hero.ForceQSS = false);
-                    }
-                }
             }
         }
 
@@ -220,16 +210,6 @@ namespace Activator.Handlers
                         hero.QSSHighestBuffTime -= hero.QSSHighestBuffTime;
                     else
                         hero.QSSHighestBuffTime = 0;
-                }
-
-                foreach (var aura in Buffdata.BuffList.Where(au => hero.Player.HasBuff(au.Name)))
-                {
-                    if (aura.DoT && hero.Player.Health / hero.Player.MaxHealth * 100 <=
-                        Activator.Origin.Item("useQuicksilverdot").GetValue<Slider>().Value)
-                    {
-                        hero.ForceQSS = true;
-                        Utility.DelayAction.Add(100, () => hero.ForceQSS = false);
-                    }
                 }
             }
         }
@@ -306,16 +286,6 @@ namespace Activator.Handlers
                         hero.MercurialHighestBuffTime -= hero.MercurialHighestBuffTime;
                     else
                         hero.MercurialHighestBuffTime = 0;
-                }
-
-                foreach (var aura in Buffdata.BuffList.Where(au => hero.Player.HasBuff(au.Name)))
-                {
-                    if (aura.DoT && hero.Player.Health / hero.Player.MaxHealth * 100 <=
-                        Activator.Origin.Item("useMercurialdot").GetValue<Slider>().Value)
-                    {
-                        hero.ForceQSS = true;
-                        Utility.DelayAction.Add(100, () => hero.ForceQSS = false);
-                    }
                 }
             }
         }

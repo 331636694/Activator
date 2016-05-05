@@ -398,10 +398,18 @@ namespace Activator
             foreach (var hero in both ? HeroManager.AllHeroes : enemy ? HeroManager.Enemies : HeroManager.Allies)
             {
                 var side = hero.Team == Player.Team ? "[Ally]" : "[Enemy]";
-                var mitem = new MenuItem(parent.Name + "useon" + hero.NetworkId,
-                    "Use for " + hero.ChampionName + " " + side);
+                var mitem = new MenuItem(parent.Name + "useon" + hero.NetworkId, "Use for " + hero.ChampionName + " " + side);
 
-                menu.AddItem(mitem.DontSave()).SetValue(true);
+                switch (parent.Name)
+                {
+                    case "smenu":
+                        menu.AddItem(mitem.DontSave())
+                            .SetValue(Essentials.GetRole(hero) != PrimaryRole.Support);
+                        break;
+                    default:
+                        menu.AddItem(mitem.DontSave()).SetValue(true);
+                        break;
+                }
 
                 if (both)
                 {

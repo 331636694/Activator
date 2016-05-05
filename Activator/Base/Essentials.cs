@@ -129,20 +129,21 @@ namespace Activator.Base
 
             var supports = new[]
             {
-                "Bard", "Braum", "Janna", "Lulu", "Morgana", "Nami", "Nunu", "Sona", "Soraka", "TahmKench", "Taric", "Thresh",
+                "Alistar", "Bard", "Braum", "Janna", "Leona", "Lulu", "Morgana", "Nami", "Nunu",
+                "Sona", "Soraka", "TahmKench", "Taric", "Thresh",
                 "Zilean", "Zyra"
             };
 
             var tanks = new[]
             {
-                "Alistar", "Amumu", "Tank", "Chogath", "Galio", "JarvanIV", "Leona", "Malphite", "Maokai", "Nautilus",
+                "Amumu", "Chogath", "Galio", "JarvanIV", "Malphite", "Maokai", "Nautilus",
                 "Poppy", "Rammus", "Sejuani", "Shen", "Singed", "Sion", "Zac"
             };
 
             var marksmen = new[] // heroes that will 100% buy farsight orb
             {
                 "Ashe", "Caitlyn", "Corki", "Draven", "Ezreal", "Graves", "Jhin", "Jinx", "Kalista",
-                "Kogmaw", "Lucian", "MissFortune", "Quinn", "Sivir", "Tristana", "Twitch", "Urgot", "Varus",
+                "KogMaw", "Lucian", "MissFortune", "Quinn", "Sivir", "Tristana", "Twitch", "Urgot", "Varus",
                 "Vayne"
             };
 

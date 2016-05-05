@@ -223,22 +223,32 @@ namespace Activator.Items
                     ccmenu.AddItem(new MenuItem(Name + "ctaunt", "Taunts")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "cflee", "Flee/Fear")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "csnare", "Snares")).SetValue(true);
+                    ccmenu.AddItem(new MenuItem(Name + "cpolymorph", "Polymorphs")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "csilence", "Silences")).SetValue(false);
-                    ccmenu.AddItem(new MenuItem(Name + "cpolymorph", "Polymorphs")).SetValue(false);
                     ccmenu.AddItem(new MenuItem(Name + "cblind", "Blinds")).SetValue(false);
                     ccmenu.AddItem(new MenuItem(Name + "cslow", "Slows")).SetValue(false);
-                    ccmenu.AddItem(new MenuItem(Name + "cpoison", "Poisons")).SetValue(false);
+
+                    if (Id == 3222)
+                        ccmenu.AddItem(new MenuItem(Name + "cpoison", "Poisons")).SetValue(false);
+
                     Menu.AddSubMenu(ccmenu);
-                    Menu.AddSubMenu(ssmenu);
+
+                    if (Id == 3222)
+                        Menu.AddSubMenu(ssmenu);
 
                     Menu.AddItem(new MenuItem("use" + Name + "number", "Min Buffs to Use"))
                         .SetValue(new Slider(DefaultHP / 5, 1, 5)).SetTooltip("Will Only " + Name + " if Your Buff Count is >= Value");
                     Menu.AddItem(new MenuItem("use" + Name + "time", "Min Durration to Use"))
                         .SetValue(new StringList(new [] {".50", ".75", "1.0", "1.25", "1.5", "1.75", "2.0"}));
-                    Menu.AddItem(new MenuItem("use" + Name + "od", "Use for Unique Only"))
-                        .SetValue(false).SetTooltip("Use for Unique Only, Or Everything");
-                    Menu.AddItem(new MenuItem("use" + Name + "dot", "Use for DoTs only if HP% <"))
-                        .SetValue(new Slider(35)).SetTooltip("Will " + Name + " DoTs Spells if Below HP%");
+
+                    if (Id == 3222)
+                    {
+                        Menu.AddItem(new MenuItem("use" + Name + "od", "Use for Unique Only"))
+                       .SetValue(false).SetTooltip("Use for Unique Only, Or Everything");
+                        Menu.AddItem(new MenuItem("use" + Name + "dot", "Use for DoTs only if HP% <"))
+                            .SetValue(new Slider(35)).SetTooltip("Will " + Name + " DoTs Spells if Below HP%");
+                    }
+
                     Menu.AddItem(new MenuItem("use" + Name + "delay", "Activation Delay (in ms)")).SetValue(new Slider(55, 0, 500));
                 }
 

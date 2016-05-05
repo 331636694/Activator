@@ -12,6 +12,8 @@ namespace Activator.Handlers
         internal static int TrinketId;
         internal static bool Upgrade;
         internal static Obj_AI_Hero Player;
+        private static readonly int[] _stones = { 2049, 2045, 2301, 2302, 2303 };
+        private static bool _hazstone => _stones.Any(x => Player != null && LeagueSharp.Common.Items.HasItem(x));
 
         public static void Init()
         {
@@ -101,15 +103,10 @@ namespace Activator.Handlers
                             if (Player.BuyItem((ItemId) 3364))
                                 Upgrade = false;
 
-                        if (Essentials.GetRole(Player) == PrimaryRole.Support)
+                        if (_hazstone)
                         {
-                            if (LeagueSharp.Common.Items.HasItem(2049) || LeagueSharp.Common.Items.HasItem(2045) ||
-                                LeagueSharp.Common.Items.HasItem(2301) || LeagueSharp.Common.Items.HasItem(2302) ||
-                                LeagueSharp.Common.Items.HasItem(2303))
-                            {
-                                if (Player.BuyItem((ItemId) 3364))
-                                    Upgrade = false;
-                            }
+                            if (Player.BuyItem((ItemId) 3364))
+                                Upgrade = false;
                         }
                     }
 
