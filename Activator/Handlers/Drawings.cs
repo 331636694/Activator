@@ -31,11 +31,15 @@ namespace Activator.Handlers
         {
             { "SRU_Blue1.1.1" , new Offset(new Vector2(-2, 23), 150, 6) },
             { "SRU_Red4.1.1" , new Offset(new Vector2(-2, 23), 150, 6) },
-            { "SRU_Dragon6.1.1" , new Offset(new Vector2(1, 23), 150, 6) },
             { "SRU_Blue7.1.1" , new Offset(new Vector2(-2, 23), 150, 6) },
             { "SRU_Red10.1.1" , new Offset(new Vector2(-2, 23), 150, 6) },
             { "SRU_Baron12.1.1" , new Offset(new Vector2(57, 24), 165, 11) },
             { "SRU_RiftHerald17.1.1" , new Offset(new Vector2(-2, 23), 155, 6) },
+            { "SRU_Dragon_Air6.1.1" , new Offset(new Vector2(1, 23), 150, 6) },
+            { "SRU_Dragon_Fire6.2.1" , new Offset(new Vector2(1, 23), 150, 6) },
+            { "SRU_Dragon_Water6.3.1" , new Offset(new Vector2(1, 23), 150, 6) },
+            { "SRU_Dragon_Earth6.4.1" , new Offset(new Vector2(1, 23), 150, 6) },
+            { "SRU_Dragon_Elder6.5.1" , new Offset(new Vector2(1, 23), 150, 7) },
         };
 
         public static void Init()
