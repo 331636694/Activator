@@ -214,16 +214,13 @@ namespace Activator.Handlers
                             var evadetime = 1000 * (data.Range - hero.Player.Distance(correctpos) +
                                                     hero.Player.BoundingRadius) / hero.Player.MoveSpeed;
 
-                            if (Activator.Origin.Item("evade").GetValue<bool>())
+                            // ignore if can evade
+                            if (hero.Player.NetworkId == Player.NetworkId)
                             {
-                                // ignore if can evade
-                                if (hero.Player.NetworkId == Player.NetworkId)
+                                if (hero.Player.CanMove && evadetime < data.Delay)
                                 {
-                                    if (hero.Player.CanMove && evadetime < data.Delay)
-                                    {
-                                        // check next player
-                                        continue;
-                                    }
+                                    // check next player
+                                    continue;
                                 }
                             }
 
