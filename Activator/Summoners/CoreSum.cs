@@ -150,6 +150,7 @@ namespace Activator.Summoners
                 if (Name == "summonerteleport")
                 {
                     Activator.UseAllyMenu = true;
+                    Menu.AddItem(new MenuItem("telesound", "Enable Sound")).SetValue(false).SetTooltip("Only you can hear this.");
                     Menu.AddItem(new MenuItem("telelowhp2", "Ping Low Health Allies")).SetValue(false);
                     Menu.AddItem(new MenuItem("teleulthp2", "Ping Dangerous Activity")).SetValue(false);
                 }

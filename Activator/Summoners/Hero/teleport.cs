@@ -19,7 +19,7 @@ namespace Activator.Summoners
         private static Vector3 _lastPingLocation;
 
         // ping credits to Honda :^)
-        private static void Ping(Vector3 pos)
+        private static void Ping(Vector3 pos, bool sound = false)
         {
             if (Utils.GameTimeTickCount - _lastPing < 5000)
             {
@@ -29,13 +29,13 @@ namespace Activator.Summoners
             _lastPing = Utils.GameTimeTickCount;
             _lastPingLocation = pos;
 
-            SimplePing();
-            Utility.DelayAction.Add(109 + _rand.Next(90, 300), SimplePing);
+            SimplePing(sound);
+            Utility.DelayAction.Add(109 + _rand.Next(90, 300), () => SimplePing(sound));
         }
 
-        private static void SimplePing()
+        private static void SimplePing(bool sound = false)
         {   
-            Game.ShowPing(PingCategory.Fallback, _lastPingLocation, false);
+            Game.ShowPing(PingCategory.Fallback, _lastPingLocation, sound);
         }
 
         public override void OnTick(EventArgs args)
@@ -59,7 +59,7 @@ namespace Activator.Summoners
                     {
                         if (hero.IncomeDamage > 0)
                         {
-                            Ping(hero.Player.ServerPosition);
+                            Ping(hero.Player.ServerPosition, Menu.Item("telesound").GetValue<bool>());
                         }
                     }
 
@@ -67,7 +67,7 @@ namespace Activator.Summoners
                     {
                         if (hero.IncomeDamage > 0)
                         {
-                            Ping(hero.Player.ServerPosition);
+                            Ping(hero.Player.ServerPosition, Menu.Item("telesound").GetValue<bool>());
                         }
                     }
                 }
