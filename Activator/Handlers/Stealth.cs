@@ -59,7 +59,7 @@ namespace Activator.Handlers
 
             foreach (var hero in Activator.Heroes.Where(h => h.Player.Distance(attacker) <= 1000))
             {
-                foreach (var x in Data.Spelldata.Spells)
+                foreach (var x in Data.Somedata.Spells)
                 {
                     if (args.SData.Name.ToLower() == x.SDataName && x.HitType.Contains(HitType.Stealth))
                     {

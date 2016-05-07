@@ -31,28 +31,18 @@ namespace Activator.Items.Cleansers
                     if (!Parent.Item(Parent.Name + "useon" + hero.Player.NetworkId).GetValue<bool>())
                         continue;
 
-                    if (hero.ForceQSS)
-                    {
-                        UseItem();
-                        hero.DervishBuffCount = 0;
-                        hero.DervishHighestBuffTime = 0;
-                    }
-
                     Buffs.CheckDervish(hero.Player);
 
                     var d = Convert.ToDouble(Menu.Item("use" + Name + "time").GetValue<StringList>().SelectedValue);
                     if (hero.DervishBuffCount >= Menu.Item("use" + Name + "number").GetValue<Slider>().Value &&
                         hero.DervishHighestBuffTime >= d * 1000)
                     {
-                        if (!Menu.Item("use" + Name + "od").GetValue<bool>())
+                        Utility.DelayAction.Add(Game.Ping + Menu.Item("use" + Name + "delay").GetValue<Slider>().Value, delegate
                         {
-                            Utility.DelayAction.Add(Game.Ping + Menu.Item("use" + Name + "delay").GetValue<Slider>().Value, delegate
-                            {
-                                UseItem(Menu.Item("mode" + Name).GetValue<StringList>().SelectedIndex == 1);
-                                hero.DervishBuffCount = 0;
-                                hero.DervishHighestBuffTime = 0;
-                            });
-                        }
+                            UseItem(Menu.Item("mode" + Name).GetValue<StringList>().SelectedIndex == 1);
+                            hero.DervishBuffCount = 0;
+                            hero.DervishHighestBuffTime = 0;
+                        });                       
                     }
                 }
             }

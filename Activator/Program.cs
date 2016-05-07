@@ -15,6 +15,8 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Security;
 using System.Security.Permissions;
+using LeagueSharp.Data.DataTypes;
+using LeagueSharp.Data.Enumerations;
 
 #region Namespaces © 2015
 using LeagueSharp;
@@ -62,12 +64,12 @@ namespace Activator
                 MapId = (int) Utility.Map.GetMap().Type;
                 Rand = new Random();
 
+                GetSpellsInGame();
                 GetSmiteSlot();
                 GetGameTroysInGame();
                 GetAurasInGame();
                 GetHeroesInGame();
                 GetComboDamage();
-                GetSpellsInGame();
 
                 Origin = new Menu("Activator", "activator", true);
 
@@ -116,7 +118,7 @@ namespace Activator
                 }
 
                 zmenu.AddItem(new MenuItem("acdebug", "Debug")).SetValue(false);
-                zmenu.AddItem(new MenuItem("evade", "Evade Integration")).SetValue(true);
+                //zmenu.AddItem(new MenuItem("evade", "Evade Integration")).SetValue(true);
                 zmenu.AddItem(new MenuItem("autolevelup", "Auto Level Ultimate")).SetValue(true).SetTooltip("Level 6 Only");
                 zmenu.AddItem(new MenuItem("autotrinket", "Auto Upgrade Trinket")).SetValue(false);
                 zmenu.AddItem(new MenuItem("healthp", "Ally Priority:")).SetValue(new StringList(new[] { "Low HP", "Most AD/AP", "Most HP" }, 1));
@@ -177,7 +179,7 @@ namespace Activator
                     }
                 }
 
-                Utility.DelayAction.Add(3000, CheckEvade);
+                // Utility.DelayAction.Add(3000, CheckEvade);
             }
 
             catch (Exception e)
@@ -316,7 +318,7 @@ namespace Activator
             {
                 if (entry.Key == Player.ChampionName)
                     foreach (DamageSpell spell in entry.Value)
-                        Spelldata.DamageLib.Add(spell.Damage, spell.Slot);
+                        Somedata.DamageLib.Add(spell.Damage, spell.Slot);
             }
         }
 
@@ -359,8 +361,33 @@ namespace Activator
         private static void GetSpellsInGame()
         {
             foreach (var i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team != Player.Team))
-                foreach (var item in Spelldata.Spells.Where(x => x.ChampionName == i.ChampionName.ToLower()))
-                    Spelldata.SomeSpells.Add(item);
+                foreach (var item in Somedata.Spells.Where(x => x.ChampionName == i.ChampionName.ToLower()))
+                    Somedata.SomeSpells.Add(item);
+
+            Utility.DelayAction.Add(1000, LoadSpellData);
+        }
+
+        private static void LoadSpellData()
+        {
+            foreach (var adata in Somedata.Spells)
+            {
+                foreach (
+                    var entry in
+                        LeagueSharp.Data.Data.Get<SpellDatabase>()
+                            .Spells.Where(
+                                x => String.Equals(x.SpellName, adata.SDataName, StringComparison.CurrentCultureIgnoreCase))
+                    )
+                {
+                    adata.Delay = entry.Delay;
+                    adata.Speed = entry.MissileSpeed;
+                    adata.Range = entry.Range;
+                    adata.Width = entry.SpellType.ToString().Contains("Circle") ? entry.Radius : entry.Width;
+                    adata.SpellType = entry.SpellType;
+                    adata.MissileName = entry.MissileSpellName;
+                    adata.ExtraMissileNames = entry.ExtraMissileNames;
+                    adata.SpellTags = entry.SpellTags;
+                }
+            }
         }
 
         private static void GetAurasInGame()
@@ -440,7 +467,7 @@ namespace Activator
                 var menu = new Menu(unit.Player.ChampionName, unit.Player.NetworkId + "menu");
 
                 // new menu per spell
-                foreach (var entry in Spelldata.Spells)
+                foreach (var entry in Somedata.Spells)
                 {
                     if (entry.ChampionName == unit.Player.ChampionName.ToLower())
                     {
@@ -448,7 +475,7 @@ namespace Activator
 
                         // activation parameters
                         newmenu.AddItem(new MenuItem(entry.SDataName + "predict", "enabled").DontSave())
-                            .SetValue(entry.CastRange != 0f);
+                            .SetValue(true);
                         newmenu.AddItem(new MenuItem(entry.SDataName + "danger", "danger").DontSave())
                             .SetValue(entry.HitType.Contains(HitType.Danger));
                         newmenu.AddItem(new MenuItem(entry.SDataName + "crowdcontrol", "crowdcontrol").DontSave())
@@ -458,6 +485,11 @@ namespace Activator
                         newmenu.AddItem(new MenuItem(entry.SDataName + "forceexhaust", "force exhuast").DontSave())
                             .SetValue(entry.HitType.Contains(HitType.ForceExhaust));
                         menu.AddSubMenu(newmenu);
+
+                        Utility.DelayAction.Add(5000,
+                            () =>
+                                newmenu.Item(entry.SDataName + "predict")
+                                    .SetValue(entry.SpellTags.Contains(SpellTags.Damage)));
                     }
                 }
 
