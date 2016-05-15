@@ -19,7 +19,7 @@ namespace Activator.Summoners
                 return;
 
             var hid = Activator.Heroes
-                .OrderByDescending(h => h.Player.FlatPhysicalDamageMod)
+                .OrderByDescending(h => h.Player.TotalAttackDamage)
                 .FirstOrDefault(h => h.Player.IsValidTarget(Range + 250));
 
             foreach (var hero in Activator.Allies())
@@ -58,6 +58,9 @@ namespace Activator.Summoners
                                 UseSpellOn(attacker, Menu.Item("mode" + Name).GetValue<StringList>().SelectedIndex == 1);
                         }
                     }
+
+                    if (Essentials.GetRole(attacker) == PrimaryRole.Support)
+                        continue;
 
                     if (hero.Player.Health / hero.Player.MaxHealth * 100 <=
                         Menu.Item("a" + Name + "pct").GetValue<Slider>().Value)

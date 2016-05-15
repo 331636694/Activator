@@ -129,7 +129,7 @@ namespace Activator.Base
 
             var supports = new[]
             {
-                "Alistar", "Bard", "Braum", "Janna", "Leona", "Lulu", "Morgana", "Nami", "Nunu",
+                "Alistar", "Bard", "Blitzcrank", "Braum", "Janna", "Leona", "Lulu", "Morgana", "Nami", "Nunu",
                 "Sona", "Soraka", "TahmKench", "Taric", "Thresh",
                 "Zilean", "Zyra"
             };

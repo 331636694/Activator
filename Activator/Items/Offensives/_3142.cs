@@ -11,7 +11,7 @@ namespace Activator.Items.Offensives
         internal override string Name => "Youmuus";
         internal override string DisplayName => "Youmuus Ghostblade";
         internal override int Duration => 45000;
-        internal override float Range => 750f;
+        internal override float Range => 850f;
         internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.EnemyLowHP };
         internal override MapType[] Maps => new[] { MapType.Common };
         internal override int DefaultHP => 95;

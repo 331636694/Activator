@@ -427,16 +427,7 @@ namespace Activator
                 var side = hero.Team == Player.Team ? "[Ally]" : "[Enemy]";
                 var mitem = new MenuItem(parent.Name + "useon" + hero.NetworkId, "Use for " + hero.ChampionName + " " + side);
 
-                switch (parent.Name)
-                {
-                    case "smenu":
-                        menu.AddItem(mitem.DontSave())
-                            .SetValue(Essentials.GetRole(hero) != PrimaryRole.Support);
-                        break;
-                    default:
-                        menu.AddItem(mitem.DontSave()).SetValue(true);
-                        break;
-                }
+                menu.AddItem(mitem.DontSave()).SetValue(true);
 
                 if (both)
                 {
