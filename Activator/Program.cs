@@ -479,8 +479,9 @@ namespace Activator
 
                         Utility.DelayAction.Add(5000,
                             () =>
-                                newmenu.Item(entry.SDataName + "predict")
-                                    .SetValue(entry.SpellTags.Contains(SpellTags.Damage)));
+                                 newmenu.Item(entry.SDataName + "predict")
+                                    .SetValue(entry.SpellTags.Contains(SpellTags.Damage) ||
+                                              entry.SpellTags.Contains(SpellTags.CrowdControl)));
                     }
                 }
 
