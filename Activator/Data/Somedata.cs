@@ -3241,6 +3241,27 @@ namespace Activator.Data
 
             Spells.Add(new Somedata
             {
+                SDataName = "taliyahq",
+                ChampionName = "taliyah",
+                HitType = new HitType[] { },
+            });
+
+            Spells.Add(new Somedata
+            {
+                SDataName = "taliyahw",
+                ChampionName = "taliyah",
+                HitType = new[] { Base.HitType.CrowdControl, },
+            });
+
+            Spells.Add(new Somedata
+            {
+                SDataName = "taliyahq",
+                ChampionName = "taliyah",
+                HitType = new HitType[] { },
+            });
+
+            Spells.Add(new Somedata
+            {
                 SDataName = "talonshadowassault",
                 ChampionName = "talon",
                 HitType = new[] { Base.HitType.Stealth },

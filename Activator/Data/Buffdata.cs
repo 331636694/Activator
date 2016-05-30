@@ -480,6 +480,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Shyvana",
                 Name = "shyvanaimmolationaura",
                 Evade = false,
                 DoT = true,
@@ -492,6 +493,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "MissFortune",
                 Name = "missfortunescattershotslow",
                 Evade = false,
                 DoT = true,
@@ -504,6 +506,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "MissFortune",
                 Name = "missfortunepassivestack",
                 Evade = false,
                 DoT = true,
@@ -516,6 +519,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Shyvana",
                 Name = "shyvanaimmolatedragon",
                 Evade = false,
                 DoT = true,
@@ -749,6 +753,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Garen",
                 Name = "garene",
                 Evade = false,
                 DoT = true,
@@ -761,6 +766,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Amumu",
                 Name = "auraofdespair",
                 Evade = false,
                 DoT = true,
@@ -773,6 +779,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Hecarim",
                 Name = "hecarimw",
                 Evade = false,
                 DoT = true,
@@ -1007,6 +1014,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Vi",
                 Name = "vir",
                 Evade = false,
                 DoT = false,
@@ -1019,21 +1027,10 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
-                Name = "virknockup",
-                Evade = false,
-                DoT = false,
-                Cleanse = false,
-                CleanseTimer = 0,
-                EvadeTimer = 0,
-                QssIgnore = true,
-                Slot = SpellSlot.Unknown
-            });
-
-            BuffList.Add(new Buffdata
-            {
+                Champion = "Yasuo",
                 Name = "yasuorknockupcombo",
                 Evade = false,
-                DoT = false,
+                DoT = true,
                 Cleanse = false,
                 CleanseTimer = 0,
                 EvadeTimer = 0,
@@ -1043,9 +1040,10 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Yasuo",
                 Name = "yasuorknockupcombotar",
                 Evade = false,
-                DoT = false,
+                DoT = true,
                 Cleanse = false,
                 CleanseTimer = 0,
                 EvadeTimer = 0,
@@ -1055,6 +1053,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Zyra",
                 Name = "zyrabramblezoneknockup",
                 Evade = false,
                 DoT = false,
@@ -1067,6 +1066,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Velkoz",
                 Name = "velkozresearchstack",
                 Evade = false,
                 DoT = true,
@@ -1092,6 +1092,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Darius",
                 Name = "dariusaxebrabcone",
                 Evade = false,
                 DoT = false,
@@ -1129,6 +1130,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Fizz",
                 Name = "fizzmoveback",
                 Evade = false,
                 DoT = false,
@@ -1166,6 +1168,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Blitzcrank",
                 Name = "rocketgrab2",
                 Evade = false,
                 DoT = false,
@@ -1178,6 +1181,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Ashe",
                 Name = "frostarrow",
                 Evade = false,
                 DoT = false,
@@ -1190,6 +1194,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Alistar",
                 Name = "pulverize",
                 Evade = false,
                 DoT = false,
@@ -1214,6 +1219,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Azir",
                 Name = "azirqslow",
                 Evade = false,
                 DoT = false,
@@ -1226,6 +1232,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Rammus",
                 Name = "powerballslow",
                 Evade = false,
                 DoT = false,
@@ -1238,6 +1245,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Rammus",
                 Name = "powerballstun",
                 Evade = false,
                 DoT = false,
@@ -1250,6 +1258,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "MonkeyKing",
                 Name = "monkeykingspinknockup",
                 Evade = false,
                 DoT = false,
@@ -1262,6 +1271,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Alistar",
                 Name = "headbutttarget",
                 Evade = false,
                 DoT = false,
@@ -1274,18 +1284,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
-                Name = "snare",
-                Evade = false,
-                DoT = false,
-                Cleanse = false,
-                CleanseTimer = 0,
-                EvadeTimer = 0,
-                QssIgnore = true,
-                Slot = SpellSlot.Unknown,
-            });
-
-            BuffList.Add(new Buffdata
-            {
+                Champion = "Hecarim",
                 Name = "hecarimrampstuncheck",
                 Evade = false,
                 DoT = false,
@@ -1298,6 +1297,7 @@ namespace Activator.Data
 
             BuffList.Add(new Buffdata
             {
+                Champion = "Hecarim",
                 Name = "hecarimrampattackknockback",
                 Evade = false,
                 DoT = false,

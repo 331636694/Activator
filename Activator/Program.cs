@@ -36,7 +36,6 @@ namespace Activator
         internal static Menu Origin;
         internal static Obj_AI_Hero Player;
         internal static Random Rand;
-        internal static float PlayerZ;
 
         internal static int MapId;
         internal static int LastUsedTimeStamp;
@@ -354,6 +353,7 @@ namespace Activator
                 {
                     TroysInGame = true;
                     Gametroy.Objects.Add(new Gametroy(i.ChampionName, item.Slot, item.Name, 0, false));
+                    Console.WriteLine("Activator# - SpellList: " + item.Name + " added!");
                 }
             }
         }
@@ -361,8 +361,13 @@ namespace Activator
         private static void GetSpellsInGame()
         {
             foreach (var i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team != Player.Team))
+            {
                 foreach (var item in Somedata.Spells.Where(x => x.ChampionName == i.ChampionName.ToLower()))
+                {
                     Somedata.SomeSpells.Add(item);
+                    Console.WriteLine("Activator# - SpellList: " + item.SDataName + " added!");
+                }
+            }
 
             Utility.DelayAction.Add(1000, LoadSpellData);
         }
@@ -393,8 +398,19 @@ namespace Activator
         private static void GetAurasInGame()
         {
             foreach (var i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team != Player.Team))
-                foreach (var aura in Buffdata.BuffList.Where(x => x.Champion == i.ChampionName))
+            {
+                foreach (var aura in Buffdata.BuffList.Where(x => x.Champion == i.ChampionName && x.Champion != null))
+                {
                     Buffdata.SomeAuras.Add(aura);
+                    Console.WriteLine("Activator# - AuraList: " + aura.Name + " added!");
+                }
+            }
+
+            foreach (var generalaura in Buffdata.BuffList.Where(x => string.IsNullOrEmpty(x.Champion)))
+            {
+                Buffdata.SomeAuras.Add(generalaura);
+                Console.WriteLine("Activator# - AuraList: " + generalaura.Name + " added!");
+            }
         }
 
         public static IEnumerable<Champion> Allies()
@@ -478,10 +494,9 @@ namespace Activator
                         menu.AddSubMenu(newmenu);
 
                         Utility.DelayAction.Add(5000,
-                            () =>
-                                 newmenu.Item(entry.SDataName + "predict")
-                                    .SetValue(entry.SpellTags.Contains(SpellTags.Damage) ||
-                                              entry.SpellTags.Contains(SpellTags.CrowdControl)));
+                            () => newmenu.Item(entry.SDataName + "predict")
+                                .SetValue(entry.SpellTags.Contains(SpellTags.Damage) ||
+                                          entry.SpellTags.Contains(SpellTags.CrowdControl)));
                     }
                 }
 
