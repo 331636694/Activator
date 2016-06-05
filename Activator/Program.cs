@@ -121,6 +121,9 @@ namespace Activator
                 zmenu.AddItem(new MenuItem("autolevelup", "Auto Level Ultimate")).SetValue(true).SetTooltip("Level 6 Only");
                 zmenu.AddItem(new MenuItem("autotrinket", "Auto Upgrade Trinket")).SetValue(false);
                 zmenu.AddItem(new MenuItem("healthp", "Ally Priority:")).SetValue(new StringList(new[] { "Low HP", "Most AD/AP", "Most HP" }, 1));
+                zmenu.AddItem(new MenuItem("weightdmg", "Weight Income Damage"))
+                    .SetValue(new Slider(125, 100, 165))
+                    .SetTooltip("Increase if defensive items aren't reacting fast enough.");
                 zmenu.AddItem(new MenuItem("usecombo", "Combo (active)")).SetValue(new KeyBind(32, KeyBindType.Press, true));
 
                 var uumenu = new Menu("Spell Database", "evadem");

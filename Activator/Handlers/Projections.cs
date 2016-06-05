@@ -99,7 +99,7 @@ namespace Activator.Handlers
                                         Activator.Origin.Item(data.SDataName + x.ToString().ToLower())
                                             .GetValue<bool>()));
 
-                            Utility.DelayAction.Add((int) endtime * 3, () =>
+                            Utility.DelayAction.Add((int) endtime * 2 + (200 - Game.Ping), () =>
                             {
                                 hero.Attacker = null;
                                 hero.IncomeDamage -= 1;
@@ -165,13 +165,15 @@ namespace Activator.Handlers
                                 if (args.SData.Name.ToLower().Contains("crit"))
                                     dmg += (int) Math.Max(attacker.GetAutoAttackDamage(hero.Player, true), 0);
 
+                                dmg = dmg / 100 * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value;
+
                                 Utility.DelayAction.Add((int) end / 2, () =>
                                 {
                                     hero.Attacker = attacker;
                                     hero.HitTypes.Add(HitType.AutoAttack);
                                     hero.IncomeDamage += dmg;
 
-                                    Utility.DelayAction.Add(Math.Max((int) end, 250), () =>
+                                    Utility.DelayAction.Add(Math.Max((int) end + (150 - Game.Ping), 250), () =>
                                     {
                                         hero.Attacker = null;
                                         hero.IncomeDamage -= dmg;
@@ -230,9 +232,11 @@ namespace Activator.Handlers
                             var dmg = (int) Math.Max(attacker.GetSpellDamage(hero.Player, data.SDataName), 0);
                             if (dmg == 0)
                             {
-                                dmg = (int)(hero.Player.Health / hero.Player.MaxHealth * 5);
+                                dmg = (int) (hero.Player.Health / hero.Player.MaxHealth * 5);
                                 // Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName);
                             }
+
+                            dmg = dmg / 100 * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value;
 
                             // delay the spell a bit before missile endtime
                             Utility.DelayAction.Add((int) (data.Delay / 2), () =>
@@ -247,7 +251,7 @@ namespace Activator.Handlers
                                                 .GetValue<bool>()));
 
                                 // lazy safe reset
-                                Utility.DelayAction.Add((int) data.Delay * 2 + Game.Ping, () =>
+                                Utility.DelayAction.Add((int) data.Delay * 2 + (200 - Game.Ping), () =>
                                 {
                                     hero.Attacker = null;
                                     hero.IncomeDamage -= dmg;
@@ -340,6 +344,8 @@ namespace Activator.Handlers
                                     Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName);
                                 }
 
+                                dmg = dmg / 100 * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value;
+
                                 Utility.DelayAction.Add((int) (endtime / 2), () =>
                                 {
                                     hero.Attacker = attacker;
@@ -351,7 +357,7 @@ namespace Activator.Handlers
                                                 Activator.Origin.Item(data.SDataName + x.ToString().ToLower())
                                                     .GetValue<bool>()));
 
-                                    Utility.DelayAction.Add((int) endtime * 3, () =>
+                                    Utility.DelayAction.Add((int) endtime * 3 + (200 - Game.Ping), () =>
                                     {
                                         hero.Attacker = null;
                                         hero.IncomeDamage -= dmg;
@@ -400,6 +406,8 @@ namespace Activator.Handlers
                                 // Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName);
                             }
 
+                            dmg = dmg / 100 * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value;
+
                             Utility.DelayAction.Add((int) (endtime / 2), () =>
                             {
                                 hero.Attacker = attacker;
@@ -412,7 +420,7 @@ namespace Activator.Handlers
                                                 .GetValue<bool>()));
 
                                 // lazy reset
-                                Utility.DelayAction.Add((int) endtime * 2 + Game.Ping, () =>
+                                Utility.DelayAction.Add((int) endtime * 2 + (200 - Game.Ping), () =>
                                 {
                                     hero.Attacker = null;
                                     hero.IncomeDamage -= dmg;
