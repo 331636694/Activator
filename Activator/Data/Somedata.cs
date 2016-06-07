@@ -1411,9 +1411,9 @@ namespace Activator.Data
 
             Spells.Add(new Somedata
             {
-                SDataName = "jhinq",
+                SDataName = "jhinw",
                 ChampionName = "jhin",
-                HitType = new HitType[] { },
+                HitType = new[] { Base.HitType.CrowdControl },
             });
 
             Spells.Add(new Somedata
@@ -3255,7 +3255,7 @@ namespace Activator.Data
 
             Spells.Add(new Somedata
             {
-                SDataName = "taliyahq",
+                SDataName = "taliyahe",
                 ChampionName = "taliyah",
                 HitType = new HitType[] { },
             });
@@ -3269,30 +3269,30 @@ namespace Activator.Data
 
             Spells.Add(new Somedata
             {
-                SDataName = "imbue",
+                SDataName = "taricq",
                 ChampionName = "taric",
                 HitType = new HitType[] { },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "shatter",
+                SDataName = "taricw",
                 ChampionName = "taric",
                 HitType = new HitType[] { },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "dazzle",
+                SDataName = "tarice",
                 ChampionName = "taric",
                 HitType = new[] { Base.HitType.CrowdControl },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "tarichammersmash",
+                SDataName = "taricr",
                 ChampionName = "taric",
-                HitType = new[] { Base.HitType.Danger },
+                HitType = new HitType[] { },
             });
 
             Spells.Add(new Somedata
@@ -3437,36 +3437,43 @@ namespace Activator.Data
 
             Spells.Add(new Somedata
             {
-                SDataName = "hideinshadows",
-                ChampionName = "twich",
+                SDataName = "twitchhideinshadows",
+                ChampionName = "twitch",
                 HitType = new[] { Base.HitType.Stealth },
             });
 
             Spells.Add(new Somedata
             {
                 SDataName = "twitchvenomcask",
-                ChampionName = "twich",
+                ChampionName = "twitch",
                 HitType = new[] { Base.HitType.CrowdControl },
             });
 
             Spells.Add(new Somedata
             {
                 SDataName = "twitchvenomcaskmissle",
-                ChampionName = "twich",
+                ChampionName = "twitch",
                 HitType = new[] { Base.HitType.CrowdControl },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "expunge",
-                ChampionName = "twich",
+                SDataName = "twitchexpunge",
+                ChampionName = "twitch",
                 HitType = new[] { Base.HitType.Danger },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "fullautomatic",
-                ChampionName = "twich",
+                SDataName = "twitchsprayandprayattack",
+                ChampionName = "twitch",
+                HitType = new HitType[] { },
+            });
+
+            Spells.Add(new Somedata
+            {
+                SDataName = "twitchfullautomatic",
+                ChampionName = "twitch",
                 HitType = new HitType[] { },
             });
 
