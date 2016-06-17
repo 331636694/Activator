@@ -73,22 +73,22 @@ namespace Activator
                 Origin = new Menu("Activator", "activator", true);
 
                 var cmenu = new Menu("Cleansers", "cmenu");
-                SubMenu(cmenu, false);
+                CreateSubMenu(cmenu, false);
                 GetItemGroup("Items.Cleansers").ForEach(t => NewItem((CoreItem) NewInstance(t), cmenu));
                 Origin.AddSubMenu(cmenu);
 
                 var dmenu = new Menu("Defensives", "dmenu");
-                SubMenu(dmenu, false);
+                CreateSubMenu(dmenu, false);
                 GetItemGroup("Items.Defensives").ForEach(t => NewItem((CoreItem) NewInstance(t), dmenu));
                 Origin.AddSubMenu(dmenu);
 
                 var smenu = new Menu("Summoners", "smenu");
                 GetItemGroup("Summoners").ForEach(t => NewSumm((CoreSum) NewInstance(t), smenu));
-                SubMenu(smenu, true, true);
+                CreateSubMenu(smenu, true, true);
                 Origin.AddSubMenu(smenu);
 
                 var omenu = new Menu("Offensives", "omenu");
-                SubMenu(omenu, true);
+                CreateSubMenu(omenu, true);
                 GetItemGroup("Items.Offensives").ForEach(t => NewItem((CoreItem) NewInstance(t), omenu));
                 Origin.AddSubMenu(omenu);
 
@@ -97,7 +97,7 @@ namespace Activator
                 Origin.AddSubMenu(imenu);
 
                 var amenu = new Menu("Auto Spells", "amenu");
-                SubMenu(amenu, false);
+                CreateSubMenu(amenu, false);
                 GetItemGroup("Spells.Evaders").ForEach(t => NewSpell((CoreSpell) NewInstance(t), amenu));
                 GetItemGroup("Spells.Shields").ForEach(t => NewSpell((CoreSpell) NewInstance(t), amenu));
                 GetItemGroup("Spells.Health").ForEach(t => NewSpell((CoreSpell) NewInstance(t), amenu));
@@ -117,12 +117,11 @@ namespace Activator
                 }
 
                 zmenu.AddItem(new MenuItem("acdebug", "Debug")).SetValue(false);
-                //zmenu.AddItem(new MenuItem("evade", "Evade Integration")).SetValue(true);
                 zmenu.AddItem(new MenuItem("autolevelup", "Auto Level Ultimate")).SetValue(true).SetTooltip("Level 6 Only");
                 zmenu.AddItem(new MenuItem("autotrinket", "Auto Upgrade Trinket")).SetValue(false);
                 zmenu.AddItem(new MenuItem("healthp", "Ally Priority:")).SetValue(new StringList(new[] { "Low HP", "Most AD/AP", "Most HP" }, 1));
                 zmenu.AddItem(new MenuItem("weightdmg", "Weight Income Damage (%)"))
-                    .SetValue(new Slider(125, 100, 165))
+                    .SetValue(new Slider(115, 100, 150))
                     .SetTooltip("Increase if defensive items aren't reacting fast enough.");
                 zmenu.AddItem(new MenuItem("usecombo", "Combo (active)")).SetValue(new KeyBind(32, KeyBindType.Press, true));
 
@@ -180,8 +179,6 @@ namespace Activator
                         Game.PrintChat("<b>Activator#</b> - <font color=\"#FFF280\">" + item.Name + "</font> active!");
                     }
                 }
-
-                // Utility.DelayAction.Add(3000, CheckEvade);
             }
 
             catch (Exception e)
@@ -389,7 +386,7 @@ namespace Activator
                     adata.Delay = entry.Delay;
                     adata.Speed = entry.MissileSpeed;
                     adata.Range = entry.Range;
-                    adata.Width = entry.SpellType.ToString().Contains("Circle") ? entry.Radius : entry.Width;
+                    adata.Width = entry.Radius;
                     adata.SpellType = entry.SpellType;
                     adata.MissileName = entry.MissileSpellName;
                     adata.ExtraMissileNames = entry.ExtraMissileNames;
@@ -434,7 +431,7 @@ namespace Activator
             return null;
         }
 
-        private static void SubMenu(Menu parent, bool enemy, bool both = false)
+        private static void CreateSubMenu(Menu parent, bool enemy, bool both = false)
         {
             var menu = new Menu("Config", parent.Name + "sub");
 
@@ -458,9 +455,11 @@ namespace Activator
             {
                 if (args.GetNewValue<bool>())
                 {
-                    foreach (var hero in both 
-                        ? HeroManager.AllHeroes : enemy 
-                        ? HeroManager.Enemies : HeroManager.Allies)
+                    foreach (var hero in 
+                     both ? HeroManager.AllHeroes
+                          : enemy
+                            ? HeroManager.Enemies
+                            : HeroManager.Allies)
                         menu.Item(parent.Name + "useon" + hero.NetworkId).SetValue(hero.IsMe);
 
                     Utility.DelayAction.Add(100, () => ireset.SetValue(false));
@@ -492,32 +491,19 @@ namespace Activator
                             .SetValue(entry.HitType.Contains(HitType.CrowdControl));
                         newmenu.AddItem(new MenuItem(entry.SDataName + "ultimate", "danger ultimate").DontSave())
                             .SetValue(entry.HitType.Contains(HitType.Ultimate));
-                        newmenu.AddItem(new MenuItem(entry.SDataName + "forceexhaust", "force exhuast").DontSave())
+                        newmenu.AddItem(new MenuItem(entry.SDataName + "forceexhaust", "force exhaust").DontSave())
                             .SetValue(entry.HitType.Contains(HitType.ForceExhaust));
                         menu.AddSubMenu(newmenu);
 
                         Utility.DelayAction.Add(5000,
                             () => newmenu.Item(entry.SDataName + "predict")
-                                .SetValue(entry.SpellTags.Contains(SpellTags.Damage) ||
-                                          entry.SpellTags.Contains(SpellTags.CrowdControl)));
+                                 .SetValue(entry.SpellTags.Contains(SpellTags.Damage) ||
+                                           entry.SpellTags.Contains(SpellTags.CrowdControl)));
                     }
                 }
 
                 parent.AddSubMenu(menu);
             }
-        }
-
-        private static void CheckEvade()
-        {
-            if (Menu.GetMenu("ezEvade", "ezEvade") != null)
-                Origin.Item("evade").SetValue(true);
-
-            if (Menu.GetMenu("Evade", "Evade") != null)
-                Origin.Item("evade").SetValue(true);
-
-            if (Menu.GetMenu("Evade", "Evade") == null && 
-                Menu.GetMenu("ezEvade", "ezEvade") == null)
-                Origin.Item("evade").SetValue(false);
         }
 
         private static object NewInstance(Type type)

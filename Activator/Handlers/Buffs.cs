@@ -29,18 +29,6 @@ namespace Activator.Handlers
        {
             foreach (var hero in Activator.Allies())
             {
-                if (Activator.Origin.Item("acdebug").GetValue<bool>())
-                {
-                    foreach (var t in hero.HitTypes)
-                    {
-                        Console.WriteLine("== " + hero.Player.Name);
-                        Console.WriteLine("HitType: " + t);
-                        Console.WriteLine("TroyTicks: " + hero.TroyTicks);
-                        Console.WriteLine("DotTicks: " + hero.DotTicks);
-                        Console.WriteLine("");
-                    }
-                }
-
                 var aura = Buffdata.SomeAuras.Find(au => hero.Player.HasBuff(au.Name));
                 if (aura == null)
                 {
@@ -320,7 +308,9 @@ namespace Activator.Handlers
                     buff.Type == BuffType.Poison &&
                     Activator.Origin.Item(itemname + "cpoison").GetValue<bool>() ||
                     buff.Type == BuffType.Slow &&
-                    Activator.Origin.Item(itemname + "cslow").GetValue<bool>()));
+                    Activator.Origin.Item(itemname + "cslow").GetValue<bool>() || 
+                    buff.Name.ToLower() == "summonerexhaust") &&
+                    Activator.Origin.Item(itemname + "cexh").GetValue<bool>());
         }
 
         public static int GetCustomDamage(this Obj_AI_Hero source, string auraname, Obj_AI_Hero target)
