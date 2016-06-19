@@ -48,7 +48,7 @@ namespace Activator.Handlers
                 if (startPos.Distance(endPos) > data.Range)
                     endPos = startPos + direction * data.Range;
 
-                if (startPos.Distance(endPos) < data.Range) // force fixed range for now
+                if (startPos.Distance(endPos) < data.Range && data.FixedRange)
                     endPos = startPos + direction * data.Range;
 
                 foreach (var hero in Activator.Allies())
@@ -305,7 +305,7 @@ namespace Activator.Handlers
                             if (startpos.To2D().Distance(endpos) > data.Range)
                                 endpos = startpos.To2D() + direction * data.Range;
 
-                            if (startpos.To2D().Distance(endpos) < data.Range) // force fixed range for now
+                            if (startpos.To2D().Distance(endpos) < data.Range && data.FixedRange)
                                 endpos = startpos.To2D() + direction * data.Range;
 
                             var proj = hero.Player.ServerPosition.To2D().ProjectOn(startpos.To2D(), endpos);
