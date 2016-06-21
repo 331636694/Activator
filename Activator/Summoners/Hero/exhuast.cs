@@ -41,6 +41,9 @@ namespace Activator.Summoners
                     if (!Parent.Item(Parent.Name + "useon" + attacker.NetworkId).GetValue<bool>())
                         continue;
 
+                    if (Essentials.GetRole(attacker) == PrimaryRole.Support)
+                        continue;
+
                     if (Menu.Item("use" + Name + "ulti").GetValue<bool>())
                     {
                         if (hero.HitTypes.Contains(HitType.Ultimate))
@@ -58,9 +61,6 @@ namespace Activator.Summoners
                                 UseSpellOn(attacker, Menu.Item("mode" + Name).GetValue<StringList>().SelectedIndex == 1);
                         }
                     }
-
-                    if (Essentials.GetRole(attacker) == PrimaryRole.Support)
-                        continue;
 
                     if (hero.Player.Health / hero.Player.MaxHealth * 100 <=
                         Menu.Item("a" + Name + "pct").GetValue<Slider>().Value)
