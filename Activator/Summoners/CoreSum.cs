@@ -55,6 +55,7 @@ namespace Activator.Summoners
                 {
                     Activator.UseAllyMenu = true;
                     var ccmenu = new Menu(DisplayName + " Buff Types", DisplayName.ToLower() + "cdeb");
+                    ccmenu.AddItem(new MenuItem(Name + "cexh", "Exhaust")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "csupp", "Supression")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "cstun", "Stuns")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "ccharm", "Charms")).SetValue(true);

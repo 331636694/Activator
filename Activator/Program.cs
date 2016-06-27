@@ -169,8 +169,10 @@ namespace Activator
                 // find items (if F5)
                 foreach (var item in Lists.Items)
                 {
-                    if (!LeagueSharp.Common.Items.HasItem(item.Id)) 
+                    if (!LeagueSharp.Common.Items.HasItem(item.Id))
+                    {
                         continue;
+                    }
 
                     if (!Lists.BoughtItems.Contains(item))
                     {
