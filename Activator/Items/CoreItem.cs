@@ -217,7 +217,7 @@ namespace Activator.Items
                             ssmenu.AddItem(new MenuItem(Name + b.Name + "cc", b.MenuName + " " + xdot)).SetValue(true);
                     }
 
-                    ccmenu.AddItem(new MenuItem(Name + "cexh", "Exhaust")).SetValue(true);
+                    ccmenu.AddItem(new MenuItem(Name + "cexh", "Exhaust")).SetValue(false);
                     ccmenu.AddItem(new MenuItem(Name + "csupp", "Supression")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "cstun", "Stuns")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "ccharm", "Charms")).SetValue(true);

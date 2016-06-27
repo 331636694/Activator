@@ -55,13 +55,13 @@ namespace Activator.Summoners
                 {
                     Activator.UseAllyMenu = true;
                     var ccmenu = new Menu(DisplayName + " Buff Types", DisplayName.ToLower() + "cdeb");
-                    ccmenu.AddItem(new MenuItem(Name + "cexh", "Exhaust")).SetValue(true);
-                    ccmenu.AddItem(new MenuItem(Name + "csupp", "Supression")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "cstun", "Stuns")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "ccharm", "Charms")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "ctaunt", "Taunts")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "cflee", "Flee/Fear")).SetValue(true);
                     ccmenu.AddItem(new MenuItem(Name + "csnare", "Snares")).SetValue(true);
+                    ccmenu.AddItem(new MenuItem(Name + "cexh", "Exhaust")).SetValue(false);
+                    ccmenu.AddItem(new MenuItem(Name + "csupp", "Supression")).SetValue(false);
                     ccmenu.AddItem(new MenuItem(Name + "csilence", "Silences")).SetValue(false);
                     ccmenu.AddItem(new MenuItem(Name + "cpolymorph", "Polymorphs")).SetValue(false);
                     ccmenu.AddItem(new MenuItem(Name + "cblind", "Blinds")).SetValue(false);
