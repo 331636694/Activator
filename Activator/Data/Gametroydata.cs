@@ -29,16 +29,16 @@ namespace Activator.Data
 
         static Gametroydata()
         {
-            Troys.Add(new Gametroydata
-            {
-                Name = "Q_Hit",
-                ChampionName = "Sion",
-                Radius = 600f,
-                Slot = SpellSlot.Q,
-                HitType = new[] { Base.HitType.Danger },
-                PredictDmg = true,
-                Interval = 0.75
-            });
+            //Troys.Add(new Gametroydata
+            //{
+            //    Name = "Q_Hit",
+            //    ChampionName = "Sion",
+            //    Radius = 600f,
+            //    Slot = SpellSlot.Q,
+            //    HitType = new[] { Base.HitType.Danger },
+            //    PredictDmg = true,
+            //    Interval = 0.75
+            //});
 
             Troys.Add(new Gametroydata
             {
