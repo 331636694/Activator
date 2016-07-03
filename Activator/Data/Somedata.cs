@@ -34,6 +34,7 @@ namespace Activator.Data
         public string[] ExtraMissileNames { get; set; }
         public SpellTags[] SpellTags { get; set; }
 
+        // Spell data populated by L# Data.
         static Somedata()
         {
             Spells.Add(new Somedata
@@ -395,28 +396,28 @@ namespace Activator.Data
 
             Spells.Add(new Somedata
             {
-                SDataName = "brandblaze",
+                SDataName = "brandq",
                 ChampionName = "brand",
                 HitType = new[] { Base.HitType.CrowdControl },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "brandfissure",
+                SDataName = "brandw",
                 ChampionName = "brand",
                 HitType = new[] { Base.HitType.Danger },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "brandconflagration",
+                SDataName = "brande",
                 ChampionName = "brand",
                 HitType = new HitType[] { },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "brandwildfire",
+                SDataName = "brandr",
                 ChampionName = "brand",
                 HitType = new[] { Base.HitType.Danger, Base.HitType.Ultimate },
             });
@@ -484,28 +485,28 @@ namespace Activator.Data
 
             Spells.Add(new Somedata
             {
-                SDataName = "cassiopeianoxiousblast",
+                SDataName = "cassiopeiaq",
                 ChampionName = "cassiopeia",
                 HitType = new HitType[] { },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "cassiopeiamiasma",
+                SDataName = "cassiopeiaw",
                 ChampionName = "cassiopeia",
                 HitType = new[] { Base.HitType.CrowdControl },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "cassiopeiatwinfang",
+                SDataName = "cassiopeiae",
                 ChampionName = "cassiopeia",
                 HitType = new HitType[] { },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "cassiopeiapetrifyinggaze",
+                SDataName = "cassiopeiaper",
                 ChampionName = "cassiopeia",
                 HitType =
                     new[]
@@ -2037,28 +2038,28 @@ namespace Activator.Data
 
             Spells.Add(new Somedata
             {
-                SDataName = "alzaharcallofthevoid",
+                SDataName = "malzaharq",
                 ChampionName = "malzahar",
                 HitType = new[] { Base.HitType.CrowdControl },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "alzaharnullzone",
+                SDataName = "malzaharw",
                 ChampionName = "malzahar",
                 HitType = new HitType[] { },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "alzaharmaleficvisions",
+                SDataName = "malzahare",
                 ChampionName = "malzahar",
                 HitType = new[] { Base.HitType.Danger },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "alzaharnethergrasp",
+                SDataName = "malzaharr",
                 ChampionName = "malzahar",
                 HitType =
                     new[]
@@ -3250,7 +3251,7 @@ namespace Activator.Data
             {
                 SDataName = "taliyahw",
                 ChampionName = "taliyah",
-                HitType = new[] { Base.HitType.CrowdControl, },
+                HitType = new HitType[] { },
             });
 
             Spells.Add(new Somedata
@@ -3783,28 +3784,28 @@ namespace Activator.Data
 
             Spells.Add(new Somedata
             {
-                SDataName = "vladimirtransfusion",
+                SDataName = "vladimirq",
                 ChampionName = "vladimir",
                 HitType = new[] { Base.HitType.Danger },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "vladimirsanguinepool",
+                SDataName = "vladimirw",
                 ChampionName = "vladimir",
                 HitType = new[] { Base.HitType.CrowdControl },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "vladimirtidesofblood",
+                SDataName = "vladimire",
                 ChampionName = "vladimir",
                 HitType = new HitType[] { },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "vladimirhemoplague",
+                SDataName = "vladimirr",
                 ChampionName = "vladimir",
                 HitType = new[] { Base.HitType.Danger },
             });
@@ -4130,28 +4131,28 @@ namespace Activator.Data
 
             Spells.Add(new Somedata
             {
-                SDataName = "zyraqfissure",
+                SDataName = "zyraq",
                 ChampionName = "zyra",
                 HitType = new HitType[] { },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "zyraseed",
+                SDataName = "zyraw",
                 ChampionName = "zyra",
                 HitType = new HitType[] { },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "zyragraspingroots",
+                SDataName = "zyrae",
                 ChampionName = "zyra",
                 HitType = new[] { Base.HitType.CrowdControl },
             });
 
             Spells.Add(new Somedata
             {
-                SDataName = "zyrabramblezone",
+                SDataName = "zyrar",
                 ChampionName = "zyra",
                 HitType =
                     new[]
