@@ -72,7 +72,8 @@ namespace Activator.Summoners
                     Menu.AddItem(new MenuItem("use" + Name + "number", "Min Buffs to Use")).SetValue(new Slider(1, 1, 5))
                         .SetTooltip("Will Only " + DisplayName + " if Your Buff Count is >= Value");
                     Menu.AddItem(new MenuItem("use" + Name + "time", "Min Durration to Use"))
-                        .SetValue(new StringList(new[] {".50", ".75", "1.0", "1.25", "1.5", "1.75", "2.0"}));
+                        .SetValue(new Slider(500, 250, 2000))
+                        .SetTooltip("Will not use unless the buff durration (stun, snare, etc) last at least this long (ms, 500 = 0.5 seconds)");
                     Menu.AddItem(new MenuItem("use" + Name + "od", "Use for Dangerous Only")).SetValue(false);
                     Menu.AddItem(new MenuItem("use" + Name + "delay", "Activation Delay (in ms)")).SetValue(new Slider(150, 0, 500));
                     Menu.AddItem(new MenuItem("mode" + Name, "Mode: ")).SetValue(new StringList(new[] { "Always", "Combo" }));
