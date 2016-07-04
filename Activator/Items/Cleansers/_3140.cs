@@ -33,9 +33,8 @@ namespace Activator.Items.Cleansers
 
                     Buffs.CheckQSS(hero.Player);
 
-                    var d = Convert.ToDouble(Menu.Item("use" + Name + "time").GetValue<StringList>().SelectedValue);
                     if (hero.QSSBuffCount >= Menu.Item("use" + Name + "number").GetValue<Slider>().Value &&
-                        hero.QSSHighestBuffTime >= d * 1000)
+                        hero.QSSHighestBuffTime >= Menu.Item("use" + Name + "time").GetValue<Slider>().Value)
                     {
                         Utility.DelayAction.Add(Game.Ping + Menu.Item("use" + Name + "delay").GetValue<Slider>().Value, delegate
                         {
