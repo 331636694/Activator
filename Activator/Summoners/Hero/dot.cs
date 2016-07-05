@@ -13,6 +13,11 @@ namespace Activator.Summoners
         internal override float Range => 600f;
         internal override int Duration => 100;
 
+        internal Spell Q => new Spell(SpellSlot.Q);
+        internal Spell W => new Spell(SpellSlot.W);
+        internal Spell E => new Spell(SpellSlot.E);
+        internal Spell R => new Spell(SpellSlot.R);
+
         public override void OnTick(EventArgs args)
         {
             if (!Menu.Item("use" + Name).GetValue<bool>() || !IsReady())
@@ -56,33 +61,38 @@ namespace Activator.Summoners
 
                     switch (Player.ChampionName)
                     {
+                        case "Akali":
+                            totaldmg += R.GetDamage(tar.Player) * R.Instance.Ammo;
+                            break;
                         case "Ahri":
                             if (!tar.Player.HasBuffOfType(BuffType.Charm) &&
                                 Menu.Item("ii" + Player.ChampionName).GetValue<bool>() &&
-                                Player.GetSpell(SpellSlot.E).State != SpellState.NotLearned)
+                                E.IsReady())
                                 continue;
+
+                            totaldmg += R.IsReady() ? R.GetDamage(tar.Player) * 2 : 0;
                             break;
                         case "Cassiopeia":
                             if (!tar.Player.HasBuffOfType(BuffType.Poison) &&
                                 Menu.Item("ii" + Player.ChampionName).GetValue<bool>() &&
-                                Player.GetSpell(SpellSlot.E).State != SpellState.NotLearned)
+                                (Q.IsReady() || W.IsReady()))
                                 continue;
 
-                            totaldmg += Player.GetSpell(SpellSlot.E).State == SpellState.Ready
-                                ? Player.GetSpellDamage(tar.Player, SpellSlot.E) * 5
-                                : 0;
-
+                            var dmg = Math.Min(6, Player.Mana / E.ManaCost) * E.GetDamage(tar.Player);
+                            totaldmg += tar.Player.HasBuffOfType(BuffType.Poison) ? dmg * 2 : dmg;
                             break;
                         case "Diana":
                             if (!tar.Player.HasBuff("dianamoonlight") &&
                                 Menu.Item("ii" + Player.ChampionName).GetValue<bool>() &&
-                                Player.GetSpell(SpellSlot.Q).State != SpellState.NotLearned)
+                                Q.IsReady())
                                 continue;
 
-                            totaldmg += Player.GetSpell(SpellSlot.E).State == SpellState.Ready
-                                ? Player.GetSpellDamage(tar.Player, SpellSlot.R)
-                                : 0;
+                            totaldmg += tar.Player.HasBuff("dianamoonlight")
+                                ? R.GetDamage(tar.Player) * 2 : 0;
+                            break;
 
+                        case "Evelynn":
+                            totaldmg += Math.Min(6, Player.Mana / Q.ManaCost) * Q.GetDamage(tar.Player);
                             break;
                     }
 
@@ -112,20 +122,26 @@ namespace Activator.Summoners
 
                     if (finaldmg + ignotedmg >= tar.Player.Health)
                     {
-                        var nearTurret =
-                            ObjectManager.Get<Obj_AI_Turret>().FirstOrDefault(
+                        var nt = ObjectManager.Get<Obj_AI_Turret>().FirstOrDefault(
                                 x => !x.IsDead && x.IsValid && x.Team == tar.Player.Team && tar.Player.Distance(x.Position) <= 1250);
                         
-                        if (nearTurret != null && Menu.Item("itu").GetValue<bool>() && Player.Level <= Menu.Item("igtu").GetValue<Slider>().Value)
+                        if (nt != null && Menu.Item("itu").GetValue<bool>() && Player.Level <= Menu.Item("igtu").GetValue<Slider>().Value)
                         {
                             if (Player.CountAlliesInRange(750) == 0 && (totaldmg + ignotedmg / 1.85) < tar.Player.Health)
                                 continue;
                         }
 
-                        if (Orbwalking.InAutoAttackRange(tar.Player) && tar.Player.CountAlliesInRange(350) > 1)
+                        if (Orbwalking.InAutoAttackRange(tar.Player) && tar.Player.CountAlliesInRange(450) > 1)
                         {
                             if (totaldmg + ignotedmg / 2.5 >= tar.Player.Health)
+                            {
                                 continue;
+                            }
+
+                            if (nt != null && tar.Player.Distance(nt) <= 600)
+                            {
+                                continue;
+                            }
                         }
 
                         if (tar.Player.Level <= 4 &&
