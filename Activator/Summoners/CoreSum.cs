@@ -103,8 +103,9 @@ namespace Activator.Summoners
 
                     Menu.AddItem(new MenuItem("itu", "Dont Ignite Near Turret")).SetValue(true);
                     Menu.AddItem(new MenuItem("igtu", "-> Ignore after Level")).SetValue(new Slider(11, 1, 18));
+                    Menu.AddItem(new MenuItem("idraw", "Draw Combo Damage %")).SetValue(true);
                     Menu.AddItem(new MenuItem("mode" + Name, "Mode: "))
-                        .SetValue(new StringList(new[] { "Killsteal", "Combo" }, 1));
+                        .SetValue(new StringList(new[] { "Killsteal", "Combo" }, 0));
                 }
 
                 if (Name == "summonermana")

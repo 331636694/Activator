@@ -20,7 +20,7 @@ namespace Activator.Summoners
 
             foreach (var tar in Activator.Heroes)
             {
-                if (!tar.Player.IsValidTarget(600))
+                if (!tar.Player.IsValidTarget(1500))
                 {
                     continue;
                 }
@@ -32,7 +32,9 @@ namespace Activator.Summoners
                 }
 
                 if (!Parent.Item(Parent.Name + "useon" + tar.Player.NetworkId).GetValue<bool>())
+                {
                     continue;
+                }
 
                 // ignite damagerino
                 var ignotedmg = (float) Player.GetSummonerSpellDamage(tar.Player, Damage.SummonerSpell.Ignite);
@@ -41,14 +43,17 @@ namespace Activator.Summoners
                 if (Menu.Item("mode" + Name).GetValue<StringList>().SelectedIndex == 0)
                 {
                     if (tar.Player.Health <= ignotedmg)
-                        UseSpellOn(tar.Player);
+                    {
+                        if (tar.Player.Distance(Player.ServerPosition) <= 600)
+                            UseSpellOn(tar.Player);
+                    }
                 }
 
                 // combo ignite
                 if (Menu.Item("mode" + Name).GetValue<StringList>().SelectedIndex == 1)
                 {
                     var totaldmg = 0d;
-                    var finaldmg = 0d;
+
                     switch (Player.ChampionName)
                     {
                         case "Ahri":
@@ -64,7 +69,7 @@ namespace Activator.Summoners
                                 continue;
 
                             totaldmg += Player.GetSpell(SpellSlot.E).State == SpellState.Ready
-                                ? Player.GetSpellDamage(tar.Player, SpellSlot.E) * 3
+                                ? Player.GetSpellDamage(tar.Player, SpellSlot.E) * 5
                                 : 0;
 
                             break;
@@ -94,7 +99,16 @@ namespace Activator.Summoners
                                     ? entry.Key(Player, tar.Player, Player.GetSpell(entry.Value).Level - 1)
                                     : 0);
 
-                    finaldmg = totaldmg * Menu.Item("idmgcheck", true).GetValue<Slider>().Value / 100;
+                    var finaldmg = totaldmg * Menu.Item("idmgcheck", true).GetValue<Slider>().Value / 100;
+
+                    if (Menu.Item("idraw").GetValue<bool>())
+                    {
+                        var pdmg = finaldmg > tar.Player.Health ? 100 : finaldmg * 100 / tar.Player.Health;
+                        var drawdmg = Math.Round(pdmg);
+                        var pos = Drawing.WorldToScreen(tar.Player.Position);
+
+                        Drawing.DrawText(pos[0], pos[1], System.Drawing.Color.Yellow, drawdmg + " %");
+                    }
 
                     if (finaldmg + ignotedmg >= tar.Player.Health)
                     {
@@ -120,7 +134,10 @@ namespace Activator.Summoners
                             continue;
                         }
 
-                        UseSpellOn(tar.Player, true);
+                        if (tar.Player.Distance(Player.ServerPosition) <= 600)
+                        {
+                            UseSpellOn(tar.Player, true);
+                        }
                     }
                 }
             }
