@@ -706,9 +706,9 @@ namespace Activator.Handlers
                         if (aiHero.HasBuff("JaxCounterStrike"))
                         {
                             var buff = aiHero.GetBuff("JaxCounterStrike");
-                            var time = (buff.EndTime - buff.StartTime) * 1000;
+                            var time = (int) ((buff.EndTime - buff.StartTime) * 1000);
 
-                            Utility.DelayAction.Add((int) (time - (time * 0.1)), () =>
+                            Utility.DelayAction.Add(time / 2, () =>
                             {
                                 foreach (var hero in Activator.Allies())
                                 {
