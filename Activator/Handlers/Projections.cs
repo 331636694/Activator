@@ -22,6 +22,7 @@ namespace Activator.Handlers
         {
             MissileClient.OnCreate += MissileClient_OnSpellMissileCreate;
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnUnitSpellCast;
+            Obj_AI_Hero.OnPlayAnimation += Obj_AI_Hero_OnPlayAnimation;
         }
 
         private static void MissileClient_OnSpellMissileCreate(GameObject sender, EventArgs args)
@@ -125,10 +126,10 @@ namespace Activator.Handlers
 
             #region Hero
 
-            if (sender.IsEnemy && sender.Type == GameObjectType.obj_AI_Hero)
+            if (sender.IsEnemy && sender is Obj_AI_Hero)
             {
-                var attacker = sender as Obj_AI_Hero;
-                if (attacker != null && attacker.IsValid<Obj_AI_Hero>())
+                var attacker = (Obj_AI_Hero) sender;
+                if (attacker.IsValid<Obj_AI_Hero>())
                 {
                     LastCastedTimeStamp = Utils.GameTimeTickCount;
 
@@ -209,22 +210,11 @@ namespace Activator.Handlers
                             if (hero.Player.Distance(correctpos) > data.Range + 125)
                                 continue;
 
-                            if (data.SDataName == "kalistaexpungewrapper" &&
-                                !hero.Player.HasBuff("kalistaexpungemarker"))
+                            if (data.SDataName == "kalistaexpungewrapper" && !hero.Player.HasBuff("kalistaexpungemarker"))
                                 continue;
 
-                            var evadetime = 1000 * (data.Range - hero.Player.Distance(correctpos) +
-                                                    hero.Player.BoundingRadius) / hero.Player.MoveSpeed;
-
-                            // ignore if can evade
-                            if (hero.Player.NetworkId == Player.NetworkId)
-                            {
-                                if (hero.Player.CanMove && evadetime < data.Delay)
-                                {
-                                    // check next player
-                                    continue;
-                                }
-                            }
+                            //var evadetime = 1000 * (data.Range - hero.Player.Distance(correctpos) +
+                            //                        hero.Player.BoundingRadius) / hero.Player.MoveSpeed;
 
                             if (!Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
                                 continue;
@@ -696,6 +686,67 @@ namespace Activator.Handlers
 
             #endregion
      
+        }
+
+        private static void Obj_AI_Hero_OnPlayAnimation(Obj_AI_Base sender, GameObjectPlayAnimationEventArgs args)
+        {
+            if (!(sender is Obj_AI_Hero))
+                return;
+
+            var aiHero = (Obj_AI_Hero) sender;
+
+            #region Jax
+
+            if (aiHero.ChampionName == "Jax" && aiHero.IsEnemy)
+            {
+                if (args.Animation == "Spell3")
+                {
+                    Utility.DelayAction.Add(Game.Ping + 100, () =>
+                    {
+                        if (aiHero.HasBuff("JaxCounterStrike"))
+                        {
+                            var buff = aiHero.GetBuff("JaxCounterStrike");
+                            var time = (buff.EndTime - buff.StartTime) * 1000;
+
+                            Utility.DelayAction.Add((int) (time - (time * 0.1)), () =>
+                            {
+                                foreach (var hero in Activator.Allies())
+                                {
+                                    var dmg = (float) Math.Max(aiHero.GetSpellDamage(hero.Player, SpellSlot.E), 0);
+
+                                    if (aiHero.Distance(hero.Player) <= 250)
+                                    {
+                                        Utility.DelayAction.Add(150, () =>
+                                        {
+                                            hero.Attacker = null;
+                                            hero.HitTypes.Remove(HitType.Spell);
+                                            hero.HitTypes.RemoveAll(
+                                                x =>
+                                                    !x.Equals(HitType.Spell) &&
+                                                    Activator.Origin.Item("jaxcounterstrike" + x.ToString().ToLower())
+                                                        .GetValue<bool>());
+                                            hero.HitTypes.Remove(HitType.Spell);
+                                            if (hero.IncomeDamage > 0)
+                                                hero.IncomeDamage -= dmg;
+                                        });
+
+                                        hero.Attacker = aiHero;
+                                        hero.IncomeDamage += dmg;
+                                        hero.HitTypes.Add(HitType.Spell);
+                                        hero.HitTypes.AddRange(
+                                            MenuTypes.Where(
+                                                x =>
+                                                    Activator.Origin.Item("jaxcounterstrike" + x.ToString().ToLower())
+                                                        .GetValue<bool>()));
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+
+            #endregion
         }
     }
 }
