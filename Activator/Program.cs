@@ -380,24 +380,32 @@ namespace Activator
 
         private static void LoadSpellData()
         {
-            foreach (var adata in Somedata.Spells)
+            try
             {
-                foreach (
-                    var entry in
-                        LeagueSharp.Data.Data.Get<SpellDatabase>()
-                            .Spells.Where(
-                                x => String.Equals(x.SpellName, adata.SDataName, StringComparison.CurrentCultureIgnoreCase))
-                    )
+                foreach (var adata in Somedata.SomeSpells)
                 {
-                    adata.Delay = entry.Delay;
-                    adata.Speed = entry.MissileSpeed;
-                    adata.Range = entry.Range;
-                    adata.Width = entry.Radius;
-                    adata.SpellType = entry.SpellType;
-                    adata.MissileName = entry.MissileSpellName;
-                    adata.ExtraMissileNames = entry.ExtraMissileNames;
-                    adata.SpellTags = entry.SpellTags;
+                    foreach (
+                        var entry in
+                            LeagueSharp.Data.Data.Get<SpellDatabase>()
+                                .Spells.Where(
+                                    x => String.Equals(x.SpellName, adata.SDataName, StringComparison.CurrentCultureIgnoreCase))
+                        )
+                    {
+                        adata.Delay = entry.Delay;
+                        adata.Speed = entry.MissileSpeed;
+                        adata.Range = entry.Range;
+                        adata.Width = entry.Radius;
+                        adata.SpellType = entry.SpellType;
+                        adata.MissileName = entry.MissileSpellName;
+                        adata.ExtraMissileNames = entry.ExtraMissileNames;
+                        adata.SpellTags = entry.SpellTags;
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Game.PrintChat("Exception thrown at <font color=\"#FFF280\">LeagueSharp.Data</font>");
             }
         }
 

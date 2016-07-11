@@ -1580,7 +1580,7 @@ namespace Activator.Data
 
             Spells.Add(new Somedata
             {
-                SDataName = "judicatordevineblessing",
+                SDataName = "judicatordivineblessing",
                 ChampionName = "kayle",
                 HitType = new HitType[] { },
             });
@@ -2945,7 +2945,7 @@ namespace Activator.Data
 
             Spells.Add(new Somedata
             {
-                SDataName = "shyvanaimmolationauraqw",
+                SDataName = "shyvanaimmolationaura",
                 ChampionName = "shyvana",
                 HitType = new HitType[] { },
             });
