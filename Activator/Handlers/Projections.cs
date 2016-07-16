@@ -540,13 +540,13 @@ namespace Activator.Handlers
                             Utility.DelayAction.Add(100 + (100 * i), () =>
                             {
                                 hero.Attacker = attacker;
-                                hero.HitTypes.Add(HitType.Spell);
+                                hero.HitTypes.Add(HitType.Danger);
                                 hero.IncomeDamage += dmg;
 
-                                Utility.DelayAction.Add(400 + (100 * i), delegate
+                                Utility.DelayAction.Add(300 + (100 * i), delegate
                                 {
                                     hero.Attacker = null;
-                                    hero.HitTypes.Remove(HitType.Spell);
+                                    hero.HitTypes.Remove(HitType.Danger);
                                     hero.IncomeDamage -= dmg;
                                 });
                             });
