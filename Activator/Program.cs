@@ -151,7 +151,6 @@ namespace Activator
                 // on level up
                 Obj_AI_Base.OnLevelUp += Obj_AI_Base_OnLevelUp;
 
-                Game.OnChat += Game_OnChat;
                 Game.PrintChat("<b>Activator#</b> - Loaded!");
                 Updater.UpdateCheck();
 
@@ -543,29 +542,6 @@ namespace Activator
                 Console.WriteLine(e);
                 Game.PrintChat("Exception thrown at <font color=\"#FFF280\">Activator.NewInstance</font>");
                 return null;
-            }
-        }
-
-        private static void Game_OnChat(GameChatEventArgs args)
-        {
-            if ((args.Sender?.IsMe ?? false) && args.Message == ".changelog")
-            {
-                try
-                {
-                    new PermissionSet(PermissionState.Unrestricted).Assert();
-                    System.Diagnostics.Process.Start("https://github.com/xKurisu/Activator/commits/master");
-                    args.Process = false;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    Game.PrintChat("Exception thrown at <font color=\"#FFF280\">Activator.Changelog</font>");
-                }
-
-                finally
-                {
-                    CodeAccessPermission.RevertAssert();
-                }
             }
         }
     }
