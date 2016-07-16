@@ -405,7 +405,7 @@ namespace Activator
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                Game.PrintChat("Exception thrown at <font color=\"#FFF280\">LeagueSharp.Data</font>");
+                Game.PrintChat("Exception thrown at <font color=\"#FFF280\">Activator.LoadSpellData</font>");
             }
         }
 

@@ -28,14 +28,15 @@ namespace Activator.Summoners
                 if (attacker == null || hid == null)
                     continue;
 
-                if (hero.Player.Distance(Player.ServerPosition) > Range)
+                if (hero.Player.Distance(Player.ServerPosition) > 1250)
                     continue;
 
-                if (attacker.Distance(hero.Player.ServerPosition) <= 1250)
+                if (attacker.Distance(hero.Player.ServerPosition) <= Range)
                 {
                     if (hero.HitTypes.Contains(HitType.ForceExhaust))
                     {
                         UseSpellOn(attacker);
+                        continue;
                     }
 
                     if (!Parent.Item(Parent.Name + "useon" + attacker.NetworkId).GetValue<bool>())
@@ -62,10 +63,9 @@ namespace Activator.Summoners
                         }
                     }
 
-                    if (hero.Player.Health / hero.Player.MaxHealth * 100 <=
-                        Menu.Item("a" + Name + "pct").GetValue<Slider>().Value)
+                    if (hero.Player.Health / hero.Player.MaxHealth * 100 <= Menu.Item("a" + Name + "pct").GetValue<Slider>().Value)
                     {
-                        if (!hero.Player.IsFacing(attacker))
+                        if (hero.Player.IsFacing(attacker))
                         {
                             if (attacker.NetworkId == hid.Player.NetworkId)
                             {
@@ -74,8 +74,7 @@ namespace Activator.Summoners
                         }
                     }
 
-                    if (attacker.Health / attacker.MaxHealth * 100 <=
-                        Menu.Item("e" + Name + "pct").GetValue<Slider>().Value)
+                    if (attacker.Health / attacker.MaxHealth * 100 <= Menu.Item("e" + Name + "pct").GetValue<Slider>().Value)
                     {
                         if (!attacker.IsFacing(hero.Player))
                         {
