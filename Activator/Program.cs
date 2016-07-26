@@ -175,7 +175,12 @@ namespace Activator
 
                     if (!Lists.BoughtItems.Contains(item))
                     {
-                        Game.OnUpdate += item.OnTick;
+                        if (item.Category.Any())
+                            Game.OnUpdate += item.OnTick;
+
+                        if (item.Category.Any(t => t == MenuType.Gapcloser))
+                            AntiGapcloser.OnEnemyGapcloser += item.OnEnemyGapcloser;
+
                         Lists.BoughtItems.Add(item);
                         Game.PrintChat("<b>Activator#</b> - <font color=\"#FFF280\">" + item.Name + "</font> active!");
                     }
@@ -233,7 +238,12 @@ namespace Activator
                 {
                     if (!Lists.BoughtItems.Contains(item))
                     {
-                        Game.OnUpdate += item.OnTick;
+                        if (item.Category.Any())
+                            Game.OnUpdate += item.OnTick;
+
+                        if (item.Category.Any(t => t == MenuType.Gapcloser))
+                            AntiGapcloser.OnEnemyGapcloser += item.OnEnemyGapcloser;
+
                         Lists.BoughtItems.Add(item);
                         Game.PrintChat("<b>Activator#</b> - <font color=\"#FFF280\">" + item.Name + "</font> active!");
                     }

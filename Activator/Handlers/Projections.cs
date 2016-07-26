@@ -726,6 +726,7 @@ namespace Activator.Handlers
                                                     Activator.Origin.Item("jaxcounterstrike" + x.ToString().ToLower())
                                                         .GetValue<bool>());
                                             hero.HitTypes.Remove(HitType.Spell);
+
                                             if (hero.IncomeDamage > 0)
                                                 hero.IncomeDamage -= dmg;
                                         });

@@ -51,6 +51,7 @@ namespace Activator.Base
         Zhonyas,
         Stealth,
         Cleanse,
+        Gapcloser,
         SlowRemoval,
         SpellShield,
         ActiveCheck,

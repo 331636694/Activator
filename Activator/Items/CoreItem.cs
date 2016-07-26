@@ -152,15 +152,18 @@ namespace Activator.Items
             {
                 Menu = new Menu(Name, "m" + Name);
                 Menu.AddItem(new MenuItem("use" + Name, "Use " + DisplayName ?? Name)).SetValue(true);
+
                 Menu.AddItem(new MenuItem("prior" + Name, DisplayName + " Priority"))
                     .SetValue(new Slider(Priority, 1, 7))
                     .SetTooltip("The Priority " + Name + " Will Activate Over Another Item (7 = Highest)");
 
-                if (Category.Any(t => t == MenuType.SelfLowHP) &&
-                   (Name.Contains("Pot") || Name.Contains("Flask") || Name.Contains("Biscuit")))
+                if (Category.Any(t => t == MenuType.SelfLowHP))
                 {
-                    Menu.AddItem(new MenuItem("use" + Name + "cbat", "Use Only In Combat"))
-                        .SetValue(false).SetTooltip("aka Taking damage from Minions and Heroes");
+                    if (Name.Contains("Pot") || Name.Contains("Flask") || Name.Contains("Biscuit"))
+                    {
+                        Menu.AddItem(new MenuItem("use" + Name + "cbat", "Use Only In Combat"))
+                            .SetValue(false).SetTooltip("aka Taking damage from Minions and Heroes");
+                    }
                 }
 
                 if (Category.Any(t => t == MenuType.EnemyLowHP))
@@ -185,7 +188,7 @@ namespace Activator.Items
                         .SetValue(new Slider(DefaultMP));
 
                 if (Category.Any(t => t == MenuType.SelfCount))
-                    Menu.AddItem(new MenuItem("selfcount" + Name, "Use On Enemy Near Count >="))
+                    Menu.AddItem(new MenuItem("selfcount" + Name, "Use on Enemy Near Count >="))
                         .SetValue(new Slider(2, 1, 5));
 
                 if (Category.Any(t => t == MenuType.SelfMinMP))
@@ -193,6 +196,30 @@ namespace Activator.Items
 
                 if (Category.Any(t => t == MenuType.SelfMinHP))
                     Menu.AddItem(new MenuItem("selfminhp" + Name + "pct", "Minimum HP %")).SetValue(new Slider(55));
+
+                if (Category.Any(t => t == MenuType.Gapcloser))
+                {
+                    var imenu = new Menu("Extra Features", "extraf" + Name);
+
+                    imenu.AddItem(new MenuItem("enemygap" + Name, "Use on Gapcloser"))
+                        .SetValue(true);
+
+                    imenu.AddItem(new MenuItem("enemygapmelee" + Name, "-> Melee Only"))
+                        .SetValue(false)
+                        .Show(imenu.Item("enemygap" + Name).GetValue<bool>());
+
+                    imenu.AddItem(new MenuItem("enemygapdanger" + Name, "-> Dangerous Only"))
+                        .SetValue(true)
+                        .Show(imenu.Item("enemygap" + Name).GetValue<bool>());
+
+                    Menu.AddSubMenu(imenu);
+
+                    imenu.Item("enemygap" + Name).ValueChanged += (sender, args) =>
+                    {
+                        Menu.Item("enemygapmelee" + Name).Show(args.GetNewValue<bool>());
+                        Menu.Item("enemygapdanger" + Name).Show(args.GetNewValue<bool>());
+                    };
+                }
 
                 if (Category.Any(t => t == MenuType.Zhonyas))
                 {
@@ -271,6 +298,11 @@ namespace Activator.Items
         }
 
         public virtual void OnTick(EventArgs args)
+        {
+
+        }
+
+        public virtual void OnEnemyGapcloser(ActiveGapcloser gapcloser)
         {
 
         }
