@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using LeagueSharp;
 using LeagueSharp.Common;
 using Activator.Base;
+using Activator.Data;
 
 namespace Activator.Handlers
 {
@@ -40,24 +41,29 @@ namespace Activator.Handlers
                 var startPos = missile.StartPosition.To2D();
                 var endPos = missile.EndPosition.To2D();
 
-                var data = Data.Somedata.GetByMissileName(missile.SData.Name.ToLower());
                 if (data == null)
+                {
                     return;
+                }
+
+                // set line width
+                if (data.Radius == 0f)
+                    data.Radius = missile.SData.LineWidth;
 
                 var direction = (endPos - startPos).Normalized();
 
-                if (startPos.Distance(endPos) > data.Range)
-                    endPos = startPos + direction * data.Range;
+                if (startPos.Distance(endPos) > data.CastRange)
+                    endPos = startPos + direction * data.CastRange;
 
-                if (startPos.Distance(endPos) < data.Range && data.FixedRange)
-                    endPos = startPos + direction * data.Range;
+                if (startPos.Distance(endPos) < data.CastRange && data.FixedRange)
+                    endPos = startPos + direction * data.CastRange;
 
                 foreach (var hero in Activator.Allies())
                 {
                     // reset if needed
                     Essentials.ResetIncomeDamage(hero.Player);
 
-                    var distance = (1000 * (startPos.Distance(hero.Player.ServerPosition) / data.Speed));
+                    var distance = (1000 * (startPos.Distance(hero.Player.ServerPosition) / data.MissileSpeed));
                     var endtime = -100 + Game.Ping / 2 + distance;
 
                     // setup projection
@@ -66,15 +72,15 @@ namespace Activator.Handlers
 
                     // get the evade time 
                     var evadetime = (int) (1000 * 
-                       (data.Width - projdist + hero.Player.BoundingRadius) / hero.Player.MoveSpeed);
+                       (data.Radius - projdist + hero.Player.BoundingRadius) / hero.Player.MoveSpeed);
 
                     // check if hero on segment
-                    if (data.Width + hero.Player.BoundingRadius + 35 <= projdist)
+                    if (data.Radius + hero.Player.BoundingRadius + 35 <= projdist)
                     {
                         continue;
                     }
 
-                    if (data.Range > 10000)
+                    if (data.CastRange > 10000)
                     {
                         // ignore if can evade
                         if (hero.Player.NetworkId == Player.NetworkId)
@@ -166,7 +172,7 @@ namespace Activator.Handlers
                                 if (args.SData.Name.ToLower().Contains("crit"))
                                     dmg += (int) Math.Max(attacker.GetAutoAttackDamage(hero.Player, true), 0);
 
-                                dmg = dmg / 100 * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value;
+                                dmg = dmg * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value / 100;
 
                                 Utility.DelayAction.Add((int) end / 2, () =>
                                 {
@@ -186,15 +192,22 @@ namespace Activator.Handlers
 
                         #endregion
 
-                        var data = Data.Somedata.SomeSpells.Find(x => x.SDataName == args.SData.Name.ToLower());
+                            x => x.SDataName.Equals(args.SData.Name, StringComparison.InvariantCultureIgnoreCase));
+
                         if (data == null)
+                        {
                             continue;
+                        }
 
                         #region self/selfaoe
 
                         if (args.SData.TargettingType == SpellDataTargetType.Self ||
                             args.SData.TargettingType == SpellDataTargetType.SelfAoe)
                         {
+                            if (data.Radius == 0f)
+                                data.Radius = args.SData.CastRadiusSecondary != 0 
+                                    ? args.SData.CastRadiusSecondary : args.SData.CastRadius;
+
                             GameObject fromobj = null;
                             if (data.FromObject != null)
                             {
@@ -207,7 +220,7 @@ namespace Activator.Handlers
                             }
 
                             var correctpos = fromobj?.Position ?? attacker.ServerPosition;
-                            if (hero.Player.Distance(correctpos) > data.Range + 125)
+                            if (hero.Player.Distance(correctpos) > data.CastRange + 125)
                                 continue;
 
                             if (data.SDataName == "kalistaexpungewrapper" && !hero.Player.HasBuff("kalistaexpungemarker"))
@@ -226,7 +239,7 @@ namespace Activator.Handlers
                                 // Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName);
                             }
 
-                            dmg = dmg / 100 * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value;
+                            dmg = dmg * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value / 100;
 
                             // delay the spell a bit before missile endtime
                             Utility.DelayAction.Add((int) (data.Delay / 2), () =>
@@ -274,29 +287,34 @@ namespace Activator.Handlers
                                                 data.FromObject.Any(y => x.Name.Contains(y)));
                             }
 
-                            var isline = data.SpellType.ToString().Contains("Cone") ||
-                                         data.SpellType.ToString().Contains("Line");
+                            var isline = args.SData.TargettingType == SpellDataTargetType.Cone ||
+                                         args.SData.LineWidth > 0;
+
+                            if (!(args.SData.LineWidth > 0) && data.Radius == 0f)
+                            {
+                                data.Radius = args.SData.CastRadiusSecondary != 0
+                                    ? args.SData.CastRadiusSecondary : args.SData.CastRadius;
+                            }
 
                             var startpos = fromobj?.Position ?? attacker.ServerPosition;
 
-                            if (hero.Player.Distance(startpos) > data.Range + 35)
+                            if (hero.Player.Distance(startpos) > data.CastRange + 35)
                                 continue;
 
                             if ((data.SDataName == "azirq" || data.SDataName == "azire") && fromobj == null)
                                 continue;
 
-                            var distance = (int) (1000 * (startpos.Distance(hero.Player.ServerPosition) / data.Speed));
+                            var distance = (int) (1000 * (startpos.Distance(hero.Player.ServerPosition) / data.MissileSpeed));
                             var endtime = data.Delay - 100 + Game.Ping / 2f +  distance - (Utils.GameTimeTickCount - LastCastedTimeStamp);
 
-                            var iscone = data.SpellType.ToString().Contains("Cone");
                             var direction = (args.End.To2D() - startpos.To2D()).Normalized();
                             var endpos = startpos.To2D() + direction * startpos.To2D().Distance(args.End.To2D());
 
-                            if (startpos.To2D().Distance(endpos) > data.Range)
-                                endpos = startpos.To2D() + direction * data.Range;
+                            if (startpos.To2D().Distance(endpos) > data.CastRange)
+                                endpos = startpos.To2D() + direction * data.CastRange;
 
-                            if (startpos.To2D().Distance(endpos) < data.Range && data.FixedRange)
-                                endpos = startpos.To2D() + direction * data.Range;
+                            if (startpos.To2D().Distance(endpos) < data.CastRange && data.FixedRange)
+                                endpos = startpos.To2D() + direction * data.CastRange;
 
                             var proj = hero.Player.ServerPosition.To2D().ProjectOn(startpos.To2D(), endpos);
                             var projdist = hero.Player.ServerPosition.To2D().Distance(proj.SegmentPoint);
@@ -305,16 +323,16 @@ namespace Activator.Handlers
 
                             if (isline)
                                 evadetime =
-                                    (int) (1000 * (data.Width - projdist + hero.Player.BoundingRadius) / hero.Player.MoveSpeed);
+                                    (int) (1000 * (data.Radius - projdist + hero.Player.BoundingRadius) / hero.Player.MoveSpeed);
 
                             if (!isline || iscone)
                                  evadetime =
-                                     (int) (1000 * (data.Width - hero.Player.Distance(startpos) + hero.Player.BoundingRadius) / hero.Player.MoveSpeed);
+                                     (int) (1000 * (data.Radius - hero.Player.Distance(startpos) + hero.Player.BoundingRadius) / hero.Player.MoveSpeed);
 
-                            if ((!isline || iscone) && hero.Player.Distance(endpos) <= data.Width + hero.Player.BoundingRadius + 35 ||
-                                isline && data.Width + hero.Player.BoundingRadius + 35 > projdist)
+                            if (isline && data.Radius + hero.Player.BoundingRadius + 35 > projdist ||
+                               (!isline || iscone) && hero.Player.Distance(endpos) <= data.Radius + hero.Player.BoundingRadius + 35)
                             {
-                                if (data.Range > 10000)
+                                if (data.CastRange > 10000)
                                 {
                                     if (hero.Player.NetworkId == Player.NetworkId)
                                     {
@@ -324,6 +342,7 @@ namespace Activator.Handlers
                                         }
                                     }
                                 }
+
                                 if (!Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
                                     continue;
 
@@ -331,10 +350,10 @@ namespace Activator.Handlers
                                 if (dmg == 0)
                                 {
                                     dmg = (int) (hero.Player.Health / hero.Player.MaxHealth * 5);
-                                    Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName);
+                                    Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName + ". Emulating damage!");
                                 }
 
-                                dmg = dmg / 100 * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value;
+                                dmg = dmg * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value / 100;
 
                                 Utility.DelayAction.Add((int) (endtime / 2), () =>
                                 {
@@ -377,13 +396,13 @@ namespace Activator.Handlers
                                 continue;
 
                             // target spell dectection
-                            if (hero.Player.Distance(attacker.ServerPosition) > data.Range + 100)
+                            if (hero.Player.Distance(attacker.ServerPosition) > data.CastRange + 100)
                                 continue;
 
                             var distance =
-                                (int) (1000 * (attacker.Distance(hero.Player.ServerPosition) / data.Speed));
+                                (int) (1000 * (attacker.Distance(hero.Player.ServerPosition) / data.MissileSpeed));
 
-                            var endtime = data.Delay - 100 + Game.Ping / 2 + distance -
+                            var endtime = data.Delay - 100 + Game.Ping / 2f + distance -
                                           (Utils.GameTimeTickCount - LastCastedTimeStamp);
 
                             if (!Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
@@ -396,7 +415,7 @@ namespace Activator.Handlers
                                 // Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName);
                             }
 
-                            dmg = dmg / 100 * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value;
+                            dmg = dmg * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value / 100;
 
                             Utility.DelayAction.Add((int) (endtime / 2), () =>
                             {
@@ -713,6 +732,7 @@ namespace Activator.Handlers
                                 foreach (var hero in Activator.Allies())
                                 {
                                     var dmg = (float) Math.Max(aiHero.GetSpellDamage(hero.Player, SpellSlot.E), 0);
+                                    dmg = dmg * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value / 100;
 
                                     if (aiHero.Distance(hero.Player) <= 250)
                                     {

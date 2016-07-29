@@ -332,16 +332,13 @@ namespace Activator
             {
                 if (entry.Key == Player.ChampionName)
                     foreach (DamageSpell spell in entry.Value)
-                        Somedata.DamageLib.Add(spell.Damage, spell.Slot);
+                        Abilitydata.DamageLib.Add(spell.Damage, spell.Slot);
             }
         }
 
         private static void GetHeroesInGame()
         {
-            foreach (var i in ObjectManager.Get<Obj_AI_Hero>().Where(i => i.Team == Player.Team))
-                Heroes.Add(new Champion(i, 0));
-
-            foreach (var i in ObjectManager.Get<Obj_AI_Hero>().Where(i => i.Team != Player.Team))
+            foreach (var i in ObjectManager.Get<Obj_AI_Hero>())
                 Heroes.Add(new Champion(i, 0));
         }
 
@@ -377,44 +374,11 @@ namespace Activator
         {
             foreach (var i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team != Player.Team))
             {
-                foreach (var item in Somedata.Spells.Where(x => x.ChampionName == i.ChampionName.ToLower()))
+                foreach (var item in Abilitydata.Spells.Where(x => x.ChampionName == i.ChampionName.ToLower()))
                 {
-                    Somedata.SomeSpells.Add(item);
+                    Abilitydata.SomeSpells.Add(item);
                     Console.WriteLine("Activator# - SpellList: " + item.SDataName + " added!");
                 }
-            }
-
-            Utility.DelayAction.Add(1000, LoadSpellData);
-        }
-
-        private static void LoadSpellData()
-        {
-            try
-            {
-                foreach (var adata in Somedata.SomeSpells)
-                {
-                    foreach (
-                        var entry in
-                            LeagueSharp.Data.Data.Get<SpellDatabase>()
-                                .Spells.Where(
-                                    x => String.Equals(x.SpellName, adata.SDataName, StringComparison.CurrentCultureIgnoreCase))
-                        )
-                    {
-                        adata.Delay = entry.Delay;
-                        adata.Speed = entry.MissileSpeed;
-                        adata.Range = entry.Range;
-                        adata.Width = entry.Radius;
-                        adata.SpellType = entry.SpellType;
-                        adata.MissileName = entry.MissileSpellName;
-                        adata.ExtraMissileNames = entry.ExtraMissileNames;
-                        adata.SpellTags = entry.SpellTags;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                Game.PrintChat("Exception thrown at <font color=\"#FFF280\">Activator.LoadSpellData</font>");
             }
         }
 
@@ -499,7 +463,7 @@ namespace Activator
                 var menu = new Menu(unit.Player.ChampionName, unit.Player.NetworkId + "menu");
 
                 // new menu per spell
-                foreach (var entry in Somedata.Spells)
+                foreach (var entry in Abilitydata.Spells)
                 {
                     if (entry.ChampionName == unit.Player.ChampionName.ToLower())
                     {
@@ -518,10 +482,8 @@ namespace Activator
                             .SetValue(entry.HitType.Contains(HitType.ForceExhaust));
                         menu.AddSubMenu(newmenu);
 
-                        Utility.DelayAction.Add(5000,
-                            () => newmenu.Item(entry.SDataName + "predict")
-                                 .SetValue(entry.SpellTags.Contains(SpellTags.Damage) ||
-                                           entry.SpellTags.Contains(SpellTags.CrowdControl)));
+                        Utility.DelayAction.Add(5000, 
+                            () => newmenu.Item(entry.SDataName + "predict").SetValue(entry.CastRange != 0));
                     }
                 }
 

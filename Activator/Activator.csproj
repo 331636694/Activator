@@ -120,7 +120,6 @@
     <Compile Include="Items\Offensives\_3800.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Data\Somedata.cs" />
     <Compile Include="Data\Buffdata.cs" />
     <Compile Include="Handlers\Buffs.cs" />
     <Compile Include="Spells\Evaders\alphastrike.cs" />

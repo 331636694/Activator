@@ -11,6 +11,7 @@
 using System;
 using System.Linq;
 using Activator.Base;
+using Activator.Data;
 using LeagueSharp;
 using LeagueSharp.Common;
 
@@ -59,7 +60,7 @@ namespace Activator.Handlers
 
             foreach (var hero in Activator.Heroes.Where(h => h.Player.Distance(attacker) <= 1000))
             {
-                foreach (var x in Data.Somedata.Spells)
+                foreach (var x in Abilitydata.Spells)
                 {
                     if (args.SData.Name.Equals(x.SDataName, StringComparison.InvariantCultureIgnoreCase) && x.HitType.Contains(HitType.Stealth))
                     {

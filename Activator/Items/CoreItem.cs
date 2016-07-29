@@ -199,9 +199,10 @@ namespace Activator.Items
 
                 if (Category.Any(t => t == MenuType.Gapcloser))
                 {
-                    var imenu = new Menu("Extra Features", "extraf" + Name);
 
-                    imenu.AddItem(new MenuItem("enemygap" + Name, "Use on Gapcloser"))
+                    var imenu = new Menu("Extra " + Name +" Settings", "miscmenu" + Name);
+
+                    imenu.AddItem(new MenuItem("enemygap" + Name, Name + " on Gapcloser"))
                         .SetValue(true);
 
                     imenu.AddItem(new MenuItem("enemygapmelee" + Name, "-> Melee Only"))
@@ -212,13 +213,13 @@ namespace Activator.Items
                         .SetValue(true)
                         .Show(imenu.Item("enemygap" + Name).GetValue<bool>());
 
-                    Menu.AddSubMenu(imenu);
-
                     imenu.Item("enemygap" + Name).ValueChanged += (sender, args) =>
                     {
-                        Menu.Item("enemygapmelee" + Name).Show(args.GetNewValue<bool>());
-                        Menu.Item("enemygapdanger" + Name).Show(args.GetNewValue<bool>());
+                        imenu.Item("enemygapmelee" + Name).Show(args.GetNewValue<bool>());
+                        imenu.Item("enemygapdanger" + Name).Show(args.GetNewValue<bool>());
                     };
+
+                    Menu.AddSubMenu(imenu);
                 }
 
                 if (Category.Any(t => t == MenuType.Zhonyas))
