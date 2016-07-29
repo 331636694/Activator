@@ -353,7 +353,7 @@ namespace Activator.Handlers
                                 if (dmg == 0)
                                 {
                                     dmg = (int) (hero.Player.Health / hero.Player.MaxHealth * 5);
-                                    Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName + ". Emulating damage!");
+                                    // Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName + ". Emulating damage!");
                                 }
 
                                 dmg = dmg * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value / 100;

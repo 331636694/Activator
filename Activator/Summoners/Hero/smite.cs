@@ -44,6 +44,7 @@ namespace Activator.Summoners
                                     break;
                                 case SpellDataTargetType.SelfAndUnit:
                                     Activator.Player.Spellbook.CastSpell(hero.Slot);
+
                                     if (Utils.GameTimeTickCount - Limiter >= 200 && Orbwalking.InAutoAttackRange(unit))
                                     {
                                         Utility.DelayAction.Add(Game.Ping, () =>
@@ -132,18 +133,15 @@ namespace Activator.Summoners
 
                     // Combo Smite
                     if (Menu.Item("smitemode").GetValue<StringList>().SelectedIndex == 1 &&
-                        Player.GetSpell(Activator.Smite).Name.ToLower() == "s5_summonersmiteduel")
+                       (Player.GetSpell(Activator.Smite).Name.ToLower() == "s5_summonersmiteduel" ||
+                        Player.GetSpell(Activator.Smite).Name.ToLower() == "s5_summonersmiteplayerganker"))
                     {
                         if (Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
                         {
-                            foreach (
-                                var hero in
-                                    Activator.Heroes
-                                        .Where(h => h.Player.IsValidTarget(1200) && !h.Player.IsZombie)
-                                        .OrderBy(h => h.Player.Distance(Game.CursorPos)))
+                            var t = TargetSelector.GetTarget(700f, TargetSelector.DamageType.True);
+                            if (t.IsValidTarget(500))
                             {
-                                if (hero.Player.Distance(Player.ServerPosition) <= 500)
-                                    Player.Spellbook.CastSpell(Activator.Smite, hero.Player);
+                                Player.Spellbook.CastSpell(Activator.Smite, t);                            
                             }
                         }
                     }
