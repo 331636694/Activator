@@ -41,6 +41,7 @@ namespace Activator.Handlers
                 var startPos = missile.StartPosition.To2D();
                 var endPos = missile.EndPosition.To2D();
 
+                var data = Abilitydata.GetByMissileName(missile.SData.Name.ToLower());
                 if (data == null)
                 {
                     return;
@@ -192,6 +193,7 @@ namespace Activator.Handlers
 
                         #endregion
 
+                        var data = Abilitydata.SomeSpells.Find(
                             x => x.SDataName.Equals(args.SData.Name, StringComparison.InvariantCultureIgnoreCase));
 
                         if (data == null)
@@ -307,6 +309,7 @@ namespace Activator.Handlers
                             var distance = (int) (1000 * (startpos.Distance(hero.Player.ServerPosition) / data.MissileSpeed));
                             var endtime = data.Delay - 100 + Game.Ping / 2f +  distance - (Utils.GameTimeTickCount - LastCastedTimeStamp);
 
+                            var iscone = args.SData.TargettingType == SpellDataTargetType.Cone;
                             var direction = (args.End.To2D() - startpos.To2D()).Normalized();
                             var endpos = startpos.To2D() + direction * startpos.To2D().Distance(args.End.To2D());
 
