@@ -111,7 +111,7 @@ namespace Activator.Summoners
 
                     // combo damge
                     totaldmg +=
-                        Abilitydata.DamageLib.Sum(
+                        HeroAbilityData.DamageLib.Sum(
                             entry =>
                                 Player.GetSpell(entry.Value).IsReady(2)
                                     ? entry.Key(Player, tar.Player, Player.GetSpell(entry.Value).Level - 1)

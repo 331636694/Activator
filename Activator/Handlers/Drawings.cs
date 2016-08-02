@@ -105,10 +105,10 @@ namespace Activator.Handlers
                         return;
                     }
 
-                    var smitespell = Data.Smitedata.SpellList
+                    var smitespell = Data.HeroSmiteData.SpellList
                         .FirstOrDefault(s => s.Name == Activator.Player.ChampionName);
 
-                    foreach (var minion in 
+                    foreach (var minion in
                         MinionManager.GetMinions(Activator.Player.Position, 1200f, MinionTypes.All, MinionTeam.Neutral)
                             .Where(th => Essentials.IsEpicMinion(th) || Essentials.IsLargeMinion(th)))
                     {
@@ -145,11 +145,11 @@ namespace Activator.Handlers
                         for (var i = 0; i < ana; i++)
                         {
                             if (Activator.Origin.Item("usesmite").GetValue<KeyBind>().Active)
-                                Drawing.DrawLine((float) pos + i, yaxis, (float)pos + i, yaxis + height, 1,
+                                Drawing.DrawLine((float) pos + i, yaxis, (float) pos + i, yaxis + height, 1,
                                     Color.White);
 
                             if (!Activator.Origin.Item("usesmite").GetValue<KeyBind>().Active)
-                                Drawing.DrawLine((float) pos + i, yaxis, (float)pos + i, yaxis + height, 1,
+                                Drawing.DrawLine((float) pos + i, yaxis, (float) pos + i, yaxis + height, 1,
                                     Color.Gray);
                         }
                     }

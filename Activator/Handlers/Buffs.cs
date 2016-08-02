@@ -29,7 +29,7 @@ namespace Activator.Handlers
        {
             foreach (var hero in Activator.Allies())
             {
-                var aura = Buffdata.SomeAuras.Find(au => hero.Player.HasBuff(au.Name));
+                var aura = HeroBuffData.CachedAuras.Find(au => hero.Player.HasBuff(au.Name));
                 if (aura == null)
                 {
                     if (hero.DotTicks > 0)
@@ -50,7 +50,7 @@ namespace Activator.Handlers
                         () =>
                         {
                             // double check after delay incase we no longer have the buff
-                            if (hero.Player.HasBuff(aura.Name))
+                            if (hero.Player.HasBuff(aura.Name) && hero.Player.IsValidTarget(float.MaxValue, false))
                             {
                                 hero.ForceQSS = true;
                                 Utility.DelayAction.Add(100, () => hero.ForceQSS = false);
@@ -64,19 +64,22 @@ namespace Activator.Handlers
                         () =>
                         {                           
                             // double check after delay incase we no longer have the buff
-                            if (hero.Player.HasBuff(aura.Name))
+                            if (hero.Player.HasBuff(aura.Name) && hero.Player.IsValidTarget(float.MaxValue, false))
                             {
-                                if (!hero.HitTypes.Contains(HitType.Ultimate))
+                                if (!hero.Player.IsZombie && !hero.Immunity)
                                 {
-                                    Utility.DelayAction.Add(500, () => hero.HitTypes.Remove(HitType.Ultimate));
-                                    hero.HitTypes.Add(HitType.Ultimate);
-                                }
+                                    if (!hero.HitTypes.Contains(HitType.Ultimate))
+                                    {
+                                        Utility.DelayAction.Add(500, () => hero.HitTypes.Remove(HitType.Ultimate));
+                                        hero.HitTypes.Add(HitType.Ultimate);
+                                    }
 
-                                if (Utils.GameTimeTickCount - aura.TickLimiter >= 100)
-                                {
-                                    hero.DotTicks += 1;
-                                    hero.IncomeDamage += 1;
-                                    aura.TickLimiter = Utils.GameTimeTickCount;
+                                    if (Utils.GameTimeTickCount - aura.TickLimiter >= 100)
+                                    {
+                                        hero.DotTicks += 1;
+                                        hero.IncomeDamage += 1; // todo: get actuall damage
+                                        aura.TickLimiter = Utils.GameTimeTickCount;
+                                    }
                                 }
                             }
                         });
@@ -233,7 +236,7 @@ namespace Activator.Handlers
                         hero.MikaelsHighestBuffTime = 0;
                 }
 
-                foreach (var aura in Buffdata.BuffList.Where(au => hero.Player.HasBuff(au.Name)))
+                foreach (var aura in HeroBuffData.BuffList.Where(au => hero.Player.HasBuff(au.Name)))
                 {
                     if (aura.DoT && hero.Player.Health / hero.Player.MaxHealth * 100 <=
                         Activator.Origin.Item("useMikaelsdot").GetValue<Slider>().Value)
@@ -286,7 +289,7 @@ namespace Activator.Handlers
                 return Enumerable.Empty<BuffInstance>();
 
             return player.Buffs.Where(buff => 
-                !Buffdata.BuffList.Any(b => buff.Name.ToLower() == b.Name && b.QssIgnore) &&
+                !HeroBuffData.BuffList.Any(b => buff.Name.ToLower() == b.Name && b.QssIgnore) &&
                    (buff.Type == BuffType.Snare &&
                     Activator.Origin.Item(itemname + "csnare").GetValue<bool>() ||
                     buff.Type == BuffType.Silence &&

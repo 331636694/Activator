@@ -6,6 +6,7 @@ using LeagueSharp.Common;
 using Activator.Base;
 using Activator.Data;
 
+
 namespace Activator.Handlers
 {
     public class Projections
@@ -21,9 +22,9 @@ namespace Activator.Handlers
         };
         public static void Init()
         {
-            MissileClient.OnCreate += MissileClient_OnSpellMissileCreate;
+            GameObject.OnCreate += MissileClient_OnSpellMissileCreate;
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnUnitSpellCast;
-            Obj_AI_Hero.OnPlayAnimation += Obj_AI_Hero_OnPlayAnimation;
+            Obj_AI_Base.OnPlayAnimation += Obj_AI_Hero_OnPlayAnimation;
         }
 
         private static void MissileClient_OnSpellMissileCreate(GameObject sender, EventArgs args)
@@ -41,7 +42,7 @@ namespace Activator.Handlers
                 var startPos = missile.StartPosition.To2D();
                 var endPos = missile.EndPosition.To2D();
 
-                var data = Abilitydata.GetByMissileName(missile.SData.Name.ToLower());
+                var data = HeroAbilityData.GetByMissileName(missile.SData.Name.ToLower());
                 if (data == null)
                 {
                     return;
@@ -193,9 +194,7 @@ namespace Activator.Handlers
 
                         #endregion
 
-                        var data = Abilitydata.SomeSpells.Find(
-                            x => x.SDataName.Equals(args.SData.Name, StringComparison.InvariantCultureIgnoreCase));
-
+                        var data = HeroAbilityData.CachedSpells.Find(x => x.SDataName.ToLower() == args.SData.Name.ToLower());
                         if (data == null)
                         {
                             continue;

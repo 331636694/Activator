@@ -14,26 +14,14 @@ using LeagueSharp.Common;
 
 namespace Activator.Base
 {
-    public enum PrimaryRole
-    {
-        Unknown,
-        Assassin,
-        Fighter,
-        Mage,
-        Support,
-        Marksman,
-        Tank
-    }
-
     internal class Essentials
     {
-
         /// <summary>
         /// Returns if the matched hero is valid and in the current game.
         /// </summary>
         /// <param name="heroname">The heroname.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public static bool HeroInGame(string heroname)
+        public static bool EnemyHeroInGame(string heroname)
         {
             return Activator.Heroes.Exists(x => x.Player.ChampionName == heroname && x.Player.IsEnemy);
         }

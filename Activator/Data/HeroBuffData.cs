@@ -3,8 +3,8 @@
 // any form or by any means, mechanical, electronical or otherwise, is prohibited
 // without the prior written consent of the copyright owner.
 // 
-// Document:	Data/Buffdata.cs
-// Date:		22/09/2015
+// Document:	Data/HeroBuffData.cs
+// Date:		28/07/2016
 // Author:		Robin Kurisu
 #endregion
 
@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace Activator.Data
 {
-    public class Buffdata
+    public class HeroBuffData
     {
         public string Name { get; set; }
         public string MenuName { get; set; }
@@ -32,11 +32,11 @@ namespace Activator.Data
         public bool Included { get; set; }
         public Obj_AI_Hero Sender { get; set; }
 
-        public static List<Buffdata> BuffList = new List<Buffdata>();
+        public static List<HeroBuffData> BuffList = new List<HeroBuffData>();
 
-        static Buffdata()
+        static HeroBuffData()
         {
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Name = "suppression",
                 MenuName = "Suppresion",
@@ -49,7 +49,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Name = "summonerdot",
                 MenuName = "Summoner Ignite",
@@ -62,7 +62,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Name = "summonerexhaust",
                 MenuName = "Summoner Exhaust",
@@ -75,7 +75,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Name = "masteryburndebuff",
                 MenuName = "Deathfire Touch",
@@ -88,7 +88,7 @@ namespace Activator.Data
                 Interval = 0.5
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Name = "itemdusknightfall",
                 MenuName = "Duskblade (Nightfall)",
@@ -101,7 +101,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Vi",
                 Name = "virknockup",
@@ -115,7 +115,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Amumu",
                 Name = "curseofthesadmummy",
@@ -129,7 +129,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Name = "itemsmitechallenge",
                 MenuName = "Challenging Smite",
@@ -142,7 +142,7 @@ namespace Activator.Data
                 Interval = 0.7
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Gangplank",
                 Name = "gangplankpassiveattackdot",
@@ -156,7 +156,7 @@ namespace Activator.Data
                 Interval = .8
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Teemo",
                 Name = "bantamtraptarget",
@@ -170,7 +170,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
           
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Teemo",
                 Name = "toxicshotparticle",
@@ -184,7 +184,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Ahri",
                 Name = "ahriseduce",
@@ -198,7 +198,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Elise",
                 Name = "elisehumane",
@@ -212,7 +212,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Heimerdinger",
                 Name = "heimerdingerespell",
@@ -226,7 +226,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Talon",
                 Name = "talonbleeddebuf",
@@ -240,7 +240,7 @@ namespace Activator.Data
                 Interval = .8
             });
 
-            BuffList.Add(new Buffdata()
+            BuffList.Add(new HeroBuffData()
             {
                 Champion = "Malzahar",
                 Name = "alzaharnethergrasp",
@@ -254,7 +254,7 @@ namespace Activator.Data
                 Interval = .8
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Malzahar",
                 Name = "alzaharmaleficvisions",
@@ -268,7 +268,7 @@ namespace Activator.Data
                 Interval = .8
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "FiddleSticks",
                 Name = "drainchannel",
@@ -282,7 +282,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Galio",
                 Name = "galioidolofdurand",
@@ -296,7 +296,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Nasus",
                 Name = "nasusw",
@@ -310,7 +310,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Gnar",
                 Name = "gnarstun",
@@ -324,7 +324,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Gragas",
                 Name = "gragasestun",
@@ -338,7 +338,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Bard",
                 Name = "bardqshackledebuff",
@@ -352,7 +352,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Akali",
                 Name = "akalimota",
@@ -366,7 +366,7 @@ namespace Activator.Data
                 Interval = 1.5
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Hecarim",
                 Name = "hecarimdefilelifeleech",
@@ -380,7 +380,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Swain",
                 Name = "swaintorment",
@@ -394,7 +394,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Brand",
                 Name = "brandablaze",
@@ -408,7 +408,7 @@ namespace Activator.Data
                 Interval = 0.5
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Fizz",
                 Name = "fizzseastonetrident",
@@ -422,7 +422,7 @@ namespace Activator.Data
                 Interval = .8
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Tristana",
                 Name = "tristanaechargesound",
@@ -436,7 +436,7 @@ namespace Activator.Data
                 Interval = .8
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Darius",
                 Name = "dariushemo",
@@ -450,7 +450,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Nidalee",
                 Name = "bushwackdamage",
@@ -464,7 +464,7 @@ namespace Activator.Data
                 Interval = .8
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Nidalee",
                 Name = "nidaleepassivehunted",
@@ -478,7 +478,7 @@ namespace Activator.Data
                 Interval = .8
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Shyvana",
                 Name = "shyvanaimmolationaura",
@@ -491,7 +491,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "MissFortune",
                 Name = "missfortunescattershotslow",
@@ -504,7 +504,7 @@ namespace Activator.Data
                 Interval = 0.5
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "MissFortune",
                 Name = "missfortunepassivestack",
@@ -517,7 +517,7 @@ namespace Activator.Data
                 Interval = 0.5
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Shyvana",
                 Name = "shyvanaimmolatedragon",
@@ -530,7 +530,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Zilean",
                 Name = "zileanqenemybomb",
@@ -544,7 +544,7 @@ namespace Activator.Data
                 Interval = 3.8
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Wukong",
                 Name = "monkeykingspintowin",
@@ -557,7 +557,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Katarina",
                 Name = "katarinaqmark",
@@ -571,7 +571,7 @@ namespace Activator.Data
                 Interval = 1.5
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Kindred",
                 Name = "kindredecharge",
@@ -585,7 +585,7 @@ namespace Activator.Data
                 Interval = 2.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Cassiopeia",
                 Name = "cassiopeianoxiousblastpoison",
@@ -599,7 +599,7 @@ namespace Activator.Data
                 Interval = 0.4
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Cassiopeia",
                 Name = "cassiopeiamiasmapoison",
@@ -613,7 +613,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Cassiopeia",
                 Name = "cassiopeiapetrifyinggazestun",
@@ -627,7 +627,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Ekko",
                 Name = "ekkowstun",
@@ -641,7 +641,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Lissandra",
                 Name = "lissandrarenemy2",
@@ -655,7 +655,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Sejuani",
                 Name = "sejuaniglacialprison",
@@ -669,7 +669,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Fiora",
                 Name = "fiorarmark",
@@ -683,7 +683,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Twitch",
                 Name = "twitchdeadlyvenon",
@@ -697,7 +697,7 @@ namespace Activator.Data
                 Interval = 0.6
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Urgot",
                 Name = "urgotcorrosivedebuff",
@@ -711,7 +711,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Zac",
                 Name = "zacr",
@@ -725,7 +725,7 @@ namespace Activator.Data
 
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Mordekaiser",
                 Name = "mordekaiserchildrenofthegrave",
@@ -739,7 +739,7 @@ namespace Activator.Data
                 Interval = 1.5
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Name = "burningagony",
                 Evade = false,
@@ -751,7 +751,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Garen",
                 Name = "garene",
@@ -764,7 +764,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Amumu",
                 Name = "auraofdespair",
@@ -777,7 +777,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Hecarim",
                 Name = "hecarimw",
@@ -790,7 +790,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Braum",
                 Name = "braummark",
@@ -803,7 +803,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Zed",
                 Name = "zedultexecute",
@@ -817,7 +817,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Karthus",
                 Name = "fallenonetarget",
@@ -829,7 +829,7 @@ namespace Activator.Data
                 Slot = SpellSlot.R
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Karthus",
                 Name = "karthusfallenonetarget",
@@ -841,7 +841,7 @@ namespace Activator.Data
                 Slot = SpellSlot.R
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Fizz",
                 Name = "fizzmarinerdoombomb",
@@ -854,7 +854,7 @@ namespace Activator.Data
                 Slot = SpellSlot.R
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Morgana",
                 Name = "soulshackles",
@@ -868,7 +868,7 @@ namespace Activator.Data
                 Interval = 3.9
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Varus",
                 Name = "varusrsecondary",
@@ -881,7 +881,7 @@ namespace Activator.Data
                 Slot = SpellSlot.R
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Caitlyn",
                 Name = "caitlynaceinthehole",
@@ -894,7 +894,7 @@ namespace Activator.Data
                 Slot = SpellSlot.R
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Vladimir",
                 Name = "vladimirhemoplague",
@@ -907,7 +907,7 @@ namespace Activator.Data
                 Slot = SpellSlot.R
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Diana",
                 Name = "dianamoonlight",
@@ -920,7 +920,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Urgot",
                 Name = "urgotswap2",
@@ -933,7 +933,7 @@ namespace Activator.Data
                 Slot = SpellSlot.R
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Skarner",
                 Name = "skarnerimpale",
@@ -946,7 +946,7 @@ namespace Activator.Data
                 Slot = SpellSlot.R
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Maokai",
                 Name = "maokaiunstablegrowthroot",
@@ -959,7 +959,7 @@ namespace Activator.Data
                 Slot = SpellSlot.W
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "LeeSin",
                 Name = "blindmonkqonechaos",
@@ -973,7 +973,7 @@ namespace Activator.Data
                 Interval = 3.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Leblanc",
                 Name = "leblancsoulshackle",
@@ -986,7 +986,7 @@ namespace Activator.Data
                 Slot = SpellSlot.E
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Leblanc",
                 Name = "leblancsoulshacklem",
@@ -999,7 +999,7 @@ namespace Activator.Data
                 Slot = SpellSlot.E
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Rammus",
                 Name = "puncturingtauntarmordebuff",
@@ -1012,7 +1012,7 @@ namespace Activator.Data
                 Slot = SpellSlot.E
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Vi",
                 Name = "vir",
@@ -1025,7 +1025,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Yasuo",
                 Name = "yasuorknockupcombo",
@@ -1038,7 +1038,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Yasuo",
                 Name = "yasuorknockupcombotar",
@@ -1051,7 +1051,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Zyra",
                 Name = "zyrabramblezoneknockup",
@@ -1064,7 +1064,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Velkoz",
                 Name = "velkozresearchstack",
@@ -1078,7 +1078,7 @@ namespace Activator.Data
                 Interval = 0.3
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Name = "frozenheartaura",
                 Evade = false,
@@ -1090,7 +1090,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Darius",
                 Name = "dariusaxebrabcone",
@@ -1103,7 +1103,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Name = "frozenheartauracosmetic",
                 Evade = false,
@@ -1115,7 +1115,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Name = "itemsunfirecapeaura",
                 Evade = false,
@@ -1128,7 +1128,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Fizz",
                 Name = "fizzmoveback",
@@ -1141,7 +1141,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Name = "blessingofthelizardelderslow",
                 Evade = false,
@@ -1154,7 +1154,7 @@ namespace Activator.Data
                 Interval = 1.0
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Name = "dragonburning",
                 Evade = false,
@@ -1166,7 +1166,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Blitzcrank",
                 Name = "rocketgrab2",
@@ -1179,7 +1179,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Ashe",
                 Name = "frostarrow",
@@ -1192,7 +1192,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Alistar",
                 Name = "pulverize",
@@ -1205,7 +1205,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Name = "chilled",
                 Evade = false,
@@ -1217,7 +1217,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Azir",
                 Name = "azirqslow",
@@ -1230,7 +1230,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Rammus",
                 Name = "powerballslow",
@@ -1243,7 +1243,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Rammus",
                 Name = "powerballstun",
@@ -1256,7 +1256,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "MonkeyKing",
                 Name = "monkeykingspinknockup",
@@ -1269,7 +1269,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Alistar",
                 Name = "headbutttarget",
@@ -1282,7 +1282,7 @@ namespace Activator.Data
                 Slot = SpellSlot.W
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Hecarim",
                 Name = "hecarimrampstuncheck",
@@ -1295,7 +1295,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Unknown
             });
 
-            BuffList.Add(new Buffdata
+            BuffList.Add(new HeroBuffData
             {
                 Champion = "Hecarim",
                 Name = "hecarimrampattackknockback",
@@ -1309,6 +1309,6 @@ namespace Activator.Data
             });
         }
 
-        public static List<Buffdata> SomeAuras = new List<Buffdata>(); 
+        public static List<HeroBuffData> CachedAuras = new List<HeroBuffData>(); 
     }
 }

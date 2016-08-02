@@ -63,16 +63,16 @@
   <ItemGroup>
     <Compile Include="Base\Essentials.cs" />
     <Compile Include="Base\Champion.cs" />
-    <Compile Include="Data\Smitedata.cs" />
-    <Compile Include="Base\Gametroy.cs">
+    <Compile Include="Data\HeroSmiteData.cs" />
+    <Compile Include="Base\ObjectTracker.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\Gametroydata.cs">
+    <Compile Include="Data\HeroObjectData.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Handlers\Drawings.cs" />
     <Compile Include="Handlers\Projections.cs" />
-    <Compile Include="Handlers\Gametroys.cs">
+    <Compile Include="Handlers\ObjectHandler.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Handlers\Trinkets.cs" />
@@ -120,8 +120,8 @@
     <Compile Include="Items\Offensives\_3800.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Data\Abilitydata.cs" />
-    <Compile Include="Data\Buffdata.cs" />
+    <Compile Include="Data\HeroAbilityData.cs" />
+    <Compile Include="Data\HeroBuffData.cs" />
     <Compile Include="Handlers\Buffs.cs" />
     <Compile Include="Spells\Evaders\alphastrike.cs" />
     <Compile Include="Spells\Evaders\blackshield.cs" />

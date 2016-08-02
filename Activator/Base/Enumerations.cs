@@ -34,7 +34,8 @@ namespace Activator.Base
         Ultimate,
         CrowdControl,
         Stealth,
-        ForceExhaust
+        ForceExhaust,
+        Initiator
     }
 
     public enum MapType
@@ -64,4 +65,14 @@ namespace Activator.Base
         EnemyLowHP
     }
 
+    public enum PrimaryRole
+    {
+        Unknown,
+        Assassin,
+        Fighter,
+        Mage,
+        Support,
+        Marksman,
+        Tank
+    }
 }

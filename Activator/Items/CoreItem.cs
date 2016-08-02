@@ -233,8 +233,11 @@ namespace Activator.Items
                     var ccmenu = new Menu(Name + " Buff Types", Name.ToLower() + "cdeb");
                     var ssmenu = new Menu(Name + " Unique Buffs", Name.ToLower() + "xspe");
 
-                    foreach (var b in Data.Buffdata.BuffList.Where(x => x.MenuName != null && (x.Cleanse || x.DoT))
-                        .OrderByDescending(x => x.DoT).ThenBy(x => x.Evade).ThenBy(x => x.MenuName))
+                    foreach (var b in Data.HeroBuffData.BuffList
+                        .Where(x => x.MenuName != null && (x.Cleanse || x.DoT))
+                        .OrderByDescending(x => x.DoT)
+                        .ThenBy(x => x.Evade)
+                        .ThenBy(x => x.MenuName))
                     {
                         string xdot = b.DoT && b.Cleanse ? "[Danger]" : (b.DoT ? "[DoT]" : "[Danger]");
 
@@ -265,9 +268,11 @@ namespace Activator.Items
                     if (Id == 3222)
                         Menu.AddSubMenu(ssmenu);
 
-                    Menu.AddItem(new MenuItem("use" + Name + "number", "Min Buffs to Use"))
-                        .SetValue(new Slider(DefaultHP / 5, 1, 5)).SetTooltip("Will Only " + Name + " if Your Buff Count is >= Value");
-                    Menu.AddItem(new MenuItem("use" + Name + "time", "Min Durration to Use"))
+                    Menu.AddItem(new MenuItem("use" + Name + "number", "Minimum Buffs to Use"))
+                        .SetValue(new Slider(DefaultHP/5, 1, 5))
+                        .SetTooltip("Will Only " + Name + " if Your Buff Count is >= " +
+                                    Menu.Item("use" + Name + "number").GetValue<Slider>().Value);
+                    Menu.AddItem(new MenuItem("use" + Name + "time", "Minimum Durration to Use"))
                         .SetValue(new Slider(500, 250, 2000))
                         .SetTooltip("Will not use unless the buff durration (stun, snare, etc) last at least this long (ms, 500 = 0.5 seconds)");
 
@@ -279,11 +284,11 @@ namespace Activator.Items
                             .SetValue(new Slider(35)).SetTooltip("Will " + Name + " DoTs Spells if Below HP%");
                     }
 
-                    Menu.AddItem(new MenuItem("use" + Name + "delay", "Activation Delay (in ms)")).SetValue(new Slider(55, 0, 500));
+                    Menu.AddItem(new MenuItem("use" + Name + "delay", "Activation Delay (in ms)")).SetValue(new Slider(0, 0, 500));
                 }
 
                 if (Category.Any(t => t == MenuType.ActiveCheck))
-                    Menu.AddItem(new MenuItem("mode" + Name, "Mode: "))
+                    Menu.AddItem(new MenuItem("mode" + Name, Name + " Mode: "))
                         .SetValue(new StringList(new[] { "Always", "Combo" }));
 
                 root.AddSubMenu(Menu);

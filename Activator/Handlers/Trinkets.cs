@@ -82,9 +82,9 @@ namespace Activator.Handlers
                 return;         
             }
 
-            if (MenuGUI.IsShopOpen && !Player.IsDead)
+            if (MenuGUI.IsShopOpen)
             {
-                if (Player.InShop())
+                if (Player.InShop() || Player.IsDead)
                 {
                     if (TrinketId == 3340 && !LeagueSharp.Common.Items.HasItem(3363))
                     {
