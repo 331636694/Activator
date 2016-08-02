@@ -33,7 +33,7 @@ namespace Activator.Data
             {
                 Name = "MonkeyKing_Base_R",
                 ChampionName = "MonkeyKing",
-                Radius = 200,
+                Radius = 165 + 100 + 0 + 1,
                 Slot = SpellSlot.R,
                 SpellFlags = new [] { HitType.Danger, HitType.Ultimate, HitType.Initiator },
                 PredictDmg = true,
@@ -53,20 +53,9 @@ namespace Activator.Data
 
             Troys.Add(new GametroyData
             {
-                Name = "E_mis_bounce",
+                Name = "Ryze_Base_E",
                 ChampionName = "Ryze",
                 Radius = 200f,
-                Slot = SpellSlot.E,
-                SpellFlags = new[] { HitType.None },
-                PredictDmg = true,
-                Interval = .75
-            });
-
-            Troys.Add(new GametroyData
-            {
-                Name = "R_E_mis_bounce",
-                ChampionName = "Ryze",
-                Radius = 250f,
                 Slot = SpellSlot.E,
                 SpellFlags = new[] { HitType.None },
                 PredictDmg = true,
@@ -97,9 +86,9 @@ namespace Activator.Data
 
             Troys.Add(new GametroyData
             {
-                Name = "R_AoE",
+                Name = "Gangplank_Base_R",
                 ChampionName = "Gangplank",
-                Radius = 450f,
+                Radius = 400f,
                 Slot = SpellSlot.R,
                 SpellFlags = new[] { HitType.None },
                 PredictDmg = true,

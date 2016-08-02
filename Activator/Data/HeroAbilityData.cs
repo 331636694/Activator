@@ -4607,12 +4607,12 @@ namespace Activator.Data
                 ChampionName = "ryze",
                 Slot = SpellSlot.Q,
                 FixedRange = true,
-                CastRange = 625f,
+                CastRange = 925f,
                 Delay = 250f,
                 HitTypes = new HitType[] { },
                 MissileName = "ryzeqmissile",
                 ExtraMissileNames = new[] { "ryzeq" },
-                MissileSpeed = 1400
+                MissileSpeed = 1700
             });
 
             Spells.Add(new HeroAbilityData
