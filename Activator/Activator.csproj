@@ -64,15 +64,15 @@
     <Compile Include="Base\Essentials.cs" />
     <Compile Include="Base\Champion.cs" />
     <Compile Include="Data\HeroSmiteData.cs" />
-    <Compile Include="Base\ObjectTracker.cs">
+    <Compile Include="Base\Gametroy.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\HeroObjectData.cs">
+    <Compile Include="Data\GametroyData.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Handlers\Drawings.cs" />
     <Compile Include="Handlers\Projections.cs" />
-    <Compile Include="Handlers\ObjectHandler.cs">
+    <Compile Include="Handlers\Gametroys.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Handlers\Trinkets.cs" />

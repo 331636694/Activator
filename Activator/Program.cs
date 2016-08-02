@@ -143,7 +143,7 @@ namespace Activator
                 Buffs.StartOnUpdate();
 
                 // tracks gameobjects 
-                Handlers.ObjectHandler.StartOnUpdate();
+                Handlers.Gametroys.StartOnUpdate();
 
                 // on bought item
                 Obj_AI_Base.OnPlaceItemInSlot += Obj_AI_Base_OnPlaceItemInSlot;
@@ -361,10 +361,10 @@ namespace Activator
         {
             foreach (Obj_AI_Hero i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team != Player.Team))
             {
-                foreach (HeroObjectData item in HeroObjectData.Troys.Where(x => x.ChampionName == i.ChampionName))
+                foreach (GametroyData item in GametroyData.Troys.Where(x => x.ChampionName == i.ChampionName))
                 {
                     TroysInGame = true;
-                    ObjectTracker.Objects.Add(new ObjectTracker(i.ChampionName, item.Slot, item.Name, 0, false));
+                    Gametroy.Objects.Add(new Gametroy(i.ChampionName, item.Slot, item.Name, 0, false));
                     Console.WriteLine("Activator# - SpellList: " + item.Name + " added!");
                 }
             }
