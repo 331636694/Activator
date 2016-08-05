@@ -11,20 +11,15 @@ namespace Activator.Handlers
 {
     public class Projections
     {
-        internal static int LastCastedTimeStamp;
         internal static Obj_AI_Hero Player => ObjectManager.Player;
-        internal static List<HitType> MenuTypes = new List<HitType>
-        {
-            HitType.Danger,
-            HitType.CrowdControl,
-            HitType.Ultimate,
-            HitType.ForceExhaust
-        };
+
         public static void Init()
         {
             GameObject.OnCreate += MissileClient_OnSpellMissileCreate;
+
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnUnitSpellCast;
             Obj_AI_Base.OnPlayAnimation += Obj_AI_Hero_OnPlayAnimation;
+            Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnStealth;
         }
 
         private static void MissileClient_OnSpellMissileCreate(GameObject sender, EventArgs args)
@@ -42,7 +37,7 @@ namespace Activator.Handlers
                 var startPos = missile.StartPosition.To2D();
                 var endPos = missile.EndPosition.To2D();
 
-                var data = HeroAbilityData.GetByMissileName(missile.SData.Name.ToLower());
+                var data = Gamedata.GetByMissileName(missile.SData.Name.ToLower());
                 if (data == null)
                 {
                     return;
@@ -63,7 +58,7 @@ namespace Activator.Handlers
                 foreach (var hero in Activator.Allies())
                 {
                     // reset if needed
-                    Essentials.ResetIncomeDamage(hero.Player);
+                    Helpers.ResetIncomeDamage(hero.Player);
 
                     var distance = (1000 * (startPos.Distance(hero.Player.ServerPosition) / data.MissileSpeed));
                     var endtime = -100 + Game.Ping / 2 + distance;
@@ -103,7 +98,7 @@ namespace Activator.Handlers
                             hero.IncomeDamage += 1;
                             hero.HitTypes.Add(HitType.Spell);
                             hero.HitTypes.AddRange(
-                                MenuTypes.Where(
+                                Lists.MenuTypes.Where(
                                     x =>
                                         Activator.Origin.Item(data.SDataName + x.ToString().ToLower())
                                             .GetValue<bool>()));
@@ -129,8 +124,10 @@ namespace Activator.Handlers
 
         private static void Obj_AI_Base_OnUnitSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if (Essentials.IsEpicMinion(sender) || sender.Name.StartsWith("Sru_Crab"))
+            if (Helpers.IsEpicMinion(sender) || Helpers.IsCrab(sender))
+            {
                 return;
+            }
 
             #region Hero
 
@@ -139,11 +136,9 @@ namespace Activator.Handlers
                 var attacker = (Obj_AI_Hero) sender;
                 if (attacker.IsValid<Obj_AI_Hero>())
                 {
-                    LastCastedTimeStamp = Utils.GameTimeTickCount;
-
                     foreach (var hero in Activator.Allies())
                     {
-                        Essentials.ResetIncomeDamage(hero.Player);
+                        Helpers.ResetIncomeDamage(hero.Player);
 
                         #region auto attack
 
@@ -194,7 +189,7 @@ namespace Activator.Handlers
 
                         #endregion
 
-                        var data = HeroAbilityData.CachedSpells.Find(x => x.SDataName.ToLower() == args.SData.Name.ToLower());
+                        var data = Gamedata.CachedSpells.Find(x => x.SDataName.ToLower() == args.SData.Name.ToLower());
                         if (data == null)
                         {
                             continue;
@@ -249,7 +244,7 @@ namespace Activator.Handlers
                                 hero.IncomeDamage += dmg;
                                 hero.HitTypes.Add(HitType.Spell);
                                 hero.HitTypes.AddRange(
-                                    MenuTypes.Where(
+                                    Lists.MenuTypes.Where(
                                         x =>
                                             Activator.Origin.Item(data.SDataName + x.ToString().ToLower())
                                                 .GetValue<bool>()));
@@ -306,7 +301,7 @@ namespace Activator.Handlers
                                 continue;
 
                             var distance = (int) (1000 * (startpos.Distance(hero.Player.ServerPosition) / data.MissileSpeed));
-                            var endtime = data.Delay - 100 + Game.Ping / 2f +  distance - (Utils.GameTimeTickCount - LastCastedTimeStamp);
+                            var endtime = data.Delay - 100 + Game.Ping/2f + distance;
 
                             var iscone = args.SData.TargettingType == SpellDataTargetType.Cone;
                             var direction = (args.End.To2D() - startpos.To2D()).Normalized();
@@ -363,7 +358,7 @@ namespace Activator.Handlers
                                     hero.IncomeDamage += dmg;
                                     hero.HitTypes.Add(HitType.Spell);
                                     hero.HitTypes.AddRange(
-                                        MenuTypes.Where(
+                                        Lists.MenuTypes.Where(
                                             x =>
                                                 Activator.Origin.Item(data.SDataName + x.ToString().ToLower())
                                                     .GetValue<bool>()));
@@ -404,8 +399,7 @@ namespace Activator.Handlers
                             var distance =
                                 (int) (1000 * (attacker.Distance(hero.Player.ServerPosition) / data.MissileSpeed));
 
-                            var endtime = data.Delay - 100 + Game.Ping / 2f + distance -
-                                          (Utils.GameTimeTickCount - LastCastedTimeStamp);
+                            var endtime = data.Delay - 100 + Game.Ping/2f + distance;
 
                             if (!Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
                                 continue;
@@ -425,7 +419,7 @@ namespace Activator.Handlers
                                 hero.IncomeDamage += dmg;
                                 hero.HitTypes.Add(HitType.Spell);
                                 hero.HitTypes.AddRange(
-                                    MenuTypes.Where(
+                                    Lists.MenuTypes.Where(
                                         x =>
                                             Activator.Origin.Item(data.SDataName + x.ToString().ToLower())
                                                 .GetValue<bool>()));
@@ -534,7 +528,7 @@ namespace Activator.Handlers
                 {
                     foreach (var hero in Activator.Allies())
                     {
-                        Essentials.ResetIncomeDamage(hero.Player);
+                        Helpers.ResetIncomeDamage(hero.Player);
                         List<Obj_AI_Minion> gplist = new List<Obj_AI_Minion>();
 
                         gplist.AddRange(ObjectManager.Get<Obj_AI_Minion>()
@@ -589,7 +583,7 @@ namespace Activator.Handlers
                     {
                         foreach (var hero in Activator.Allies())
                         {
-                            Essentials.ResetIncomeDamage(hero.Player);
+                            Helpers.ResetIncomeDamage(hero.Player);
 
                             if (args.Target.NetworkId != hero.Player.NetworkId)
                                 continue;
@@ -757,7 +751,7 @@ namespace Activator.Handlers
                                         hero.IncomeDamage += dmg;
                                         hero.HitTypes.Add(HitType.Spell);
                                         hero.HitTypes.AddRange(
-                                            MenuTypes.Where(
+                                            Lists.MenuTypes.Where(
                                                 x =>
                                                     Activator.Origin.Item("jaxcounterstrike" + x.ToString().ToLower())
                                                         .GetValue<bool>()));
@@ -766,6 +760,34 @@ namespace Activator.Handlers
                             });
                         }
                     });
+                }
+            }
+
+            #endregion
+
+            // more bro science soon ;)
+        }
+
+        private static void Obj_AI_Base_OnStealth(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+        {
+            #region Stealth
+
+            var attacker = sender as Obj_AI_Hero;
+            if (attacker == null || attacker.IsAlly || !attacker.IsValid<Obj_AI_Hero>())
+            {
+                return;
+            }
+
+            foreach (var hero in Activator.Heroes.Where(h => h.Player.Distance(attacker) <= 1000))
+            {
+                foreach (var entry in Gamedata.CachedSpells.Where(s => s.HitTypes.Contains(HitType.Stealth)))
+                {
+                    if (entry.SDataName.ToLower() == args.SData.Name.ToLower())
+                    {
+                        hero.HitTypes.Add(HitType.Stealth);
+                        Utility.DelayAction.Add(200, () => hero.HitTypes.Remove(HitType.Stealth));
+                        break;
+                    }
                 }
             }
 

@@ -105,12 +105,12 @@ namespace Activator.Handlers
                         return;
                     }
 
-                    var smitespell = Data.HeroSmiteData.SpellList
+                    var smitespell = Data.Smitedata.SpellList
                         .FirstOrDefault(s => s.Name == Activator.Player.ChampionName);
 
                     foreach (var minion in
                         MinionManager.GetMinions(Activator.Player.Position, 1200f, MinionTypes.All, MinionTeam.Neutral)
-                            .Where(th => Essentials.IsEpicMinion(th) || Essentials.IsLargeMinion(th)))
+                            .Where(th => Helpers.IsEpicMinion(th) || Helpers.IsLargeMinion(th)))
                     {
                         var yoffset = Offsets[minion.Name].Y;
                         var xoffset = Offsets[minion.Name].X;

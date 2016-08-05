@@ -31,16 +31,14 @@ namespace Activator.Handlers
             if (obj.IsValid<MissileClient>())
                 return;
 
-            foreach (var troy in Gametroy.Objects)
+            foreach (var troy in Gametroy.Troys)
             {
-                if (obj.Name.Contains(troy.Name))
+                if (troy.Included && obj.Name.Contains(troy.Name))
                 {
                     troy.Obj = null;
                     troy.Start = 0;
                     troy.Limiter = 0; // reset limiter
-
-                    if (troy.Included)
-                        troy.Included = false;
+                    troy.Included = false;
                 }
             }
         }
@@ -50,7 +48,7 @@ namespace Activator.Handlers
             if (obj.IsValid<MissileClient>())
                 return;
 
-            foreach (var troy in Gametroy.Objects)
+            foreach (var troy in Gametroy.Troys)
             {
                 if (obj.Name.Contains(troy.Name) && obj.IsValid<GameObject>())
                 {                    
@@ -58,7 +56,7 @@ namespace Activator.Handlers
                     troy.Start = Utils.GameTimeTickCount;
 
                     if (!troy.Included)
-                         troy.Included = Essentials.EnemyHeroInGame(troy.Owner);
+                         troy.Included = Helpers.IsEnemyInGame(troy.Owner);
                 }
             }
         }
@@ -67,7 +65,7 @@ namespace Activator.Handlers
         {
             foreach (var hero in Activator.Allies())
             {
-                var troy = Gametroy.Objects.FirstOrDefault(x => x.Included);
+                var troy = Gametroy.Troys.FirstOrDefault(x => x.Included);
                 if (troy == null || !troy.Obj.IsValid)
                 {
                     // reset damage if obj deleted
@@ -83,7 +81,7 @@ namespace Activator.Handlers
                     return;
                 }
 
-                foreach (var item in GametroyData.Troys.Where(x => x.Name == troy.Name))
+                foreach (var item in Troydata.Troys.Where(x => x.Name == troy.Name))
                 {
                     if (hero.Player.Distance(troy.Obj.Position) <= item.Radius + hero.Player.BoundingRadius)
                     {                  
@@ -94,10 +92,10 @@ namespace Activator.Handlers
                             {
                                 if (!hero.Player.IsZombie && !hero.Immunity)
                                 {
-                                    foreach (var ii in item.SpellFlags)
+                                    foreach (var ii in item.HitTypes)
                                     {
                                         if (!hero.HitTypes.Contains(ii))
-                                            hero.HitTypes.Add(ii);
+                                             hero.HitTypes.Add(ii);
                                     }
 
                                     // limit the damage using an interval

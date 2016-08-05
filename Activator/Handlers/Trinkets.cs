@@ -18,6 +18,7 @@ namespace Activator.Handlers
         public static void Init()
         {
             Player = ObjectManager.Player;
+
             Game.OnUpdate += Game_OnUpdate;
             Obj_AI_Base.OnLevelUp += Obj_AI_Base_OnLevelUp;
             Obj_AI_Base.OnPlaceItemInSlot += Obj_AI_Base_OnPlaceItemInSlot;
@@ -88,18 +89,18 @@ namespace Activator.Handlers
                 {
                     if (TrinketId == 3340 && !LeagueSharp.Common.Items.HasItem(3363))
                     {
-                        if (Essentials.GetRole(Player) == PrimaryRole.Marksman)
+                        if (Helpers.GetRole(Player) == PrimaryRole.Marksman)
                             if (Player.BuyItem((ItemId) 3363))
                                 Upgrade = false;
 
-                        if (Essentials.GetRole(Player) == PrimaryRole.Mage)
+                        if (Helpers.GetRole(Player) == PrimaryRole.Mage)
                             if (Player.BuyItem((ItemId) 3363))
                                 Upgrade = false;
                     }
 
                     if (TrinketId == 3340 && !LeagueSharp.Common.Items.HasItem(3364))
                     {
-                        if (Essentials.GetRole(Player) == PrimaryRole.Assassin)
+                        if (Helpers.GetRole(Player) == PrimaryRole.Assassin)
                             if (Player.BuyItem((ItemId) 3364))
                                 Upgrade = false;
 

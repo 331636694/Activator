@@ -22,7 +22,7 @@ namespace Activator.Summoners
         internal static int Limiter;
         internal static void L33TSmite(Obj_AI_Base unit, float smitedmg)
         {
-            foreach (var hero in HeroSmiteData.SpellList.Where(x => x.Name == Activator.Player.ChampionName))
+            foreach (var hero in Smitedata.SpellList.Where(x => x.Name == Activator.Player.ChampionName))
             {
                 if (Activator.Player.GetSpellDamage(unit, hero.Slot, hero.Stage) + smitedmg >= unit.Health)
                 {
@@ -74,7 +74,7 @@ namespace Activator.Summoners
 
                 if (minion.Distance(Player.ServerPosition) <= 500 + minion.BoundingRadius + Player.BoundingRadius)
                 {
-                    if (Essentials.IsLargeMinion(minion) && Menu.Item("smitelarge").GetValue<bool>())
+                    if (Helpers.IsLargeMinion(minion) && Menu.Item("smitelarge").GetValue<bool>())
                     {
                         if (Menu.Item("smiteskill").GetValue<bool>())
                             L33TSmite(minion, damage);
@@ -85,7 +85,7 @@ namespace Activator.Summoners
                         }
                     }
 
-                    if (Essentials.IsSmallMinion(minion) && Menu.Item("smitesmall").GetValue<bool>())
+                    if (Helpers.IsSmallMinion(minion) && Menu.Item("smitesmall").GetValue<bool>())
                     {
                         if (Menu.Item("smiteskill").GetValue<bool>())
                             L33TSmite(minion, damage);
@@ -96,7 +96,7 @@ namespace Activator.Summoners
                         }
                     }
 
-                    if (Essentials.IsEpicMinion(minion) && Menu.Item("smitesuper").GetValue<bool>())
+                    if (Helpers.IsEpicMinion(minion) && Menu.Item("smitesuper").GetValue<bool>())
                     {
                         if (Menu.Item("smiteskill").GetValue<bool>())
                             L33TSmite(minion, damage);

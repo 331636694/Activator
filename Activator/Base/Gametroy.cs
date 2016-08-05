@@ -23,15 +23,9 @@ namespace Activator.Base
         public SpellSlot Slot;
         public int Start;
         public int Limiter;
+        public static List<Gametroy> Troys = new List<Gametroy>();
 
-        public Gametroy(
-            string owner, 
-            SpellSlot slot, 
-            string name, 
-            int start, 
-            bool inculded, 
-            int incdmg = 0,
-            GameObject obj = null)
+        public Gametroy(string owner, SpellSlot slot,  string name, int start, bool inculded, int incdmg = 0, GameObject obj = null)
         {
             Owner = owner;
             Slot = slot;
@@ -40,13 +34,6 @@ namespace Activator.Base
             Obj = obj;
             Included = inculded;
             Damage = incdmg;
-        }
-
-        public static List<Gametroy> Objects = new List<Gametroy>(); 
-
-        static Gametroy()
-        {
-            
         }
     }
 }

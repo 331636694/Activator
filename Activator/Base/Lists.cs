@@ -3,7 +3,7 @@
 // any form or by any means, mechanical, electronical or otherwise, is prohibited
 // without the prior written consent of the copyright owner.
 // 
-// Document:	Base/Enumerations.cs
+// Document:	Base/Lists.cs
 // Date:		22/09/2015
 // Author:		Robin Kurisu
 #endregion
@@ -17,6 +17,14 @@ namespace Activator.Base
 {
     public class Lists
     {
+        internal static List<HitType> MenuTypes = new List<HitType>
+        {
+            HitType.Danger,
+            HitType.CrowdControl,
+            HitType.Ultimate,
+            HitType.ForceExhaust
+        };
+
         public static List<CoreItem> Items = new List<CoreItem>();
         public static List<CoreItem> BoughtItems = new List<CoreItem>();
         public static List<CoreSpell> Spells = new List<CoreSpell>();
@@ -40,11 +48,12 @@ namespace Activator.Base
 
     public enum MapType
     {        
-        Common = 0,
-        SummonersRift = 1,
-        CrystalScar = 2,
-        TwistedTreeline = 3,
-        HowlingAbyss = 4
+        Unknown = -1,
+        Common,
+        SummonersRift,
+        CrystalScar,
+        TwistedTreeline,
+        HowlingAbyss
     }
 
     public enum MenuType

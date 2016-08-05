@@ -332,7 +332,7 @@ namespace Activator
             {
                 if (entry.Key == Player.ChampionName)
                     foreach (DamageSpell spell in entry.Value)
-                        HeroAbilityData.DamageLib.Add(spell.Damage, spell.Slot);
+                        Gamedata.DamageLib.Add(spell.Damage, spell.Slot);
             }
         }
 
@@ -361,10 +361,10 @@ namespace Activator
         {
             foreach (Obj_AI_Hero i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team != Player.Team))
             {
-                foreach (GametroyData item in GametroyData.Troys.Where(x => x.ChampionName == i.ChampionName))
+                foreach (Troydata item in Troydata.Troys.Where(x => x.ChampionName == i.ChampionName))
                 {
                     TroysInGame = true;
-                    Gametroy.Objects.Add(new Gametroy(i.ChampionName, item.Slot, item.Name, 0, false));
+                    Gametroy.Troys.Add(new Gametroy(i.ChampionName, item.Slot, item.Name, 0, false));
                     Console.WriteLine("Activator# - SpellList: " + item.Name + " added!");
                 }
             }
@@ -374,9 +374,9 @@ namespace Activator
         {
             foreach (Obj_AI_Hero i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team != Player.Team))
             {
-                foreach (HeroAbilityData item in HeroAbilityData.Spells.Where(x => x.ChampionName == i.ChampionName.ToLower()))
+                foreach (Gamedata item in Gamedata.Spells.Where(x => x.ChampionName == i.ChampionName.ToLower()))
                 {
-                    HeroAbilityData.CachedSpells.Add(item);
+                    Gamedata.CachedSpells.Add(item);
                     Console.WriteLine("Activator# - SpellList: " + item.SDataName + " added!");
                 }
             }
@@ -386,16 +386,16 @@ namespace Activator
         {
             foreach (Obj_AI_Hero i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team != Player.Team))
             {
-                foreach (HeroBuffData aura in HeroBuffData.BuffList.Where(x => x.Champion == i.ChampionName && x.Champion != null))
+                foreach (Auradata aura in Auradata.BuffList.Where(x => x.Champion == i.ChampionName && x.Champion != null))
                 {
-                    HeroBuffData.CachedAuras.Add(aura);
+                    Auradata.CachedAuras.Add(aura);
                     Console.WriteLine("Activator# - AuraList: " + aura.Name + " added!");
                 }
             }
 
-            foreach (HeroBuffData generalaura in HeroBuffData.BuffList.Where(x => string.IsNullOrEmpty(x.Champion)))
+            foreach (Auradata generalaura in Auradata.BuffList.Where(x => string.IsNullOrEmpty(x.Champion)))
             {
-                HeroBuffData.CachedAuras.Add(generalaura);
+                Auradata.CachedAuras.Add(generalaura);
                 Console.WriteLine("Activator# - AuraList: " + generalaura.Name + " added!");
             }
         }
@@ -463,7 +463,7 @@ namespace Activator
                 Menu menu = new Menu(unit.Player.ChampionName, unit.Player.NetworkId + "menu");
 
                 // new menu per spell
-                foreach (HeroAbilityData entry in HeroAbilityData.Spells)
+                foreach (Gamedata entry in Gamedata.Spells)
                 {
                     if (entry.ChampionName == unit.Player.ChampionName.ToLower())
                     {
