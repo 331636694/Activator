@@ -229,6 +229,10 @@ namespace Activator.Handlers
                             }
        
                             dmg += (int) Math.Max(attacker.GetSpellDamage(hero.Player, data.SDataName), 0);
+
+                            if (dmg == 0f)
+                                dmg = (int) (hero.Player.Health / hero.Player.MaxHealth * 5);
+
                             dmg = dmg * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value / 100;
                             dmg = (float) Math.Round(dmg);
 
@@ -341,6 +345,10 @@ namespace Activator.Handlers
                                 }
 
                                 dmg += (int) Math.Max(attacker.GetSpellDamage(hero.Player, data.SDataName), 0);
+
+                                if (dmg == 0f)
+                                    dmg = (int) (hero.Player.Health / hero.Player.MaxHealth * 5);
+
                                 dmg = dmg * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value / 100;
                                 dmg = (float) Math.Round(dmg);
 
@@ -400,6 +408,10 @@ namespace Activator.Handlers
                             }
 
                             dmg  += (int) Math.Max(attacker.GetSpellDamage(hero.Player, args.SData.Name), 0);
+
+                            if (dmg == 0f)
+                                dmg = (int) (hero.Player.Health / hero.Player.MaxHealth * 5);
+
                             dmg = dmg * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value / 100;
                             dmg = (float) Math.Round(dmg);
 
