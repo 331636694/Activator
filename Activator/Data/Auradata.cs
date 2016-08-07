@@ -687,6 +687,7 @@ namespace Activator.Data
             {
                 Champion = "Swain",
                 Name = "swainqtraptarget",
+                MenuName = "Swain Decrepify",
                 Evade = false,
                 DoT = true,
                 EvadeTimer = 0,
