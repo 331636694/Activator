@@ -541,7 +541,7 @@ namespace Activator.Data
                 Cleanse = false,
                 CleanseTimer = 0,
                 Slot = SpellSlot.Q,
-                Interval = 3.8
+                Interval = 1.5
             });
 
             BuffList.Add(new Auradata
@@ -588,7 +588,7 @@ namespace Activator.Data
             BuffList.Add(new Auradata
             {
                 Champion = "Cassiopeia",
-                Name = "cassiopeianoxiousblastpoison",
+                Name = "cassiopeiaqdebuff",
                 MenuName = "Cassio Noxious Blast",
                 Evade = false,
                 Cleanse = false,
@@ -602,21 +602,7 @@ namespace Activator.Data
             BuffList.Add(new Auradata
             {
                 Champion = "Cassiopeia",
-                Name = "cassiopeiamiasmapoison",
-                MenuName = "Cassio Miasma",
-                Evade = false,
-                Cleanse = false,
-                DoT = true,
-                EvadeTimer = 0,
-                CleanseTimer = 0,
-                Slot = SpellSlot.Q,
-                Interval = 1.0
-            });
-
-            BuffList.Add(new Auradata
-            {
-                Champion = "Cassiopeia",
-                Name = "cassiopeiapetrifyinggazestun",
+                Name = "cassiopeiarstun",
                 MenuName = "Cassio Petrifying Gaze",
                 Evade = false,
                 DoT = false,
@@ -695,6 +681,33 @@ namespace Activator.Data
                 CleanseTimer = 0,
                 Slot = SpellSlot.E,
                 Interval = 0.6
+            });
+
+            BuffList.Add(new Auradata
+            {
+                Champion = "Swain",
+                Name = "swainqtraptarget",
+                Evade = false,
+                DoT = true,
+                EvadeTimer = 0,
+                Cleanse = false,
+                CleanseTimer = 0,
+                Slot = SpellSlot.Q,
+                Interval = 0.5
+            });
+
+            BuffList.Add(new Auradata
+            {
+                Champion = "Swain",
+                Name = "swaintorment",
+                MenuName = "Swain Torment",
+                Evade = false,
+                DoT = true,
+                EvadeTimer = 0,
+                Cleanse = false,
+                CleanseTimer = 0,
+                Slot = SpellSlot.Q,
+                Interval = 0.5
             });
 
             BuffList.Add(new Auradata

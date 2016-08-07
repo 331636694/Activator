@@ -147,7 +147,6 @@ namespace Activator.Handlers
                             if (args.Target.NetworkId == hero.Player.NetworkId)
                             {
                                 float dmg = 0;
-
                                 var adelay = Math.Max(100, sender.AttackCastDelay * 1000);
                                 var dist = 1000 * sender.Distance(args.Target.Position) / args.SData.MissileSpeed;
                                 var end = adelay + dist + Game.Ping;
@@ -170,6 +169,7 @@ namespace Activator.Handlers
                                     dmg += (int) Math.Max(attacker.GetAutoAttackDamage(hero.Player, true), 0);
 
                                 dmg = dmg * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value / 100;
+                                dmg = (float) Math.Round(dmg);
 
                                 Utility.DelayAction.Add((int) end / 2, () =>
                                 {
@@ -177,11 +177,11 @@ namespace Activator.Handlers
                                     hero.HitTypes.Add(HitType.AutoAttack);
                                     hero.IncomeDamage += dmg;
 
-                                    Utility.DelayAction.Add(Math.Max((int) end + (150 - Game.Ping), 250), () =>
+                                    Utility.DelayAction.Add(Math.Min((int) end + (100 - Game.Ping/2), 250 + Game.Ping), () =>
                                     {
                                         hero.Attacker = null;
-                                        hero.IncomeDamage -= dmg;
                                         hero.HitTypes.Remove(HitType.AutoAttack);
+                                        hero.IncomeDamage -= dmg;
                                     });
                                 });
                             }
@@ -204,6 +204,7 @@ namespace Activator.Handlers
                                 data.Radius = args.SData.CastRadiusSecondary != 0 
                                     ? args.SData.CastRadiusSecondary : args.SData.CastRadius;
 
+                            float dmg = 0;
                             GameObject fromobj = null;
                             if (data.FromObject != null)
                             {
@@ -222,20 +223,14 @@ namespace Activator.Handlers
                             if (data.SDataName == "kalistaexpungewrapper" && !hero.Player.HasBuff("kalistaexpungemarker"))
                                 continue;
 
-                            //var evadetime = 1000 * (data.Range - hero.Player.Distance(correctpos) +
-                            //                        hero.Player.BoundingRadius) / hero.Player.MoveSpeed;
-
                             if (!Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
-                                continue;
-
-                            var dmg = (int) Math.Max(attacker.GetSpellDamage(hero.Player, data.SDataName), 0);
-                            if (dmg == 0)
                             {
-                                dmg = (int) (hero.Player.Health / hero.Player.MaxHealth * 5);
-                                // Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName);
+                                continue;
                             }
-
+       
+                            dmg += (int) Math.Max(attacker.GetSpellDamage(hero.Player, data.SDataName), 0);
                             dmg = dmg * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value / 100;
+                            dmg = (float) Math.Round(dmg);
 
                             // delay the spell a bit before missile endtime
                             Utility.DelayAction.Add((int) (data.Delay / 2), () =>
@@ -249,8 +244,7 @@ namespace Activator.Handlers
                                             Activator.Origin.Item(data.SDataName + x.ToString().ToLower())
                                                 .GetValue<bool>()));
 
-                                // lazy safe reset
-                                Utility.DelayAction.Add((int) data.Delay * 2 + (200 - Game.Ping), () =>
+                                Utility.DelayAction.Add(250 + Game.Ping, () =>
                                 {
                                     hero.Attacker = null;
                                     hero.IncomeDamage -= dmg;
@@ -272,6 +266,7 @@ namespace Activator.Handlers
                         if (args.SData.TargettingType == SpellDataTargetType.Cone ||
                             args.SData.TargettingType.ToString().Contains("Location"))
                         {
+                            float dmg = 0;
                             GameObject fromobj = null;
                             if (data.FromObject != null)
                             {
@@ -341,16 +336,13 @@ namespace Activator.Handlers
                                 }
 
                                 if (!Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
-                                    continue;
-
-                                var dmg = (int) Math.Max(attacker.GetSpellDamage(hero.Player, data.SDataName), 0);
-                                if (dmg == 0)
                                 {
-                                    dmg = (int) (hero.Player.Health / hero.Player.MaxHealth * 5);
-                                    // Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName + ". Emulating damage!");
+                                    continue;
                                 }
 
+                                dmg += (int) Math.Max(attacker.GetSpellDamage(hero.Player, data.SDataName), 0);
                                 dmg = dmg * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value / 100;
+                                dmg = (float) Math.Round(dmg);
 
                                 Utility.DelayAction.Add((int) (endtime / 2), () =>
                                 {
@@ -363,7 +355,7 @@ namespace Activator.Handlers
                                                 Activator.Origin.Item(data.SDataName + x.ToString().ToLower())
                                                     .GetValue<bool>()));
 
-                                    Utility.DelayAction.Add((int) endtime * 3 + (200 - Game.Ping), () =>
+                                    Utility.DelayAction.Add(250 + Game.Ping, () =>
                                     {
                                         hero.Attacker = null;
                                         hero.IncomeDamage -= dmg;
@@ -385,6 +377,7 @@ namespace Activator.Handlers
                         if (args.SData.TargettingType == SpellDataTargetType.Unit ||
                             args.SData.TargettingType == SpellDataTargetType.SelfAndUnit)
                         {
+                            float dmg = 0;
                             if (args.Target == null || args.Target.Type != GameObjectType.obj_AI_Hero)
                                 continue;
 
@@ -402,16 +395,13 @@ namespace Activator.Handlers
                             var endtime = data.Delay - 100 + Game.Ping/2f + distance;
 
                             if (!Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
-                                continue;
-
-                            var dmg = (int) Math.Max(attacker.GetSpellDamage(hero.Player, args.SData.Name), 0);
-                            if (dmg == 0)
                             {
-                                dmg = (int) (hero.Player.Health / hero.Player.MaxHealth * 5);
-                                // Console.WriteLine("Activator# - There is no Damage Lib for: " + data.SDataName);
+                                continue;
                             }
 
+                            dmg  += (int) Math.Max(attacker.GetSpellDamage(hero.Player, args.SData.Name), 0);
                             dmg = dmg * Activator.Origin.Item("weightdmg").GetValue<Slider>().Value / 100;
+                            dmg = (float) Math.Round(dmg);
 
                             Utility.DelayAction.Add((int) (endtime / 2), () =>
                             {
@@ -424,8 +414,7 @@ namespace Activator.Handlers
                                             Activator.Origin.Item(data.SDataName + x.ToString().ToLower())
                                                 .GetValue<bool>()));
 
-                                // lazy reset
-                                Utility.DelayAction.Add((int) endtime * 2 + (200 - Game.Ping), () =>
+                                Utility.DelayAction.Add(250 + Game.Ping, () =>
                                 {
                                     hero.Attacker = null;
                                     hero.IncomeDamage -= dmg;
@@ -453,26 +442,30 @@ namespace Activator.Handlers
                 var turret = sender as Obj_AI_Turret;
                 if (turret != null && turret.IsValid<Obj_AI_Turret>())
                 {
+                    float dmg = 0f;
                     foreach (var hero in Activator.Allies())
                     {
                         if (args.Target.NetworkId == hero.Player.NetworkId && !hero.Immunity)
                         {
-                            var dmg = (int) Math.Max(turret.CalcDamage(hero.Player, Damage.DamageType.Physical,
+                            dmg += (int) Math.Max(turret.CalcDamage(hero.Player, Damage.DamageType.Physical,
                                 turret.BaseAttackDamage + turret.FlatPhysicalDamageMod), 0);
+
+                            dmg = (float) Math.Round(dmg);
 
                             if (turret.Distance(hero.Player.ServerPosition) <= 900)
                             {
                                 if (Player.Distance(hero.Player.ServerPosition) <= 1000)
                                 {
+                                    var dmgx = dmg;
                                     Utility.DelayAction.Add(450, () =>
                                     {
                                         hero.HitTypes.Add(HitType.TurretAttack);
-                                        hero.TowerDamage += dmg;
+                                        hero.TowerDamage += dmgx;
 
                                         Utility.DelayAction.Add(150, () =>
                                         {
                                             hero.Attacker = null;
-                                            hero.TowerDamage -= dmg;
+                                            hero.TowerDamage -= dmgx;
                                             hero.HitTypes.Remove(HitType.TurretAttack);
                                         });
                                     });
@@ -492,23 +485,28 @@ namespace Activator.Handlers
                 var minion = sender as Obj_AI_Minion;
                 if (minion != null && minion.IsValid<Obj_AI_Minion>())
                 {
+                    float dmg = 0f;
                     foreach (var hero in Activator.Allies())
                     {
                         if (hero.Player.NetworkId == args.Target.NetworkId && !hero.Immunity)
                         {
+                            dmg += (int) Math.Max(minion.CalcDamage(hero.Player, Damage.DamageType.Physical,
+                                minion.BaseAttackDamage + minion.FlatPhysicalDamageMod), 0);
+
+                            dmg = (float) Math.Round(dmg);
+
                             if (hero.Player.Distance(minion.ServerPosition) <= 750)
                             {
+                                var dmgx = dmg;
                                 if (Player.Distance(hero.Player.ServerPosition) <= 1000)
                                 {
                                     hero.HitTypes.Add(HitType.MinionAttack);
-                                    hero.MinionDamage =
-                                        (int) Math.Max(minion.CalcDamage(hero.Player, Damage.DamageType.Physical,
-                                            minion.BaseAttackDamage + minion.FlatPhysicalDamageMod), 0);
+                                    hero.MinionDamage += dmgx;
 
                                     Utility.DelayAction.Add(250, () =>
                                     {
                                         hero.HitTypes.Remove(HitType.MinionAttack);
-                                        hero.MinionDamage = 0;
+                                        hero.MinionDamage -= dmgx;
                                     });
                                 }
                             }
@@ -558,7 +556,7 @@ namespace Activator.Handlers
                                 hero.HitTypes.Add(HitType.Danger);
                                 hero.IncomeDamage += dmg;
 
-                                Utility.DelayAction.Add(300 + (100 * i), delegate
+                                Utility.DelayAction.Add(200 + (100 * i), delegate
                                 {
                                     hero.Attacker = null;
                                     hero.HitTypes.Remove(HitType.Danger);

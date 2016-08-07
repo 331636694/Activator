@@ -46,6 +46,14 @@ namespace Activator.Base
         Initiator
     }
 
+    public enum LogType
+    {
+        Info,
+        Warning,
+        Action,
+        Error
+    }
+
     public enum MapType
     {        
         Unknown = -1,

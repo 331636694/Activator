@@ -13,10 +13,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Security;
-using System.Security.Permissions;
-using LeagueSharp.Data.DataTypes;
-using LeagueSharp.Data.Enumerations;
 
 #region Namespaces © 2015
 using LeagueSharp;
@@ -143,7 +139,7 @@ namespace Activator
                 Buffs.StartOnUpdate();
 
                 // tracks gameobjects 
-                Handlers.Gametroys.StartOnUpdate();
+                Gametroys.StartOnUpdate();
 
                 // on bought item
                 Obj_AI_Base.OnPlaceItemInSlot += Obj_AI_Base_OnPlaceItemInSlot;
@@ -151,7 +147,7 @@ namespace Activator
                 // on level up
                 Obj_AI_Base.OnLevelUp += Obj_AI_Base_OnLevelUp;
 
-                Game.PrintChat("<b>Activator#</b> - Loaded!");
+                Game.PrintChat("<b><font color=\"#FF3366\">Activator#</font></b> - Loaded!");
                 Updater.UpdateCheck();
 
                 // init valid auto spells
@@ -338,7 +334,10 @@ namespace Activator
 
         private static void GetHeroesInGame()
         {
-            foreach (Obj_AI_Hero i in ObjectManager.Get<Obj_AI_Hero>())
+            foreach (Obj_AI_Hero i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team != Player.Team))
+                Heroes.Add(new Champion(i, 0));
+
+            foreach (Obj_AI_Hero i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team == Player.Team))
                 Heroes.Add(new Champion(i, 0));
         }
 
@@ -365,7 +364,6 @@ namespace Activator
                 {
                     TroysInGame = true;
                     Gametroy.Troys.Add(new Gametroy(i.ChampionName, item.Slot, item.Name, 0, false));
-                    Console.WriteLine("Activator# - SpellList: " + item.Name + " added!");
                 }
             }
         }
@@ -373,31 +371,18 @@ namespace Activator
         private static void GetSpellsInGame()
         {
             foreach (Obj_AI_Hero i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team != Player.Team))
-            {
                 foreach (Gamedata item in Gamedata.Spells.Where(x => x.ChampionName == i.ChampionName.ToLower()))
-                {
                     Gamedata.CachedSpells.Add(item);
-                    Console.WriteLine("Activator# - SpellList: " + item.SDataName + " added!");
-                }
-            }
         }
 
         private static void GetAurasInGame()
         {
             foreach (Obj_AI_Hero i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team != Player.Team))
-            {
                 foreach (Auradata aura in Auradata.BuffList.Where(x => x.Champion == i.ChampionName && x.Champion != null))
-                {
                     Auradata.CachedAuras.Add(aura);
-                    Console.WriteLine("Activator# - AuraList: " + aura.Name + " added!");
-                }
-            }
 
             foreach (Auradata generalaura in Auradata.BuffList.Where(x => string.IsNullOrEmpty(x.Champion)))
-            {
                 Auradata.CachedAuras.Add(generalaura);
-                Console.WriteLine("Activator# - AuraList: " + generalaura.Name + " added!");
-            }
         }
 
         public static IEnumerable<Champion> Allies()

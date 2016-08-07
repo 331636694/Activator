@@ -824,7 +824,25 @@ namespace Activator.Data
                         HitType.Danger, HitType.Ultimate,
                         HitType.CrowdControl, HitType.Initiator
                     },
-                MissileName = "cassiopeiapetrifyinggaze",
+                MissileName = "cassiopeiar",
+                MissileSpeed = int.MaxValue
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "cassiopeiarstun",
+                ChampionName = "cassiopeia",
+                Slot = SpellSlot.R,
+                FixedRange = true,
+                CastRange = 875f,
+                Delay = 350f,
+                HitTypes =
+                    new[]
+                    {
+                        HitType.Danger, HitType.Ultimate,
+                        HitType.CrowdControl, HitType.Initiator
+                    },
+                MissileName = "cassiopeiarstun",
                 MissileSpeed = int.MaxValue
             });
 
@@ -3558,17 +3576,6 @@ namespace Activator.Data
                 Delay = 0f,
                 HitTypes = new HitType[] { },
                 FromObject = new [] { "Base_W_Copy" },
-                MissileSpeed = int.MaxValue
-            });
-
-            Spells.Add(new Gamedata
-            {
-                SDataName = "monkeykingdecoyswipe",
-                ChampionName = "monkeyking",
-                Slot = SpellSlot.W,
-                CastRange = 325f,
-                Delay = 250f,
-                HitTypes = new HitType[] { },
                 MissileSpeed = int.MaxValue
             });
 
