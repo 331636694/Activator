@@ -447,7 +447,7 @@ namespace Activator.Handlers
                     {
                         if (args.Target.NetworkId == hero.Player.NetworkId && !hero.Immunity)
                         {
-                            dmg += (int) Math.Max(turret.CalcDamage(hero.Player, Damage.DamageType.Physical,
+                            dmg = (int) Math.Max(turret.CalcDamage(hero.Player, Damage.DamageType.Physical,
                                 turret.BaseAttackDamage + turret.FlatPhysicalDamageMod), 0);
 
                             dmg = (float) Math.Round(dmg);
@@ -456,16 +456,16 @@ namespace Activator.Handlers
                             {
                                 if (Player.Distance(hero.Player.ServerPosition) <= 1000)
                                 {
-                                    var dmgx = dmg;
+                                    var damage = dmg;
                                     Utility.DelayAction.Add(450, () =>
                                     {
                                         hero.HitTypes.Add(HitType.TurretAttack);
-                                        hero.TowerDamage += dmgx;
+                                        hero.TowerDamage += damage;
 
                                         Utility.DelayAction.Add(150, () =>
                                         {
                                             hero.Attacker = null;
-                                            hero.TowerDamage -= dmgx;
+                                            hero.TowerDamage -= damage;
                                             hero.HitTypes.Remove(HitType.TurretAttack);
                                         });
                                     });
@@ -490,23 +490,23 @@ namespace Activator.Handlers
                     {
                         if (hero.Player.NetworkId == args.Target.NetworkId && !hero.Immunity)
                         {
-                            dmg += (int) Math.Max(minion.CalcDamage(hero.Player, Damage.DamageType.Physical,
+                            dmg = (int) Math.Max(minion.CalcDamage(hero.Player, Damage.DamageType.Physical,
                                 minion.BaseAttackDamage + minion.FlatPhysicalDamageMod), 0);
 
                             dmg = (float) Math.Round(dmg);
 
                             if (hero.Player.Distance(minion.ServerPosition) <= 750)
                             {
-                                var dmgx = dmg;
+                                var damage = dmg;
                                 if (Player.Distance(hero.Player.ServerPosition) <= 1000)
                                 {
                                     hero.HitTypes.Add(HitType.MinionAttack);
-                                    hero.MinionDamage += dmgx;
+                                    hero.MinionDamage += damage;
 
                                     Utility.DelayAction.Add(250, () =>
                                     {
                                         hero.HitTypes.Remove(HitType.MinionAttack);
-                                        hero.MinionDamage -= dmgx;
+                                        hero.MinionDamage -= damage;
                                     });
                                 }
                             }
