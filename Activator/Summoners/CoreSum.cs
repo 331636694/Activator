@@ -165,9 +165,7 @@ namespace Activator.Summoners
                 if (Name == "summonerteleport")
                 {
                     Activator.UseAllyMenu = true;
-                    Menu.AddItem(new MenuItem("teledraw", "Draw Ally in Danger"))
-                        .SetValue(true)
-                        .SetTooltip("On the Minimap");
+                    Menu.AddItem(new MenuItem("teledraw", "Notify on Ally in Danger (Minimap)")).SetValue(true);
                 }
 
                 root.AddSubMenu(Menu);

@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Activator.Base;
-using Activator.Handlers;
 using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
@@ -235,8 +234,8 @@ namespace Activator.Items
                     var ssmenu = new Menu(Name + " Unique Buffs", Name.ToLower() + "xspe");
 
                     foreach (var b in Data.Auradata.BuffList
-                        .Where(x => x.MenuName != null && (x.Cleanse || x.DoT))
-                        .OrderByDescending(x => x.DoT)
+                        .Where(x => x.MenuName != null && (x.Cleanse && !x.DoT || x.Cleanse && x.DoT && Id == 3222))
+                        .OrderByDescending(x => x.Cleanse)
                         .ThenBy(x => x.Evade)
                         .ThenBy(x => x.MenuName))
                     {
@@ -265,8 +264,6 @@ namespace Activator.Items
                         ccmenu.AddItem(new MenuItem(Name + "cpoison", "Poisons")).SetValue(false);
 
                     Menu.AddSubMenu(ccmenu);
-
-                    if (Id == 3222)
                         Menu.AddSubMenu(ssmenu);
 
                     Menu.AddItem(new MenuItem("use" + Name + "number", "Minimum Buffs to Use"))
@@ -277,13 +274,12 @@ namespace Activator.Items
                         .SetValue(new Slider(500, 250, 2000))
                         .SetTooltip("Will not use unless the buff durration (stun, snare, etc) last at least this long (ms, 500 = 0.5 seconds)");
 
+                    Menu.AddItem(new MenuItem("use" + Name + "od", "Use for Unique Only"))
+                    .SetValue(false).SetTooltip("Use for Unique Only, Or Everything");
+
                     if (Id == 3222)
-                    {
-                        Menu.AddItem(new MenuItem("use" + Name + "od", "Use for Unique Only"))
-                       .SetValue(false).SetTooltip("Use for Unique Only, Or Everything");
                         Menu.AddItem(new MenuItem("use" + Name + "dot", "Use for DoTs only if HP% <"))
-                            .SetValue(new Slider(35)).SetTooltip("Will " + Name + " DoTs Spells if Below HP%");
-                    }
+                        .SetValue(new Slider(35)).SetTooltip("Will " + Name + " DoTs Spells if Below HP%");
 
                     Menu.AddItem(new MenuItem("use" + Name + "delay", "Activation Delay (in ms)")).SetValue(new Slider(0, 0, 500));
                 }

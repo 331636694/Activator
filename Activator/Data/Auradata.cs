@@ -56,7 +56,7 @@ namespace Activator.Data
                 Evade = false,
                 DoT = true,
                 EvadeTimer = 0,
-                Cleanse = false,
+                Cleanse = true,
                 CleanseTimer = 0,
                 Slot = SpellSlot.Unknown,
                 Interval = 1.0
@@ -93,7 +93,7 @@ namespace Activator.Data
                 Name = "itemdusknightfall",
                 MenuName = "Duskblade (Nightfall)",
                 Evade = false,
-                DoT = false,
+                DoT = true,
                 EvadeTimer = 0,
                 Cleanse = true,
                 CleanseTimer = 1650,

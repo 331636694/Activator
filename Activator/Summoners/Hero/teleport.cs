@@ -12,7 +12,6 @@ namespace Activator.Summoners
         internal override float Range => float.MaxValue;
         internal override int Duration => 3500;
 
-        private static int Limiter;
         static bool IsLethal(Champion hero)
         {
             return hero.Player.Health/hero.Player.MaxHealth * 100 <= 35 && hero.IncomeDamage > 0 ||
@@ -29,7 +28,7 @@ namespace Activator.Summoners
                     {
                         if (IsLethal(hero) && !hero.Player.IsMe)
                         {
-                            Utility.DrawCircle(hero.Player.Position, 850f, System.Drawing.Color.Red, 3, 30, true);
+                            Utility.DrawCircle(hero.Player.Position, 850f, System.Drawing.Color.Crimson, 3, 30, true);
                         }
                     }
                 }
