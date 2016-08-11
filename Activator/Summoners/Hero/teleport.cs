@@ -1,8 +1,6 @@
 ﻿using System;
 using Activator.Base;
-using LeagueSharp;
 using LeagueSharp.Common;
-using SharpDX;
 
 namespace Activator.Summoners
 {
@@ -14,64 +12,28 @@ namespace Activator.Summoners
         internal override float Range => float.MaxValue;
         internal override int Duration => 3500;
 
-        private static int _lastPing;
-        private static Random _rand => new Random();
-        private static Vector3 _lastPingLocation;
-
-        // ping credits to Honda :^)
-        private static void Ping(Vector3 pos, bool sound = false)
+        private static int Limiter;
+        static bool IsLethal(Champion hero)
         {
-            if (Utils.GameTimeTickCount - _lastPing < 5000)
-            {
-                return;
-            }
-
-            _lastPing = Utils.GameTimeTickCount;
-            _lastPingLocation = pos;
-
-            SimplePing(sound);
-            Utility.DelayAction.Add(109 + _rand.Next(90, 300), () => SimplePing(sound));
+            return hero.Player.Health/hero.Player.MaxHealth * 100 <= 35 && hero.IncomeDamage > 0 ||
+                   hero.HitTypes.Contains(HitType.Ultimate) && hero.IncomeDamage > 0;
         }
 
-        private static void SimplePing(bool sound = false)
-        {   
-            Game.ShowPing(PingCategory.Fallback, _lastPingLocation, sound);
-        }
-
-        public override void OnTick(EventArgs args)
+        public override void OnDraw(EventArgs args)
         {
-            if (!IsReady())
+            if (IsReady() && Menu.Item("teledraw").GetValue<bool>())
             {
-                return;
-            }
-
-            foreach (var hero in Activator.Allies())
-            {
-                if (!Parent.Item(Parent.Name + "useon" + hero.Player.NetworkId).GetValue<bool>())
-                    continue;
-
-                if (hero.Player.IsDead || !hero.Player.IsValid || hero.Player.IsZombie)
-                    continue;
-
-                if (hero.Player.Distance(Player.ServerPosition) > 3000 && hero.Player.Distance(Game.CursorPos) > 3000)
+                foreach (var hero in Activator.Allies())
                 {
-                    if (hero.HitTypes.Contains(HitType.Ultimate) && Menu.Item("teleulthp2").GetValue<bool>())
+                    if (hero.Player.IsValid && !hero.Player.IsZombie && !hero.Player.IsDead)
                     {
-                        if (hero.IncomeDamage > 0)
+                        if (IsLethal(hero) && !hero.Player.IsMe)
                         {
-                            Ping(hero.Player.ServerPosition, Menu.Item("telesound").GetValue<bool>());
-                        }
-                    }
-
-                    if (hero.Player.Health / hero.Player.MaxHealth * 100 <= 35 && Menu.Item("telelowhp2").GetValue<bool>())
-                    {
-                        if (hero.IncomeDamage > 0)
-                        {
-                            Ping(hero.Player.ServerPosition, Menu.Item("telesound").GetValue<bool>());
+                            Utility.DrawCircle(hero.Player.Position, 850f, System.Drawing.Color.Red, 3, 30, true);
                         }
                     }
                 }
-            }
+            }          
         }
     }
 }

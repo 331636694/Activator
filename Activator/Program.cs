@@ -13,10 +13,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-
-#region Namespaces © 2015
 using LeagueSharp;
 using LeagueSharp.Common;
+
+#region Namespaces © 2015
 using Activator.Base;
 using Activator.Data;
 using Activator.Handlers;
@@ -287,8 +287,16 @@ namespace Activator
                 if (summoner.Name.Contains("smite") && SmiteInGame)
                     Lists.Summoners.Add(summoner.CreateMenu(parent));
 
-                if (!summoner.Name.Contains("smite") && Player.GetSpellSlot(summoner.Name) != SpellSlot.Unknown)
-                    Lists.Summoners.Add(summoner.CreateMenu(parent));
+                if (!summoner.Name.Contains("smite"))
+                {
+                    if (Player.GetSpellSlot(summoner.Name) != SpellSlot.Unknown)
+                    {
+                        if (summoner.Name == "summonerteleport")
+                            Drawing.OnDraw += summoner.OnDraw;
+
+                        Lists.Summoners.Add(summoner.CreateMenu(parent));
+                    }
+                }
             }
 
             catch (Exception e)
