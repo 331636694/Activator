@@ -14,7 +14,7 @@ namespace Activator.Summoners
         public override void AttachMenu(Menu menu)
         {
             Activator.UseAllyMenu = true;
-            Menu.AddItem(new MenuItem("selflowmp" + Name + "pct", "Minimum Mana % <=")).SetValue(new Slider(40));
+            menu.AddItem(new MenuItem("selflowmp" + Name + "pct", "Minimum Mana % <=")).SetValue(new Slider(40));
         }
 
         public override void OnTick(EventArgs args)

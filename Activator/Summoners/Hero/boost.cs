@@ -29,16 +29,16 @@ namespace Activator.Summoners
             ccmenu.AddItem(new MenuItem(Name + "cblind", "Blinds")).SetValue(false);
             ccmenu.AddItem(new MenuItem(Name + "cslow", "Slows")).SetValue(false);
             ccmenu.AddItem(new MenuItem(Name + "cpoison", "Poisons")).SetValue(false);
-            Menu.AddSubMenu(ccmenu);
+            menu.AddSubMenu(ccmenu);
 
-            Menu.AddItem(new MenuItem("use" + Name + "number", "Min Buffs to Use")).SetValue(new Slider(1, 1, 5))
+            menu.AddItem(new MenuItem("use" + Name + "number", "Min Buffs to Use")).SetValue(new Slider(1, 1, 5))
                 .SetTooltip("Will Only " + DisplayName + " if Your Buff Count is >= Value");
-            Menu.AddItem(new MenuItem("use" + Name + "time", "Min Durration to Use"))
+            menu.AddItem(new MenuItem("use" + Name + "time", "Min Durration to Use"))
                 .SetValue(new Slider(250, 250, 2000))
                 .SetTooltip("Will not use unless the buff durration (stun, snare, etc) last at least this long (ms, 500 = 0.5 seconds)");
-            Menu.AddItem(new MenuItem("use" + Name + "od", "Use for Dangerous Only")).SetValue(false);
-            Menu.AddItem(new MenuItem("use" + Name + "delay", "Activation Delay (in ms)")).SetValue(new Slider(50, 0, 500));
-            Menu.AddItem(new MenuItem("mode" + Name, "Mode: ")).SetValue(new StringList(new[] { "Always", "Combo" }));
+            menu.AddItem(new MenuItem("use" + Name + "od", "Use for Dangerous Only")).SetValue(false);
+            menu.AddItem(new MenuItem("use" + Name + "delay", "Activation Delay (in ms)")).SetValue(new Slider(50, 0, 500));
+            menu.AddItem(new MenuItem("mode" + Name, "Mode: ")).SetValue(new StringList(new[] { "Always", "Combo" }));
         }
 
         public override void OnTick(EventArgs args)
