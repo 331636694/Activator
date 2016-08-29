@@ -208,7 +208,7 @@ namespace Activator.Base
                 else
                 {
                     if (hero.CleanseHighestBuffTime > 0)
-                        hero.CleanseHighestBuffTime -= hero.QSSHighestBuffTime;
+                        hero.CleanseHighestBuffTime -= hero.CleanseHighestBuffTime;
                     else
                         hero.CleanseHighestBuffTime = 0;
                 }

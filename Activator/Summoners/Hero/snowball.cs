@@ -19,6 +19,11 @@ namespace Activator.Summoners
             mark.SetSkillshot(0f, 60f, 1500f, true, SkillshotType.SkillshotLine);
         }
 
+        public override void AttachMenu(Menu menu)
+        {
+            Activator.UseEnemyMenu = true;
+        }
+
         public override void OnTick(EventArgs args)
         {
             if (!Menu.Item("use" + Name).GetValue<bool>() || !mark.IsReady())

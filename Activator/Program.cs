@@ -69,13 +69,13 @@ namespace Activator
                 Origin = new Menu("Activator", "activator", true);
 
                 Menu cmenu = new Menu("Cleansers", "cmenu");
-                CreateSubMenu(cmenu, false);
                 GetItemGroup("Items.Cleansers").ForEach(t => NewItem((CoreItem) NewInstance(t), cmenu));
+                CreateSubMenu(cmenu, false);
                 Origin.AddSubMenu(cmenu);
 
                 Menu dmenu = new Menu("Defensives", "dmenu");
-                CreateSubMenu(dmenu, false);
                 GetItemGroup("Items.Defensives").ForEach(t => NewItem((CoreItem) NewInstance(t), dmenu));
+                CreateSubMenu(dmenu, false);
                 Origin.AddSubMenu(dmenu);
 
                 Menu smenu = new Menu("Summoners", "smenu");
@@ -84,8 +84,8 @@ namespace Activator
                 Origin.AddSubMenu(smenu);
 
                 Menu omenu = new Menu("Offensives", "omenu");
-                CreateSubMenu(omenu, true);
                 GetItemGroup("Items.Offensives").ForEach(t => NewItem((CoreItem) NewInstance(t), omenu));
+                CreateSubMenu(omenu, true);
                 Origin.AddSubMenu(omenu);
 
                 Menu imenu = new Menu("Consumables", "imenu");
@@ -93,12 +93,12 @@ namespace Activator
                 Origin.AddSubMenu(imenu);
 
                 Menu amenu = new Menu("Auto Spells", "amenu");
-                CreateSubMenu(amenu, false);
                 GetItemGroup("Spells.Evaders").ForEach(t => NewSpell((CoreSpell) NewInstance(t), amenu));
                 GetItemGroup("Spells.Shields").ForEach(t => NewSpell((CoreSpell) NewInstance(t), amenu));
                 GetItemGroup("Spells.Health").ForEach(t => NewSpell((CoreSpell) NewInstance(t), amenu));
                 GetItemGroup("Spells.Slows").ForEach(t => NewSpell((CoreSpell) NewInstance(t), amenu));
                 GetItemGroup("Spells.Heals").ForEach(t => NewSpell((CoreSpell) NewInstance(t), amenu));
+                CreateSubMenu(amenu, false);
                 Origin.AddSubMenu(amenu);
 
                 Menu zmenu = new Menu("Misc/Settings", "settings");
@@ -178,7 +178,7 @@ namespace Activator
                             AntiGapcloser.OnEnemyGapcloser += item.OnEnemyGapcloser;
 
                         Lists.BoughtItems.Add(item);
-                        Game.PrintChat("<b>Activator#</b> - <font color=\"#FFF280\">" + item.Name + "</font> active!");
+                        Game.PrintChat("<b><font color=\"#FF3366\">Activator#</font></b> - <font color=\"#FFF280\">" + item.Name + "</font> active!");
                     }
                 }
             }
@@ -241,7 +241,7 @@ namespace Activator
                             AntiGapcloser.OnEnemyGapcloser += item.OnEnemyGapcloser;
 
                         Lists.BoughtItems.Add(item);
-                        Game.PrintChat("<b>Activator#</b> - <font color=\"#FFF280\">" + item.Name + "</font> active!");
+                        Game.PrintChat("<b><font color=\"#FF3366\">Activator#</font></b> - <font color=\"#FFF280\">" + item.Name + "</font> active!");
                     }
                 }
             }
@@ -413,7 +413,7 @@ namespace Activator
 
         private static void CreateSubMenu(Menu parent, bool enemy, bool both = false)
         {
-            Menu menu = new Menu("Config", parent.Name + "sub");
+            Menu menu = new Menu("-> Config", parent.Name + "sub");
 
             MenuItem ireset = new MenuItem(parent.Name + "clear", "Deselect [All]");
             menu.AddItem(ireset).SetValue(false);

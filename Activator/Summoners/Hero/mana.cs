@@ -11,6 +11,12 @@ namespace Activator.Summoners
         internal override float Range => 600f;
         internal override int Duration => 1000;
 
+        public override void AttachMenu(Menu menu)
+        {
+            Activator.UseAllyMenu = true;
+            Menu.AddItem(new MenuItem("selflowmp" + Name + "pct", "Minimum Mana % <=")).SetValue(new Slider(40));
+        }
+
         public override void OnTick(EventArgs args)
         {
             if (!Menu.Item("use" + Name).GetValue<bool>() || !IsReady())

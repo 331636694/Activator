@@ -12,6 +12,18 @@ namespace Activator.Summoners
         internal override float Range => float.MaxValue;
         internal override int Duration => 1500;
 
+        public override void AttachMenu(Menu menu)
+        {
+            Activator.UseAllyMenu = true;
+            Menu.AddItem(new MenuItem("selflowhp" + Name + "pct", "Use on Hero HP % <=")).SetValue(new Slider(20));
+            Menu.AddItem(new MenuItem("selfmuchhp" + Name + "pct", "Use on Hero Dmg Dealt % >=")).SetValue(new Slider(45));
+            Menu.AddItem(new MenuItem("use" + Name + "ulti", "Use on Dangerous (Ultimates Only)")).SetValue(true);
+            Menu.AddItem(new MenuItem("f" + Name, "-> Force Barrier"))
+                .SetValue(false).SetTooltip("Will force barrier ultimates ignoring HP% & income damage");
+            Menu.AddItem(new MenuItem("use" + Name + "tower", "Include Tower Damage")).SetValue(true);
+            Menu.AddItem(new MenuItem("mode" + Name, "Mode: ")).SetValue(new StringList(new[] { "Always", "Combo" }, 1));
+        }
+
         public override void OnTick(EventArgs args)
         {
             if (!Menu.Item("use" + Name).GetValue<bool>() || !IsReady())

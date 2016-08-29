@@ -259,9 +259,7 @@ namespace Activator.Items
                     ccmenu.AddItem(new MenuItem(Name + "csilence", "Silences")).SetValue(false);
                     ccmenu.AddItem(new MenuItem(Name + "cblind", "Blinds")).SetValue(false);
                     ccmenu.AddItem(new MenuItem(Name + "cslow", "Slows")).SetValue(false);
-
-                    if (Id == 3222)
-                        ccmenu.AddItem(new MenuItem(Name + "cpoison", "Poisons")).SetValue(false);
+                    ccmenu.AddItem(new MenuItem(Name + "cpoison", "Poisons")).SetValue(false);
 
                     Menu.AddSubMenu(ccmenu);
                         Menu.AddSubMenu(ssmenu);
@@ -271,7 +269,7 @@ namespace Activator.Items
                         .SetTooltip("Will Only " + Name + " if Your Buff Count is >= " +
                                     Menu.Item("use" + Name + "number").GetValue<Slider>().Value);
                     Menu.AddItem(new MenuItem("use" + Name + "time", "Minimum Durration to Use"))
-                        .SetValue(new Slider(500, 250, 2000))
+                        .SetValue(new Slider(250, 250, 2000))
                         .SetTooltip("Will not use unless the buff durration (stun, snare, etc) last at least this long (ms, 500 = 0.5 seconds)");
 
                     Menu.AddItem(new MenuItem("use" + Name + "od", "Use for Unique Only"))
@@ -281,7 +279,7 @@ namespace Activator.Items
                         Menu.AddItem(new MenuItem("use" + Name + "dot", "Use for DoTs only if HP% <"))
                         .SetValue(new Slider(35)).SetTooltip("Will " + Name + " DoTs Spells if Below HP%");
 
-                    Menu.AddItem(new MenuItem("use" + Name + "delay", "Activation Delay (in ms)")).SetValue(new Slider(0, 0, 500));
+                    Menu.AddItem(new MenuItem("use" + Name + "delay", "Activation Delay (in ms)")).SetValue(new Slider(50, 0, 500));
                 }
 
                 if (Category.Any(t => t == MenuType.ActiveCheck))

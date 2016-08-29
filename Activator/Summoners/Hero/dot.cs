@@ -19,6 +19,35 @@ namespace Activator.Summoners
         internal Spell E => new Spell(SpellSlot.E);
         internal Spell R => new Spell(SpellSlot.R);
 
+        public override void AttachMenu(Menu menu)
+        {
+            Activator.UseEnemyMenu = true;
+            Menu.AddItem(new MenuItem("idmgcheck", "Combo Damage Check %", true)).SetValue(95)
+                .SetValue(new Slider(100, 1, 200)).SetTooltip("Lower if Igniting to early. Increase if opposite.");
+
+            switch (Player.ChampionName)
+            {
+                case "Ahri":
+                    Menu.AddItem(new MenuItem("ii" + Player.ChampionName, Player.ChampionName + ": Check Charm"))
+                        .SetValue(false).SetTooltip("Only ignite if target is charmed?");
+                    break;
+                case "Cassiopeia":
+                    Menu.AddItem(new MenuItem("ii" + Player.ChampionName, Player.ChampionName + ": Check Poison"))
+                        .SetValue(false).SetTooltip("Only ignite if target is poisoned?");
+                    break;
+                case "Diana":
+                    Menu.AddItem(new MenuItem("ii" + Player.ChampionName, Player.ChampionName + ": Check Moonlight?"))
+                        .SetValue(false).SetTooltip("Only ignite if target has moonlight debuff?");
+                    break;
+            }
+
+            Menu.AddItem(new MenuItem("itu", "Dont Ignite Near Turret")).SetValue(true);
+            Menu.AddItem(new MenuItem("igtu", "-> Ignore after Level")).SetValue(new Slider(11, 1, 18));
+            Menu.AddItem(new MenuItem("idraw", "Draw Combo Damage %")).SetValue(true);
+            Menu.AddItem(new MenuItem("mode" + Name, "Mode: "))
+                .SetValue(new StringList(new[] { "Killsteal", "Combo" }, 0));
+        }
+
         public override void OnTick(EventArgs args)
         {
             if (!Menu.Item("use" + Name).GetValue<bool>() || !IsReady())
