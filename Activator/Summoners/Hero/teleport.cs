@@ -29,7 +29,7 @@ namespace Activator.Summoners
                 .ValueChanged += (sender, e) =>
                 {
                     if (e.GetNewValue<KeyBind>().Active == e.GetOldValue<KeyBind>().Active) return;
-                    if (!e.GetNewValue<KeyBind>().Active) Camera.Position = Player.Position;
+                    if (e.GetNewValue<KeyBind>().Active == false) Camera.Position = Player.Position;
                 };
             menu.AddItem(new MenuItem("teleqq2", "Show Only Recent Event"))
                 .SetTooltip("Move camera to the most recent event")
