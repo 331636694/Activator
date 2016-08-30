@@ -46,34 +46,37 @@ namespace Activator.Summoners
         internal static int Limiter;
         internal static void L33TSmite(Obj_AI_Base unit, float smitedmg)
         {
-            foreach (var hero in Smitedata.SpellList.Where(x => x.Name == Activator.Player.ChampionName))
-            {
-                if (Activator.Player.GetSpellDamage(unit, hero.Slot, hero.Stage) + smitedmg >= unit.Health)
+
+            Obj_AI_Hero player = Activator.Player;
+            foreach (var spell in Smitedata.CachedSpellList)
+            { 
+                if (player.GetSpellDamage(unit, spell.Slot, spell.Stage) + smitedmg >= unit.Health)
                 {
-                    if (unit.Distance(Activator.Player.ServerPosition) <= hero.CastRange + 
-                        unit.BoundingRadius + Activator.Player.BoundingRadius)
+                    if (unit.Distance(player.ServerPosition) <= spell.CastRange +
+                        unit.BoundingRadius + player.BoundingRadius)
                     {
-                        if (hero.HeroReqs(unit))
+                        if (spell.HeroReqs(unit))
                         {
-                            switch (hero.Type)
+                            switch (spell.Type)
                             {
                                 case SpellDataTargetType.Location:
-                                    Activator.Player.Spellbook.CastSpell(hero.Slot, unit.ServerPosition);
+                                    player.Spellbook.CastSpell(spell.Slot, unit.ServerPosition);
                                     break;
                                 case SpellDataTargetType.Unit:
-                                    Activator.Player.Spellbook.CastSpell(hero.Slot, unit);
+                                    player.Spellbook.CastSpell(spell.Slot, unit);
                                     break;
                                 case SpellDataTargetType.Self:
-                                    Activator.Player.Spellbook.CastSpell(hero.Slot);
+                                    Game.PrintChat("OK");
+                                    player.Spellbook.CastSpell(spell.Slot);
                                     break;
                                 case SpellDataTargetType.SelfAndUnit:
-                                    Activator.Player.Spellbook.CastSpell(hero.Slot);
+                                    player.Spellbook.CastSpell(spell.Slot);
 
                                     if (Utils.GameTimeTickCount - Limiter >= 200 && Orbwalking.InAutoAttackRange(unit))
                                     {
                                         Utility.DelayAction.Add(Game.Ping, () =>
                                         {
-                                            Activator.Player.IssueOrder(GameObjectOrder.AttackUnit, unit);
+                                            player.IssueOrder(GameObjectOrder.AttackUnit, unit);
                                             Limiter = Utils.GameTimeTickCount;
                                         });
                                     }

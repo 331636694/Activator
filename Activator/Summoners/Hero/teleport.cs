@@ -23,6 +23,9 @@ namespace Activator.Summoners
         public override void AttachMenu(Menu menu)
         {
             menu.AddItem(new MenuItem("teleblank", "Disclaimer: Camera Position are Beta! :^)"));
+            menu.AddItem(new MenuItem("teleqq2", "Show Recent Event"))
+                .SetTooltip("Move camera to the most recent event")
+                .SetValue(new KeyBind('Z', KeyBindType.Press));
             menu.AddItem(new MenuItem("teleqq", "Show Recent Event (Lock to Me)"))
                 .SetTooltip("Move camera between you and the most recent event")
                 .SetValue(new KeyBind(192, KeyBindType.Press))
@@ -31,9 +34,6 @@ namespace Activator.Summoners
                     if (e.GetNewValue<KeyBind>().Active == e.GetOldValue<KeyBind>().Active) return;
                     if (e.GetNewValue<KeyBind>().Active == false) Camera.Position = Player.Position;
                 };
-            menu.AddItem(new MenuItem("teleqq2", "Show Only Recent Event"))
-                .SetTooltip("Move camera to the most recent event")
-                .SetValue(new KeyBind('Z', KeyBindType.Press));
             menu.AddItem(new MenuItem("teledraw", "Outline Ally in Danger (Minimap)")).SetValue(true);
 
             Utility.DelayAction.Add(2000,

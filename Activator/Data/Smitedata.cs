@@ -23,20 +23,22 @@ namespace Activator.Data
         public SpellDataTargetType Type;
 
         public static List<Smitedata> SpellList = new List<Smitedata>();
+        public static List<Smitedata> CachedSpellList = new List<Smitedata>();
+        private static Obj_AI_Hero Player => Activator.Player;
 
         public bool HeroReqs(Obj_AI_Base unit)
         {
             if (unit == null)
                 return false;
 
-            switch (Activator.Player.ChampionName)
+            switch (Player.ChampionName)
             {
                 case "Twitch":
                     if (!unit.HasBuff("twitchdeadlyvenom"))
                         return false;
                     break;
                 case "LeeSin":
-                    if (!unit.HasBuff("blindmonkqonechaos"))
+                    if (!unit.HasBuff("blindmonkqone"))
                         return false;
                     break;
                 case "Diana":
@@ -44,11 +46,11 @@ namespace Activator.Data
                         return false;
                     break;
                 case "Elise":
-                    if (Activator.Player.CharData.BaseSkinName != "elisespider")
+                    if (Player.CharData.BaseSkinName != "elisespider")
                         return false;
                     break;
                 case "Nidalee":
-                    if (Activator.Player.CharData.BaseSkinName == "Nidalee")
+                    if (Player.CharData.BaseSkinName == "Nidalee")
                         return false;
                     break;
             }

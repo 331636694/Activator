@@ -310,7 +310,7 @@ namespace Activator
         {
             try
             {
-                Type[] allowedTypes = new[] {typeof (CoreItem), typeof (CoreSpell), typeof (CoreSum)};
+                Type[] allowedTypes = { typeof (CoreItem), typeof (CoreSpell), typeof (CoreSum) };
 
                 return
                     Assembly.GetExecutingAssembly()
@@ -381,6 +381,9 @@ namespace Activator
             foreach (Obj_AI_Hero i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team != Player.Team))
                 foreach (Gamedata item in Gamedata.Spells.Where(x => x.ChampionName == i.ChampionName.ToLower()))
                     Gamedata.CachedSpells.Add(item);
+
+            foreach (var i in Smitedata.SpellList.Where(x => x.Name == Player.ChampionName))
+                Smitedata.CachedSpellList.Add(i);
         }
 
         private static void GetAurasInGame()

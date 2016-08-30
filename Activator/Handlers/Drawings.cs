@@ -105,12 +105,10 @@ namespace Activator.Handlers
                         return;
                     }
 
-                    var smitespell = Data.Smitedata.SpellList
-                        .FirstOrDefault(s => s.Name == Activator.Player.ChampionName);
+                    var spell = Data.Smitedata.CachedSpellList.FirstOrDefault();
+                    var minionlist = MinionManager.GetMinions(Activator.Player.Position, 1200f, MinionTypes.All, MinionTeam.Neutral);
 
-                    foreach (var minion in
-                        MinionManager.GetMinions(Activator.Player.Position, 1200f, MinionTypes.All, MinionTeam.Neutral)
-                            .Where(th => Helpers.IsEpicMinion(th) || Helpers.IsLargeMinion(th)))
+                    foreach (var minion in minionlist.Where(th => Helpers.IsEpicMinion(th) || Helpers.IsLargeMinion(th)))
                     {
                         var yoffset = Offsets[minion.Name].Y;
                         var xoffset = Offsets[minion.Name].X;
@@ -124,8 +122,8 @@ namespace Activator.Handlers
 
                         var barPos = minion.HPBarPosition;
 
-                        var sdamage = smitespell != null && Activator.Player.GetSpell(smitespell.Slot).State == SpellState.Ready
-                            ? Activator.Player.GetSpellDamage(minion, smitespell.Slot, smitespell.Stage)
+                        var sdamage = spell != null && Activator.Player.GetSpell(spell.Slot).State == SpellState.Ready
+                            ? Activator.Player.GetSpellDamage(minion, spell.Slot, spell.Stage)
                             : 0;
 
                         var smite = Activator.Player.GetSpell(Activator.Smite).State == SpellState.Ready
