@@ -158,7 +158,8 @@ namespace Activator
                 // init valid summoners
                 foreach (CoreSum summoner in Lists.Summoners)
                     if (summoner.Slot != SpellSlot.Unknown ||
-                        summoner.ExtraNames.Any(x => Player.GetSpellSlot(x) != SpellSlot.Unknown))
+                        summoner.ExtraNames.Any(x => Player.GetSpellSlot(x) != SpellSlot.Unknown) ||
+                        summoner.Name == "summonerteleport")
                         Game.OnUpdate += summoner.OnTick;
 
                 // find items (if F5)
