@@ -11,6 +11,7 @@ namespace Activator.Summoners
     {
         internal override string Name => "summonersmite";
         internal override string DisplayName => "Smite";
+        internal override string[] ExtraNames => new[] { "" };
         internal override float Range => 500f;
         internal override int Duration => 0;
 

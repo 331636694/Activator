@@ -8,6 +8,7 @@ namespace Activator.Summoners
     {
         internal override string Name => "summonerporothrow";
         internal override string DisplayName => "Poro Toss";
+        internal override string[] ExtraNames => new[] { "" };
         internal override float Range => 1500f;
         internal override int Duration => 100;
 

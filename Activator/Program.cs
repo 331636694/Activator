@@ -296,6 +296,9 @@ namespace Activator
 
                         Lists.Summoners.Add(summoner.CreateMenu(parent));
                     }
+
+                    else if (summoner.Name == "summonerteleport")
+                        Lists.Summoners.Add(summoner.CreateMenu(parent));
                 }
             }
 
