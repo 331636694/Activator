@@ -11,9 +11,13 @@ namespace Activator.Summoners
     {
         internal override string Name => "summonersmite";
         internal override string DisplayName => "Smite";
-        internal override string[] ExtraNames => new[] { "" };
         internal override float Range => 500f;
         internal override int Duration => 0;
+        internal override string[] ExtraNames => new[]
+        {
+            "s5_summonersmiteplayerganker", "s5_summonersmiteduel",
+            "s5_summonersmitequick", "itemsmiteaoe"
+        };
 
         public override void AttachMenu(Menu menu)
         {
