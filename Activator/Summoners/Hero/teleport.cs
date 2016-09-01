@@ -10,7 +10,6 @@ namespace Activator.Summoners
     {
         internal override string Name => "summonerteleport";
         internal override string DisplayName => "Teleport";
-        internal override string[] ExtraNames => new[] { "" };
         internal override float Range => float.MaxValue;
         internal override int Duration => 3500;
 
@@ -35,9 +34,6 @@ namespace Activator.Summoners
                     if (e.GetNewValue<KeyBind>().Active == false) Camera.Position = Player.Position;
                 };
             menu.AddItem(new MenuItem("teledraw", "Outline Ally in Danger (Minimap)")).SetValue(true);
-
-            Utility.DelayAction.Add(2000,
-                () => Game.PrintChat("<b><font color=\"#FF3366\">Activator#</font></b> - New Teleport Camera API :^)"));
         }
 
         public override void OnTick(EventArgs args)
