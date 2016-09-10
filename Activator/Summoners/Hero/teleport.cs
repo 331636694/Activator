@@ -41,15 +41,14 @@ namespace Activator.Summoners
         {
             if (Menu.Item("teleqq").GetValue<KeyBind>().Active || Menu.Item("teleqq2").GetValue<KeyBind>().Active)
             {
-                var priority =
-                    Activator.Allies().Where(h => !h.Player.IsMe)
+                var p = Activator.Allies().Where(h => !h.Player.IsMe && h.Player.Distance(Player) > 1800f)
                         .OrderByDescending(h => h.IncomeDamage)
                         .ThenByDescending(h => h.Player.CountEnemiesInRange(1450))
-                        .ThenBy(h => h.Player.Health/h.Player.MaxHealth*100);
+                        .ThenBy(h => h.Player.Health/h.Player.MaxHealth*100).FirstOrDefault();
 
-                if (priority.FirstOrDefault() != null)
+                if (p != null)
                 {
-                    Camera.Position = priority.First().Player.Position;
+                    Camera.Position = p.Player.Position;
                 }
             }
         }

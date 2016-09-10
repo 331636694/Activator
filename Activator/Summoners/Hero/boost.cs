@@ -37,7 +37,7 @@ namespace Activator.Summoners
                 .SetValue(new Slider(250, 250, 2000))
                 .SetTooltip("Will not use unless the buff durration (stun, snare, etc) last at least this long (ms, 500 = 0.5 seconds)");
             menu.AddItem(new MenuItem("use" + Name + "od", "Use for Dangerous Only")).SetValue(false);
-            menu.AddItem(new MenuItem("use" + Name + "delay", "Activation Delay (in ms)")).SetValue(new Slider(50, 0, 500));
+            menu.AddItem(new MenuItem("use" + Name + "delay", "Activation Delay (in ms)")).SetValue(new Slider(100, 0, 1000));
             menu.AddItem(new MenuItem("mode" + Name, "Mode: ")).SetValue(new StringList(new[] { "Always", "Combo" }));
         }
 
@@ -58,7 +58,7 @@ namespace Activator.Summoners
                     if (hero.CleanseBuffCount >= Menu.Item("use" + Name + "number").GetValue<Slider>().Value &&
                         hero.CleanseHighestBuffTime >= Menu.Item("use" + Name + "time").GetValue<Slider>().Value)
                     {
-                        Utility.DelayAction.Add(Game.Ping + Menu.Item("use" + Name + "delay").GetValue<Slider>().Value, delegate
+                        Utility.DelayAction.Add(Menu.Item("use" + Name + "delay").GetValue<Slider>().Value, delegate
                         {
                             UseSpell(Menu.Item("mode" + Name).GetValue<StringList>().SelectedIndex == 1);
                             hero.CleanseBuffCount = 0;

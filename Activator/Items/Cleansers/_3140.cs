@@ -35,7 +35,7 @@ namespace Activator.Items.Cleansers
                     if (hero.QSSBuffCount >= Menu.Item("use" + Name + "number").GetValue<Slider>().Value &&
                         hero.QSSHighestBuffTime >= Menu.Item("use" + Name + "time").GetValue<Slider>().Value)
                     {
-                        Utility.DelayAction.Add(Game.Ping + Menu.Item("use" + Name + "delay").GetValue<Slider>().Value, delegate
+                        Utility.DelayAction.Add(Menu.Item("use" + Name + "delay").GetValue<Slider>().Value, () =>
                         {
                             UseItem(Menu.Item("mode" + Name).GetValue<StringList>().SelectedIndex == 1);
                             hero.QSSBuffCount = 0;

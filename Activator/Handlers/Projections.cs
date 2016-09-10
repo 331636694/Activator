@@ -454,12 +454,11 @@ namespace Activator.Handlers
                 var turret = sender as Obj_AI_Turret;
                 if (turret != null && turret.IsValid<Obj_AI_Turret>())
                 {
-                    float dmg = 0f;
                     foreach (var hero in Activator.Allies())
                     {
                         if (args.Target.NetworkId == hero.Player.NetworkId && !hero.Immunity)
                         {
-                            dmg = (int) Math.Max(turret.CalcDamage(hero.Player, Damage.DamageType.Physical,
+                            float dmg = (int) Math.Max(turret.CalcDamage(hero.Player, Damage.DamageType.Physical,
                                 turret.BaseAttackDamage + turret.FlatPhysicalDamageMod), 0);
 
                             dmg = (float) Math.Round(dmg);
@@ -472,12 +471,12 @@ namespace Activator.Handlers
                                     Utility.DelayAction.Add(450, () =>
                                     {
                                         hero.HitTypes.Add(HitType.TurretAttack);
-                                        hero.TowerDamage += damage;
+                                        hero.TowerDamage = damage;
 
                                         Utility.DelayAction.Add(150, () =>
                                         {
                                             hero.Attacker = null;
-                                            hero.TowerDamage -= damage;
+                                            hero.TowerDamage = 0;
                                             hero.HitTypes.Remove(HitType.TurretAttack);
                                         });
                                     });
@@ -497,12 +496,11 @@ namespace Activator.Handlers
                 var minion = sender as Obj_AI_Minion;
                 if (minion != null && minion.IsValid<Obj_AI_Minion>())
                 {
-                    float dmg = 0f;
                     foreach (var hero in Activator.Allies())
                     {
                         if (hero.Player.NetworkId == args.Target.NetworkId && !hero.Immunity)
                         {
-                            dmg = (int) Math.Max(minion.CalcDamage(hero.Player, Damage.DamageType.Physical,
+                            float dmg = (int) Math.Max(minion.CalcDamage(hero.Player, Damage.DamageType.Physical,
                                 minion.BaseAttackDamage + minion.FlatPhysicalDamageMod), 0);
 
                             dmg = (float) Math.Round(dmg);
@@ -513,12 +511,12 @@ namespace Activator.Handlers
                                 if (Player.Distance(hero.Player.ServerPosition) <= 1000)
                                 {
                                     hero.HitTypes.Add(HitType.MinionAttack);
-                                    hero.MinionDamage += damage;
+                                    hero.MinionDamage = damage;
 
                                     Utility.DelayAction.Add(250, () =>
                                     {
                                         hero.HitTypes.Remove(HitType.MinionAttack);
-                                        hero.MinionDamage -= damage;
+                                        hero.MinionDamage = 0;
                                     });
                                 }
                             }

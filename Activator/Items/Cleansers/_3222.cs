@@ -45,12 +45,12 @@ namespace Activator.Items.Cleansers
                 {
                     if (!Menu.Item("use" + Name + "od").GetValue<bool>())
                     {
-                        Utility.DelayAction.Add(Game.Ping + Menu.Item("use" + Name + "delay").GetValue<Slider>().Value, delegate
-                            {
-                                UseItem(hero.Player, Menu.Item("mode" + Name).GetValue<StringList>().SelectedIndex == 1);
-                                hero.MikaelsBuffCount = 0;
-                                hero.MikaelsHighestBuffTime = 0;
-                            });
+                        Utility.DelayAction.Add(Menu.Item("use" + Name + "delay").GetValue<Slider>().Value, () =>
+                        {
+                            UseItem(hero.Player, Menu.Item("mode" + Name).GetValue<StringList>().SelectedIndex == 1);
+                            hero.MikaelsBuffCount = 0;
+                            hero.MikaelsHighestBuffTime = 0;
+                        });
                     }
                 }
 

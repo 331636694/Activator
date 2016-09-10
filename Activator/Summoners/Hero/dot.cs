@@ -105,7 +105,7 @@ namespace Activator.Summoners
                         case "Cassiopeia":
                             if (!tar.Player.HasBuffOfType(BuffType.Poison) &&
                                 Menu.Item("ii" + Player.ChampionName).GetValue<bool>() &&
-                                (Q.IsReady() || W.IsReady()))
+                                (Q.IsReady()))
                                 continue;
 
                             var dmg = Math.Min(6, Player.Mana / E.ManaCost) * E.GetDamage(tar.Player);

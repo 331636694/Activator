@@ -279,11 +279,11 @@ namespace Activator.Items
                         Menu.AddItem(new MenuItem("use" + Name + "dot", "Use for DoTs only if HP% <"))
                         .SetValue(new Slider(35)).SetTooltip("Will " + Name + " DoTs Spells if Below HP%");
 
-                    Menu.AddItem(new MenuItem("use" + Name + "delay", "Activation Delay (in ms)")).SetValue(new Slider(50, 0, 500));
+                    Menu.AddItem(new MenuItem("use" + Name + "delay", "Activation Delay (in ms)")).SetValue(new Slider(100, 0, 1000));
                 }
 
                 if (Category.Any(t => t == MenuType.ActiveCheck))
-                    Menu.AddItem(new MenuItem("mode" + Name, Name + " Mode: "))
+                    Menu.AddItem(new MenuItem("mode" + Name, "Mode: "))
                         .SetValue(new StringList(new[] { "Always", "Combo" }));
 
                 root.AddSubMenu(Menu);
