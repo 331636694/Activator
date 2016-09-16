@@ -8,11 +8,11 @@
 // Author:		Robin Kurisu
 #endregion
 
-using System.Collections.Generic;
 using System.Linq;
-using Activator.Base;
+using System.Collections.Generic;
 using LeagueSharp;
 using LeagueSharp.Common;
+using Activator.Base;
 
 namespace Activator.Data
 {
@@ -58,7 +58,7 @@ namespace Activator.Data
             });
 
             Spells.Add(new Gamedata
-            {
+            {   
                 SDataName = "aatroxw2",
                 ChampionName = "aatrox",
                 Slot = SpellSlot.W,

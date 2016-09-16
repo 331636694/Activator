@@ -65,6 +65,7 @@ namespace Activator
                 GetAurasInGame();
                 GetHeroesInGame();
                 GetComboDamage();
+                Helpers.CreateLogPath();
 
                 Origin = new Menu("Activator", "activator", true);
 
@@ -112,7 +113,12 @@ namespace Activator
                     zmenu.AddSubMenu(ddmenu);
                 }
 
-                zmenu.AddItem(new MenuItem("acdebug", "Debug")).SetValue(false);
+                var bbmenu = new Menu("Debug Tools", "bbmenu");
+                bbmenu.AddItem(new MenuItem("acdebug", "Debug Income Damage")).SetValue(false);
+                bbmenu.AddItem(new MenuItem("acdebug2", "Debug Item Priority")).SetValue(false);
+                bbmenu.AddItem(new MenuItem("dumpdata", "Dump Spell Data [Debug]")).SetValue(false);
+                zmenu.AddSubMenu(bbmenu);
+
                 zmenu.AddItem(new MenuItem("autolevelup", "Auto Level Ultimate")).SetValue(true).SetTooltip("Level 6 Only");
                 zmenu.AddItem(new MenuItem("autotrinket", "Auto Upgrade Trinket")).SetValue(false);
                 zmenu.AddItem(new MenuItem("healthp", "Ally Priority:")).SetValue(new StringList(new[] { "Low HP", "Most AD/AP", "Most HP" }, 1));

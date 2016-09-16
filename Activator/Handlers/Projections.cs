@@ -124,10 +124,30 @@ namespace Activator.Handlers
 
         private static void Obj_AI_Base_OnUnitSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
+            var aiHero = sender as Obj_AI_Hero;
+            if (aiHero != null && Activator.Origin.Item("dumpdata").GetValue<bool>())
+            {
+                var clientdata = new Gamedata
+                {
+                    SDataName = args.SData.Name.ToLower(),
+                    ChampionName = aiHero.CharData.BaseSkinName.ToLower(),
+                    Slot = args.Slot,
+                    Radius = args.SData.CastRadiusSecondary > 0
+                        ? args.SData.CastRadiusSecondary
+                        : (args.SData.LineWidth > 0 ? args.SData.LineWidth : args.SData.CastRadius),
+                    CastRange = args.SData.CastRange,
+                    Delay = 250f,
+                    MissileSpeed = (int) args.SData.MissileSpeed
+                };
+
+                Helpers.ExportSpellData(clientdata);
+            }
+
             if (Helpers.IsEpicMinion(sender) || Helpers.IsCrab(sender))
             {
                 return;
             }
+
 
             #region Hero
 
@@ -328,15 +348,10 @@ namespace Activator.Handlers
                             if (isline && data.Radius + hero.Player.BoundingRadius + 35 > projdist ||
                                (!isline || iscone) && hero.Player.Distance(endpos) <= data.Radius + hero.Player.BoundingRadius + 35)
                             {
-                                if (data.CastRange > 10000)
+                                if (data.CastRange > 10000 && hero.Player.NetworkId == Player.NetworkId &&
+                                   (hero.Player.CanMove && evadetime < endtime))
                                 {
-                                    if (hero.Player.NetworkId == Player.NetworkId)
-                                    {
-                                        if (hero.Player.CanMove && evadetime < endtime)
-                                        {
-                                            continue;
-                                        }
-                                    }
+                                    continue;
                                 }
 
                                 if (!Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
