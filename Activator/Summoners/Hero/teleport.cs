@@ -8,7 +8,7 @@ namespace Activator.Summoners
 {
     class teleport : CoreSum
     {
-        internal override string Name => "summonerteleport";
+        internal override string Name => "_summonerteleport";
         internal override string DisplayName => "Teleport";
         internal override string[] ExtraNames => new[] { "" };
         internal override float Range => float.MaxValue;
