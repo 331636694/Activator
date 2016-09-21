@@ -116,7 +116,7 @@ namespace Activator
                 var bbmenu = new Menu("Debug Tools", "bbmenu");
                 bbmenu.AddItem(new MenuItem("acdebug", "Debug Income Damage")).SetValue(false);
                 bbmenu.AddItem(new MenuItem("acdebug2", "Debug Item Priority")).SetValue(false);
-                bbmenu.AddItem(new MenuItem("dumpdata", "Dump Spell Data [Debug]")).SetValue(false);
+                bbmenu.AddItem(new MenuItem("dumpdata", "Dump Spell Data")).SetValue(false);
                 zmenu.AddSubMenu(bbmenu);
 
                 zmenu.AddItem(new MenuItem("autolevelup", "Auto Level Ultimate")).SetValue(true).SetTooltip("Level 6 Only");

@@ -140,7 +140,7 @@ namespace Activator.Handlers
                     MissileSpeed = (int) args.SData.MissileSpeed
                 };
 
-                Helpers.ExportSpellData(clientdata);
+                Helpers.ExportSpellData(clientdata, args.SData.TargettingType.ToString().ToLower());
             }
 
             if (Helpers.IsEpicMinion(sender) || Helpers.IsCrab(sender))

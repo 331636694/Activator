@@ -373,7 +373,7 @@ namespace Activator.Base
         }
 
 
-        public static void ExportSpellData(Gamedata data)
+        public static void ExportSpellData(Gamedata data, string type = null)
         {
             var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Cache", "activator",
                 $"activator_{data.ChampionName.ToLower()}.txt");
@@ -391,6 +391,7 @@ namespace Activator.Base
             file.WriteLine(@"");
             file.WriteLine(@"Spells.Add(new Gamedata");
             file.WriteLine(@"{");
+            file.WriteLine(@"    // TargetingType = ""{0}"",", type);
             file.WriteLine(@"    SDataName = ""{0}"",", data.SDataName.ToLower());
             file.WriteLine(@"    ChampionName = ""{0}"",", data.ChampionName.ToLower());
             file.WriteLine(@"    Slot = SpellSlot.{0},", data.Slot);
