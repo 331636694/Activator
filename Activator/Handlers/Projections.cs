@@ -132,9 +132,9 @@ namespace Activator.Handlers
                     SDataName = args.SData.Name.ToLower(),
                     ChampionName = aiHero.CharData.BaseSkinName.ToLower(),
                     Slot = args.Slot,
-                    Radius = args.SData.CastRadiusSecondary > 0
-                        ? args.SData.CastRadiusSecondary
-                        : (args.SData.LineWidth > 0 ? args.SData.LineWidth : args.SData.CastRadius),
+                    Radius = args.SData.LineWidth > 0
+                        ? args.SData.LineWidth : (args.SData.CastRadiusSecondary > 0 
+                            ? args.SData.CastRadiusSecondary : args.SData.CastRadius),
                     CastRange = args.SData.CastRange,
                     Delay = 250f,
                     MissileSpeed = (int) args.SData.MissileSpeed
