@@ -206,7 +206,7 @@ namespace Activator.Data
                 CastRange = 660f,
                 Delay = 250f,
                 HitTypes = new HitType[] { },
-                MissileSpeed = 1200
+                MissileSpeed = 1750
             });
 
             Spells.Add(new Gamedata
@@ -334,6 +334,7 @@ namespace Activator.Data
                 ChampionName = "annie",
                 Slot = SpellSlot.Q,
                 CastRange = 625f,
+                Radius = 710f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Danger },
                 MissileSpeed = 1400
@@ -345,6 +346,7 @@ namespace Activator.Data
                 ChampionName = "annie",
                 Slot = SpellSlot.W,
                 CastRange = 625f,
+                Radius = 210f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Danger },
                 MissileSpeed = int.MaxValue
@@ -745,8 +747,9 @@ namespace Activator.Data
                 ChampionName = "caitlyn",
                 Slot = SpellSlot.Q,
                 FixedRange = true,
-                CastRange = 2000f,
-                Delay = 625f,
+                Radius = 60f,
+                CastRange = 1300f,
+                Delay = 450f,
                 HitTypes = new HitType[] { },
                 MissileName = "caitlynpiltoverpeacemaker",
                 MissileSpeed = 2200
@@ -757,10 +760,11 @@ namespace Activator.Data
                 SDataName = "caitlynyordletrap",
                 ChampionName = "caitlyn",
                 Slot = SpellSlot.W,
+                Radius = 75f,
                 CastRange = 800f,
-                Delay = 550f,
+                Delay = 250f,
                 HitTypes = new HitType[] { },
-                MissileSpeed = 1400
+                MissileSpeed = 1450
             });
 
             Spells.Add(new Gamedata
@@ -769,11 +773,12 @@ namespace Activator.Data
                 ChampionName = "caitlyn",
                 Slot = SpellSlot.E,
                 FixedRange = true,
+                Radius = 70f,
                 CastRange = 1050f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.CrowdControl },
                 MissileName = "caitlynentrapmentmissile",
-                MissileSpeed = 2000
+                MissileSpeed = 1600
             });
 
             Spells.Add(new Gamedata
@@ -786,6 +791,20 @@ namespace Activator.Data
                 HitTypes = new HitType[] { },
                 MissileName = "cassiopeianoxiousblast",
                 MissileSpeed = int.MaxValue
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "caitlynaceinthehole",
+                ChampionName = "caitlyn",
+                Slot = SpellSlot.R,
+                CastRange = 2000f,
+                Radius = 100f,
+                Delay = 900f,
+                FixedRange = false,
+                MissileName = "",
+                HitTypes = new HitType[] {},
+                MissileSpeed = 1500,
             });
 
             Spells.Add(new Gamedata
@@ -852,9 +871,10 @@ namespace Activator.Data
                 ChampionName = "chogath",
                 Slot = SpellSlot.Q,
                 CastRange = 950f,
-                Delay = 1000f,
+                Radius = 250f,
+                Delay = 900f,
                 HitTypes = new[] { HitType.Danger, HitType.CrowdControl },
-                MissileName = "rupture",
+                MissileName = "",
                 MissileSpeed = int.MaxValue
             });
 
@@ -864,8 +884,9 @@ namespace Activator.Data
                 ChampionName = "chogath",
                 Slot = SpellSlot.W,
                 FixedRange = true,
-                CastRange = 675f,
-                Delay = 175f,
+                CastRange = 300f,
+                Radius = 210f,
+                Delay = 250f,
                 HitTypes = new[] { HitType.CrowdControl },
                 MissileSpeed = int.MaxValue
             });
@@ -886,7 +907,7 @@ namespace Activator.Data
                 SDataName = "feast",
                 ChampionName = "chogath",
                 Slot = SpellSlot.R,
-                CastRange = 500f,
+                CastRange = 300f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Danger, HitType.Ultimate },
                 MissileSpeed = int.MaxValue
@@ -1741,7 +1762,7 @@ namespace Activator.Data
                 SDataName = "garene",
                 ChampionName = "garen",
                 Slot = SpellSlot.E,
-                CastRange = 300f,
+                CastRange = 660f,
                 Delay = 250f,
                 HitTypes = new HitType[] { },
                 MissileSpeed = int.MaxValue
@@ -1753,6 +1774,7 @@ namespace Activator.Data
                 ChampionName = "garen",
                 Slot = SpellSlot.R,
                 CastRange = 400f,
+                Radius = 100f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Danger, HitType.Ultimate },
                 MissileSpeed = int.MaxValue
@@ -2370,12 +2392,13 @@ namespace Activator.Data
                 SDataName = "jinxw",
                 ChampionName = "jinx",
                 Slot = SpellSlot.W,
+                Radius = 60f,
                 FixedRange = true,
-                CastRange = 1550f,
-                Delay = 600f,
+                CastRange = 1500f,
+                Delay = 450f,
                 HitTypes = new[] { HitType.CrowdControl },
                 MissileName = "jinxwmissile",
-                MissileSpeed = 2200
+                MissileSpeed = 3300
             });
 
             Spells.Add(new Gamedata
@@ -2384,9 +2407,10 @@ namespace Activator.Data
                 ChampionName = "jinx",
                 Slot = SpellSlot.E,
                 CastRange = 900f,
+                Radius = 315f,
                 Delay = 250f,
                 HitTypes = new HitType[] { },
-                MissileSpeed = 1000
+                MissileSpeed = 1750
             });
 
             Spells.Add(new Gamedata
@@ -2396,8 +2420,8 @@ namespace Activator.Data
                 Slot = SpellSlot.R,
                 FixedRange = true,
                 CastRange = 25000f,
-                Global = true,
-                Delay = 600f,
+                Radius = 140f,
+                Delay = 450f,
                 MissileName = "jinxr",
                 ExtraMissileNames = new[] { "jinxrwrapper" },
                 HitTypes = new[] { HitType.Danger, HitType.Ultimate },
@@ -3245,6 +3269,7 @@ namespace Activator.Data
                 ChampionName = "lux",
                 Slot = SpellSlot.E,
                 CastRange = 1100f,
+                Radius = 330f,
                 Delay = 250f,
                 HitTypes = new HitType[] { },
                 MissileName = "luxlightstrikekugel",
@@ -3256,10 +3281,10 @@ namespace Activator.Data
                 SDataName = "luxlightstriketoggle",
                 ChampionName = "lux",
                 Slot = SpellSlot.E,
-                CastRange = 1100f,
+                CastRange = 1200f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.CrowdControl },
-                MissileSpeed = int.MaxValue
+                MissileSpeed = 1400
             });
 
             Spells.Add(new Gamedata
@@ -3268,11 +3293,12 @@ namespace Activator.Data
                 ChampionName = "lux",
                 Slot = SpellSlot.R,
                 FixedRange = true,
-                CastRange = 3340f,
+                CastRange = 3500f,
+                Radius = 299.3f,
                 Delay = 1000f,
                 HitTypes = new[] { HitType.Danger, HitType.Ultimate },
                 MissileName = "luxmalicecannonmis",
-                MissileSpeed = int.MaxValue
+                MissileSpeed = 3000
             });
 
             Spells.Add(new Gamedata
@@ -3852,6 +3878,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q,
                 FixedRange = true,
                 CastRange = 1500f,
+                Radius = 299.3f,
                 Delay = 125f,
                 HitTypes = new[] { HitType.Danger },
                 MissileName = "javelintoss",
@@ -3863,7 +3890,7 @@ namespace Activator.Data
                 SDataName = "takedown",
                 ChampionName = "nidalee",
                 Slot = SpellSlot.Q,
-                CastRange = 150f,
+                CastRange = 500f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Danger },
                 MissileSpeed = int.MaxValue
@@ -3886,9 +3913,10 @@ namespace Activator.Data
                 ChampionName = "nidalee",
                 Slot = SpellSlot.W,
                 CastRange = 375f,
+                Radius = 210f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Danger, HitType.Initiator },
-                MissileSpeed = 1500
+                MissileSpeed = 1750
             });
 
             Spells.Add(new Gamedata
@@ -5465,10 +5493,11 @@ namespace Activator.Data
                 SDataName = "tristanaw",
                 ChampionName = "tristana",
                 Slot = SpellSlot.W,
+                Radius = 270f,
                 CastRange = 900f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.CrowdControl, HitType.Danger },
-                MissileSpeed = 1150
+                MissileSpeed = 1450
             });
 
             Spells.Add(new Gamedata
@@ -5476,10 +5505,11 @@ namespace Activator.Data
                 SDataName = "tristanae",
                 ChampionName = "tristana",
                 Slot = SpellSlot.E,
-                CastRange = 625f,
+                Radius = 210f,
+                CastRange = 700f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Danger },
-                MissileSpeed = 1400
+                MissileSpeed = 2400
             });
 
             Spells.Add(new Gamedata
@@ -5487,10 +5517,23 @@ namespace Activator.Data
                 SDataName = "tristanar",
                 ChampionName = "tristana",
                 Slot = SpellSlot.R,
+                Radius = 200f,
                 CastRange = 700f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Danger },
-                MissileSpeed = 1600
+                MissileSpeed = 2000
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "trundleq",
+                ChampionName = "trundle",
+                Slot = (SpellSlot) 45,
+                CastRange = 800f,
+                Radius = 210f,
+                Delay = 250f,
+                HitTypes = new HitType[] { },
+                MissileSpeed = int.MaxValue
             });
 
             Spells.Add(new Gamedata
@@ -5498,7 +5541,8 @@ namespace Activator.Data
                 SDataName = "trundletrollsmash",
                 ChampionName = "trundle",
                 Slot = SpellSlot.Q,
-                CastRange = 275f,
+                Radius = 210f,
+                CastRange = 300f,
                 Delay = 250f,
                 HitTypes = new HitType[] { },
                 MissileSpeed = int.MaxValue
@@ -5520,9 +5564,10 @@ namespace Activator.Data
                 SDataName = "trundlecircle",
                 ChampionName = "trundle",
                 Slot = SpellSlot.E,
-                CastRange = 1100f,
+                CastRange = 1000f,
+                Radius = 340f,
                 Delay = 250f,
-                HitTypes = new[] { HitType.CrowdControl },
+                HitTypes = new HitType[] { },
                 MissileSpeed = 1600
             });
 
@@ -5531,8 +5576,9 @@ namespace Activator.Data
                 SDataName = "trundlepain",
                 ChampionName = "trundle",
                 Slot = SpellSlot.R,
-                CastRange = 700f,
-                Delay = 500f,
+                CastRange = 650f,
+                Radius = 300f,
+                Delay = 250f,
                 HitTypes = new[] { HitType.Danger },
                 MissileSpeed = int.MaxValue
             });
@@ -6238,6 +6284,7 @@ namespace Activator.Data
                 ChampionName = "warwick",
                 Slot = SpellSlot.Q,
                 CastRange = 400f,
+                Radius = 210f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Danger },
                 MissileSpeed = int.MaxValue
@@ -6268,6 +6315,22 @@ namespace Activator.Data
             Spells.Add(new Gamedata
             {
                 SDataName = "infiniteduress",
+                ChampionName = "warwick",
+                Slot = SpellSlot.R,
+                CastRange = 700f,
+                Delay = 250f,
+                HitTypes =
+                    new[]
+                    {
+                        HitType.Danger, HitType.Ultimate,
+                        HitType.CrowdControl, HitType.Initiator
+                    },
+                MissileSpeed = int.MaxValue
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "infiniteduresschannel",
                 ChampionName = "warwick",
                 Slot = SpellSlot.R,
                 CastRange = 700f,
@@ -6331,13 +6394,50 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
+                SDataName = "xenzhaocombotarget",
+                ChampionName = "xinzhao",
+                Slot = SpellSlot.Q,
+                CastRange = 375,
+                Radius = 210f,
+                Delay = 250f,
+                HitTypes = new HitType[] { },
+                MissileSpeed = int.MaxValue
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "xenzhaothrust",
+                ChampionName = "xinzhao",
+                Slot = SpellSlot.Q,
+                CastRange = 625f,
+                Radius = 225f,
+                Delay = 250f,
+                HitTypes = new HitType[] { },
+                MissileSpeed = int.MaxValue
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "xenzhaothrust2",
+                ChampionName = "xinzhao",
+                Slot = SpellSlot.Q,
+                CastRange = 625f,
+                Radius = 225f,
+                Delay = 250f,
+                HitTypes = new HitType[] { },
+                MissileSpeed = int.MaxValue
+            });
+
+            Spells.Add(new Gamedata
+            {
                 SDataName = "xenzhaothrust3",
                 ChampionName = "xinzhao",
                 Slot = SpellSlot.Q,
-                CastRange = 400f,
+                CastRange = 625f,
+                Radius = 225f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.CrowdControl },
-                MissileSpeed = int.MaxValue
+                MissileSpeed = 1500
             });
 
             Spells.Add(new Gamedata
@@ -6346,9 +6446,10 @@ namespace Activator.Data
                 ChampionName = "xinzhao",
                 Slot = SpellSlot.W,
                 CastRange = 0f,
-                Delay = 0f,
+                Radius = 210f,
+                Delay = 250f,
                 HitTypes = new HitType[] { },
-                MissileSpeed = 2000
+                MissileSpeed = int.MaxValue
             });
 
             Spells.Add(new Gamedata
@@ -6359,7 +6460,7 @@ namespace Activator.Data
                 CastRange = 600f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.CrowdControl, HitType.Danger, HitType.Initiator },
-                MissileSpeed = 1750
+                MissileSpeed = 2400
             });
 
             Spells.Add(new Gamedata
@@ -6367,7 +6468,8 @@ namespace Activator.Data
                 SDataName = "xenzhaoparry",
                 ChampionName = "xinzhao",
                 Slot = SpellSlot.R,
-                CastRange = 375f,
+                CastRange = 500f,
+                Radius = 210f,
                 Delay = 250f,
                 HitTypes =
                     new[]
@@ -6663,7 +6765,7 @@ namespace Activator.Data
                 ChampionName = "zilean",
                 Slot = SpellSlot.Q,
                 CastRange = 900f,
-                Delay = 300f,
+                Delay = 250f,
                 HitTypes = new HitType[] { },
                 MissileName = "zileanqmissile",
                 MissileSpeed = 2000
@@ -6708,10 +6810,24 @@ namespace Activator.Data
                 ChampionName = "zyra",
                 Slot = SpellSlot.Q,
                 CastRange = 800f,
+                Radius = 430f,
                 Delay = 250f,
                 HitTypes = new HitType[] { },
                 MissileName = "zyraqmissile",
                 MissileSpeed = 1400
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "zyraqplantmissile",
+                ChampionName = "zyra",
+                Slot = SpellSlot.Q,
+                CastRange = 675f,
+                Radius = 710f,
+                Delay = 250f,
+                HitTypes = new HitType[] { },
+                MissileName = "zyraqplantmissile",
+                MissileSpeed = 1200
             });
 
             Spells.Add(new Gamedata
@@ -6731,11 +6847,12 @@ namespace Activator.Data
                 ChampionName = "zyra",
                 Slot = SpellSlot.E,
                 FixedRange = true,
-                CastRange = 1100f,
+                CastRange = 1150f,
+                Radius = 70f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.CrowdControl },
                 MissileName = "zyraemissile",
-                MissileSpeed = 1400
+                MissileSpeed = 1150,
             });
 
             Spells.Add(new Gamedata
@@ -6744,6 +6861,7 @@ namespace Activator.Data
                 ChampionName = "zyra",
                 Slot = SpellSlot.R,
                 CastRange = 700f,
+                Radius = 500f,
                 Delay = 500f,
                 HitTypes =
                     new[]

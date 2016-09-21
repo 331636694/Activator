@@ -390,10 +390,10 @@ namespace Activator.Base
             file.WriteLine(@"#endregion");
             file.WriteLine(@"");
             file.WriteLine(@"Spells.Add(new Gamedata");
-            file.WriteLine(@"{{");
+            file.WriteLine(@"{");
             file.WriteLine(@"    SDataName = ""{0}"",", data.SDataName.ToLower());
             file.WriteLine(@"    ChampionName = ""{0}"",", data.ChampionName.ToLower());
-            file.WriteLine(@"    Slot = Spellslot.{0},", data.Slot);
+            file.WriteLine(@"    Slot = SpellSlot.{0},", data.Slot);
             file.WriteLine(@"    CastRange = ""{0}"",", data.CastRange);
             file.WriteLine(@"    Radius = ""{0}"",", data.Radius);
             file.WriteLine(@"    Delay = {0}f,", data.Delay);
@@ -402,7 +402,7 @@ namespace Activator.Base
             file.WriteLine(@"    MissileName = """",");
             file.WriteLine(@"    HitTypes = new HitType[] {{ }},");
             file.WriteLine(@"    MissileSpeed = {0},", data.MissileSpeed);
-            file.WriteLine(@"}}");
+            file.WriteLine(@"});");
             file.WriteLine(@"");
             file.Close();
         }
