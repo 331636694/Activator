@@ -95,7 +95,7 @@ namespace Activator.Handlers
                         Utility.DelayAction.Add(100, () =>
                         {
                             hero.Attacker = missile.SpellCaster;
-                            hero.IncomeDamage += 1;
+                            hero.AbilityDamage += 1;
                             hero.HitTypes.Add(HitType.Spell);
                             hero.HitTypes.AddRange(
                                 Lists.MenuTypes.Where(
@@ -106,7 +106,7 @@ namespace Activator.Handlers
                             Utility.DelayAction.Add((int) endtime * 2 + (200 - Game.Ping), () =>
                             {
                                 hero.Attacker = null;
-                                hero.IncomeDamage -= 1;
+                                hero.AbilityDamage -= 1;
                                 hero.HitTypes.RemoveAll(
                                     x =>
                                         !x.Equals(HitType.Spell) &&
@@ -195,13 +195,13 @@ namespace Activator.Handlers
                                 {
                                     hero.Attacker = attacker;
                                     hero.HitTypes.Add(HitType.AutoAttack);
-                                    hero.IncomeDamage += dmg;
+                                    hero.AbilityDamage += dmg;
 
                                     Utility.DelayAction.Add(Math.Min((int) end + (100 - Game.Ping/2), 250 + Game.Ping), () =>
                                     {
                                         hero.Attacker = null;
                                         hero.HitTypes.Remove(HitType.AutoAttack);
-                                        hero.IncomeDamage -= dmg;
+                                        hero.AbilityDamage -= dmg;
                                     });
                                 });
                             }
@@ -260,7 +260,7 @@ namespace Activator.Handlers
                             Utility.DelayAction.Add((int) (data.Delay / 2), () =>
                             {
                                 hero.Attacker = attacker;
-                                hero.IncomeDamage += dmg;
+                                hero.AbilityDamage += dmg;
                                 hero.HitTypes.Add(HitType.Spell);
                                 hero.HitTypes.AddRange(
                                     Lists.MenuTypes.Where(
@@ -271,7 +271,7 @@ namespace Activator.Handlers
                                 Utility.DelayAction.Add(250 + Game.Ping, () =>
                                 {
                                     hero.Attacker = null;
-                                    hero.IncomeDamage -= dmg;
+                                    hero.AbilityDamage -= dmg;
                                     hero.HitTypes.Remove(HitType.Spell);
                                     hero.HitTypes.RemoveAll(
                                         x =>
@@ -370,7 +370,7 @@ namespace Activator.Handlers
                                 Utility.DelayAction.Add((int) (endtime / 2), () =>
                                 {
                                     hero.Attacker = attacker;
-                                    hero.IncomeDamage += dmg;
+                                    hero.AbilityDamage += dmg;
                                     hero.HitTypes.Add(HitType.Spell);
                                     hero.HitTypes.AddRange(
                                         Lists.MenuTypes.Where(
@@ -381,7 +381,7 @@ namespace Activator.Handlers
                                     Utility.DelayAction.Add(250 + Game.Ping, () =>
                                     {
                                         hero.Attacker = null;
-                                        hero.IncomeDamage -= dmg;
+                                        hero.AbilityDamage -= dmg;
                                         hero.HitTypes.RemoveAll(
                                             x =>
                                                 !x.Equals(HitType.Spell) &&
@@ -433,7 +433,7 @@ namespace Activator.Handlers
                             Utility.DelayAction.Add((int) (endtime / 2), () =>
                             {
                                 hero.Attacker = attacker;
-                                hero.IncomeDamage += dmg;
+                                hero.AbilityDamage += dmg;
                                 hero.HitTypes.Add(HitType.Spell);
                                 hero.HitTypes.AddRange(
                                     Lists.MenuTypes.Where(
@@ -444,7 +444,7 @@ namespace Activator.Handlers
                                 Utility.DelayAction.Add(250 + Game.Ping, () =>
                                 {
                                     hero.Attacker = null;
-                                    hero.IncomeDamage -= dmg;
+                                    hero.AbilityDamage -= dmg;
                                     hero.HitTypes.RemoveAll(
                                         x =>
                                             !x.Equals(HitType.Spell) &&
@@ -569,23 +569,25 @@ namespace Activator.Handlers
                                 continue;
                             }
 
-                            var dmg = (int) Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true) * 1.2 + 150);
+                            var dmg = Math.Abs(attacker.GetAutoAttackDamage(hero.Player, true) * 1.2 + 150);
+                            var damage = (float) Math.Round(dmg);
+
                             if (args.SData.Name.ToLower().Contains("crit"))
                             {
-                                dmg = dmg * 2;
+                                damage = damage * 2;
                             }
 
                             Utility.DelayAction.Add(100 + (100 * i), () =>
                             {
                                 hero.Attacker = attacker;
                                 hero.HitTypes.Add(HitType.Danger);
-                                hero.IncomeDamage += dmg;
+                                hero.AbilityDamage += damage;
 
                                 Utility.DelayAction.Add(200 + (100 * i), delegate
                                 {
                                     hero.Attacker = null;
                                     hero.HitTypes.Remove(HitType.Danger);
-                                    hero.IncomeDamage -= dmg;
+                                    hero.AbilityDamage -= damage;
                                 });
                             });
                         }
@@ -613,52 +615,86 @@ namespace Activator.Handlers
   
                             if (args.SData.Name.ToLower() == "bilgewatercutlass")
                             {
-                                var dmg = (float) attacker.GetItemDamage(hero.Player, Damage.DamageItems.Bilgewater);
+                                var dmg = attacker.GetItemDamage(hero.Player, Damage.DamageItems.Bilgewater);
+                                var damage = (float) Math.Round(dmg);
 
                                 hero.Attacker = attacker;
                                 hero.HitTypes.Add(HitType.AutoAttack);
-                                hero.IncomeDamage += dmg;
+                                hero.ItemDamage += damage;
 
                                 Utility.DelayAction.Add(250, () =>
                                 {
                                     hero.Attacker = null;
                                     hero.HitTypes.Remove(HitType.AutoAttack);
-                                    hero.IncomeDamage -= dmg;
+                                    hero.ItemDamage -= damage;
                                 });
                             }
 
                             if (args.SData.Name.ToLower() == "itemswordoffeastandfamine")
                             {
                                 var dmg = (float) attacker.GetItemDamage(hero.Player, Damage.DamageItems.Botrk);
+                                var damage = (float) Math.Round(dmg);
 
                                 hero.Attacker = attacker;
                                 hero.HitTypes.Add(HitType.AutoAttack);
-                                hero.IncomeDamage += dmg;
+                                hero.ItemDamage += damage;
 
                                 Utility.DelayAction.Add(250, () =>
                                 {
                                     hero.Attacker = null;
                                     hero.HitTypes.Remove(HitType.AutoAttack);
-                                    hero.IncomeDamage -= dmg;
+                                    hero.ItemDamage -= damage;
                                 });
                             }
 
                             if (args.SData.Name.ToLower() == "hextechgunblade")
                             {
                                 var dmg = (float) attacker.GetItemDamage(hero.Player, Damage.DamageItems.Hexgun);
+                                var damage = (float) Math.Round(dmg);
 
                                 hero.Attacker = attacker;
                                 hero.HitTypes.Add(HitType.AutoAttack);
-                                hero.IncomeDamage += dmg;
+                                hero.ItemDamage += damage;
 
                                 Utility.DelayAction.Add(250, () =>
                                 {
                                     hero.Attacker = null;
                                     hero.HitTypes.Remove(HitType.AutoAttack);
-                                    hero.IncomeDamage -= dmg;
+                                    hero.ItemDamage -= damage;
                                 });
                             }
                         }
+                    }
+
+                    if (args.SData.TargettingType == SpellDataTargetType.SelfAoe)
+                    {
+                        foreach (var hero in Activator.Allies())
+                        {
+                            if (args.SData.Name.ToLower() == "itemtiamatcleave")
+                            {
+                                if (attacker.Distance(hero.Player.ServerPosition) <= 375)
+                                {
+                                    var dmg = (float) attacker.GetItemDamage(hero.Player, Damage.DamageItems.Tiamat);
+                                    var damage = (float) Math.Round(dmg);
+
+                                    hero.Attacker = attacker;
+                                    hero.HitTypes.Add(HitType.AutoAttack);
+                                    hero.ItemDamage += damage;
+
+                                    Utility.DelayAction.Add(250, () =>
+                                    {
+                                        hero.Attacker = null;
+                                        hero.HitTypes.Remove(HitType.AutoAttack);
+                                        hero.ItemDamage -= damage;
+                                    });
+                                }
+                            }
+                        }
+                    }
+
+                    if (args.SData.TargettingType.ToString().Contains("Location"))
+                    {
+                        
                     }
                 }
             }
@@ -689,7 +725,7 @@ namespace Activator.Handlers
                         {
                             a.Attacker = sender;
                             a.HitTypes.Add(HitType.Spell);
-                            a.IncomeDamage += 1;
+                            a.AbilityDamage += 1;
 
                             if (Activator.Origin.Item("lucianqdanger").GetValue<bool>())
                                 a.HitTypes.Add(HitType.Danger);
@@ -703,7 +739,7 @@ namespace Activator.Handlers
                             Utility.DelayAction.Add(350 - Game.Ping, () =>
                             {
                                 if (a.IncomeDamage > 0)
-                                    a.IncomeDamage -= 1;
+                                    a.AbilityDamage -= 1;
 
                                 a.Attacker = null;
                                 a.HitTypes.Remove(HitType.Spell);
@@ -767,11 +803,11 @@ namespace Activator.Handlers
                                             hero.HitTypes.Remove(HitType.Spell);
 
                                             if (hero.IncomeDamage > 0)
-                                                hero.IncomeDamage -= dmg;
+                                                hero.AbilityDamage -= dmg;
                                         });
 
                                         hero.Attacker = aiHero;
-                                        hero.IncomeDamage += dmg;
+                                        hero.AbilityDamage += dmg;
                                         hero.HitTypes.Add(HitType.Spell);
                                         hero.HitTypes.AddRange(
                                             Lists.MenuTypes.Where(

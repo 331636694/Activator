@@ -29,41 +29,22 @@ namespace Activator.Items
         internal virtual float Range { get; set; }
         internal virtual MenuType[] Category { get; set; }
         internal virtual MapType[] Maps { get; set; }
-
         internal virtual int DefaultMP { get; set; }
         internal virtual int DefaultHP { get; set; }
 
         public Menu Menu { get; private set; }
         public Menu Parent => Menu.Parent;
         public Obj_AI_Hero Player => ObjectManager.Player;
+        public Champion Tar => Activator.Heroes.Where(
+            hero => hero.Player.IsEnemy && hero.Player.IsValidTarget(Range + 100) &&
+                   !hero.Player.IsZombie).OrderBy(x => x.Player.Distance(Game.CursorPos)).FirstOrDefault();
 
-        public Champion Tar
-        {
-            get
-            {
-                return
-                    Activator.Heroes.Where(
-                        hero => hero.Player.IsEnemy && hero.Player.IsValidTarget(Range + 100) &&
-                               !hero.Player.IsZombie).OrderBy(x => x.Player.Distance(Game.CursorPos)).FirstOrDefault();
-            }
-        }
-
-        public static IEnumerable<CoreItem> PriorityList()
-        {
-            var hpi = from ii in Lists.Items where  LeagueSharp.Common.Items.CanUseItem(ii.Id) && ii.Needed
-                      orderby ii.Menu.Item("prior" + ii.Name).GetValue<Slider>().Value descending 
-                      select ii;
-
-            return hpi;
-        }
-
-        public bool IsReady()
-        {
-            var ready = LeagueSharp.Common.Items.CanUseItem(Id);
-            return ready;
-        }
-
+        public bool IsReady() => LeagueSharp.Common.Items.CanUseItem(Id);
         public int[] Excluded => new[] { 3090, 3157, 3137, 3139, 3140, 3222 };
+        public bool DontHumanize => Excluded.Any(ex => Id.Equals(ex));
+        public static IEnumerable<CoreItem> PriorityList =>
+            Lists.Items.Where(ii => LeagueSharp.Common.Items.CanUseItem(ii.Id) && ii.Needed)
+                .OrderByDescending(ii => ii.Menu.Item("prior" + ii.Name).GetValue<Slider>().Value);
 
         public void UseItem(bool combo = false)
         {
@@ -74,9 +55,9 @@ namespace Activator.Items
 
             if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
             {
-                if (PriorityList().Any() && Name == PriorityList().First().Name)
+                if (PriorityList.Any() && Name == PriorityList.First().Name)
                 {
-                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || Excluded.Any(ex => Id.Equals(ex)))
+                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || DontHumanize)
                     {
                         if (!Activator.Player.HasBuffOfType(BuffType.Invisibility))
                         {
@@ -101,9 +82,9 @@ namespace Activator.Items
 
             if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
             {
-                if (PriorityList().Any() && Name == PriorityList().First().Name)
+                if (PriorityList.Any() && Name == PriorityList.First().Name)
                 {
-                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || Excluded.Any(ex => Id.Equals(ex)))
+                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || DontHumanize)
                     {
                         if (!Activator.Player.HasBuffOfType(BuffType.Invisibility))
                         {
@@ -128,9 +109,9 @@ namespace Activator.Items
 
             if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
             {
-                if (PriorityList().Any() && Name == PriorityList().First().Name)
+                if (PriorityList.Any() && Name == PriorityList.First().Name)
                 {
-                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || Excluded.Any(ex => Id.Equals(ex)))
+                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || DontHumanize)
                     {
                         if (!Activator.Player.HasBuffOfType(BuffType.Invisibility))
                         {

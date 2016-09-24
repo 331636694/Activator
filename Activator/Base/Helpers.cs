@@ -85,17 +85,20 @@ namespace Activator.Base
         {
             foreach (var unit in Activator.Heroes.Where(x => x.Player.NetworkId == hero.NetworkId))
             {
-                if (unit.IncomeDamage != 0 && unit.IncomeDamage.ToString().Contains("E")) // Check Expo
+                if (unit.AbilityDamage != 0) 
                 {
-                    unit.Attacker = null;
-                    unit.IncomeDamage = 0;
+                    unit.AbilityDamage = 0;
                     unit.HitTypes.Clear();
                 }
 
                 if (unit.Player.IsZombie || unit.Immunity || !unit.Player.IsValidTarget(float.MaxValue, false))
                 {
                     unit.Attacker = null;
-                    unit.IncomeDamage = 0;
+                    unit.BuffDamage = 0;
+                    unit.TroyDamage = 0;
+                    unit.AbilityDamage = 0;
+                    unit.MinionDamage = 0;
+                    unit.TowerDamage = 0;
                     unit.HitTypes.Clear();
                 }
             }

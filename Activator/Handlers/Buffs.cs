@@ -54,12 +54,12 @@ namespace Activator.Handlers
                 {
                     if (hero.DotTicks > 0)
                     {
-                        hero.IncomeDamage -= 1;
+                        hero.BuffDamage -= 1;
                         hero.DotTicks -= 1;
                     }
 
-                    if (hero.IncomeDamage < 0)
-                        hero.IncomeDamage = 0;
+                    if (hero.BuffDamage < 0)
+                        hero.BuffDamage = 0;
 
                     continue;
                 }
@@ -97,7 +97,7 @@ namespace Activator.Handlers
                                     if (Utils.GameTimeTickCount - aura.TickLimiter >= 100)
                                     {
                                         hero.DotTicks += 1;
-                                        hero.IncomeDamage += 1; // todo: get actuall damage
+                                        hero.BuffDamage += 1; // todo: get actuall damage
                                         aura.TickLimiter = Utils.GameTimeTickCount;
                                     }
                                 }
@@ -118,7 +118,7 @@ namespace Activator.Handlers
                                     continue;
 
                                 hero.DotTicks += 1;
-                                hero.IncomeDamage += 1; // todo: get actuall damage
+                                hero.BuffDamage += 1; // todo: get actuall damage
                                 aura.TickLimiter = Utils.GameTimeTickCount;
                             }
                         }

@@ -147,6 +147,7 @@ namespace Activator.Data
                 SDataName = "akalimota",
                 ChampionName = "akali",
                 Slot = SpellSlot.Q,
+                Radius = 171.9f,
                 CastRange = 600f,
                 Delay = 650f,
                 HitTypes = new HitType[] { },
@@ -169,6 +170,7 @@ namespace Activator.Data
                 SDataName = "akalishadowswipe",
                 ChampionName = "akali",
                 Slot = SpellSlot.E,
+                Radius = 325f,
                 CastRange = 325f,
                 Delay = 250f,
                 HitTypes = new HitType[] { },
@@ -180,6 +182,7 @@ namespace Activator.Data
                 SDataName = "akalishadowdance",
                 ChampionName = "akali",
                 Slot = SpellSlot.R,
+                Radius = 300f,
                 CastRange = 710f,
                 Delay = 250f,
                 HitTypes = new HitType[] { },
@@ -584,12 +587,14 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
-                SDataName = "rocketgrabmissile",
+                SDataName = "rocketgrab",
                 ChampionName = "blitzcrank",
                 Slot = SpellSlot.Q,
                 FixedRange = true,
                 CastRange = 1050f,
+                Radius = 70f,
                 Delay = 250f,
+                MissileName = "rocketgrabmissile",
                 HitTypes = new[] { HitType.CrowdControl, HitType.Danger },
                 MissileSpeed = 1800
             });
@@ -600,6 +605,7 @@ namespace Activator.Data
                 ChampionName = "blitzcrank",
                 Slot = SpellSlot.W,
                 CastRange = 0f,
+                Radius = 100f,
                 Delay = 0f,
                 HitTypes = new HitType[] { },
                 MissileSpeed = int.MaxValue
@@ -610,7 +616,8 @@ namespace Activator.Data
                 SDataName = "powerfist",
                 ChampionName = "blitzcrank",
                 Slot = SpellSlot.E,
-                CastRange = 100f,
+                CastRange = 300f,
+                Radius = 210f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.CrowdControl },
                 MissileSpeed = int.MaxValue
@@ -967,6 +974,7 @@ namespace Activator.Data
                 ChampionName = "darius",
                 Slot = SpellSlot.Q,
                 FixedRange = true,
+                Radius = 425f,
                 CastRange = 425f,
                 Delay = 750f,
                 HitTypes = new HitType[] { },
@@ -1002,7 +1010,8 @@ namespace Activator.Data
                 SDataName = "dariusexecute",
                 ChampionName = "darius",
                 Slot = SpellSlot.R,
-                CastRange = 465f,
+                Radius = 475f,
+                CastRange = 475f,
                 Delay = 450f,
                 HitTypes = new[] { HitType.Danger, HitType.Ultimate },
                 MissileSpeed = int.MaxValue
@@ -1014,6 +1023,7 @@ namespace Activator.Data
                 ChampionName = "diana",
                 Slot = SpellSlot.Q,
                 CastRange = 830f,
+                Radius = 195f,
                 Delay = 300f,
                 HitTypes = new HitType[] { },
                 MissileName = "dianaarc",
@@ -1036,7 +1046,8 @@ namespace Activator.Data
                 SDataName = "dianavortex",
                 ChampionName = "diana",
                 Slot = SpellSlot.E,
-                CastRange = 350f,
+                CastRange = 450f,
+                Radius = 450f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.CrowdControl, HitType.Danger },
                 MissileSpeed = int.MaxValue
@@ -1048,6 +1059,7 @@ namespace Activator.Data
                 ChampionName = "diana",
                 Slot = SpellSlot.R,
                 CastRange = 825f,
+                Radius = 250f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Danger, HitType.Initiator },
                 MissileSpeed = 2200
@@ -1154,6 +1166,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q,
                 FixedRange = true,
                 CastRange = 1075f,
+                Radius = 60f,
                 Delay = 66f,
                 HitTypes = new[] { HitType.CrowdControl },
                 MissileName = "ekkoqmis",

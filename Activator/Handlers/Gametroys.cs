@@ -71,7 +71,7 @@ namespace Activator.Handlers
                     // reset damage if obj deleted
                     if (hero.TroyTicks > 0)
                     {
-                        hero.IncomeDamage -= 5;
+                        hero.TroyDamage -= 5;
                         hero.TroyTicks -= 1;
 
                         if (hero.TroyTicks <= 1)
@@ -81,27 +81,27 @@ namespace Activator.Handlers
                     return;
                 }
 
-                foreach (var item in Troydata.Troys.Where(x => x.Name == troy.Name))
+                foreach (var data in Troydata.Troys.Where(x => x.Name == troy.Name))
                 {
-                    if (hero.Player.Distance(troy.Obj.Position) <= item.Radius + hero.Player.BoundingRadius)
-                    {                  
+                    if (hero.Player.Distance(troy.Obj.Position) <= data.Radius + hero.Player.BoundingRadius)
+                    {
                         // check delay (e.g fizz bait)
-                        if (Utils.GameTimeTickCount - troy.Start >= item.DelayFromStart)
+                        if (Utils.GameTimeTickCount - troy.Start >= data.DelayFromStart)
                         {
                             if (hero.Player.IsValidTarget(float.MaxValue, false))
                             {
                                 if (!hero.Player.IsZombie && !hero.Immunity)
                                 {
-                                    foreach (var ii in item.HitTypes)
+                                    foreach (var ii in data.HitTypes)
                                     {
                                         if (!hero.HitTypes.Contains(ii))
                                              hero.HitTypes.Add(ii);
                                     }
 
                                     // limit the damage using an interval
-                                    if (Utils.GameTimeTickCount - troy.Limiter >= item.Interval*1000)
+                                    if (Utils.GameTimeTickCount - troy.Limiter >= data.Interval * 1000)
                                     {
-                                        hero.IncomeDamage += 5; // todo: get actuall spell damage
+                                        hero.TroyDamage += 5; // todo: get actuall spell damage
                                         hero.TroyTicks += 1;
                                         troy.Limiter = Utils.GameTimeTickCount;
                                     }
@@ -116,7 +116,7 @@ namespace Activator.Handlers
                 // reset damage if walked out of obj
                 if (hero.TroyTicks > 0)
                 {
-                    hero.IncomeDamage -= 5;
+                    hero.TroyDamage -= 5;
                     hero.TroyTicks -= 1;
 
                     if (hero.TroyTicks <= 1)

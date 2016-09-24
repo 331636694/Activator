@@ -27,7 +27,7 @@ namespace Activator.Handlers
 
     class Drawings
     {
-        private static Dictionary<string, Offset> Offsets = new Dictionary<string, Offset>
+        private static readonly Dictionary<string, Offset> Offsets = new Dictionary<string, Offset>
         {
             { "SRU_Blue1.1.1" , new Offset(new Vector2(-2, 23), 150, 6) },
             { "SRU_Red4.1.1" , new Offset(new Vector2(-2, 23), 150, 6) },
@@ -54,10 +54,11 @@ namespace Activator.Handlers
 
                         if (!hero.Player.IsDead)
                         {
-                            Drawing.DrawText(mpos[0] - 40, mpos[1] - 15, Color.White, "Income Damage: " + hero.IncomeDamage);
-                            Drawing.DrawText(mpos[0] - 40, mpos[1] + 0, Color.White, "Income Percent: " + hero.IncomeDamage / hero.Player.MaxHealth * 100);
-                            Drawing.DrawText(mpos[0] - 40, mpos[1] + 15, Color.White, "QSSBuffCount: " + hero.QSSBuffCount);
-                            Drawing.DrawText(mpos[0] - 40, mpos[1] + 30, Color.White, "QSSHighestBuffTime: " + hero.QSSHighestBuffTime);
+                            Drawing.DrawText(mpos[0] - 40, mpos[1] - 15, Color.White, "Ability Damage: " + hero.AbilityDamage);
+                            Drawing.DrawText(mpos[0] - 40, mpos[1] + 0, Color.White, "Tower Damage: " + hero.TowerDamage);
+                            Drawing.DrawText(mpos[0] - 40, mpos[1] + 15, Color.White, "Buff Damage: " + hero.BuffDamage);
+                            Drawing.DrawText(mpos[0] - 40, mpos[1] + 30, Color.White, "Troy Damage: " + hero.TroyDamage);
+                            Drawing.DrawText(mpos[0] - 40, mpos[1] + 45, Color.White, "Minion Damage: " + hero.MinionDamage);
                         }
                     }
                 }
@@ -65,11 +66,11 @@ namespace Activator.Handlers
                 if (Activator.Origin.Item("acdebug2").GetValue<bool>())
                 {
                     Drawing.DrawText(200f, 250f, Color.Wheat, "Item Priority (Debug)");
-                    foreach (var item in Items.CoreItem.PriorityList().OrderByDescending(a => a.Priority))
+                    foreach (var item in Items.CoreItem.PriorityList.OrderByDescending(a => a.Priority))
                     {
-                        for (int i = 0; i < Items.CoreItem.PriorityList().Count(); i++)
+                        for (int i = 0; i < Items.CoreItem.PriorityList.Count(); i++)
                         {
-                            Drawing.DrawText(200, 265 + 5*(i*3), Color.White, item.Priority + " - " + item.DisplayName);
+                            Drawing.DrawText(200, 265 + 5*(i * 3), Color.White, item.Priority + " - " + item.DisplayName);
                         }
                     }
                 }

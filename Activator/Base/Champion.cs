@@ -15,8 +15,11 @@ namespace Activator.Base
 {
     public class Champion
     {
+        public float BuffDamage;
+        public float TroyDamage;
+        public float ItemDamage;
         public float TowerDamage;
-        public float IncomeDamage;
+        public float AbilityDamage;
         public float MinionDamage;
 
         public Obj_AI_Hero Player;
@@ -43,11 +46,15 @@ namespace Activator.Base
         public int MikaelsHighestBuffTime;
         public int LastDebuffTimestamp;
 
+        public float IncomeDamage
+        {
+            get { return TroyDamage + AbilityDamage + BuffDamage + ItemDamage; }
+        }
+
         public List<HitType> HitTypes = new List<HitType>();
         public Champion(Obj_AI_Hero player, float incdmg)
         {
             Player = player;
-            IncomeDamage = incdmg;
         }
     }
 }
