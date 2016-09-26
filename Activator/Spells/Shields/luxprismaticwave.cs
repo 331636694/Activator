@@ -27,13 +27,13 @@ namespace Activator.Spells.Shields
                 {
                     if (hero.IncomeDamage / hero.Player.MaxHealth * 100 >=
                         Menu.Item("selfmuchhp" + Name + "pct").GetValue<Slider>().Value)
-                            UseSpellTowards(Prediction.GetPrediction(hero.Player, 0.25f).UnitPosition);
+                            UseSpellTo(Prediction.GetPrediction(hero.Player, 0.25f).UnitPosition);
 
                     if (hero.Player.Health/hero.Player.MaxHealth*100 <=
                         Menu.Item("selflowhp" + Name + "pct").GetValue<Slider>().Value)
                     {
                         if (hero.IncomeDamage > 0 || hero.MinionDamage > hero.Player.Health)
-                            UseSpellTowards(Prediction.GetPrediction(hero.Player, 0.25f).UnitPosition);
+                            UseSpellTo(Prediction.GetPrediction(hero.Player, 0.25f).UnitPosition);
                     }
                 }
             }

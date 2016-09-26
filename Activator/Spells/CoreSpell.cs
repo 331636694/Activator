@@ -159,7 +159,7 @@ namespace Activator.Spells
             }
         }
 
-        public void UseSpellTowards(Vector3 targetpos, bool combo = false)
+        public void UseSpellTo(Vector3 targetpos, bool combo = false)
         {
             if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
             {
@@ -170,10 +170,13 @@ namespace Activator.Spells
                         !Player.IsChannelingImportantSpell() &&
                         !Player.Spellbook.IsCastingSpell)
                     {
-                        if (Player.Spellbook.CastSpell(Player.GetSpellSlot(Name), targetpos))
+                        if (Player.Distance(targetpos) <= Range)
                         {
-                            Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
-                            Activator.LastUsedDuration = 100;  
+                            if (Player.Spellbook.CastSpell(Player.GetSpellSlot(Name), targetpos))
+                            {
+                                Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
+                                Activator.LastUsedDuration = 100;
+                            }
                         }
                     }
                 }
@@ -191,10 +194,13 @@ namespace Activator.Spells
                         !Player.IsChannelingImportantSpell() &&
                         !Player.Spellbook.IsCastingSpell)
                     {
-                        if (Player.Spellbook.CastSpell(Player.GetSpellSlot(Name), target))
+                        if (Player.Distance(target.Position) <= Range)
                         {
-                            Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
-                            Activator.LastUsedDuration = 100;                
+                            if (Player.Spellbook.CastSpell(Player.GetSpellSlot(Name), target))
+                            {
+                                Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
+                                Activator.LastUsedDuration = 100;
+                            }
                         }
                     }
                 }

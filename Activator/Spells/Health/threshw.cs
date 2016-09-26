@@ -34,16 +34,16 @@ namespace Activator.Spells.Health
                         if (Menu.Item("use" + Name + "norm").GetValue<bool>())
                             if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.Danger))
                                 if (hero.Attacker != null)
-                                    UseSpellTowards(Prediction.GetPrediction(hero.Player, 0.25f).UnitPosition);
+                                    UseSpellTo(Prediction.GetPrediction(hero.Player, 0.25f).UnitPosition);
 
                         if (Menu.Item("use" + Name + "ulti").GetValue<bool>())
                             if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.Ultimate))
                                 if (hero.Attacker != null)
-                                    UseSpellTowards(Prediction.GetPrediction(hero.Player, 0.25f).UnitPosition);
+                                    UseSpellTo(Prediction.GetPrediction(hero.Player, 0.25f).UnitPosition);
 
                         if (hero.Player.CountEnemiesInRange(300) >=
                             Menu.Item("selfcount" + Name).GetValue<Slider>().Value)
-                                UseSpellTowards(Prediction.GetPrediction(hero.Player, 0.25f).UnitPosition);
+                                UseSpellTo(Prediction.GetPrediction(hero.Player, 0.25f).UnitPosition);
                     }
                 }
             }
