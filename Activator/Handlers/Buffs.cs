@@ -50,7 +50,7 @@ namespace Activator.Handlers
             foreach (var hero in Activator.Allies())
             {
                 var aura = Auradata.CachedAuras.Find(au => hero.Player.HasBuff(au.Name));
-                if (aura == null)
+                if (aura == null || !hero.Player.IsValidTarget(float.MaxValue, false) || hero.Player.IsZombie)
                 {
                     if (hero.DotTicks > 0)
                     {
@@ -82,7 +82,7 @@ namespace Activator.Handlers
                 {
                     Utility.DelayAction.Add(aura.EvadeTimer,
                         () =>
-                        {                           
+                        {
                             // double check after delay incase we no longer have the buff
                             if (hero.Player.HasBuff(aura.Name) && hero.Player.IsValidTarget(float.MaxValue, false))
                             {
@@ -90,8 +90,8 @@ namespace Activator.Handlers
                                 {
                                     if (!hero.HitTypes.Contains(HitType.Ultimate))
                                     {
-                                        Utility.DelayAction.Add(500, () => hero.HitTypes.Remove(HitType.Ultimate));
                                         hero.HitTypes.Add(HitType.Ultimate);
+                                        Utility.DelayAction.Add(100, () => hero.HitTypes.Remove(HitType.Ultimate));
                                     }
 
                                     if (Utils.GameTimeTickCount - aura.TickLimiter >= 100)
@@ -109,19 +109,13 @@ namespace Activator.Handlers
                 {
                     if (Utils.GameTimeTickCount - aura.TickLimiter >= aura.Interval * 1000)
                     {
-                        if (hero.Player.IsValidTarget(float.MaxValue, false))
-                        {
-                            if (!hero.Player.IsZombie && !hero.Immunity)
-                            {
-                                if (aura.Name == "velkozresearchstack" &&
-                                    !hero.Player.HasBuffOfType(BuffType.Slow))
-                                    continue;
+                        if (aura.Name == "velkozresearchstack" &&
+                            !hero.Player.HasBuffOfType(BuffType.Slow))
+                            continue;
 
-                                hero.DotTicks += 1;
-                                hero.BuffDamage += 1; // todo: get actuall damage
-                                aura.TickLimiter = Utils.GameTimeTickCount;
-                            }
-                        }
+                        hero.DotTicks += 1;
+                        hero.BuffDamage += 1; // todo: get actuall damage
+                        aura.TickLimiter = Utils.GameTimeTickCount;    
                     }
                 }            
             }

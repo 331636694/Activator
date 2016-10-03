@@ -28,7 +28,7 @@ namespace Activator.Data
         public bool FixedRange { get; set; }
         public string MissileName { get; set; }
         public string[] ExtraMissileNames { get; set; }
-        public int MissileSpeed { get; set; }
+        public int MissileSpeed { get; set; } = int.MaxValue;
         public string[] FromObject { get; set; }
         public HitType[] HitTypes { get; set; }
 
@@ -5311,6 +5311,44 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
+                SDataName = "taliyahq",
+                ChampionName = "taliyah",
+                Slot = SpellSlot.Q,
+                CastRange = 1000f,
+                Radius = 80f,
+                Delay = 250f,
+                FixedRange = true,
+                MissileName = "taliyahqmis",
+                MissileSpeed = 1750,
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "taliyahwvc",
+                ChampionName = "taliyah",
+                Slot = SpellSlot.W,
+                CastRange = 900f,
+                Radius = 150f,
+                Delay = 900f,
+                HitTypes = new [] { HitType.CrowdControl },
+                MissileSpeed = int.MaxValue
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "taliyahe",
+                ChampionName = "taliyah",
+                Slot = SpellSlot.E,
+                CastRange = 500f,
+                Radius = 165f,
+                Delay = 250f,
+                FixedRange = true,
+                HitTypes = new HitType[] { },
+                MissileSpeed = 1650,
+            });
+
+            Spells.Add(new Gamedata
+            {
                 SDataName = "talonnoxiandiplomacy",
                 ChampionName = "talon",
                 Slot = SpellSlot.Q,
@@ -6707,6 +6745,7 @@ namespace Activator.Data
                 ChampionName = "ziggs",
                 Slot = SpellSlot.Q,
                 CastRange = 850f,
+                Radius = 100f,
                 Delay = 250f,
                 HitTypes = new HitType[] { },
                 MissileName = "ziggsqspell",

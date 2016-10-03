@@ -45,7 +45,7 @@ namespace Activator.Data
                 EvadeTimer = 0,
                 Cleanse = true,
                 CleanseTimer = 0,
-                Slot = SpellSlot.R,
+                Slot = SpellSlot.Unknown,
                 Interval = 1.0
             });
 
