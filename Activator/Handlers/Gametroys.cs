@@ -66,19 +66,37 @@ namespace Activator.Handlers
             foreach (var hero in Activator.Allies())
             {
                 var troy = Gametroy.Troys.FirstOrDefault(x => x.Included);
-                if (troy == null || !troy.Obj.IsValid)
+                if (troy == null)
                 {
-                    // reset damage if obj deleted
+                    // if not included reverse ticks/damage
                     if (hero.TroyTicks > 0)
                     {
+                        if (hero.TroyTicks == 1)
+                            hero.HitTypes.Clear();
+
                         hero.TroyDamage -= 5;
                         hero.TroyTicks -= 1;
-
-                        if (hero.TroyTicks <= 1)
-                            hero.HitTypes.Clear();
                     }
 
-                    return;
+                    continue;
+                }
+
+                if (troy.Obj == null || !troy.Obj.IsValid || !troy.Obj.IsVisible)
+                {
+                    // if included but obj is null..?
+                    if (hero.TroyTicks > 0)
+                    {
+                        if (hero.TroyTicks == 1)
+                        {
+                            hero.HitTypes.Clear();
+                            troy.Included = false; // remove
+                        }
+
+                        hero.TroyDamage -= 5;
+                        hero.TroyTicks -= 1;
+                    }
+
+                    continue;
                 }
 
                 foreach (var data in Troydata.Troys.Where(x => x.Name == troy.Name))
@@ -116,11 +134,11 @@ namespace Activator.Handlers
                 // reset damage if walked out of obj
                 if (hero.TroyTicks > 0)
                 {
+                    if (hero.TroyTicks == 1)
+                        hero.HitTypes.Clear();
+
                     hero.TroyDamage -= 5;
                     hero.TroyTicks -= 1;
-
-                    if (hero.TroyTicks <= 1)
-                        hero.HitTypes.Clear();
                 }
             }
         }

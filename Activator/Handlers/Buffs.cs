@@ -54,6 +54,9 @@ namespace Activator.Handlers
                 {
                     if (hero.DotTicks > 0)
                     {
+                        if (hero.DotTicks == 1)
+                            hero.HitTypes.Clear();
+
                         hero.BuffDamage -= 1;
                         hero.DotTicks -= 1;
                     }
@@ -89,10 +92,7 @@ namespace Activator.Handlers
                                 if (!hero.Player.IsZombie && !hero.Immunity)
                                 {
                                     if (!hero.HitTypes.Contains(HitType.Ultimate))
-                                    {
-                                        hero.HitTypes.Add(HitType.Ultimate);
-                                        Utility.DelayAction.Add(100, () => hero.HitTypes.Remove(HitType.Ultimate));
-                                    }
+                                         hero.HitTypes.Add(HitType.Ultimate);
 
                                     if (Utils.GameTimeTickCount - aura.TickLimiter >= 100)
                                     {
