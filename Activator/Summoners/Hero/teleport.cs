@@ -8,7 +8,7 @@ namespace Activator.Summoners
 {
     class teleport : CoreSum
     {
-        internal override string Name => "_summonerteleport";
+        internal override string Name => "summonerteleport";
         internal override string DisplayName => "Teleport";
         internal override string[] ExtraNames => new[] { "" };
         internal override float Range => float.MaxValue;
@@ -37,18 +37,19 @@ namespace Activator.Summoners
             menu.AddItem(new MenuItem("teledraw", "Outline Ally in Danger (Minimap)")).SetValue(true);
         }
 
-        public override void OnTick(EventArgs args)
+        public override void OnTick(EventArgs args) 
         {
             if (Menu.Item("teleqq").GetValue<KeyBind>().Active || Menu.Item("teleqq2").GetValue<KeyBind>().Active)
             {
-                var p = Activator.Allies().Where(h => !h.Player.IsMe && h.Player.Distance(Player) > 1800f)
-                        .OrderByDescending(h => h.IncomeDamage)
-                        .ThenByDescending(h => h.Player.CountEnemiesInRange(1450))
-                        .ThenBy(h => h.Player.Health/h.Player.MaxHealth*100).FirstOrDefault();
+                var p = Activator.Allies().Where(h => h.Player.NetworkId != Player.NetworkId)
+                        .OrderByDescending(h => h.Player.CountEnemiesInRange(1450))
+                        .ThenByDescending(h => h.IncomeDamage).FirstOrDefault();
 
                 if (p != null)
                 {
-                    Camera.Position = p.Player.Position;
+                    var speed = Math.Max(0.2f, Math.Min(80, Camera.Position.Distance(p.Player.Position) * 0.0007f * 80));
+                    var direction = (p.Player.Position - Camera.Position).Normalized() * speed;
+                    Camera.Position = Camera.Position + direction;
                 }
             }
         }

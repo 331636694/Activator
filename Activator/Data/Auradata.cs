@@ -755,18 +755,6 @@ namespace Activator.Data
 
             BuffList.Add(new Auradata
             {
-                Name = "burningagony",
-                Evade = false,
-                DoT = true,
-                EvadeTimer = 0,
-                Cleanse = false,
-                CleanseTimer = 0,
-                Slot = SpellSlot.Unknown,
-                Interval = 1.0
-            });
-
-            BuffList.Add(new Auradata
-            {
                 Champion = "Garen",
                 Name = "garene",
                 Evade = false,

@@ -50,7 +50,7 @@ namespace Activator.Handlers
             foreach (var hero in Activator.Allies())
             {
                 var aura = Auradata.CachedAuras.Find(au => hero.Player.HasBuff(au.Name));
-                if (aura == null || !hero.Player.IsValidTarget(float.MaxValue, false) || hero.Player.IsZombie)
+                if (aura == null || !hero.Player.IsValidTarget(float.MaxValue, false))
                 {
                     if (hero.DotTicks > 0)
                     {
