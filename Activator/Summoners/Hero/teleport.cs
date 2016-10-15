@@ -22,10 +22,9 @@ namespace Activator.Summoners
 
         public override void AttachMenu(Menu menu)
         {
-            menu.AddItem(new MenuItem("teleblank", "Disclaimer: Camera Position are Beta! :^)"));
             menu.AddItem(new MenuItem("teleqq2", "Show Recent Event"))
                 .SetTooltip("Move camera to the most recent event")
-                .SetValue(new KeyBind('Z', KeyBindType.Press));
+                .SetValue(new KeyBind(222, KeyBindType.Press));
             menu.AddItem(new MenuItem("teleqq", "Show Recent Event (Lock to Me)"))
                 .SetTooltip("Move camera between you and the most recent event")
                 .SetValue(new KeyBind(192, KeyBindType.Press))
@@ -47,7 +46,7 @@ namespace Activator.Summoners
 
                 if (p != null)
                 {
-                    var speed = Math.Max(0.2f, Math.Min(80, Camera.Position.Distance(p.Player.Position) * 0.0007f * 80));
+                    var speed = Math.Max(0.2f, Math.Min(80, Camera.Position.Distance(p.Player.Position) * 0.0007f * 95));
                     var direction = (p.Player.Position - Camera.Position).Normalized() * speed;
                     Camera.Position = Camera.Position + direction;
                 }
