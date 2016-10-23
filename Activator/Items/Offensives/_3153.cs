@@ -45,8 +45,10 @@ namespace Activator.Items.Offensives
         {
             Obj_AI_Hero attacker = gapcloser.Sender;
 
-            if (!Menu.Item("use" + Name).GetValue<bool>() || 
-                !Menu.Item("enemygap" + Name).GetValue<bool>() || !IsReady())
+            if (!Menu.Item("use" + Name).GetValue<bool>())
+                return;
+
+            if (!Menu.Item("enemygap" + Name).GetValue<bool>() || !IsReady())
                 return;
 
             foreach (var hero in Activator.Allies())

@@ -1,5 +1,6 @@
 ﻿using System;
 using Activator.Base;
+using LeagueSharp;
 using LeagueSharp.Common;
 
 namespace Activator.Items.Offensives
@@ -16,6 +17,24 @@ namespace Activator.Items.Offensives
         internal override MapType[] Maps => new[] { MapType.Common };
         internal override int DefaultHP => 95;
         internal override int DefaultMP => 0;
+
+        public _3142()
+        {
+            Obj_AI_Base.OnBuffAdd += (sender, args) =>
+            {
+                if (!Menu.Item("use" + Name).GetValue<bool>() || !IsReady())
+                    return;
+
+                var hero = sender as Obj_AI_Hero;
+                if (hero == null || !hero.IsMe || hero.IsDead)
+                    return;
+
+                if (Lists.YoumuuBuffs.Contains(args.Buff.Name.ToLower()))
+                {
+                    UseItem(true);
+                }
+            };
+        }
 
         public override void OnTick(EventArgs args)
         {

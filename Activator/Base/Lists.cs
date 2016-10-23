@@ -25,6 +25,31 @@ namespace Activator.Base
             HitType.ForceExhaust
         };
 
+        internal static List<string> YoumuuBuffs = new List<string>
+        {
+            "aatroxr",
+            "evelynnrshield",
+            "ireliatranscendentbladesspell",
+            "khazixr",
+            "khazixrstealth",
+            "lucianr",
+            "highlander",
+            "missfortunebulletsound",
+            "rengarr",
+            "rivenfengshuiengine",
+            "sivirr",
+            "vayneinquistion"
+
+            // todo buffs:
+            // talon r
+            // zed r
+            // vi r
+            // twitch r
+            // nassus r
+            // nocturne r
+            // kled r
+        };
+
         public static List<CoreItem> Items = new List<CoreItem>();
         public static List<CoreItem> BoughtItems = new List<CoreItem>();
         public static List<CoreSpell> Spells = new List<CoreSpell>();

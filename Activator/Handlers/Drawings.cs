@@ -70,7 +70,7 @@ namespace Activator.Handlers
                     {
                         for (int i = 0; i < Items.CoreItem.PriorityList.Count(); i++)
                         {
-                            Drawing.DrawText(200, 265 + 5*(i * 3), Color.White, item.Priority + " - " + item.DisplayName);
+                            Drawing.DrawText(200, 265 + 5 * (i * 3), Color.White, item.Priority + " - " + item.DisplayName);
                         }
                     }
                 }

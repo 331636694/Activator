@@ -22,14 +22,14 @@ namespace Activator.Data
         public string ChampionName { get; set; }
         public SpellSlot Slot { get; set; }
         public float CastRange { get; set; }
-        public float Radius { get; set; } = 0f;
+        public float Radius { get; set; } 
         public bool Global { get; set; }
-        public float Delay { get; set; }
+        public float Delay { get; set; } = 250f;
         public bool FixedRange { get; set; }
         public string MissileName { get; set; }
-        public string[] ExtraMissileNames { get; set; }
+        public string[] ExtraMissileNames { get; set; } = { "" };
         public int MissileSpeed { get; set; } = int.MaxValue;
-        public string[] FromObject { get; set; }
+        public string[] FromObject { get; set; } = { "" };
         public HitType[] HitTypes { get; set; }
 
         static Gamedata()
@@ -40,10 +40,11 @@ namespace Activator.Data
                 ChampionName = "aatrox",
                 Slot = SpellSlot.Q,
                 CastRange = 875f,
+                Radius = 200f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Danger, HitType.CrowdControl },
                 MissileName = "",
-                MissileSpeed = 2000
+                MissileSpeed = 1750
             });
 
             Spells.Add(new Gamedata
@@ -75,6 +76,7 @@ namespace Activator.Data
                 Slot = SpellSlot.E,
                 FixedRange = true,
                 CastRange = 1025f,
+                Radius = 150f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.CrowdControl },
                 MissileName = "aatroxeconemissile",
@@ -99,6 +101,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q,
                 FixedRange = true,
                 CastRange = 900f,
+                Radius = 80f,
                 Delay = 250f,
                 HitTypes = new HitType[] { },
                 MissileName = "ahriorbmissile",
@@ -112,7 +115,8 @@ namespace Activator.Data
                 ChampionName = "ahri",
                 Slot = SpellSlot.W,
                 FixedRange = true,
-                CastRange = 550f,
+                CastRange = 600f,
+                Radius = 600f,
                 Delay = 250f,
                 HitTypes = new HitType[] { },
                 MissileSpeed = 1800
@@ -125,6 +129,7 @@ namespace Activator.Data
                 Slot = SpellSlot.E,
                 FixedRange = true,
                 CastRange = 975f,
+                Radius = 60f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Danger, HitType.CrowdControl },
                 MissileName = "ahriseducemissile",
@@ -136,7 +141,8 @@ namespace Activator.Data
                 SDataName = "ahritumble",
                 ChampionName = "ahri",
                 Slot = SpellSlot.R,
-                CastRange = 600f,
+                CastRange = 450f,
+                Radius = 600f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Initiator },
                 MissileSpeed = 2200
@@ -160,7 +166,7 @@ namespace Activator.Data
                 ChampionName = "akali",
                 Slot = SpellSlot.W,
                 CastRange = 1000f, // Range: 700 + additional for stealth detection
-                Delay = 250f,
+                Delay = 500f,
                 HitTypes = new[] { HitType.Stealth },
                 MissileSpeed = int.MaxValue
             });
@@ -183,7 +189,7 @@ namespace Activator.Data
                 ChampionName = "akali",
                 Slot = SpellSlot.R,
                 Radius = 300f,
-                CastRange = 710f,
+                CastRange = 800f,
                 Delay = 250f,
                 HitTypes = new HitType[] { },
                 MissileSpeed = 2200
@@ -196,6 +202,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q,
                 FixedRange = true,
                 CastRange = 365f,
+                Radius = 365f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Danger, HitType.CrowdControl },
                 MissileSpeed = int.MaxValue
@@ -209,7 +216,7 @@ namespace Activator.Data
                 CastRange = 660f,
                 Delay = 250f,
                 HitTypes = new HitType[] { },
-                MissileSpeed = 1750
+                MissileSpeed = 2200
             });
 
             Spells.Add(new Gamedata
@@ -241,6 +248,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q,
                 FixedRange = true,
                 CastRange = 1100f,
+                Radius = 80f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Danger, HitType.CrowdControl },
                 MissileName = "sadmummybandagetoss",
@@ -1810,6 +1818,17 @@ namespace Activator.Data
                 SDataName = "gragasqtoggle",
                 ChampionName = "gragas",
                 Slot = SpellSlot.Q,
+                CastRange = 1000, // 850f + Radius
+                Delay = 0f,
+                HitTypes = new HitType[] { },
+                MissileName = "gragasq",
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "gragasqtoggle",
+                ChampionName = "gragas",
+                Slot = SpellSlot.Q,
                 CastRange = 1100f,
                 Delay = 0f,
                 HitTypes = new HitType[] { },
@@ -3199,11 +3218,12 @@ namespace Activator.Data
                 Slot = SpellSlot.R,
                 FixedRange = true,
                 CastRange = 1400f,
-                Delay = 250f,
+                Radius = 110,
+                Delay = 500f,
                 HitTypes = new[] { HitType.Danger },
                 MissileName = "lucianrmissileoffhand",
                 ExtraMissileNames = new[] { "lucianrmissile" },
-                MissileSpeed = int.MaxValue
+                MissileSpeed = 2800
             });
 
             Spells.Add(new Gamedata
@@ -3213,6 +3233,7 @@ namespace Activator.Data
                 Slot = SpellSlot.Q,
                 FixedRange = true,
                 CastRange = 925f,
+                Radius = 60,
                 Delay = 250f,
                 HitTypes = new[] { HitType.CrowdControl },
                 MissileName = "luluqmissile",

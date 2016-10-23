@@ -58,6 +58,8 @@ namespace Activator.Items.Offensives
 
         private void OnCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
+            return;
+
             if (!sender.IsMe || !IsReady() || Game.Version.Contains("6.4"))
             {
                 return;

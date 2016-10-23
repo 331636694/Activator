@@ -11,6 +11,7 @@
 using System;
 using LeagueSharp;
 using System.Collections.Generic;
+using LeagueSharp.Common;
 
 namespace Activator.Data
 {
@@ -39,7 +40,15 @@ namespace Activator.Data
                     break;
                 case "LeeSin":
                     if (!unit.HasBuff("blindmonkqone"))
+                    {
+                        var q = new Spell(SpellSlot.Q, true);
+                        if (q.Instance.IsReady() && q.Instance.Name.ToLower() == "blindmonkqone")
+                        {
+                            q.Cast(unit);
+                        }
+
                         return false;
+                    }
                     break;
                 case "Diana":
                     if (!unit.HasBuff("dianamoonlight"))
@@ -47,11 +56,27 @@ namespace Activator.Data
                     break;
                 case "Elise":
                     if (Player.CharData.BaseSkinName != "elisespider")
+                    {
+                        var r = new Spell(SpellSlot.R);
+                        if (r.Instance.IsReady())
+                        {
+                            r.Cast();
+                        }
+
                         return false;
+                    }
                     break;
                 case "Nidalee":
                     if (Player.CharData.BaseSkinName == "Nidalee")
+                    {
+                        var r = new Spell(SpellSlot.R);
+                        if (r.Instance.IsReady())
+                        {
+                            r.Cast();
+                        }
+
                         return false;
+                    }
                     break;
             }
 

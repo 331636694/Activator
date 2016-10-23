@@ -11,7 +11,7 @@ namespace Activator.Summoners
     {
         internal override string Name => "summonersmite";
         internal override string DisplayName => "Smite";
-        internal override float Range => 500f;
+        internal override float Range => 500f + 1f;
         internal override int Duration => 0;
         internal override string[] ExtraNames => new[]
         {
@@ -22,9 +22,13 @@ namespace Activator.Summoners
         public override void AttachMenu(Menu menu)
         {
             Activator.UseEnemyMenu = true;
+            var smiteCombo = Smitedata.CachedSpellList.FirstOrDefault();
 
             menu.AddItem(new MenuItem("usesmite", "Use Smite")).SetValue(new KeyBind('M', KeyBindType.Toggle, true)).Permashow();
-            menu.AddItem(new MenuItem("smiteskill", "-> Smite + Ability")).SetValue(true);
+            if (smiteCombo != null)
+                menu.AddItem(new MenuItem("smiteskill",
+                    "-> Smite + " + smiteCombo.Name + " (" + smiteCombo.Slot + ")")).SetValue(true);
+
             menu.AddItem(new MenuItem("smitesmall", "Smite Small Camps")).SetValue(true);
             // Menu.AddItem(new MenuItem("smitekrug", "-> Krug")).SetValue(true);
             // Menu.AddItem(new MenuItem("smitewolve", "-> Wolves")).SetValue(true);
@@ -98,12 +102,16 @@ namespace Activator.Summoners
                     ? (float) Player.GetSummonerSpellDamage(minion, Damage.SummonerSpell.Smite)
                     : 0;
 
-                if (minion.Distance(Player.ServerPosition) <= 500 + minion.BoundingRadius + Player.BoundingRadius)
+                if (minion.Distance(Player.ServerPosition) <= 500 + minion.BoundingRadius + Player.BoundingRadius + 5)
                 {
                     if (Helpers.IsLargeMinion(minion) && Menu.Item("smitelarge").GetValue<bool>())
                     {
-                        if (Menu.Item("smiteskill").GetValue<bool>())
-                            ComboSmite(minion, damage);
+                        var smiteCombo = Smitedata.CachedSpellList.FirstOrDefault();
+                        if (smiteCombo != null)
+                        {
+                            if (Menu.Item("smiteskill").GetValue<bool>())
+                                ComboSmite(minion, damage);
+                        }
 
                         if (damage >= minion.Health && IsReady())
                         {
@@ -113,8 +121,12 @@ namespace Activator.Summoners
 
                     if (Helpers.IsSmallMinion(minion) && Menu.Item("smitesmall").GetValue<bool>())
                     {
-                        if (Menu.Item("smiteskill").GetValue<bool>())
-                            ComboSmite(minion, damage);
+                        var smiteCombo = Smitedata.CachedSpellList.FirstOrDefault();
+                        if (smiteCombo != null)
+                        {
+                            if (Menu.Item("smiteskill").GetValue<bool>())
+                                ComboSmite(minion, damage);
+                        }
 
                         if (damage >= minion.Health && IsReady())
                             Player.Spellbook.CastSpell(Activator.Smite, minion);
@@ -122,8 +134,12 @@ namespace Activator.Summoners
 
                     if (Helpers.IsEpicMinion(minion) && Menu.Item("smitesuper").GetValue<bool>())
                     {
-                        if (Menu.Item("smiteskill").GetValue<bool>())
-                            ComboSmite(minion, damage);
+                        var smiteCombo = Smitedata.CachedSpellList.FirstOrDefault();
+                        if (smiteCombo != null)
+                        {
+                            if (Menu.Item("smiteskill").GetValue<bool>())
+                                ComboSmite(minion, damage);
+                        }
 
                         if (damage >= minion.Health && IsReady())
                             Player.Spellbook.CastSpell(Activator.Smite, minion);

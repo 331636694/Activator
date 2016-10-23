@@ -111,25 +111,25 @@ namespace Activator.Base
         /// <returns></returns>
         public static PrimaryRole GetRole(Obj_AI_Hero hero)
         {
-            var assassins = new[] // heroes who use sweepers
+            var assassins = new[] // heroes who may use sweepers
             {
-                "Ahri", "Akali", "Annie", "Diana", "Ekko", "Elise", "Evelynn", "Fiddlesticks", "Fizz", "Gragas", "Kassadin", "Katarina",
-                "Khazix", "Leblanc", "Lissandra", "MasterYi", "Nidalee", "Nocturne", "Rengar", "Shaco",
-                "Syndra", "Talon", "Zed", "Kindred"
+                "Ahri", "Akali", "Annie", "Diana", "Ekko", "Elise", "Evelynn", "Fiddlesticks", "Fizz", "Gragas", "Kassadin",
+                "Khazix", "Leblanc", "Lissandra", "Nidalee", "Nocturne", "Rengar", "Shaco",
+                "Syndra", "Talon", "Zed", "Kindred", "Twistedfate"
             };
 
             var fighters = new[] // heroes who may not upgrade trinket
             {
                 "Aatrox", "Darius", "DrMundo", "Fiora", "Gangplank", "Garen", "Gnar", "Hecarim",
-                "Illaoi", "Irelia", "Jax", "Jayce", "Kayle", "Kennen", "LeeSin", "Mordekaiser", "Nasus", "Olaf", "Pantheon",
+                "Illaoi", "Irelia", "Jax", "Jayce", "Kayle", "Kennen", "LeeSin", "MasterYi", "Mordekaiser", "Nasus", "Olaf", "Pantheon",
                 "RekSai", "Renekton", "Riven", "Rumble", "Shyvana", "Skarner", "Teemo", "Trundle", "Tryndamere", "Udyr", "Vi", "Vladimir",
-                "Volibear", "Warwick", "Wukong", "XinZhao", "Yasuo", "Yorick"
+                "Volibear", "Warwick", "Wukong", "XinZhao", "Yasuo", "Yorick", "Katarina"
             };
 
             var mages = new[] // mage heroes who may prefer farsight orb
             {
                 "Anivia", "AurelionSol", "Azir", "Brand", "Cassiopeia", "Heimerdinger", "Karma",
-                "Karthus", "Lux", "Malzahar", "Orianna", "Ryze", "Swain", "Twistedfate",
+                "Karthus", "Lux", "Malzahar", "Orianna", "Ryze", "Swain", 
                 "Veigar", "Velkoz", "Viktor", "Xerath", "Ziggs", "Taliyah"
             };
 
@@ -137,7 +137,7 @@ namespace Activator.Base
             {
                 "Alistar", "Bard", "Blitzcrank", "Braum", "Janna", "Leona", "Lulu", "Morgana", "Nami", "Nunu",
                 "Sona", "Soraka", "TahmKench", "Taric", "Thresh",
-                "Zilean", "Zyra"
+                "Zilean", "Zyra", "Ivern"
             };
 
             var tanks = new[]

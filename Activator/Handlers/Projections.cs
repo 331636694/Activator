@@ -72,7 +72,7 @@ namespace Activator.Handlers
                        (data.Radius - projdist + hero.Player.BoundingRadius) / hero.Player.MoveSpeed);
 
                     // check if hero on segment
-                    if (data.Radius + hero.Player.BoundingRadius + 35 <= projdist)
+                    if (proj.IsOnSegment && projdist >= data.Radius + hero.Player.BoundingRadius + 35)
                     {
                         continue;
                     }
@@ -82,7 +82,7 @@ namespace Activator.Handlers
                         // ignore if can evade
                         if (hero.Player.NetworkId == Player.NetworkId)
                         {
-                            if (hero.Player.CanMove && evadetime < endtime)
+                            if (evadetime < endtime)
                             {
                                 // check next player
                                 continue;
@@ -209,7 +209,9 @@ namespace Activator.Handlers
 
                         #endregion
 
-                        var data = Gamedata.CachedSpells.Find(x => x.SDataName.ToLower() == args.SData.Name.ToLower());
+                        var data = Gamedata.CachedSpells.Find(
+                            x => x.SDataName.ToLower() == args.SData.Name.ToLower());
+
                         if (data == null)
                         {
                             continue;
@@ -345,13 +347,15 @@ namespace Activator.Handlers
                                  evadetime =
                                      (int) (1000 * (data.Radius - hero.Player.Distance(startpos) + hero.Player.BoundingRadius) / hero.Player.MoveSpeed);
 
-                            if (isline && data.Radius + hero.Player.BoundingRadius + 35 > projdist ||
-                               (!isline || iscone) && hero.Player.Distance(endpos) <= data.Radius + hero.Player.BoundingRadius + 35)
+                            if (proj.IsOnSegment && projdist <= data.Radius + hero.Player.BoundingRadius + 35 && isline ||
+                               (iscone || !isline) && hero.Player.Distance(endpos) <= data.Radius + hero.Player.BoundingRadius + 35)
                             {
-                                if (data.CastRange > 10000 && hero.Player.NetworkId == Player.NetworkId &&
-                                   (hero.Player.CanMove && evadetime < endtime))
+                                if (data.CastRange > 10000 && hero.Player.NetworkId == Player.NetworkId)
                                 {
-                                    continue;
+                                    if (evadetime < endtime)
+                                    {
+                                        continue;
+                                    }
                                 }
 
                                 if (!Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())

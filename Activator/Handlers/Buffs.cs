@@ -109,13 +109,12 @@ namespace Activator.Handlers
                 {
                     if (Utils.GameTimeTickCount - aura.TickLimiter >= aura.Interval * 1000)
                     {
-                        if (aura.Name == "velkozresearchstack" &&
-                            !hero.Player.HasBuffOfType(BuffType.Slow))
-                            continue;
-
-                        hero.DotTicks += 1;
-                        hero.BuffDamage += 1; // todo: get actuall damage
-                        aura.TickLimiter = Utils.GameTimeTickCount;    
+                        if (aura.Name != "velkozresearchstack" || hero.Player.HasBuffOfType(BuffType.Slow))
+                        {
+                            hero.DotTicks += 1;
+                            hero.BuffDamage += 1; // todo: get actuall damage
+                            aura.TickLimiter = Utils.GameTimeTickCount;
+                        }
                     }
                 }            
             }
