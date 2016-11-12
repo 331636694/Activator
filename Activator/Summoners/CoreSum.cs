@@ -48,11 +48,10 @@ namespace Activator.Summoners
                 if (!Name.Contains("smite") && !Name.Contains("teleport"))
                 {
                     Menu.AddItem(new MenuItem("use" + Name, "Use " + DisplayName)).SetValue(true).Permashow();
+                    Menu.AddItem(new MenuItem("prior" + Name, DisplayName + " Priority"))
+                        .SetValue(new Slider(Priority, 1, 7))
+                        .SetTooltip("The Priority " + DisplayName + " Will Activate Over Something Else (7 = Highest)");
                 }
-
-                Menu.AddItem(new MenuItem("prior" + Name, DisplayName + " Priority"))
-                    .SetValue(new Slider(Priority, 1, 7))
-                    .SetTooltip("The Priority " + DisplayName + " Will Activate Over Something Else (7 = Highest)");
 
                 AttachMenu(Menu);
 
@@ -74,7 +73,8 @@ namespace Activator.Summoners
                 ExtraNames.Any(exname => Player.GetSpellSlot(exname).IsReady());
         }
 
-        public string[] Excluded = { "summonerexhaust" };
+        public string[] HumanizerEx = { "summonerexhaust" };
+        public string[] PriorityEx = {"summonersmite", "summonerteleport"};
 
         public void UseSpell(bool combo = false)
         {
@@ -86,9 +86,9 @@ namespace Activator.Summoners
                     Utility.DelayAction.Add(1000 + Duration, () => Needed = false);
                 }
 
-                if (PriorityList.Any() && Name == PriorityList.First().Name())
+                if (PriorityList.Any() && Name == PriorityList.First().Name() || PriorityEx.Any(ex => Name.Equals(ex)))
                 {
-                    if (Excluded.Any(ex => Name.Equals(ex)) || // ignore limit
+                    if (HumanizerEx.Any(ex => Name.Equals(ex)) || // ignore limit
                         Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration)
                     {
                         if (Player.HasBuffOfType(BuffType.Invulnerability) ||
@@ -116,9 +116,9 @@ namespace Activator.Summoners
                     Utility.DelayAction.Add(1000 + Duration, () => Needed = false);
                 }
 
-                if (PriorityList.Any() && Name == PriorityList.First().Name())
+                if (PriorityList.Any() && Name == PriorityList.First().Name() || PriorityEx.Any(ex => Name.Equals(ex)))
                 {
-                    if (Excluded.Any(ex => Name.Equals(ex)) || // ignore limit
+                    if (HumanizerEx.Any(ex => Name.Equals(ex)) || // ignore limit
                         Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration)
                     {
                         if (Player.HasBuffOfType(BuffType.Invulnerability) ||
