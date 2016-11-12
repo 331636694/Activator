@@ -12,7 +12,7 @@ namespace Activator.Items.Defensives
         internal override string Name => "Edge";
         internal override string DisplayName => "Edge of Night";
         internal override int Duration => 250;
-        internal override float Range => 500f;
+        internal override float Range => 600f;
         internal override MenuType[] Category => new[] { MenuType.SelfMuchHP, MenuType.SelfCount, MenuType.ActiveCheck, MenuType.Gapcloser };
         internal override MapType[] Maps => new[] { MapType.Common };
         internal override int DefaultHP => 85;
@@ -64,7 +64,7 @@ namespace Activator.Items.Defensives
                 {
                     if (attacker.Distance(hero.Player) <= Range / 2f)
                     {
-                        UseItem(Tar.Player, true);
+                        UseItem();
                     }
                 }
 
@@ -72,7 +72,7 @@ namespace Activator.Items.Defensives
                 {
                     if (attacker.Distance(hero.Player) <= Range / 2f)
                     {
-                        UseItem(Tar.Player, true);
+                        UseItem();
                     }
                 }
             }

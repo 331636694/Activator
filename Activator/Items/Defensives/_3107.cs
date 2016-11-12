@@ -14,7 +14,7 @@ namespace Activator.Items.Defensives
         internal override int Priority => 5;
         internal override string Name => "Redemption";
         internal override string DisplayName => "Redemption";
-        internal override int Duration => 2000;
+        internal override int Duration => 250;
         internal override float Range => float.MaxValue;
         internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP };
         internal override MapType[] Maps => new[] { MapType.SummonersRift, MapType.HowlingAbyss };
