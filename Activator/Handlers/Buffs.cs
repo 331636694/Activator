@@ -75,7 +75,7 @@ namespace Activator.Handlers
                 Gamedata data = null;
 
                 if (aura.Champion == null && aura.Slot == SpellSlot.Unknown)
-                    data = new Gamedata();
+                    data = new Gamedata { SDataName = aura.Name };
 
                 if (aura.Champion != null && aura.Slot != SpellSlot.Unknown)
                     data = Gamedata.CachedSpells.Find(x => x.ChampionName.ToLower() == aura.Champion.ToLower());
