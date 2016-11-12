@@ -46,8 +46,10 @@ namespace Activator.Handlers
             hpred.Data = data;
             hpred.Name = string.Empty;
 
-            if (data != null && data.SDataName != null)
+            if (!string.IsNullOrEmpty(data?.SDataName))
+            {
                 hpred.Name = data.SDataName;
+            }
 
             if (sender != null)
             {
@@ -70,7 +72,7 @@ namespace Activator.Handlers
                                         sender.BaseAttackDamage + sender.FlatPhysicalDamageMod), 0);
                         break;
                     default:
-                        if (data != null && data.SDataName != null)
+                        if (!string.IsNullOrEmpty(data?.SDataName))
                             hpred.PredictedDmg = (float) Math.Max(0, sender.GetSpellDamage(hero.Player, data.SDataName));
                         break;
                 }
@@ -92,7 +94,7 @@ namespace Activator.Handlers
                 hpred.PredictedDmg = (float) Math.Round(idmg);
             }
 
-            if (dmgType != HitType.Buff && dmgType != HitType.Troy && data != null)
+            if (dmgType != HitType.Buff && dmgType != HitType.Troy)
             {
                 // check duplicates (missiles and process spell)
                 if (IncomeDamage.Select(entry => entry.Value).Any(o => o.Name == data.SDataName))
@@ -154,7 +156,7 @@ namespace Activator.Handlers
                         break;
                 }
 
-                if (checkmenu && hpi.Name != string.Empty) // QWER Only
+                if (checkmenu && !string.IsNullOrEmpty(hpi.Name)) // QWER Only
                 {
                     // add spell flags
                     hero.HitTypes.AddRange(
@@ -232,7 +234,7 @@ namespace Activator.Handlers
                             break;
                     }
 
-                    if (checkmenu) // QWER Only
+                    if (checkmenu && !string.IsNullOrEmpty(hpi.Name)) // QWER Only
                     {
                         // remove spell flags
                         aiHero.HitTypes.RemoveAll(
