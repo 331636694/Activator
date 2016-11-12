@@ -11,7 +11,7 @@ namespace Activator.Items.Cleansers
         internal override string Name => "Quicksilver";
         internal override string DisplayName => "Quicksilver Sash";
         internal override int Priority => 6;
-        internal override int Duration => 1000;
+        internal override int Duration => 250;
         internal override float Range => float.MaxValue;
         internal override MenuType[] Category => new[] { MenuType.Cleanse, MenuType.ActiveCheck };
         internal override MapType[] Maps => new[] { MapType.Common };

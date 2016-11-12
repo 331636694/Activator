@@ -9,9 +9,10 @@ namespace Activator.Spells.Shields
         internal override string Name => "leonasolarbarrier";
         internal override string DisplayName => "Eclipse | W";
         internal override float Range => float.MaxValue;
-        internal override MenuType[] Category => new[] { MenuType.SelfMuchHP, MenuType.SelfMinMP };
+        internal override MenuType[] Category => new[] { MenuType.SelfMinMP, MenuType.SelfMuchHP };
         internal override int DefaultHP => 95;
         internal override int DefaultMP => 45;
+        internal override int Priority => 3;
 
         public override void OnTick(EventArgs args)
         {
@@ -29,9 +30,8 @@ namespace Activator.Spells.Shields
 
                 if (hero.Player.NetworkId == Player.NetworkId)
                 {
-                    if (hero.IncomeDamage / hero.Player.MaxHealth * 100 >=
-                        Menu.Item("selfmuchhp" + Name + "pct").GetValue<Slider>().Value)
-                            UseSpell();
+                    if (ShouldUseOnMany(hero))
+                        UseSpell();
                 }
             }
         }

@@ -13,6 +13,8 @@ namespace Activator.Summoners
         internal override string DisplayName => "Smite";
         internal override float Range => 500f + 1f;
         internal override int Duration => 0;
+        internal override int Priority => 7;
+
         internal override string[] ExtraNames => new[]
         {
             "s5_summonersmiteplayerganker", "s5_summonersmiteduel",
@@ -155,7 +157,8 @@ namespace Activator.Summoners
                      Menu.Item("savesmite").GetValue<bool>() && Player.GetSpell(Activator.Smite).Ammo > 1)
                 {
                     // KS Smite
-                    if (Menu.Item("smitemode").GetValue<StringList>().SelectedIndex == 0 &&
+                    if (Menu.Item("smitemode").GetValue<StringList>().SelectedIndex == 0 ||
+                        Menu.Item("smitemode").GetValue<StringList>().SelectedIndex == 1 &&
                         Player.GetSpell(Activator.Smite).Name.ToLower() == "s5_summonersmiteplayerganker")
                     {
                         foreach (

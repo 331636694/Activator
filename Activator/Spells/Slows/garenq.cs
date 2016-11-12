@@ -10,6 +10,7 @@ namespace Activator.Spells.Slows
         internal override string Name => "garenq";
         internal override string DisplayName => "Decisive Strike| Q";
         internal override MenuType[] Category => new[] { MenuType.SlowRemoval, MenuType.ActiveCheck };
+        internal override int Priority => 2;
 
         public override void OnTick(EventArgs args)
         {

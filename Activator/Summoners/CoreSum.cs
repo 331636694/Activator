@@ -9,7 +9,9 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Activator.Base;
 using LeagueSharp;
 using LeagueSharp.Common;
 
@@ -21,14 +23,21 @@ namespace Activator.Summoners
         internal virtual string DisplayName { get; set; }
         internal virtual string[] ExtraNames { get; set; }
         internal virtual float Range { get; set; }
+        internal virtual bool Needed { get; set; }
         internal virtual int Duration { get; set; }
         internal virtual int DefaultMP { get; set; }
         internal virtual int DefaultHP { get; set; }
+        internal virtual int Priority { get; set; }
 
         public Menu Menu { get; private set; }
         public Menu Parent => Menu.Parent;
         public SpellSlot Slot => Player.GetSpellSlot(Name);
         public Obj_AI_Hero Player => ObjectManager.Player;
+
+        public IEnumerable<Priority> PriorityList
+            =>
+                Lists.Priorities.Values.Where(ii => ii.Needed())
+                    .OrderByDescending(ii => ii.Menu().Item("prior" + ii.Name()).GetValue<Slider>().Value);
 
         public CoreSum CreateMenu(Menu root)
         {
@@ -40,6 +49,10 @@ namespace Activator.Summoners
                 {
                     Menu.AddItem(new MenuItem("use" + Name, "Use " + DisplayName)).SetValue(true).Permashow();
                 }
+
+                Menu.AddItem(new MenuItem("prior" + Name, DisplayName + " Priority"))
+                    .SetValue(new Slider(Priority, 1, 7))
+                    .SetTooltip("The Priority " + DisplayName + " Will Activate Over Something Else (7 = Highest)");
 
                 AttachMenu(Menu);
 
@@ -67,14 +80,27 @@ namespace Activator.Summoners
         {
             if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
             {
-                if (Excluded.Any(ex => Name.Equals(ex)) || // ignore limit
-                    Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration)
+                if (IsReady())
                 {
-                    if (Player.GetSpell(Slot).State == SpellState.Ready)
+                    Utility.DelayAction.Add(80 - Priority * 10, () => Needed = true);
+                    Utility.DelayAction.Add(1000 + Duration, () => Needed = false);
+                }
+
+                if (PriorityList.Any() && Name == PriorityList.First().Name())
+                {
+                    if (Excluded.Any(ex => Name.Equals(ex)) || // ignore limit
+                        Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration)
                     {
-                        Player.Spellbook.CastSpell(Slot);
-                        Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
-                        Activator.LastUsedDuration = Name == "summonerexhaust" ? 0: Duration;
+                        if (Player.HasBuffOfType(BuffType.Invulnerability) ||
+                            Player.HasBuffOfType(BuffType.Invisibility))
+                            return;
+
+                        if (Player.GetSpell(Slot).State == SpellState.Ready)
+                        {
+                            Player.Spellbook.CastSpell(Slot);
+                            Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
+                            Activator.LastUsedDuration = Duration;
+                        }
                     }
                 }
             }
@@ -84,14 +110,27 @@ namespace Activator.Summoners
         {
             if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
             {
-                if (Excluded.Any(ex => Name.Equals(ex)) || // ignore limit
-                    Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration) 
+                if (IsReady())
                 {
-                    if (Player.GetSpell(Slot).State == SpellState.Ready)
+                    Utility.DelayAction.Add(80 - Priority * 10, () => Needed = true);
+                    Utility.DelayAction.Add(1000 + Duration, () => Needed = false);
+                }
+
+                if (PriorityList.Any() && Name == PriorityList.First().Name())
+                {
+                    if (Excluded.Any(ex => Name.Equals(ex)) || // ignore limit
+                        Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration)
                     {
-                        Player.Spellbook.CastSpell(Slot, target);
-                        Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
-                        Activator.LastUsedDuration = Name == "summonerexhaust" ? 0 : Duration;
+                        if (Player.HasBuffOfType(BuffType.Invulnerability) ||
+                            Player.HasBuffOfType(BuffType.Invisibility))
+                            return;
+
+                        if (Player.GetSpell(Slot).State == SpellState.Ready)
+                        {
+                            Player.Spellbook.CastSpell(Slot, target);
+                            Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
+                            Activator.LastUsedDuration = Duration;
+                        }
                     }
                 }
             }

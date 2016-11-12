@@ -29,10 +29,6 @@ namespace Activator.Items.Defensives
                     if (!Parent.Item(Parent.Name + "useon" + hero.Player.NetworkId).GetValue<bool>())
                         continue;
 
-                    if (hero.IncomeDamage / hero.Player.MaxHealth * 100 >=
-                        Menu.Item("selfmuchhp" + Name + "pct").GetValue<Slider>().Value)
-                        UseItem();
-
                     if (Menu.Item("use" + Name + "norm").GetValue<bool>() &&
                         hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.Danger))
                         UseItem();
@@ -41,10 +37,13 @@ namespace Activator.Items.Defensives
                         hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.Ultimate))
                         UseItem();
 
-                    if (hero.Player.Health / hero.Player.Health * 100 <=
+                    if (hero.Player.Health / hero.Player.MaxHealth * 100 <=
                         Menu.Item("selflowhp" + Name + "pct").GetValue<Slider>().Value)
                         if (hero.IncomeDamage > 0 || hero.MinionDamage > hero.Player.Health)
                             UseItem();
+
+                    if (ShouldUseOnMany(hero))
+                        UseItem();
                 }
             }
         }

@@ -11,7 +11,7 @@ namespace Activator.Items.Defensives
         internal override int Priority => 4;
         internal override string Name => "Oracles";
         internal override string DisplayName => "Oracle's Lens";
-        internal override int Duration => 1000;
+        internal override int Duration => 250;
         internal override float Range => 600f;
         internal override int DefaultHP => 99;
         internal override MenuType[] Category => new[] { MenuType.Stealth, MenuType.ActiveCheck };

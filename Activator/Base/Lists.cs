@@ -54,6 +54,7 @@ namespace Activator.Base
         public static List<CoreItem> BoughtItems = new List<CoreItem>();
         public static List<CoreSpell> Spells = new List<CoreSpell>();
         public static List<CoreSum> Summoners = new List<CoreSum>();
+        public static Dictionary<string, Priority> Priorities = new Dictionary<string, Priority>();
     }
 
     public enum HitType
@@ -68,7 +69,10 @@ namespace Activator.Base
         CrowdControl,
         Stealth,
         ForceExhaust,
-        Initiator
+        Initiator,
+        Troy,
+        Item,
+        Buff
     }
 
     public enum LogType
@@ -96,7 +100,6 @@ namespace Activator.Base
         Cleanse,
         Gapcloser,
         SlowRemoval,
-        SpellShield,
         ActiveCheck,
         SelfCount,
         SelfMuchHP,

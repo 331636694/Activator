@@ -29,7 +29,7 @@ namespace Activator.Data
         public string MissileName { get; set; }
         public string[] ExtraMissileNames { get; set; } = { "" };
         public int MissileSpeed { get; set; } = int.MaxValue;
-        public string[] FromObject { get; set; } = { "" };
+        public string[] FromObject { get; set; } 
         public HitType[] HitTypes { get; set; }
 
         static Gamedata()
@@ -283,6 +283,7 @@ namespace Activator.Data
                 ChampionName = "amumu",
                 Slot = SpellSlot.R,
                 CastRange = 560f,
+                Radius = 560f,
                 Delay = 250f,
                 HitTypes =
                     new[]
@@ -300,6 +301,7 @@ namespace Activator.Data
                 ChampionName = "anivia",
                 Slot = SpellSlot.Q,
                 CastRange = 1150f, // 1075 + Shatter Radius
+                Radius = 110f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.CrowdControl },
                 MissileName = "flashfrostspell",
@@ -419,6 +421,7 @@ namespace Activator.Data
                 Slot = SpellSlot.W,
                 FixedRange = true,
                 CastRange = 1200f,
+                Radius = 250f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.CrowdControl },
                 MissileName = "volleyattack",
@@ -6290,7 +6293,7 @@ namespace Activator.Data
                 ChampionName = "vladimir",
                 Slot = SpellSlot.E,
                 CastRange = 610f,
-                Delay = 250f,
+                Delay = 800f,
                 HitTypes = new HitType[] { },
                 MissileSpeed = 2200
             });

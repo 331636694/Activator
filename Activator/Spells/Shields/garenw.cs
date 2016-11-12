@@ -12,6 +12,7 @@ namespace Activator.Spells.Shields
         internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP };
         internal override int DefaultHP => 95;
         internal override int DefaultMP => 0;
+        internal override int Priority => 3;
 
         public override void OnTick(EventArgs args)
         {
@@ -25,16 +26,15 @@ namespace Activator.Spells.Shields
 
                 if (hero.Player.NetworkId == Player.NetworkId)
                 {
-                    if (hero.IncomeDamage / hero.Player.MaxHealth * 100 >=
-                        Menu.Item("selfmuchhp" + Name + "pct").GetValue<Slider>().Value)
-                            UseSpell();
-
-                    if (hero.Player.Health/hero.Player.MaxHealth*100 <=
+                    if (hero.Player.Health/hero.Player.MaxHealth * 100 <=
                         Menu.Item("selflowhp" + Name + "pct").GetValue<Slider>().Value)
                     {
                         if (hero.IncomeDamage > 0 || hero.MinionDamage > hero.Player.Health)
                             UseSpell();
                     }
+
+                    if (ShouldUseOnMany(hero))
+                        UseSpell();
                 }
             }
         }

@@ -9,9 +9,10 @@ namespace Activator.Spells.Shields
         internal override string Name => "fioraw";
         internal override string DisplayName => "Riposte | W";
         internal override float Range => 750f;
-        internal override MenuType[] Category => new[] { MenuType.SelfMuchHP, MenuType.Zhonyas, MenuType.SpellShield };
+        internal override MenuType[] Category => new[] { MenuType.Zhonyas, MenuType.SelfMuchHP };
         internal override int DefaultHP => 95;
         internal override int DefaultMP => 55;
+        internal override int Priority => 3;
 
         public override void OnTick(EventArgs args)
         {
@@ -25,21 +26,6 @@ namespace Activator.Spells.Shields
 
                 if (hero.Player.Distance(Player.ServerPosition) <= hero.Player.BoundingRadius)
                 {
-                    if (hero.IncomeDamage >= hero.Player.Health && hero.Attacker != null)
-                        UseSpellTo(hero.Attacker.ServerPosition);
-
-                    if (hero.IncomeDamage / hero.Player.MaxHealth * 100 >=
-                        Menu.Item("selfmuchhp" + Name + "pct").GetValue<Slider>().Value && hero.Attacker != null)
-                            UseSpellTo(hero.Attacker.ServerPosition);
-
-                    if (Menu.Item("ss" + Name + "all").GetValue<bool>())
-                        if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.Spell) && hero.Attacker != null)
-                            UseSpellTo(hero.Attacker.ServerPosition);
-
-                    if (Menu.Item("ss" + Name + "cc").GetValue<bool>())
-                        if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.CrowdControl) && hero.Attacker != null)
-                            UseSpellTo(hero.Attacker.ServerPosition);
-
                     if (Menu.Item("use" + Name + "norm").GetValue<bool>())
                         if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.Danger) && hero.Attacker != null)
                                 UseSpellTo(hero.Attacker.ServerPosition);
@@ -47,6 +33,9 @@ namespace Activator.Spells.Shields
                     if (Menu.Item("use" + Name + "ulti").GetValue<bool>())
                         if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.Ultimate) && hero.Attacker != null)
                                 UseSpellTo(hero.Attacker.ServerPosition);
+
+                    if (ShouldUseOnMany(hero) && hero.Attacker != null)
+                        UseSpellTo(hero.Attacker.ServerPosition);
                 }
             }
         }

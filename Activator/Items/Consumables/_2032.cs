@@ -12,7 +12,7 @@ namespace Activator.Items.Consumables
         internal override string DisplayName => "Hunter's Pot";
         internal override int Duration => 101;
         internal override float Range => float.MaxValue;
-        internal override MenuType[] Category => new[] { MenuType.SelfLowMP, MenuType.SelfLowHP, MenuType.SelfMuchHP };
+        internal override MenuType[] Category => new[] { MenuType.SelfLowMP, MenuType.SelfLowHP };
         internal override MapType[] Maps => new[] { MapType.Common };
         internal override int DefaultHP => 65;
         internal override int DefaultMP => 25;
@@ -40,13 +40,6 @@ namespace Activator.Items.Consumables
                                 if (!hero.Player.IsRecalling() && !hero.Player.InFountain())
                                     UseItem();
                             }
-                        }
-
-                        if (hero.IncomeDamage / hero.Player.MaxHealth * 100 >=
-                            Menu.Item("selfmuchhp" + Name + "pct").GetValue<Slider>().Value)
-                        {
-                            if (!hero.Player.IsRecalling() && !hero.Player.InFountain())
-                                UseItem();
                         }
                     }
 

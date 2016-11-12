@@ -12,6 +12,7 @@ namespace Activator.Spells.Evaders
         internal override MenuType[] Category => new[] { MenuType.SelfLowHP,  MenuType.Zhonyas };
         internal override int DefaultHP => 10;
         internal override int DefaultMP => 0;
+        internal override int Priority => 5;
 
         public override void OnTick(EventArgs args)
         {

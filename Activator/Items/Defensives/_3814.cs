@@ -5,17 +5,17 @@ using LeagueSharp.Common;
 
 namespace Activator.Items.Defensives
 {
-    class _3143 : CoreItem
+    class _3814 : CoreItem 
     {
-        internal override int Id => 3143;
-        internal override int Priority => 4;
-        internal override string Name => "Randuins";
-        internal override string DisplayName => "Randuin's Omen";
+        internal override int Id => 3814;
+        internal override int Priority => 6;
+        internal override string Name => "Edge";
+        internal override string DisplayName => "Edge of Night";
         internal override int Duration => 250;
         internal override float Range => 500f;
-        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfCount, MenuType.Gapcloser  };
+        internal override MenuType[] Category => new[] { MenuType.SelfMuchHP, MenuType.SelfCount, MenuType.ActiveCheck, MenuType.Gapcloser };
         internal override MapType[] Maps => new[] { MapType.Common };
-        internal override int DefaultHP => 55;
+        internal override int DefaultHP => 85;
         internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)
@@ -23,9 +23,21 @@ namespace Activator.Items.Defensives
             if (!Menu.Item("use" + Name).GetValue<bool>() || !IsReady())
                 return;
 
-            if (Player.CountEnemiesInRange(Range) >= Menu.Item("selfcount" + Name).GetValue<Slider>().Value)
+            foreach (var hero in Activator.Allies())
             {
-                UseItem();
+                if (!Parent.Item(Parent.Name + "useon" + hero.Player.NetworkId).GetValue<bool>())
+                    continue;
+
+                if (hero.Player.Distance(Player.ServerPosition) <= Range)
+                {
+                    if (ShouldUseOnMany(hero))
+                        UseItem();
+                }
+
+                if (Player.CountEnemiesInRange(Range) >= Menu.Item("selfcount" + Name).GetValue<Slider>().Value)
+                {
+                    UseItem(Menu.Item("mode" + Name).GetValue<StringList>().SelectedIndex == 1);
+                }
             }
         }
 

@@ -36,8 +36,7 @@ namespace Activator.Handlers
                 {
                     if (args.Buff.Name == "rengarralertsound")
                     {
-                        ally.HitTypes.Add(HitType.Stealth);
-                        Utility.DelayAction.Add(200, () => ally.HitTypes.Remove(HitType.Stealth));
+                        Projections.PredictTheDamage(sender, ally, new Gamedata(), HitType.Stealth, "handlers.OnBuffAdd");
                     }
                 }
             }
@@ -50,23 +49,9 @@ namespace Activator.Handlers
             foreach (var hero in Activator.Allies())
             {
                 var aura = Auradata.CachedAuras.Find(au => hero.Player.HasBuff(au.Name));
-                if (aura == null || !hero.Player.IsValidTarget(float.MaxValue, false))
-                {
-                    if (hero.DotTicks > 0)
-                    {
-                        if (hero.DotTicks == 1)
-                            hero.HitTypes.Clear();
-
-                        hero.BuffDamage -= 1;
-                        hero.DotTicks -= 1;
-                    }
-
-                    if (hero.BuffDamage < 0)
-                        hero.BuffDamage = 0;
-
+                if (aura == null)
                     continue;
-                }
-
+                
                 if (aura.Cleanse)
                 {
                     Utility.DelayAction.Add(aura.CleanseTimer,
@@ -80,6 +65,20 @@ namespace Activator.Handlers
                             }
                         });
                 }
+
+                var owner = hero.Player.GetBuff(aura.Name).Caster as Obj_AI_Hero;
+                if (owner == null || !owner.IsEnemy)
+                {
+                    continue;
+                }
+
+                Gamedata data = null;
+
+                if (aura.Champion == null && aura.Slot == SpellSlot.Unknown)
+                    data = new Gamedata();
+
+                if (aura.Champion != null && aura.Slot != SpellSlot.Unknown)
+                    data = Gamedata.CachedSpells.Find(x => x.ChampionName.ToLower() == aura.Champion.ToLower());
 
                 if (aura.Evade)
                 {
@@ -96,8 +95,8 @@ namespace Activator.Handlers
 
                                     if (Utils.GameTimeTickCount - aura.TickLimiter >= 100)
                                     {
-                                        hero.DotTicks += 1;
-                                        hero.BuffDamage += 1; // todo: get actuall damage
+                                        // ReSharper disable once PossibleNullReferenceException
+                                        Projections.PredictTheDamage(owner, hero, data, HitType.Buff, "aura.Evade");
                                         aura.TickLimiter = Utils.GameTimeTickCount;
                                     }
                                 }
@@ -109,12 +108,12 @@ namespace Activator.Handlers
                 {
                     if (Utils.GameTimeTickCount - aura.TickLimiter >= aura.Interval * 1000)
                     {
-                        if (aura.Name != "velkozresearchstack" || hero.Player.HasBuffOfType(BuffType.Slow))
-                        {
-                            hero.DotTicks += 1;
-                            hero.BuffDamage += 1; // todo: get actuall damage
-                            aura.TickLimiter = Utils.GameTimeTickCount;
-                        }
+                        if (aura.Name == "velkozresearchstack" && !hero.Player.HasBuffOfType(BuffType.Slow))
+                            continue;
+
+                        // ReSharper disable once PossibleNullReferenceException
+                        Projections.PredictTheDamage(owner, hero, data, HitType.Buff, "aura.Dot");
+                        aura.TickLimiter = Utils.GameTimeTickCount;
                     }
                 }            
             }

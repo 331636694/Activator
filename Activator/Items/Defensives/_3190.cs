@@ -10,7 +10,7 @@ namespace Activator.Items.Defensives
         internal override int Priority => 5;
         internal override string Name => "Locket";
         internal override string DisplayName => "Locket of Iron Solari";
-        internal override int Duration => 2000;
+        internal override int Duration => 250;
         internal override float Range => 600f;
         internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.Zhonyas };
         internal override MapType[] Maps => new[] { MapType.Common };
@@ -37,7 +37,7 @@ namespace Activator.Items.Defensives
                         if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.Ultimate))
                             UseItem();
 
-                    if (hero.Player.Health/hero.Player.MaxHealth*100 <=
+                    if (hero.Player.Health/hero.Player.MaxHealth * 100 <=
                         Menu.Item("selflowhp" + Name + "pct").GetValue<Slider>().Value)
                     {
                         if (hero.TowerDamage > 0  || hero.IncomeDamage > 0 || 
@@ -45,8 +45,7 @@ namespace Activator.Items.Defensives
                             UseItem();
                     }
 
-                    if (hero.IncomeDamage / hero.Player.MaxHealth * 100 >=
-                        Menu.Item("selfmuchhp" + Name + "pct").GetValue<Slider>().Value)
+                    if (ShouldUseOnMany(hero))
                         UseItem();
                 }
             }

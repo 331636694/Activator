@@ -11,7 +11,7 @@ namespace Activator.Items.Cleansers
         internal override string Name => "Mikaels";
         internal override string DisplayName => "Mikael's Crucible";
         internal override int Priority => 7;
-        internal override int Duration => 1000;
+        internal override int Duration => 250;
         internal override float Range => 750f;
         internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.Cleanse, MenuType.ActiveCheck  };
         internal override MapType[] Maps => new[] { MapType.Common };

@@ -12,6 +12,7 @@ namespace Activator.Spells.Heals
         internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMinMP };
         internal override int DefaultHP => 20;
         internal override int DefaultMP => 55;
+        internal override int Priority => 4;
 
         public override void OnTick(EventArgs args)
         {

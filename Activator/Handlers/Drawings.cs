@@ -66,11 +66,16 @@ namespace Activator.Handlers
                 if (Activator.Origin.Item("acdebug2").GetValue<bool>())
                 {
                     Drawing.DrawText(200f, 250f, Color.Wheat, "Item Priority (Debug)");
-                    foreach (var item in Items.CoreItem.PriorityList.OrderByDescending(a => a.Priority))
+
+                    var prior = Lists.Priorities.Values.Where(ii => ii.Needed())
+                                .OrderByDescending(ii => ii.Menu().Item("prior" + ii.Name()).GetValue<Slider>().Value);
+
+                    foreach (var item in prior)
                     {
-                        for (int i = 0; i < Items.CoreItem.PriorityList.Count(); i++)
+                        for (int i = 0; i < prior.Count(); i++)
                         {
-                            Drawing.DrawText(200, 265 + 5 * (i * 3), Color.White, item.Priority + " - " + item.DisplayName);
+                            Drawing.DrawText(200, 265 + 5 * (i * 3), Color.White, item.Name() + " / Needed: " 
+                                + item.Needed() + " / Ready: " + item.Ready() + " :: " + item.Position);
                         }
                     }
                 }

@@ -11,6 +11,7 @@ namespace Activator.Spells.Evaders
         internal override string DisplayName => "Death Mark | R";
         internal override float Range => 625f;
         internal override MenuType[] Category => new[] { MenuType.Zhonyas };
+        internal override int Priority => 5;
 
         public override void OnTick(EventArgs args)
         {

@@ -13,6 +13,7 @@ namespace Activator.Summoners
         internal override string[] ExtraNames => new[] { "" };
         internal override float Range => 600f;
         internal override int Duration => 100;
+        internal override int Priority => 4;
 
         internal Spell Q => new Spell(SpellSlot.Q);
         internal Spell W => new Spell(SpellSlot.W);
@@ -22,7 +23,7 @@ namespace Activator.Summoners
         public override void AttachMenu(Menu menu)
         {
             Activator.UseEnemyMenu = true;
-            menu.AddItem(new MenuItem("idmgcheck", "Combo Damage Check %", true)).SetValue(95)
+            menu.AddItem(new MenuItem("idmgcheck", "Combo Damage Check (%)", true)).SetValue(95)
                 .SetValue(new Slider(100, 1, 200)).SetTooltip("Lower if Igniting to early. Increase if opposite.");
 
             switch (Player.ChampionName)
@@ -43,7 +44,7 @@ namespace Activator.Summoners
 
             menu.AddItem(new MenuItem("itu", "Dont Ignite Near Turret")).SetValue(true);
             menu.AddItem(new MenuItem("igtu", "-> Ignore after Level")).SetValue(new Slider(11, 1, 18));
-            menu.AddItem(new MenuItem("idraw", "Draw Combo Damage %")).SetValue(true);
+            menu.AddItem(new MenuItem("idraw", "Draw Combo Damage (%)")).SetValue(true);
             menu.AddItem(new MenuItem("mode" + Name, "Mode: "))
                 .SetValue(new StringList(new[] { "Killsteal", "Combo" }, 0));
         }

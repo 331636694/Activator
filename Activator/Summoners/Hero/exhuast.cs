@@ -13,12 +13,13 @@ namespace Activator.Summoners
         internal override string[] ExtraNames => new[] { "" };
         internal override float Range => 650f;
         internal override int Duration => 100;
+        internal override int Priority => 5;
 
         public override void AttachMenu(Menu menu)
         {
             Activator.UseEnemyMenu = true;
-            menu.AddItem(new MenuItem("a" + Name + "pct", "Exhaust on ally HP %")).SetValue(new Slider(35));
-            menu.AddItem(new MenuItem("e" + Name + "pct", "Exhaust on enemy HP %")).SetValue(new Slider(45));
+            menu.AddItem(new MenuItem("a" + Name + "pct", "Exhaust on ally HP (%)")).SetValue(new Slider(35));
+            menu.AddItem(new MenuItem("e" + Name + "pct", "Exhaust on enemy HP (%)")).SetValue(new Slider(45));
             menu.AddItem(new MenuItem("use" + Name + "ulti", "Use on Dangerous (Utimates Only)"))
                 .SetValue(true).SetTooltip("Or spells with \"Force Exhaust\"");
             menu.AddItem(new MenuItem("f" + Name, "-> Force Exhaust"))

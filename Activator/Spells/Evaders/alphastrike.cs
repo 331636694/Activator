@@ -10,7 +10,8 @@ namespace Activator.Spells.Evaders
         internal override string Name => "alphastrike";
         internal override string DisplayName => "Alpha Strike | Q";
         internal override float Range => 600f;
-        internal override MenuType[] Category => new[] { MenuType.SpellShield, MenuType.Zhonyas };
+        internal override MenuType[] Category => new[] { MenuType.Zhonyas, MenuType.SelfMuchHP };
+        internal override int Priority => 5;
 
         public override void OnTick(EventArgs args)
         {
@@ -44,6 +45,9 @@ namespace Activator.Spells.Evaders
                         if (Menu.Item("use" + Name + "ulti").GetValue<bool>())
                             if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.Ultimate))
                                 CastOnBestTarget((Obj_AI_Hero) hero.Attacker);
+
+                        if (ShouldUseOnMany(hero))
+                            CastOnBestTarget((Obj_AI_Hero)hero.Attacker);
                     }
                 }
             }

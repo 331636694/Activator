@@ -9,6 +9,7 @@ namespace Activator.Spells.Evaders
         internal override string DisplayName => "Hallucinate | R";
         internal override float Range => float.MaxValue;
         internal override MenuType[] Category => new[] { MenuType.Zhonyas };
+        internal override int Priority => 5;
 
         public override void OnTick(EventArgs args)
         {

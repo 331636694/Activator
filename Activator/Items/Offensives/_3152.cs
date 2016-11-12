@@ -15,7 +15,7 @@ namespace Activator.Items.Offensives
         internal override float Range => 300f;
         internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.EnemyLowHP };
         internal override MapType[] Maps => new[] { MapType.Common };
-        internal override int DefaultHP => 55;
+        internal override int DefaultHP => 85;
         internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)

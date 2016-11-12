@@ -101,6 +101,8 @@ namespace Activator
                 GetItemGroup("Spells.Heals").ForEach(t => NewSpell((CoreSpell) NewInstance(t), amenu));
                 CreateSubMenu(amenu, false);
                 Origin.AddSubMenu(amenu);
+                
+                GetPriority();
 
                 Menu zmenu = new Menu("Misc/Settings", "settings");
 
@@ -125,7 +127,10 @@ namespace Activator
                 zmenu.AddItem(new MenuItem("weightdmg", "Weight Income Damage (%)"))
                     .SetValue(new Slider(115, 100, 150))
                     .SetTooltip("Make Activator# think you are taking more damage than calulated.");
-                zmenu.AddItem(new MenuItem("usecombo", "Combo (active)")).SetValue(new KeyBind(32, KeyBindType.Press, true));
+                zmenu.AddItem(new MenuItem("lagtolerance", "Lag Tolerance (%)"))
+                    .SetValue(new Slider(25))
+                    .SetTooltip("Make Activator# think you are taking damage longer than intended");
+                zmenu.AddItem(new MenuItem("usecombo", "Combo (active)")).SetValue(new KeyBind(32, KeyBindType.Press, true)).Permashow();
 
                 Menu uumenu = new Menu("Spell Database", "evadem");
                 LoadSpellMenu(uumenu);
@@ -138,6 +143,7 @@ namespace Activator
                 Drawings.Init();
 
                 // handlers
+
                 Projections.Init();
                 Trinkets.Init();
 
@@ -153,8 +159,12 @@ namespace Activator
                 // on level up
                 Obj_AI_Base.OnLevelUp += Obj_AI_Base_OnLevelUp;
 
+                // on predict damage
+                Projections.OnPredictDamage += Projections_OnPredictDamage;
+
                 Game.PrintChat("<b><font color=\"#FF3366\">Activator#</font></b> - Loaded!");
                 Updater.UpdateCheck();
+
 
                 // init valid auto spells
                 foreach (CoreSpell autospell in Lists.Spells)
@@ -193,6 +203,17 @@ namespace Activator
             {
                 Console.WriteLine(e);
                 Game.PrintChat("Exception thrown at <font color=\"#FFF280\">Activator.OnGameLoad</font>");
+            }
+        }
+
+        private static void Projections_OnPredictDamage()
+        {
+            foreach (var hero in Allies())
+            {
+                // if needed
+                Helpers.ResetIncomeDamage(hero);
+
+                // todo
             }
         }
 
@@ -402,6 +423,35 @@ namespace Activator
                 Auradata.CachedAuras.Add(generalaura);
         }
 
+        private static void GetPriority()
+        {
+            foreach (var item in Lists.Items)
+            {
+                var p = new Priority { ItemId = item.Id, Position = item.Priority, Type = item };
+
+                if (!Lists.Priorities.ContainsKey(item.Name))
+                {
+                    Lists.Priorities.Add(item.Name, p);
+                }
+            }
+
+            foreach (var spell in Lists.Spells)
+            {
+                var p = new Priority { ItemId = 0, Position = spell.Priority, Type = spell };
+
+                if (!Lists.Priorities.ContainsKey(spell.Name))
+                     Lists.Priorities.Add(spell.Name, p);
+            }
+
+            foreach (var summoner in Lists.Summoners)
+            {
+                var p = new Priority { ItemId = 0, Position = summoner.Priority, Type = summoner};
+
+                if (!Lists.Priorities.ContainsKey(summoner.Name))
+                     Lists.Priorities.Add(summoner.Name, p);
+            }
+        }
+  
         public static IEnumerable<Champion> Allies()
         {
             switch (Origin.Item("healthp").GetValue<StringList>().SelectedIndex)

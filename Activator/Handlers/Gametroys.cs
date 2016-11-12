@@ -68,77 +68,49 @@ namespace Activator.Handlers
                 var troy = Gametroy.Troys.FirstOrDefault(x => x.Included);
                 if (troy == null)
                 {
-                    // if not included reverse ticks/damage
-                    if (hero.TroyTicks > 0)
-                    {
-                        if (hero.TroyTicks == 1)
-                            hero.HitTypes.Clear();
-
-                        hero.TroyDamage -= 5;
-                        hero.TroyTicks -= 1;
-                    }
-
                     continue;
                 }
 
-                if (troy.Obj == null || !troy.Obj.IsValid || !troy.Obj.IsVisible)
+                if (!troy.Obj.IsVisible || !troy.Obj.IsValid)
                 {
-                    // if included but obj is null..?
-                    if (hero.TroyTicks > 0)
-                    {
-                        if (hero.TroyTicks == 1)
-                        {
-                            hero.HitTypes.Clear();
-                            troy.Included = false; // remove
-                        }
-
-                        hero.TroyDamage -= 5;
-                        hero.TroyTicks -= 1;
-                    }
-
                     continue;
                 }
 
-                foreach (var data in Troydata.Troys.Where(x => x.Name == troy.Name))
+                foreach (var entry in Troydata.Troys.Where(x => x.Name == troy.Name))
                 {
-                    if (hero.Player.Distance(troy.Obj.Position) <= data.Radius + hero.Player.BoundingRadius)
+                    var owner = Activator.Heroes.FirstOrDefault(x => x.Player.ChampionName == entry.ChampionName);
+                    if (owner == null || !owner.Player.IsEnemy)
+                    {
+                        continue;
+                    }
+
+                    Gamedata data = null;
+
+                    if (entry.ChampionName == null && entry.Slot == SpellSlot.Unknown)
+                        data = new Gamedata();
+
+                    if (entry.ChampionName != null && entry.Slot != SpellSlot.Unknown)
+                        data = Gamedata.CachedSpells.Find(x => x.ChampionName.ToLower() == entry.ChampionName.ToLower());
+
+                    if (hero.Player.Distance(troy.Obj.Position) <= entry.Radius + hero.Player.BoundingRadius)
                     {
                         // check delay (e.g fizz bait)
-                        if (Utils.GameTimeTickCount - troy.Start >= data.DelayFromStart)
+                        if (Utils.GameTimeTickCount - troy.Start >= entry.DelayFromStart)
                         {
                             if (hero.Player.IsValidTarget(float.MaxValue, false))
                             {
                                 if (!hero.Player.IsZombie && !hero.Immunity)
                                 {
-                                    foreach (var ii in data.HitTypes)
-                                    {
-                                        if (!hero.HitTypes.Contains(ii))
-                                             hero.HitTypes.Add(ii);
-                                    }
-
                                     // limit the damage using an interval
-                                    if (Utils.GameTimeTickCount - troy.Limiter >= data.Interval * 1000)
+                                    if (Utils.GameTimeTickCount - troy.Limiter >= entry.Interval * 1000)
                                     {
-                                        hero.TroyDamage += 5; // todo: get actuall spell damage
-                                        hero.TroyTicks += 1;
+                                        Projections.PredictTheDamage(owner.Player, hero, data, HitType.Troy, "troy.OnUpdate");
                                         troy.Limiter = Utils.GameTimeTickCount;
                                     }
                                 }
                             }
-
-                            return;
                         }
                     }
-                }
-
-                // reset damage if walked out of obj
-                if (hero.TroyTicks > 0)
-                {
-                    if (hero.TroyTicks == 1)
-                        hero.HitTypes.Clear();
-
-                    hero.TroyDamage -= 5;
-                    hero.TroyTicks -= 1;
                 }
             }
         }

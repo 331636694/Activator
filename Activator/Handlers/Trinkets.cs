@@ -32,7 +32,7 @@ namespace Activator.Handlers
             {
                 TrinketId = (int) item.Id;
 
-                if ((TrinketId == 3340 || TrinketId == 3341) && Player.Level >= 9)
+                if ((TrinketId == 3340 || TrinketId == 3341) && Player.Level >= 11)
                 {
                     Upgrade = true;
                 }
@@ -64,7 +64,7 @@ namespace Activator.Handlers
             var hero = sender as Obj_AI_Hero;
             if (hero != null && hero.IsMe)
             {
-                if (Player.Level == 9)
+                if (Player.Level == 11)
                 {
                     Upgrade = true;
                 }

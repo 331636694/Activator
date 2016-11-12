@@ -10,7 +10,7 @@ namespace Activator.Items.Defensives
         internal override int Priority => 5;
         internal override string Name => "Mountain";
         internal override string DisplayName => "Face of the Mountain";
-        internal override int Duration => 2000;
+        internal override int Duration => 250;
         internal override float Range => 700f;
         internal override int DefaultHP => 35;
         internal override int DefaultMP => 0;
@@ -37,7 +37,7 @@ namespace Activator.Items.Defensives
                         if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.Ultimate))
                             UseItem(hero.Player);
 
-                    if (hero.Player.Health/hero.Player.MaxHealth*100 <=
+                    if (hero.Player.Health/hero.Player.MaxHealth * 100 <=
                         Menu.Item("selflowhp" + Name + "pct").GetValue<Slider>().Value)
                     {
                         if (hero.TowerDamage > 0  || hero.IncomeDamage > 0 || 
@@ -45,8 +45,7 @@ namespace Activator.Items.Defensives
                             UseItem(hero.Player);
                     }
 
-                    if (hero.IncomeDamage / hero.Player.MaxHealth * 100 >=
-                        Menu.Item("selfmuchhp" + Name + "pct").GetValue<Slider>().Value)
+                    if (ShouldUseOnMany(hero))
                         UseItem(hero.Player);
                 }
             }

@@ -81,27 +81,18 @@ namespace Activator.Base
         /// Will try to Reset income damage if target is not valid.
         /// </summary>
         /// <param name="hero">The hero to reset damage. </param>
-        public static void ResetIncomeDamage(Obj_AI_Hero hero)
+        public static void ResetIncomeDamage(Champion hero)
         {
-            foreach (var unit in Activator.Heroes.Where(x => x.Player.NetworkId == hero.NetworkId))
+            if (hero.Player.IsZombie || hero.Immunity || !hero.Player.IsValidTarget(float.MaxValue, false))
             {
-                if (unit.AbilityDamage != 0) 
-                {
-                    unit.AbilityDamage = 0;
-                    unit.HitTypes.Clear();
-                }
-
-                if (unit.Player.IsZombie || unit.Immunity || !unit.Player.IsValidTarget(float.MaxValue, false))
-                {
-                    unit.Attacker = null;
-                    unit.BuffDamage = 0;
-                    unit.TroyDamage = 0;
-                    unit.AbilityDamage = 0;
-                    unit.MinionDamage = 0;
-                    unit.TowerDamage = 0;
-                    unit.HitTypes.Clear();
-                }
-            }
+                hero.Attacker = null;
+                hero.BuffDamage = 0;
+                hero.TroyDamage = 0;
+                hero.AbilityDamage = 0;
+                hero.MinionDamage = 0;
+                hero.TowerDamage = 0;
+                hero.HitTypes.Clear();
+            }            
         }
 
         /// <summary>
@@ -365,7 +356,6 @@ namespace Activator.Base
                 }
             }
         }
-
 
         public static void CreateLogPath()
         {

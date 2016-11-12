@@ -10,6 +10,7 @@ namespace Activator.Spells.Slows
         internal override string Name => "evelynnw";
         internal override string DisplayName => "Dark Frenzy | W";
         internal override MenuType[] Category => new[] { MenuType.SlowRemoval, MenuType.ActiveCheck };
+        internal override int Priority => 2;
 
         public override void OnTick(EventArgs args)
         {

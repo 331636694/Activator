@@ -77,7 +77,10 @@
     <Compile Include="Items\Consumables\_2032.cs" />
     <Compile Include="Items\Consumables\_2033.cs" />
     <Compile Include="Items\Consumables\_2047.cs" />
+    <Compile Include="Items\Defensives\_3107.cs" />
+    <Compile Include="Items\Defensives\_3109.cs" />
     <Compile Include="Items\Defensives\_3048.cs" />
+    <Compile Include="Items\Defensives\_3814.cs" />
     <Compile Include="Items\Offensives\_3030.cs" />
     <Compile Include="Items\Offensives\_3152.cs" />
     <Compile Include="Items\Offensives\_3043.cs" />
@@ -168,7 +171,7 @@
     <Compile Include="Spells\Shields\orianaredactcommand.cs" />
     <Compile Include="Spells\Shields\rivenfeint.cs" />
     <Compile Include="Spells\Shields\rumbleshield.cs" />
-    <Compile Include="Spells\Shields\shenfeint.cs" />
+    <Compile Include="Spells\Shields\shenw.cs" />
     <Compile Include="Spells\Shields\sionw.cs" />
     <Compile Include="Spells\Shields\skarnerw.cs" />
     <Compile Include="Spells\Shields\udyrturtle.cs" />

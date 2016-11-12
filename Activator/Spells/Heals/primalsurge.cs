@@ -9,9 +9,10 @@ namespace Activator.Spells.Heals
         internal override string Name => "primalsurge";
         internal override string DisplayName => "Primal Surge | E";
         internal override float Range => 600f;
-        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP, MenuType.SelfMinMP };
+        internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMinMP };
         internal override int DefaultHP => 90;
         internal override int DefaultMP => 55;
+        internal override int Priority => 4;
 
         public override void OnTick(EventArgs args)
         {
@@ -34,10 +35,6 @@ namespace Activator.Spells.Heals
                 {
                     if (hero.Player.Health / hero.Player.MaxHealth * 100 <=
                         Menu.Item("selflowhp" + Name + "pct").GetValue<Slider>().Value)
-                        UseSpellOn(hero.Player);
-
-                    if (hero.IncomeDamage / hero.Player.MaxHealth * 100 >=
-                        Menu.Item("selfmuchhp" + Name + "pct").GetValue<Slider>().Value)
                         UseSpellOn(hero.Player);
                 }
             }

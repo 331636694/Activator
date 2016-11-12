@@ -13,6 +13,7 @@ namespace Activator.Summoners
         internal override string[] ExtraNames => new[] { "" };
         internal override float Range => float.MaxValue;
         internal override int Duration => 3500;
+        internal override int Priority => 3;
 
         static bool IsLethal(Champion hero)
         {

@@ -7,9 +7,9 @@ namespace Activator.Items.Consumables
 {
     class _2043 : CoreItem
     {
-        internal override int Id => 2043;
-        internal override string Name => "Vision Ward";
-        internal override string DisplayName => "Vision Ward";
+        internal override int Id => 2055;
+        internal override string Name => "Control Ward";
+        internal override string DisplayName => "Control Ward";
         internal override int Duration => 101;
         internal override int Priority => 5;
         internal override float Range => 600f;

@@ -11,7 +11,8 @@ namespace Activator.Summoners
         internal override string DisplayName => "Cleanse";
         internal override string[] ExtraNames => new[] { "" };
         internal override float Range => float.MaxValue;
-        internal override int Duration => 3000;
+        internal override int Duration => 100;
+        internal override int Priority => 6;
 
         public override void AttachMenu(Menu menu)
         {

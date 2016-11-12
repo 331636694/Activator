@@ -13,6 +13,7 @@ namespace Activator.Spells.Health
         internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfCount  };
         internal override int DefaultHP => 20;
         internal override int DefaultMP => 0;
+        internal override int Priority => 6;
 
         public override void OnTick(EventArgs args)
         {

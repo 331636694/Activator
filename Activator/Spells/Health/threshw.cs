@@ -10,9 +10,10 @@ namespace Activator.Spells.Health
         internal override string Name => "threshw";
         internal override string DisplayName => "Dark Passage | W";
         internal override float Range => 950f;
-        internal override MenuType[] Category => new[] { MenuType.Zhonyas, MenuType.SelfCount };
+        internal override MenuType[] Category => new[] { MenuType.Zhonyas, MenuType.SelfCount, MenuType.SelfMuchHP };
         internal override int DefaultHP => 20;
         internal override int DefaultMP => 0;
+        internal override int Priority => 6;
 
         public override void OnTick(EventArgs args)
         {
@@ -44,6 +45,9 @@ namespace Activator.Spells.Health
                         if (hero.Player.CountEnemiesInRange(300) >=
                             Menu.Item("selfcount" + Name).GetValue<Slider>().Value)
                                 UseSpellTo(Prediction.GetPrediction(hero.Player, 0.25f).UnitPosition);
+
+                        if (ShouldUseOnMany(hero))
+                            UseSpellTo(Prediction.GetPrediction(hero.Player, 0.25f).UnitPosition);
                     }
                 }
             }
