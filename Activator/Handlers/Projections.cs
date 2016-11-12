@@ -46,7 +46,7 @@ namespace Activator.Handlers
             hpred.Data = data;
             hpred.Name = string.Empty;
 
-            if (data?.SDataName != null)
+            if (data != null && data.SDataName != null)
                 hpred.Name = data.SDataName;
 
             if (sender != null)
@@ -70,7 +70,7 @@ namespace Activator.Handlers
                                         sender.BaseAttackDamage + sender.FlatPhysicalDamageMod), 0);
                         break;
                     default:
-                        if (data != null && data.SDataName != string.Empty)
+                        if (data != null && data.SDataName != null)
                             hpred.PredictedDmg = (float) Math.Max(0, sender.GetSpellDamage(hero.Player, data.SDataName));
                         break;
                 }
