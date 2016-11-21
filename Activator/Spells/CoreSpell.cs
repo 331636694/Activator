@@ -33,6 +33,10 @@ namespace Activator.Spells
         public Menu Parent => Menu.Parent;
         public Obj_AI_Hero Player => ObjectManager.Player;
 
+        public bool ComboActive
+            => Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active ||
+               Orbwalking.Orbwalker.Instances.Any(x => x.ActiveMode == Orbwalking.OrbwalkingMode.Combo);
+
         public IEnumerable<Priority> PriorityList
             =>
                 Lists.Priorities.Values.Where(ii => ii.Needed() && ii.Ready())
@@ -159,26 +163,66 @@ namespace Activator.Spells
 
         public void UseSpell(bool combo = false)
         {
-            if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
+            if (combo && !ComboActive)
             {
-                if (IsReady())
-                {
-                    Utility.DelayAction.Add(80 - Priority * 10, () => Needed = true);
-                    Utility.DelayAction.Add(1000, () => Needed = false);
-                }
+                return;
+            }
 
-                if (PriorityList.Any() && Name == PriorityList.First().Name())
+            if (IsReady())
+            {
+                Utility.DelayAction.Add(80 - Priority * 10, () => Needed = true);
+                Utility.DelayAction.Add(1000, () => Needed = false);
+            }
+
+            if (PriorityList.Any() && Name == PriorityList.First().Name())
+            {
+                if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration)
                 {
-                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration)
+                    if (!Player.IsRecalling() &&
+                        !Player.Spellbook.IsChanneling &&
+                        !Player.IsChannelingImportantSpell() &&
+                        !Player.Spellbook.IsCastingSpell)
                     {
-                        if (!Player.IsRecalling() &&
-                            !Player.Spellbook.IsChanneling &&
-                            !Player.IsChannelingImportantSpell() &&
-                            !Player.Spellbook.IsCastingSpell)
+                        if (!Player.HasBuffOfType(BuffType.Invisibility) && !Player.HasBuffOfType(BuffType.Invulnerability))
+                        {
+                            if (Player.Spellbook.CastSpell(Player.GetSpellSlot(Name)))
+                            {
+                                Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
+                                Activator.LastUsedDuration = 100;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public void UseSpellTo(Vector3 targetpos, bool combo = false)
+        {
+            if (combo && !ComboActive)
+            {
+                return;
+            }
+
+            if (IsReady())
+            {
+                Utility.DelayAction.Add(80 - Priority * 10, () => Needed = true);
+                Utility.DelayAction.Add(1000, () => Needed = false);
+            }
+
+            if (PriorityList.Any() && Name == PriorityList.First().Name())
+            {
+                if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration)
+                {
+                    if (!Player.IsRecalling() &&
+                        !Player.Spellbook.IsChanneling &&
+                        !Player.IsChannelingImportantSpell() &&
+                        !Player.Spellbook.IsCastingSpell)
+                    {
+                        if (Player.Distance(targetpos) <= Range)
                         {
                             if (!Player.HasBuffOfType(BuffType.Invisibility) && !Player.HasBuffOfType(BuffType.Invulnerability))
                             {
-                                if (Player.Spellbook.CastSpell(Player.GetSpellSlot(Name)))
+                                if (Player.Spellbook.CastSpell(Player.GetSpellSlot(Name), targetpos))
                                 {
                                     Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
                                     Activator.LastUsedDuration = 100;
@@ -190,70 +234,36 @@ namespace Activator.Spells
             }
         }
 
-        public void UseSpellTo(Vector3 targetpos, bool combo = false)
-        {
-            if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
-            {
-                if (IsReady())
-                {
-                    Utility.DelayAction.Add(80 - Priority * 10, () => Needed = true);
-                    Utility.DelayAction.Add(1000, () => Needed = false);
-                }
-
-                if (PriorityList.Any() && Name == PriorityList.First().Name())
-                {
-                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration)
-                    {
-                        if (!Player.IsRecalling() &&
-                            !Player.Spellbook.IsChanneling &&
-                            !Player.IsChannelingImportantSpell() &&
-                            !Player.Spellbook.IsCastingSpell)
-                        {
-                            if (Player.Distance(targetpos) <= Range)
-                            {
-                                if (!Player.HasBuffOfType(BuffType.Invisibility) && !Player.HasBuffOfType(BuffType.Invulnerability))
-                                {
-                                    if (Player.Spellbook.CastSpell(Player.GetSpellSlot(Name), targetpos))
-                                    {
-                                        Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
-                                        Activator.LastUsedDuration = 100;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         public void UseSpellOn(Obj_AI_Base target, bool combo = false)
         {
-            if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
+            if (combo && !ComboActive)
             {
-                if (IsReady())
-                {
-                    Utility.DelayAction.Add(80 - Priority * 10, () => Needed = true);
-                    Utility.DelayAction.Add(1000, () => Needed = false);
-                }
+                return;
+            }
 
-                if (PriorityList.Any() && Name == PriorityList.First().Name())
+            if (IsReady())
+            {
+                Utility.DelayAction.Add(80 - Priority * 10, () => Needed = true);
+                Utility.DelayAction.Add(1000, () => Needed = false);
+            }
+
+            if (PriorityList.Any() && Name == PriorityList.First().Name())
+            {
+                if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration)
                 {
-                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Activator.LastUsedDuration)
+                    if (!Player.IsRecalling() &&
+                        !Player.Spellbook.IsChanneling &&
+                        !Player.IsChannelingImportantSpell() &&
+                        !Player.Spellbook.IsCastingSpell)
                     {
-                        if (!Player.IsRecalling() &&
-                            !Player.Spellbook.IsChanneling &&
-                            !Player.IsChannelingImportantSpell() &&
-                            !Player.Spellbook.IsCastingSpell)
+                        if (Player.Distance(target.Position) <= Range)
                         {
-                            if (Player.Distance(target.Position) <= Range)
+                            if (!Player.HasBuffOfType(BuffType.Invisibility) && !Player.HasBuffOfType(BuffType.Invulnerability))
                             {
-                                if (!Player.HasBuffOfType(BuffType.Invisibility) && !Player.HasBuffOfType(BuffType.Invulnerability))
+                                if (Player.Spellbook.CastSpell(Player.GetSpellSlot(Name), target))
                                 {
-                                    if (Player.Spellbook.CastSpell(Player.GetSpellSlot(Name), target))
-                                    {
-                                        Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
-                                        Activator.LastUsedDuration = 100;
-                                    }
+                                    Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
+                                    Activator.LastUsedDuration = 100;
                                 }
                             }
                         }
@@ -317,6 +327,7 @@ namespace Activator.Spells
 
         public virtual void OnTick(EventArgs args)
         {
+
         }
     }
 }

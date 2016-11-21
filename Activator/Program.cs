@@ -123,7 +123,7 @@ namespace Activator
                 zmenu.AddSubMenu(bbmenu);
 
                 zmenu.AddItem(new MenuItem("autolevelup", "Auto Level Ultimate")).SetValue(true).SetTooltip("Level 6 Only");
-                zmenu.AddItem(new MenuItem("autotrinket", "Auto Upgrade Trinket")).SetValue(false);
+                zmenu.AddItem(new MenuItem("autotrinket", "Auto Upgrade Trinket")).SetValue(true);
                 zmenu.AddItem(new MenuItem("healthp", "Ally Priority:")).SetValue(new StringList(new[] { "Low HP", "Most AD/AP", "Most HP" }, 1));
                 zmenu.AddItem(new MenuItem("weightdmg", "Weight Income Damage (%)"))
                     .SetValue(new Slider(115, 100, 150))
@@ -131,7 +131,8 @@ namespace Activator
                 zmenu.AddItem(new MenuItem("lagtolerance", "Lag Tolerance (%)"))
                     .SetValue(new Slider(25))
                     .SetTooltip("Make Activator# think you are taking damage longer than intended");
-                zmenu.AddItem(new MenuItem("usecombo", "Combo (active)")).SetValue(new KeyBind(32, KeyBindType.Press, true)).Permashow();
+                zmenu.AddItem(new MenuItem("usecombo", "Combo (active)"))
+                    .SetValue(new KeyBind(32, KeyBindType.Press, true));
 
                 Menu uumenu = new Menu("Spell Database", "evadem");
                 LoadSpellMenu(uumenu);

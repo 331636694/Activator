@@ -35,13 +35,30 @@ namespace Activator.Items
         public Menu Menu { get; private set; }
         public Menu Parent => Menu.Parent;
         public Obj_AI_Hero Player => ObjectManager.Player;
-        public Champion Tar => Activator.Heroes.Where(
-            hero => hero.Player.IsEnemy && hero.Player.IsValidTarget(Range + 100) &&
-                   !hero.Player.IsZombie).OrderBy(x => x.Player.Distance(Game.CursorPos)).FirstOrDefault();
+        public int[] Excluded => new[] { 3090, 3157, 3137, 3139, 3140, 3222 };
+
+        public Champion Tar
+        {
+            get
+            {
+                var t = TargetSelector.GetTarget(Range + 100, TargetSelector.DamageType.Physical);
+                if (t != null && t.IsValidTarget() && !t.IsZombie)
+                {
+                    return Activator.Heroes.First(x => x.Player.NetworkId == t.NetworkId);
+                }
+
+                return Activator.Heroes.Where(
+                    hero => hero.Player.IsEnemy && hero.Player.IsValidTarget(Range + 100) &&
+                           !hero.Player.IsZombie).OrderBy(x => x.Player.Distance(Game.CursorPos)).FirstOrDefault();
+            }
+        }
 
         public bool IsReady() => LeagueSharp.Common.Items.CanUseItem(Id);
-        public int[] Excluded => new[] { 3090, 3157, 3137, 3139, 3140, 3222 };
         public bool DontHumanize => Excluded.Any(ex => Id.Equals(ex));
+
+        public bool ComboActive
+            =>  Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active ||
+                Orbwalking.Orbwalker.Instances.Any(x => x.ActiveMode == Orbwalking.OrbwalkingMode.Combo);
 
         public IEnumerable<Priority> PriorityList
             =>
@@ -50,26 +67,28 @@ namespace Activator.Items
 
         public void UseItem(bool combo = false)
         {
-            if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
+            if (combo && !ComboActive)
             {
-                if (IsReady())
-                {
-                    Utility.DelayAction.Add(80 - Priority * 10, () => Needed = true);
-                    Utility.DelayAction.Add(1000 + Duration, () => Needed = false);
-                }
+                return;
+            }
 
-                if (PriorityList.Any() && Name == PriorityList.First().Name())
+            if (IsReady())
+            {
+                Utility.DelayAction.Add(80 - Priority * 10, () => Needed = true);
+                Utility.DelayAction.Add(1000 + Duration, () => Needed = false);
+            }
+
+            if (PriorityList.Any() && Name == PriorityList.First().Name())
+            {
+                if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || DontHumanize)
                 {
-                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || DontHumanize)
+                    if (!Player.HasBuffOfType(BuffType.Invisibility) &&
+                        !Player.HasBuffOfType(BuffType.Invulnerability))
                     {
-                        if (!Player.HasBuffOfType(BuffType.Invisibility) &&
-                            !Player.HasBuffOfType(BuffType.Invulnerability))
+                        if (LeagueSharp.Common.Items.UseItem(Id))
                         {
-                            if (LeagueSharp.Common.Items.UseItem(Id))
-                            {
-                                Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
-                                Activator.LastUsedDuration = Duration;
-                            }
+                            Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
+                            Activator.LastUsedDuration = Duration;
                         }
                     }
                 }
@@ -78,26 +97,28 @@ namespace Activator.Items
 
         public void UseItem(Obj_AI_Base target, bool combo = false)
         {
-            if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
+            if (combo && !ComboActive)
             {
-                if (IsReady())
-                {
-                    Utility.DelayAction.Add(80 - Priority * 10, () => Needed = true);
-                    Utility.DelayAction.Add(1000 + Duration, () => Needed = false);
-                }
+                return;
+            }
 
-                if (PriorityList.Any() && Name == PriorityList.First().Name())
+            if (IsReady())
+            {
+                Utility.DelayAction.Add(80 - Priority * 10, () => Needed = true);
+                Utility.DelayAction.Add(1000 + Duration, () => Needed = false);
+            }
+
+            if (PriorityList.Any() && Name == PriorityList.First().Name())
+            {
+                if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || DontHumanize)
                 {
-                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || DontHumanize)
+                    if (!Player.HasBuffOfType(BuffType.Invisibility) &&
+                        !Player.HasBuffOfType(BuffType.Invulnerability))
                     {
-                        if (!Player.HasBuffOfType(BuffType.Invisibility) &&
-                            !Player.HasBuffOfType(BuffType.Invulnerability))
+                        if (LeagueSharp.Common.Items.UseItem(Id, target))
                         {
-                            if (LeagueSharp.Common.Items.UseItem(Id, target))
-                            {
-                                Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
-                                Activator.LastUsedDuration = Duration;
-                            }
+                            Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
+                            Activator.LastUsedDuration = Duration;
                         }
                     }
                 }
@@ -106,26 +127,28 @@ namespace Activator.Items
 
         public void UseItem(Vector3 pos, bool combo = false)
         {
-            if (!combo || Activator.Origin.Item("usecombo").GetValue<KeyBind>().Active)
+            if (combo && !ComboActive)
             {
-                if (IsReady())
-                {
-                    Utility.DelayAction.Add(80 - Priority * 10, () => Needed = true);
-                    Utility.DelayAction.Add(1000 + Duration, () => Needed = false);
-                }
+                return;
+            }
 
-                if (PriorityList.Any() && Name == PriorityList.First().Name())
+            if (IsReady())
+            {
+                Utility.DelayAction.Add(80 - Priority * 10, () => Needed = true);
+                Utility.DelayAction.Add(1000 + Duration, () => Needed = false);
+            }
+
+            if (PriorityList.Any() && Name == PriorityList.First().Name())
+            {
+                if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || DontHumanize)
                 {
-                    if (Utils.GameTimeTickCount - Activator.LastUsedTimeStamp > Duration || DontHumanize)
+                    if (!Player.HasBuffOfType(BuffType.Invisibility) &&
+                        !Player.HasBuffOfType(BuffType.Invulnerability))
                     {
-                        if (!Player.HasBuffOfType(BuffType.Invisibility) &&
-                            !Player.HasBuffOfType(BuffType.Invulnerability))
+                        if (LeagueSharp.Common.Items.UseItem(Id, pos))
                         {
-                            if (LeagueSharp.Common.Items.UseItem(Id, pos))
-                            {
-                                Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
-                                Activator.LastUsedDuration = Duration;
-                            }
+                            Activator.LastUsedTimeStamp = Utils.GameTimeTickCount;
+                            Activator.LastUsedDuration = Duration;
                         }
                     }
                 }
