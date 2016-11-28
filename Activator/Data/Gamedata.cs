@@ -2151,10 +2151,11 @@ namespace Activator.Data
                 SDataName = "ivernq",
                 ChampionName = "ivern",
                 Slot = SpellSlot.Q,
+                Radius = 65f,
                 CastRange = 1100f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Danger },
-                MissileName = "ivirnq",
+                MissileName = "ivernq",
                 MissileSpeed = 1300
             });
 
@@ -2166,7 +2167,7 @@ namespace Activator.Data
                 CastRange = 0f,
                 Delay = 250f,
                 HitTypes = new HitType[] { },
-                MissileName = "ivirnw",
+                MissileName = "ivernw",
                 MissileSpeed = int.MaxValue
             });
 
@@ -2178,7 +2179,7 @@ namespace Activator.Data
                 CastRange = 0f,
                 Delay = 250f,
                 HitTypes = new HitType[] { },
-                MissileName = "ivirne",
+                MissileName = "iverne",
                 MissileSpeed = int.MaxValue
             });
 
