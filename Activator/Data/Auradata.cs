@@ -153,7 +153,7 @@ namespace Activator.Data
                 Cleanse = false,
                 CleanseTimer = 0,
                 Slot = SpellSlot.Unknown,
-                Interval = .8
+                Interval = 0.8
             });
 
             BuffList.Add(new Auradata
@@ -237,7 +237,7 @@ namespace Activator.Data
                 Cleanse = false,
                 CleanseTimer = 0,
                 Slot = SpellSlot.Q,
-                Interval = .8
+                Interval = 0.8
             });
 
             BuffList.Add(new Auradata()
@@ -251,7 +251,7 @@ namespace Activator.Data
                 Cleanse = true,
                 CleanseTimer = 0,
                 Slot = SpellSlot.R,
-                Interval = .8
+                Interval = 0.8
             });
 
             BuffList.Add(new Auradata
@@ -265,7 +265,7 @@ namespace Activator.Data
                 Cleanse = false,
                 CleanseTimer = 0,
                 Slot = SpellSlot.E,
-                Interval = .8
+                Interval = 0.8
             });
 
             BuffList.Add(new Auradata
@@ -419,7 +419,7 @@ namespace Activator.Data
                 Cleanse = false,
                 CleanseTimer = 0,
                 Slot = SpellSlot.Unknown,
-                Interval = .8
+                Interval = 0.8
             });
 
             BuffList.Add(new Auradata
@@ -428,12 +428,12 @@ namespace Activator.Data
                 Name = "tristanaechargesound",
                 MenuName = "Tristana Explosive Charge",
                 Evade = false,
-                DoT = true, // not really a dot but can be cleansed
+                DoT = true,
                 EvadeTimer = 0,
                 Cleanse = false,
                 CleanseTimer = 0,
                 Slot = SpellSlot.E,
-                Interval = .8
+                Interval = 0.8
             });
 
             BuffList.Add(new Auradata
@@ -461,7 +461,7 @@ namespace Activator.Data
                 Cleanse = false,
                 CleanseTimer = 0,
                 Slot = SpellSlot.W,
-                Interval = .8
+                Interval = 0.8
             });
 
             BuffList.Add(new Auradata
@@ -475,7 +475,7 @@ namespace Activator.Data
                 Cleanse = false,
                 CleanseTimer = 0,
                 Slot = SpellSlot.Unknown,
-                Interval = .8
+                Interval = 0.8
             });
 
             BuffList.Add(new Auradata
@@ -849,11 +849,12 @@ namespace Activator.Data
                 Name = "fizzmarinerdoombomb",
                 MenuName = "Fizz Shark Bait",
                 Evade = false,
-                DoT = false,
+                DoT = true,
                 EvadeTimer = 0,
                 Cleanse = true,
                 CleanseTimer = 0,
-                Slot = SpellSlot.R
+                Slot = SpellSlot.R,
+                Interval = 1.5
             });
 
             BuffList.Add(new Auradata
@@ -863,7 +864,7 @@ namespace Activator.Data
                 MenuName = "Morgana Soul Shackles",
                 Evade = true,
                 DoT = false,
-                EvadeTimer = 2600,
+                EvadeTimer = 3200,
                 Cleanse = true,
                 CleanseTimer = 1100,
                 Slot = SpellSlot.R,
@@ -893,7 +894,8 @@ namespace Activator.Data
                 EvadeTimer = 900,
                 Cleanse = false,
                 CleanseTimer = 0,
-                Slot = SpellSlot.R
+                Slot = SpellSlot.R,
+                Interval = 0.8
             });
 
             BuffList.Add(new Auradata
@@ -906,7 +908,8 @@ namespace Activator.Data
                 EvadeTimer = 4500,
                 Cleanse = true,
                 CleanseTimer = 0,
-                Slot = SpellSlot.R
+                Slot = SpellSlot.R,
+                Interval = 4.4
             });
 
             BuffList.Add(new Auradata

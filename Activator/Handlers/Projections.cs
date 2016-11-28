@@ -425,7 +425,7 @@ namespace Activator.Handlers
                                     ObjectManager.Get<GameObject>()
                                         .FirstOrDefault(
                                             x =>
-                                                data.FromObject != null && x.Name.ToLower().Contains("red") &&
+                                                data.FromObject != null && // todo: actually get team
                                                 data.FromObject.Any(y => x.Name.Contains(y)));
                             }
 
@@ -457,7 +457,7 @@ namespace Activator.Handlers
                                     ObjectManager.Get<GameObject>()
                                         .FirstOrDefault(
                                             x =>
-                                                data.FromObject != null && x.Name.ToLower().Contains("red") &&
+                                                data.FromObject != null && // todo: actually get team 
                                                 data.FromObject.Any(y => x.Name.Contains(y)));
                             }
 

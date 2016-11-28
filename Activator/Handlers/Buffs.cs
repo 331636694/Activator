@@ -93,7 +93,7 @@ namespace Activator.Handlers
                                     if (!hero.HitTypes.Contains(HitType.Ultimate))
                                          hero.HitTypes.Add(HitType.Ultimate);
 
-                                    if (Utils.GameTimeTickCount - aura.TickLimiter >= 100)
+                                    if (Utils.GameTimeTickCount - aura.TickLimiter >= 250)
                                     {
                                         // ReSharper disable once PossibleNullReferenceException
                                         Projections.PredictTheDamage(owner, hero, data, HitType.Buff, "aura.Evade");
@@ -109,7 +109,9 @@ namespace Activator.Handlers
                     if (Utils.GameTimeTickCount - aura.TickLimiter >= aura.Interval * 1000)
                     {
                         if (aura.Name == "velkozresearchstack" && !hero.Player.HasBuffOfType(BuffType.Slow))
+                        {
                             continue;
+                        }
 
                         // ReSharper disable once PossibleNullReferenceException
                         Projections.PredictTheDamage(owner, hero, data, HitType.Buff, "aura.Dot");
