@@ -18,7 +18,7 @@ namespace Activator.Items.Defensives
         internal override float Range => float.MaxValue;
         internal override MenuType[] Category => new[] { MenuType.SelfLowHP, MenuType.SelfMuchHP };
         internal override MapType[] Maps => new[] { MapType.SummonersRift, MapType.HowlingAbyss };
-        internal override int DefaultHP => 55;
+        internal override int DefaultHP => 40;
         internal override int DefaultMP => 0;
 
         public override void OnTick(EventArgs args)

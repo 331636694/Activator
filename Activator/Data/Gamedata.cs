@@ -1515,7 +1515,7 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
-                SDataName = "fizzpiercingstrike",
+                SDataName = "fizzq",
                 ChampionName = "fizz",
                 Slot = SpellSlot.Q,
                 FixedRange = true,
@@ -1527,7 +1527,7 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
-                SDataName = "fizzseastonepassive",
+                SDataName = "fizzw",
                 ChampionName = "fizz",
                 Slot = SpellSlot.W,
                 CastRange = 175f,
@@ -1538,7 +1538,7 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
-                SDataName = "fizzjump",
+                SDataName = "fizze",
                 ChampionName = "fizz",
                 Slot = SpellSlot.E,
                 CastRange = 450f,
@@ -1549,7 +1549,7 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
-                SDataName = "fizzjumpbuffer",
+                SDataName = "fizzebuffer",
                 ChampionName = "fizz",
                 Slot = SpellSlot.E,
                 CastRange = 330f,
@@ -1560,7 +1560,7 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
-                SDataName = "fizzjumptwo",
+                SDataName = "fizzejumptwo",
                 ChampionName = "fizz",
                 Slot = SpellSlot.E,
                 CastRange = 270f,
@@ -1571,7 +1571,7 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
-                SDataName = "fizzmarinerdoom",
+                SDataName = "fizzr",
                 ChampionName = "fizz",
                 Slot = SpellSlot.R,
                 CastRange = 1275f,
@@ -1960,7 +1960,7 @@ namespace Activator.Data
                 ChampionName = "hecarim",
                 Slot = SpellSlot.R,
                 FixedRange = true,
-                CastRange = 1350f,
+                CastRange = 1525f,
                 Delay = 250f,
                 HitTypes =
                     new[]
@@ -1969,14 +1969,14 @@ namespace Activator.Data
                         HitType.CrowdControl
                     },
 
-                MissileName = "hecarimultmissilesknr1",
+                MissileName = "hecarimultmissile",
                 ExtraMissileNames =
                     new[]
                     {
-                        "hecarimultmissileskn4r1", "hecarimultmissileskn4r2", "hecarimultmissileskn411",
-                        "hecarimultmissileskn412"
+                        "hecarimultmissileskn4r1", "hecarimultmissileskn4r2", "hecarimultmissileskn4l1",
+                        "hecarimultmissileskn4l2", "hecarimultmissileskn4rc"
                     },
-                MissileSpeed = 1200
+                MissileSpeed = 1100
             });
 
             Spells.Add(new Gamedata
@@ -2143,6 +2143,42 @@ namespace Activator.Data
                 CastRange = 450f,
                 Delay = 500f,
                 HitTypes = new[] { HitType.Ultimate, HitType.Danger },
+                MissileSpeed = int.MaxValue
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "ivernq",
+                ChampionName = "ivern",
+                Slot = SpellSlot.Q,
+                CastRange = 1100f,
+                Delay = 250f,
+                HitTypes = new[] { HitType.Danger },
+                MissileName = "ivirnq",
+                MissileSpeed = 1300
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "ivernq",
+                ChampionName = "ivern",
+                Slot = SpellSlot.W,
+                CastRange = 0f,
+                Delay = 250f,
+                HitTypes = new HitType[] { },
+                MissileName = "ivirnw",
+                MissileSpeed = int.MaxValue
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "iverne",
+                ChampionName = "ivern",
+                Slot = SpellSlot.E,
+                CastRange = 0f,
+                Delay = 250f,
+                HitTypes = new HitType[] { },
+                MissileName = "ivirne",
                 MissileSpeed = int.MaxValue
             });
 
@@ -2853,6 +2889,70 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
+                SDataName = "kledq",
+                ChampionName = "kled",
+                Slot = SpellSlot.Q,
+                FixedRange = true,
+                CastRange = 800f,
+                Radius = 45f,
+                Delay = 250f,
+                HitTypes = new[] { HitType.CrowdControl },
+                MissileName = "kledqmissile",
+                MissileSpeed = 1600
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "kledriderq",
+                ChampionName = "kled",
+                Slot = SpellSlot.Q,
+                FixedRange = true,
+                CastRange = 700f,
+                Radius = 40f,
+                Delay = 250f,
+                HitTypes = new HitType[] { },
+                MissileName = "kledriderqmissile",
+                MissileSpeed = 3000
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "kledw",
+                ChampionName = "kled",
+                Slot = SpellSlot.W,
+                CastRange = 0f,
+                Delay = 250f,
+                HitTypes = new HitType[] { },
+                MissileSpeed = 2000
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "klede",
+                ChampionName = "kled",
+                Slot = SpellSlot.E,
+                FixedRange = true,
+                CastRange = 800f,
+                Radius = 124f,
+                Delay = 0f,
+                HitTypes = new[] { HitType.Danger, HitType.Initiator },
+                MissileName = "kledemissile",
+                MissileSpeed = 1000
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "kledr",
+                ChampionName = "kled",
+                Slot = SpellSlot.R,
+                CastRange = 0f,
+                Delay = 250f,
+                HitTypes = new HitType[] { },
+                MissileSpeed = int.MaxValue
+            });
+
+            Spells.Add(new Gamedata
+            {
                 SDataName = "kogmawq",
                 ChampionName = "kogmaw",
                 Slot = SpellSlot.Q,
@@ -2902,7 +3002,7 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
-                SDataName = "leblancchaosorb",
+                SDataName = "leblancq",
                 ChampionName = "leblanc",
                 Slot = SpellSlot.Q,
                 CastRange = 700f,
@@ -2913,19 +3013,19 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
-                SDataName = "leblancslide",
+                SDataName = "leblancw",
                 ChampionName = "leblanc",
                 Slot = SpellSlot.W,
                 CastRange = 600f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Danger, HitType.Initiator },
-                MissileName = "leblancslide",
+                MissileName = "leblancw",
                 MissileSpeed = 1600
             });
 
             Spells.Add(new Gamedata
             {
-                SDataName = "leblacslidereturn",
+                SDataName = "leblacwreturn",
                 ChampionName = "leblanc",
                 Slot = SpellSlot.W,
                 CastRange = 0f,
@@ -2936,20 +3036,20 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
-                SDataName = "leblancsoulshackle",
+                SDataName = "leblance",
                 ChampionName = "leblanc",
                 Slot = SpellSlot.E,
                 FixedRange = true,
                 CastRange = 925f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.CrowdControl },
-                MissileName = "leblancsoulshackle",
+                MissileName = "leblancemissile",
                 MissileSpeed = 1600
             });
 
             Spells.Add(new Gamedata
             {
-                SDataName = "leblancchaosorbm",
+                SDataName = "leblancrq",
                 ChampionName = "leblanc",
                 Slot = SpellSlot.R,
                 CastRange = 700f,
@@ -2960,19 +3060,19 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
-                SDataName = "leblancslidem",
+                SDataName = "leblancrw",
                 ChampionName = "leblanc",
                 Slot = SpellSlot.R,
                 CastRange = 600f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Danger, HitType.Ultimate, HitType.Initiator },
-                MissileName = "leblancslidem",
+                MissileName = "leblancrw",
                 MissileSpeed = 1600
             });
 
             Spells.Add(new Gamedata
             {
-                SDataName = "leblancslidereturnm",
+                SDataName = "leblancrwreturn",
                 ChampionName = "leblanc",
                 Slot = SpellSlot.R,
                 CastRange = 0f,
@@ -2983,14 +3083,14 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
-                SDataName = "leblancsoulshacklem",
+                SDataName = "leblancre",
                 ChampionName = "leblanc",
                 Slot = SpellSlot.R,
                 FixedRange = true,
                 CastRange = 925f,
                 Delay = 250f,
                 HitTypes = new HitType[] { },
-                MissileName = "leblancsoulshacklem",
+                MissileName = "leblancremissile",
                 MissileSpeed = 1600
             });
 
@@ -4444,10 +4544,23 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
-                SDataName = "rengarq",
+                SDataName = "rengarq2",
                 ChampionName = "rengar",
                 Slot = SpellSlot.Q,
                 CastRange = 275f,
+                Radius = 150f,
+                Delay = 250f,
+                HitTypes = new HitType[] { },
+                MissileSpeed = int.MaxValue
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "rengarq2emp",
+                ChampionName = "rengar",
+                Slot = SpellSlot.Q,
+                CastRange = 275f,
+                Radius = 150f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.Danger },
                 MissileSpeed = int.MaxValue
@@ -4473,8 +4586,8 @@ namespace Activator.Data
                 CastRange = 1000f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.CrowdControl },
-                MissileName = "rengarefinal",
-                ExtraMissileNames = new[] { "rengarefinalmax" },
+                MissileName = "rengaremis",
+                ExtraMissileNames = new[] { "rengareempmis" },
                 MissileSpeed = 1500
             });
 
@@ -5373,7 +5486,7 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
-                SDataName = "talonnoxiandiplomacy",
+                SDataName = "talonq",
                 ChampionName = "talon",
                 Slot = SpellSlot.Q,
                 CastRange = 275f,
@@ -5384,36 +5497,39 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
-                SDataName = "talonrake",
+                SDataName = "talonw",
                 ChampionName = "talon",
                 Slot = SpellSlot.W,
                 FixedRange = true,
-                CastRange = 750f,
+                CastRange = 900f,
                 Delay = 250f,
                 HitTypes = new[] { HitType.CrowdControl },
-                MissileName = "talonrakemissileone",
+                MissileName = "talonwmissileone",
+                ExtraMissileNames = new [] { "talonwmissiletwo" },
                 MissileSpeed = 2300
             });
 
             Spells.Add(new Gamedata
             {
-                SDataName = "taloncutthroat",
+                SDataName = "talone",
                 ChampionName = "talon",
                 Slot = SpellSlot.E,
-                CastRange = 750f,
+                CastRange = 0f,
                 Delay = 250f,
-                HitTypes = new[] { HitType.CrowdControl },
+                HitTypes = new HitType[] { },
                 MissileSpeed = int.MaxValue
             });
 
             Spells.Add(new Gamedata
             {
-                SDataName = "talonshadowassault",
+                SDataName = "talonr",
                 ChampionName = "talon",
                 Slot = SpellSlot.R,
                 CastRange = 750f,
                 Delay = 260f,
+                MissileName = "talonrmisone",
                 HitTypes = new[] { HitType.Stealth },
+                ExtraMissileNames = new [] { "talonrmistwo" },
                 MissileSpeed = int.MaxValue
             });
 
@@ -6627,7 +6743,7 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
-                SDataName = "yorickspectral",
+                SDataName = "yorickq",
                 ChampionName = "yorick",
                 Slot = SpellSlot.Q,
                 CastRange = 350f,
@@ -6638,21 +6754,10 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
-                SDataName = "yorickdecayed",
+                SDataName = "yorickw",
                 ChampionName = "yorick",
                 Slot = SpellSlot.W,
-                CastRange = 600f,
-                Delay = 250f,
-                HitTypes = new[] { HitType.CrowdControl },
-                MissileSpeed = int.MaxValue
-            });
-
-            Spells.Add(new Gamedata
-            {
-                SDataName = "yorickravenous",
-                ChampionName = "yorick",
-                Slot = SpellSlot.E,
-                CastRange = 550f,
+                CastRange = 0f,
                 Delay = 250f,
                 HitTypes = new HitType[] { },
                 MissileSpeed = int.MaxValue
@@ -6660,7 +6765,20 @@ namespace Activator.Data
 
             Spells.Add(new Gamedata
             {
-                SDataName = "yorickreviveally",
+                SDataName = "yoricke",
+                ChampionName = "yorick",
+                Slot = SpellSlot.E,
+                CastRange = 700f,
+                Radius = 125f,
+                Delay = 250f,
+                MissileName = "yorickemissile",
+                HitTypes = new HitType[] { },
+                MissileSpeed = 750
+            });
+
+            Spells.Add(new Gamedata
+            {
+                SDataName = "yorickr",
                 ChampionName = "yorick",
                 Slot = SpellSlot.R,
                 CastRange = 0f,
