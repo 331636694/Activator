@@ -632,7 +632,7 @@ namespace Activator.Handlers
                                     dmg = dmg * 2;
                                 }
 
-                                PredictTheDamage(aiHero, hero, new Gamedata(), HitType.Spell, "enemy.GankplankBarrel", dmg);
+                                PredictTheDamage(attacker, hero, new Gamedata(), HitType.Spell, "enemy.GankplankBarrel", dmg);
                             }
                         }
                     }

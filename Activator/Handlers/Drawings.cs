@@ -80,6 +80,19 @@ namespace Activator.Handlers
                     }
                 }
 
+                if (Activator.Origin.Item("acdebug3").GetValue<bool>())
+                {
+                    var player = Activator.Allies().FirstOrDefault(x => x.Player.IsMe);
+                    if (player != null)
+                    {
+                        Drawing.DrawText(900f, 250f, Color.Wheat, "Qleanse/QSS (Debug)");
+                        Drawing.DrawText(900f, 265f, Color.Wheat, "QSSBuffCount: " + player.QSSBuffCount);
+                        Drawing.DrawText(900f, 280f, Color.Wheat, "QSSHighestBuffTime: " + player.QSSHighestBuffTime);
+                        Drawing.DrawText(900f, 295f, Color.Wheat, "CleanseBuffCount: " + player.CleanseBuffCount);
+                        Drawing.DrawText(900f, 310f, Color.Wheat, "CleanseHighestBuffTime: " + player.CleanseHighestBuffTime);
+                    }
+                }
+
                 if (!Activator.SmiteInGame)
                 {
                     return;

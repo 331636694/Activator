@@ -119,6 +119,7 @@ namespace Activator
                 var bbmenu = new Menu("Debug Tools", "bbmenu");
                 bbmenu.AddItem(new MenuItem("acdebug", "Debug Income Damage")).SetValue(false);
                 bbmenu.AddItem(new MenuItem("acdebug2", "Debug Item Priority")).SetValue(false);
+                bbmenu.AddItem(new MenuItem("acdebug3", "Debug QSS/Cleanse")).SetValue(false);
                 bbmenu.AddItem(new MenuItem("dumpdata", "Dump Spell Data")).SetValue(false);
                 zmenu.AddSubMenu(bbmenu);
 
