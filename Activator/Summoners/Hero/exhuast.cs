@@ -72,10 +72,9 @@ namespace Activator.Summoners
                     }
                 }
 
-                if (hero.Player.Health / hero.Player.MaxHealth * 100 <=
-                    Menu.Item("a" + Name + "pct").GetValue<Slider>().Value)
+                if (hero.Player.Health / hero.Player.MaxHealth * 100 <= Menu.Item("a" + Name + "pct").GetValue<Slider>().Value)
                 {
-                    if (hero.Player.IsFacing(attacker))
+                    if (hero.IncomeDamage > 0 || !hero.Player.IsFacing(attacker))
                     {
                         if (attacker.NetworkId == hid.Player.NetworkId)
                         {
@@ -86,7 +85,7 @@ namespace Activator.Summoners
 
                 if (attacker.Health / attacker.MaxHealth * 100 <= Menu.Item("e" + Name + "pct").GetValue<Slider>().Value)
                 {
-                    if (!attacker.IsFacing(hero.Player))
+                    if (hero.IncomeDamage > 0 || !attacker.IsFacing(hero.Player))
                     {
                         UseSpellOn(attacker, Menu.Item("mode" + Name).GetValue<StringList>().SelectedIndex == 1);
                     }
