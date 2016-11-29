@@ -32,6 +32,11 @@ namespace Activator.Data
         public string[] FromObject { get; set; } 
         public HitType[] HitTypes { get; set; }
 
+        public bool HeroNameMatch(string championname)
+        {
+            return ChampionName.ToLower() == championname.ToLower();
+        }
+
         static Gamedata()
         {
             Spells.Add(new Gamedata

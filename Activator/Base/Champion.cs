@@ -61,6 +61,11 @@ namespace Activator.Base
         {
             Player = player;
         }
+
+        public bool HeroNameMatch(string championname)
+        {
+            return Player.ChampionName.ToLower() == championname.ToLower();
+        }
     }
 
     public struct Priority

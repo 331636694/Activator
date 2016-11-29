@@ -32,11 +32,12 @@ namespace Activator.Handlers
 
             foreach (var ally in Activator.Allies())
             {
-                if (sender.IsValidTarget(1000) && !sender.IsZombie && sender.NetworkId == ally.Player.NetworkId)
+                if (sender.NetworkId == ally.Player.NetworkId)
                 {
                     if (args.Buff.Name == "rengarralertsound")
                     {
-                        Projections.PredictTheDamage(sender, ally, new Gamedata(), HitType.Stealth, "handlers.OnBuffAdd");
+                        Projections.PredictTheDamage(sender, ally,
+                            new Gamedata { SDataName = "Stealth"}, HitType.Stealth, "handlers.OnBuffAdd");
                     }
                 }
             }
@@ -78,7 +79,7 @@ namespace Activator.Handlers
                     data = new Gamedata { SDataName = aura.Name };
 
                 if (aura.Champion != null && aura.Slot != SpellSlot.Unknown)
-                    data = Gamedata.CachedSpells.Find(x => x.ChampionName.ToLower() == aura.Champion.ToLower());
+                    data = Gamedata.CachedSpells.Where(x => x.Slot == aura.Slot).Find(x => x.HeroNameMatch(aura.Champion));
 
                 if (aura.Evade)
                 {
@@ -86,19 +87,13 @@ namespace Activator.Handlers
                         () =>
                         {
                             // double check after delay incase we no longer have the buff
-                            if (hero.Player.HasBuff(aura.Name) && hero.Player.IsValidTarget(float.MaxValue, false))
+                            if (hero.Player.HasBuff(aura.Name))
                             {
-                                if (!hero.Player.IsZombie)
+                                if (Utils.GameTimeTickCount - aura.TickLimiter >= 250)
                                 {
-                                    if (!hero.HitTypes.Contains(HitType.Ultimate))
-                                         hero.HitTypes.Add(HitType.Ultimate);
-
-                                    if (Utils.GameTimeTickCount - aura.TickLimiter >= 250)
-                                    {
-                                        // ReSharper disable once PossibleNullReferenceException
-                                        Projections.PredictTheDamage(owner, hero, data, HitType.Buff, "aura.Evade");
-                                        aura.TickLimiter = Utils.GameTimeTickCount;
-                                    }
+                                    // ReSharper disable once PossibleNullReferenceException
+                                    Projections.PredictTheDamage(owner, hero, data, HitType.Buff, "aura.Evade");
+                                    aura.TickLimiter = Utils.GameTimeTickCount;
                                 }
                             }
                         });

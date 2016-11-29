@@ -319,13 +319,13 @@ namespace Activator.Data
 
             Troys.Add(new Troydata
             {
-                Name = "Crowstorm",
+                Name = "Crowstorm_red",
                 ChampionName = "FiddleSticks",
                 Radius = 425f,
                 Slot = SpellSlot.R,
                 HitTypes =  new[] { HitType.Danger, HitType.Ultimate, HitType.ForceExhaust },
                 PredictDmg = true,
-                Interval = 1.0
+                Interval = 0.5
             });
 
             Troys.Add(new Troydata

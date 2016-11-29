@@ -105,7 +105,7 @@ namespace Activator.Handlers
 
             var dmg = AddDamage(hpred, hero, notes);
             var extendedEndtime = Activator.Origin.Item("lagtolerance").GetValue<Slider>().Value * 10;
-            Utility.DelayAction.Add(expiry + extendedEndtime, () => RemoveDamage(dmg));
+            Utility.DelayAction.Add(expiry + extendedEndtime, () => RemoveDamage(dmg, notes));
         }
 
         public static int AddDamage(HPInstance hpi, Champion hero, string notes)
@@ -116,66 +116,69 @@ namespace Activator.Handlers
             var aiHero = Activator.Allies().Find(x => x.Player.NetworkId == hero.Player.NetworkId);
             if (aiHero != null && !IncomeDamage.ContainsKey(id))
             {
-                bool checkmenu = false;
-
-                switch (hpi.HitType)
+                if (aiHero.Player.IsValidTarget(float.MaxValue, false) && !aiHero.Player.IsZombie)
                 {
-                    case HitType.Spell:
-                        aiHero.AbilityDamage += hpi.PredictedDmg;
-                        aiHero.HitTypes.Add(HitType.Spell);
-                        checkmenu = true;
-                        break;
-                    case HitType.Buff:
-                        aiHero.BuffDamage += hpi.PredictedDmg;
-                        aiHero.HitTypes.Add(HitType.Buff);
-                        break;
-                    case HitType.Troy:
-                        aiHero.TroyDamage += hpi.PredictedDmg;
-                        aiHero.HitTypes.Add(HitType.Troy);
-                        checkmenu = true;
-                        break;
-                    case HitType.Item:
-                        aiHero.ItemDamage += hpi.PredictedDmg;
-                        aiHero.HitTypes.Add(HitType.Spell);
-                        break;
-                    case HitType.TurretAttack:
-                        aiHero.TowerDamage += hpi.PredictedDmg;
-                        aiHero.HitTypes.Add(HitType.TurretAttack);
-                        break;
-                    case HitType.MinionAttack:
-                        aiHero.MinionDamage += hpi.PredictedDmg;
-                        aiHero.HitTypes.Add(HitType.MinionAttack);
-                        break;
-                    case HitType.AutoAttack:
-                        aiHero.AbilityDamage += hpi.PredictedDmg;
-                        aiHero.HitTypes.Add(HitType.AutoAttack);
-                        break;
-                    case HitType.Stealth:
-                        aiHero.HitTypes.Add(HitType.Stealth);
-                        checkmenu = true;
-                        break;
-                }
+                    bool checkmenu = false;
 
-                if (checkmenu && !string.IsNullOrEmpty(hpi.Name)) // QWER Only
-                {
-                    // add spell flags
-                    hero.HitTypes.AddRange(
-                        Lists.MenuTypes.Where(
-                            x => Activator.Origin.Item(
-                                hpi.Name.ToLower() + x.ToString().ToLower()).GetValue<bool>()));
-                }
+                    switch (hpi.HitType)
+                    {
+                        case HitType.Spell:
+                            aiHero.AbilityDamage += hpi.PredictedDmg;
+                            aiHero.HitTypes.Add(HitType.Spell);
+                            checkmenu = true;
+                            break;
+                        case HitType.Buff:
+                            aiHero.BuffDamage += hpi.PredictedDmg;
+                            aiHero.HitTypes.Add(HitType.Buff);
+                            if (notes == "aura.Evade")
+                                aiHero.HitTypes.Add(HitType.Ultimate);
+                            break;
+                        case HitType.Troy:
+                            aiHero.TroyDamage += hpi.PredictedDmg;
+                            aiHero.HitTypes.Add(HitType.Troy);
+                            aiHero.HitTypes.AddRange(hpi.Data.HitTypes);
+                            break;
+                        case HitType.Item:
+                            aiHero.ItemDamage += hpi.PredictedDmg;
+                            aiHero.HitTypes.Add(HitType.Spell);
+                            break;
+                        case HitType.TurretAttack:
+                            aiHero.TowerDamage += hpi.PredictedDmg;
+                            aiHero.HitTypes.Add(HitType.TurretAttack);
+                            break;
+                        case HitType.MinionAttack:
+                            aiHero.MinionDamage += hpi.PredictedDmg;
+                            aiHero.HitTypes.Add(HitType.MinionAttack);
+                            break;
+                        case HitType.AutoAttack:
+                            aiHero.AbilityDamage += hpi.PredictedDmg;
+                            aiHero.HitTypes.Add(HitType.AutoAttack);
+                            break;
+                        case HitType.Stealth:
+                            aiHero.HitTypes.Add(HitType.Stealth);
+                            checkmenu = true;
+                            break;
+                    }
 
-                if (hpi.HitType == HitType.Stealth)
-                    hpi.PredictedDmg = 0;
+                    if (checkmenu && !string.IsNullOrEmpty(hpi.Name)) // QWER Only
+                    {
+                        // add spell flags
+                        hero.HitTypes.AddRange(
+                            Lists.MenuTypes.Where(
+                                x => Activator.Origin.Item(
+                                    hpi.Name.ToLower() + x.ToString().ToLower()).GetValue<bool>()));
+                    }
 
-                if (Activator.Origin.Item("acdebug").GetValue<bool>())
-                {
-                    Console.WriteLine(hpi.TargetHero.ChampionName + " [added]: " + hpi.Name + " - " 
-                        + hpi.PredictedDmg + " / " + hpi.HitType + " / " + notes);
-                }
+                    if (hpi.HitType == HitType.Stealth)
+                        hpi.PredictedDmg = 0;
 
-                if (hero.Player.IsValidTarget(float.MaxValue, false))
-                {
+                    if (Activator.Origin.Item("acdebug").GetValue<bool>())
+                    {
+                        Console.WriteLine(
+                            hpi.TargetHero.ChampionName + " << [added]: " + hpi.Name + " - " 
+                                + hpi.PredictedDmg + " / " + hpi.HitType + " / " + notes);
+                    }
+
                     hpi.Id = id;
                     OnPredictDamage?.Invoke();
                     IncomeDamage.Add(id, hpi);
@@ -185,7 +188,7 @@ namespace Activator.Handlers
             return id;
         }
 
-        public static void RemoveDamage(int id)
+        public static void RemoveDamage(int id, string notes)
         {
             var entry = IncomeDamage.Find(x => x.Key == id);
             if (IncomeDamage.ContainsKey(entry.Key))
@@ -206,11 +209,13 @@ namespace Activator.Handlers
                         case HitType.Buff:
                             aiHero.BuffDamage -= hpi.PredictedDmg;
                             aiHero.HitTypes.Remove(HitType.Buff);
+                            if (notes == "aura.Evade")
+                                aiHero.HitTypes.Remove(HitType.Ultimate);
                             break;
                         case HitType.Troy:
                             aiHero.TroyDamage -= hpi.PredictedDmg;
                             aiHero.HitTypes.Remove(HitType.Troy);
-                            checkmenu = true;
+                            aiHero.HitTypes.RemoveAll(x => hpi.Data.HitTypes.Contains(x));
                             break;
                         case HitType.Item:
                             aiHero.ItemDamage -= hpi.PredictedDmg;
@@ -246,18 +251,19 @@ namespace Activator.Handlers
 
                     if (Activator.Origin.Item("acdebug").GetValue<bool>())
                     {
-                        Console.WriteLine(hpi.TargetHero.ChampionName + " [removed]: " + hpi.Name + " - "
-                                          + hpi.PredictedDmg + " / " + hpi.HitType);
+                        Console.WriteLine(hpi.TargetHero.ChampionName + " >> [removed]: " + hpi.Name + " - " +
+                                          hpi.PredictedDmg + " / " + hpi.HitType + " / " + notes);
                     }
 
                     IncomeDamage.Remove(id);
                 }
                 else
                 {
-                    var nullHero = Activator.Heroes.FirstOrDefault(x => x.Player.NetworkId == hpi.TargetHero.NetworkId);
-                    if (nullHero != null)
+                    // died in combat feelsbadman
+                    var deadHero = Activator.Heroes.FirstOrDefault(x => x.Player.NetworkId == hpi.TargetHero.NetworkId);
+                    if (deadHero != null)
                     {
-                        Helpers.ResetIncomeDamage(nullHero);
+                        Helpers.ResetIncomeDamage(deadHero);
                     }
                 }
             }
@@ -791,7 +797,7 @@ namespace Activator.Handlers
                 {
                     if (entry.SDataName.ToLower() == args.SData.Name.ToLower())
                     {
-                        PredictTheDamage(sender, hero, new Gamedata(), HitType.Stealth, "process.OnStealth");
+                        PredictTheDamage(sender, hero, new Gamedata { SDataName = "Stealth" }, HitType.Stealth, "process.OnStealth");
                         break;
                     }
                 }
