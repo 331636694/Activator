@@ -20,10 +20,8 @@ namespace Activator.Summoners
             Activator.UseEnemyMenu = true;
             menu.AddItem(new MenuItem("a" + Name + "pct", "Exhaust on ally HP (%)")).SetValue(new Slider(35));
             menu.AddItem(new MenuItem("e" + Name + "pct", "Exhaust on enemy HP (%)")).SetValue(new Slider(45));
-            menu.AddItem(new MenuItem("use" + Name + "ulti", "Use on Dangerous (Utimates Only)"))
-                .SetValue(true).SetTooltip("Or spells with \"Force Exhaust\"");
-            menu.AddItem(new MenuItem("f" + Name, "-> Force Exhaust"))
-               .SetValue(true).SetTooltip("Will force exhaust ultimates ignoring HP%");
+            menu.AddItem(new MenuItem("use" + Name + "ulti", "Use on Dangerous (Utimates Only)")).SetValue(true).SetTooltip("Or Spells with \"Force Exhaust\"");
+            menu.AddItem(new MenuItem("f" + Name + "pct", "-> Only if HP (%) <= ")).SetValue(new Slider(90));
             menu.AddItem(new MenuItem("mode" + Name, "Mode: ")).SetValue(new StringList(new[] { "Always", "Combo" }));
         }
 
@@ -66,11 +64,11 @@ namespace Activator.Summoners
                 {
                     if (hero.HitTypes.Contains(HitType.Ultimate))
                     {
-                        if (Menu.Item("f" + Name).GetValue<bool>())
-                            UseSpellOn(attacker);
-
-                        else if (hero.Player.Health / hero.Player.MaxHealth * 100 <= 55)
+                        if (hero.Player.Health / hero.Player.MaxHealth * 100 <=
+                            Menu.Item("f" + Name + "pct").GetValue<Slider>().Value)
+                        {
                             UseSpellOn(attacker, Menu.Item("mode" + Name).GetValue<StringList>().SelectedIndex == 1);
+                        }
                     }
                 }
 
