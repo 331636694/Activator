@@ -33,7 +33,6 @@ namespace Activator.Handlers
         {
             GameObject.OnCreate += MissileClient_OnSpellMissileCreate;
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnUnitSpellCast;
-            Obj_AI_Base.OnPlayAnimation += Obj_AI_Hero_OnPlayAnimation;
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnStealth;
         }
 
@@ -738,47 +737,6 @@ namespace Activator.Handlers
             }
 
             #endregion    
-        }
-
-        private static void Obj_AI_Hero_OnPlayAnimation(Obj_AI_Base sender, GameObjectPlayAnimationEventArgs args)
-        {
-            if (!(sender is Obj_AI_Hero))
-                return;
-
-            var aiHero = (Obj_AI_Hero) sender;
-
-            #region Jax
-
-            var data = Gamedata.CachedSpells.Find(x => x.SDataName.ToLower() == "jaxcounterstrike");
-            if (data != null)
-            {
-                if (aiHero.ChampionName == "Jax" && aiHero.IsEnemy)
-                {
-                    if (args.Animation == "Spell3")
-                    {
-                        Utility.DelayAction.Add(Game.Ping + 100, () =>
-                        {
-                            if (aiHero.HasBuff("JaxCounterStrike"))
-                            {
-                                var buff = aiHero.GetBuff("JaxCounterStrike");
-                                var time = (int) ((buff.EndTime - buff.StartTime) * 1000);
-
-                                foreach (var hero in Activator.Allies())
-                                {
-                                    if (aiHero.Distance(hero.Player) <= 250)
-                                    {
-                                        PredictTheDamage(aiHero, hero, data, HitType.Spell, "enemy.JaxE", 0f, time);
-                                    }
-                                }
-                            }
-                        });
-                    }
-                }
-            }
-
-            #endregion
-
-            // more bro science soon ;)
         }
 
         private static void Obj_AI_Base_OnStealth(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)

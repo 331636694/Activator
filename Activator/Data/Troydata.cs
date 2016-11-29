@@ -42,6 +42,17 @@ namespace Activator.Data
 
             Troys.Add(new Troydata
             {
+                Name = "R_buf",
+                ChampionName = "Renekton",
+                Radius = 266f,
+                Slot = SpellSlot.R,
+                HitTypes = new[] { HitType.None },
+                PredictDmg = true,
+                Interval = 0.75
+            });
+
+            Troys.Add(new Troydata
+            {
                 Name = "SpiritFire",
                 ChampionName = "Nasus",
                 Radius = 400f,
@@ -93,17 +104,6 @@ namespace Activator.Data
                 HitTypes = new [] { HitType.Danger, HitType.Ultimate, HitType.Initiator },
                 PredictDmg = true,
                 Interval = 0.5
-            });
-
-            Troys.Add(new Troydata
-            {
-                Name = "R_Cas",
-                ChampionName = "Nunu",
-                Radius = 650f,
-                Slot = SpellSlot.R,
-                HitTypes = new[] { HitType.CrowdControl },
-                PredictDmg = true,
-                Interval = 0.75
             });
 
             Troys.Add(new Troydata

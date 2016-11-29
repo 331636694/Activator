@@ -23,7 +23,61 @@ namespace Activator.Handlers
         public static void StartOnUpdate()
         {
             Game.OnUpdate += Game_OnUpdate;
+            Game.OnUpdate += OnEnemyBuffUpdate;
             Obj_AI_Base.OnBuffAdd += Obj_AI_Base_OnBuffAdd;
+        }
+
+        private static void OnEnemyBuffUpdate(EventArgs args)
+        {
+            foreach (var enemy in Activator.Heroes)
+            {
+                if (!enemy.Player.IsEnemy)
+                    continue;
+
+                var aura = Auradata.CachedAuras.Find(au => enemy.Player.HasBuff(au.Name));
+                if (aura == null)
+                    continue;
+
+                Gamedata data = null;
+
+                if (aura.Champion == null && aura.Slot == SpellSlot.Unknown)
+                    data = new Gamedata { SDataName = aura.Name };
+
+                if (aura.Champion != null && aura.Slot != SpellSlot.Unknown)
+                    data = Gamedata.CachedSpells.Where(x => x.Slot == aura.Slot).Find(x => x.HeroNameMatch(aura.Champion));
+
+                if (aura.Reverse && aura.DoT)
+                {
+                    if (Utils.GameTimeTickCount - aura.TickLimiter >= aura.Interval * 1000)
+                    {
+                        foreach (var ally in Activator.Allies())
+                        {
+                            if (ally.Player.Distance(enemy.Player) <= aura.Radius + 35)
+                            {
+                                Projections.PredictTheDamage(enemy.Player, ally, data, HitType.Buff, "aura.DoT");
+                            }
+                        }
+
+                        aura.TickLimiter = Utils.GameTimeTickCount;
+                    }
+                }
+
+                if (aura.Reverse && aura.Evade)
+                {
+                    if (Utils.GameTimeTickCount - aura.TickLimiter >= 100)
+                    {
+                        foreach (var ally in Activator.Allies())
+                        {
+                            if (ally.Player.Distance(enemy.Player) <= aura.Radius + 35)
+                            {
+                                Projections.PredictTheDamage(enemy.Player, ally, data, HitType.Buff, "aura.Evade");
+                            }
+                        }
+
+                        aura.TickLimiter = Utils.GameTimeTickCount;
+                    }
+                }
+            }
         }
 
         static void Obj_AI_Base_OnBuffAdd(Obj_AI_Base sender, Obj_AI_BaseBuffAddEventArgs args)
@@ -52,7 +106,10 @@ namespace Activator.Handlers
                 var aura = Auradata.CachedAuras.Find(au => hero.Player.HasBuff(au.Name));
                 if (aura == null)
                     continue;
-                
+
+                if (aura.Reverse)
+                    continue;
+              
                 if (aura.Cleanse)
                 {
                     Utility.DelayAction.Add(aura.CleanseTimer,
@@ -109,7 +166,7 @@ namespace Activator.Handlers
                         }
 
                         // ReSharper disable once PossibleNullReferenceException
-                        Projections.PredictTheDamage(owner, hero, data, HitType.Buff, "aura.Dot");
+                        Projections.PredictTheDamage(owner, hero, data, HitType.Buff, "aura.DoT");
                         aura.TickLimiter = Utils.GameTimeTickCount;
                     }
                 }            

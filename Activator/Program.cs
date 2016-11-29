@@ -414,7 +414,7 @@ namespace Activator
         {
             foreach (Obj_AI_Hero i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team != Player.Team))
             {
-                foreach (Troydata item in Troydata.Troys.Where(x => x.ChampionName == i.ChampionName))
+                foreach (Troydata item in Troydata.Troys.Where(x => x.ChampionName.ToLower() == i.ChampionName.ToLower()))
                 {
                     TroysInGame = true;
                     Gametroy.Troys.Add(new Gametroy(i.ChampionName, item.Slot, item.Name, 0, false));
@@ -425,17 +425,17 @@ namespace Activator
         private static void GetSpellsInGame()
         {
             foreach (Obj_AI_Hero i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team != Player.Team))
-                foreach (Gamedata item in Gamedata.Spells.Where(x => x.ChampionName == i.ChampionName.ToLower()))
+                foreach (Gamedata item in Gamedata.Spells.Where(x => x.ChampionName.ToLower() == i.ChampionName.ToLower()))
                     Gamedata.CachedSpells.Add(item);
 
-            foreach (var i in Smitedata.SpellList.Where(x => x.Name == Player.ChampionName))
+            foreach (var i in Smitedata.SpellList.Where(x => x.Name.ToLower() == Player.ChampionName.ToLower()))
                 Smitedata.CachedSpellList.Add(i);
         }
 
         private static void GetAurasInGame()
         {
             foreach (Obj_AI_Hero i in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.Team != Player.Team))
-                foreach (Auradata aura in Auradata.BuffList.Where(x => x.Champion == i.ChampionName && x.Champion != null))
+                foreach (Auradata aura in Auradata.BuffList.Where(x => x.Champion != null && x.Champion.ToLower() == i.ChampionName.ToLower()))
                     Auradata.CachedAuras.Add(aura);
 
             foreach (Auradata generalaura in Auradata.BuffList.Where(x => string.IsNullOrEmpty(x.Champion)))
@@ -464,7 +464,7 @@ namespace Activator
 
             foreach (var summoner in Lists.Summoners)
             {
-                var p = new Priority { ItemId = 0, Position = summoner.Priority, Type = summoner};
+                var p = new Priority { ItemId = 0, Position = summoner.Priority, Type = summoner };
 
                 if (!Lists.Priorities.ContainsKey(summoner.Name))
                      Lists.Priorities.Add(summoner.Name, p);
