@@ -10,18 +10,14 @@ namespace Activator.Spells.Evaders
         internal override string Name => "maokaiunstablegrowth";
         internal override string DisplayName => "Twisted Advance | W";
         internal override float Range => 525f;
-        internal override MenuType[] Category => new[] { MenuType.Zhonyas, MenuType.SelfMinMP, MenuType.SelfMuchHP };
+        internal override MenuType[] Category => new[] { MenuType.Zhonyas,  MenuType.SelfMuchHP };
         internal override int DefaultHP => 0;
         internal override int DefaultMP => 45;
-        internal override int Priority => 5;
+        internal override int Priority => 6;
 
         public override void OnTick(EventArgs args)
         {
             if (!Menu.Item("use" + Name).GetValue<bool>() || !IsReady())
-                return;
-
-            if (Player.Mana/Player.MaxMana*100 <
-                Menu.Item("selfminmp" + Name + "pct").GetValue<Slider>().Value)
                 return;
 
             foreach (var hero in Activator.Allies())
@@ -36,14 +32,14 @@ namespace Activator.Spells.Evaders
                 {
                     if (Menu.Item("use" + Name + "norm").GetValue<bool>())
                         if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.Danger))
-                            CastOnBestTarget((Obj_AI_Hero) hero.Attacker);
+                            CastOnBestTarget((Obj_AI_Hero) hero.Attacker, true);
 
                     if (Menu.Item("use" + Name + "ulti").GetValue<bool>())
                         if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.Ultimate))
-                            CastOnBestTarget((Obj_AI_Hero) hero.Attacker);
+                            CastOnBestTarget((Obj_AI_Hero) hero.Attacker, true);
 
                     if (ShouldUseOnMany(hero))
-                        CastOnBestTarget((Obj_AI_Hero)hero.Attacker);
+                        CastOnBestTarget((Obj_AI_Hero) hero.Attacker, true);
                 }
             }
         }

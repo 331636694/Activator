@@ -11,7 +11,7 @@ namespace Activator.Spells.Evaders
         internal override string DisplayName => "Alpha Strike | Q";
         internal override float Range => 600f;
         internal override MenuType[] Category => new[] { MenuType.Zhonyas, MenuType.SelfMuchHP };
-        internal override int Priority => 5;
+        internal override int Priority => 6;
 
         public override void OnTick(EventArgs args)
         {
@@ -32,22 +32,22 @@ namespace Activator.Spells.Evaders
                     {
                         if (Menu.Item("ss" + Name + "all").GetValue<bool>())
                             if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.Spell))
-                                CastOnBestTarget((Obj_AI_Hero) hero.Attacker);
+                                CastOnBestTarget((Obj_AI_Hero) hero.Attacker, true);
 
                         if (Menu.Item("ss" + Name + "cc").GetValue<bool>())
                             if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.CrowdControl))
-                                CastOnBestTarget((Obj_AI_Hero) hero.Attacker);
+                                CastOnBestTarget((Obj_AI_Hero) hero.Attacker, true);
 
                         if (Menu.Item("use" + Name + "norm").GetValue<bool>())
                             if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.Danger))
-                                CastOnBestTarget((Obj_AI_Hero) hero.Attacker);
+                                CastOnBestTarget((Obj_AI_Hero) hero.Attacker, true);
 
                         if (Menu.Item("use" + Name + "ulti").GetValue<bool>())
                             if (hero.IncomeDamage > 0 && hero.HitTypes.Contains(HitType.Ultimate))
-                                CastOnBestTarget((Obj_AI_Hero) hero.Attacker);
+                                CastOnBestTarget((Obj_AI_Hero) hero.Attacker, true);
 
                         if (ShouldUseOnMany(hero))
-                            CastOnBestTarget((Obj_AI_Hero)hero.Attacker);
+                            CastOnBestTarget((Obj_AI_Hero)hero.Attacker, true);
                     }
                 }
             }
