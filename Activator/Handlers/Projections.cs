@@ -155,7 +155,6 @@ namespace Activator.Handlers
                             break;
                         case HitType.Stealth:
                             aiHero.HitTypes.Add(HitType.Stealth);
-                            checkmenu = true;
                             break;
                     }
 

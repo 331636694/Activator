@@ -31,7 +31,7 @@ namespace Activator.Items.Defensives
 
         public override void OnEnemyGapcloser(ActiveGapcloser gapcloser)
         {
-            Obj_AI_Hero attacker = gapcloser.Sender;
+            var attacker = gapcloser.Sender;
 
             if (!Menu.Item("use" + Name).GetValue<bool>() ||
                 !Menu.Item("enemygap" + Name).GetValue<bool>() || !IsReady())
