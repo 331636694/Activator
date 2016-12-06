@@ -249,7 +249,6 @@ namespace Activator.Handlers
                             break;
                         case HitType.Stealth:
                             aiHero.HitTypes.Remove(HitType.Stealth);
-                            checkmenu = true;
                             break;
                     }
 
