@@ -25,13 +25,15 @@ namespace Activator.Items.Defensives
             Redemption = new Spell(Player.GetSpellSlot("itemredemption"), Range);
             Redemption.SetSkillshot(2.5f, 550f, float.MaxValue, false, SkillshotType.SkillshotCircle);
 
-            Obj_AI_Base.OnSwapItem += (sender, args) =>
+            Obj_AI_Base.OnSwapItem += OnPlayerSwapItem;
+        }
+
+        private void OnPlayerSwapItem(Obj_AI_Base sender, Obj_AI_BaseSwapItemEventArgs args)
+        {
+            if (sender.IsMe)
             {
-                if (sender.IsMe)
-                {
-                    Redemption = new Spell(Player.GetSpellSlot("itemredemption"), Range);
-                }
-            };
+                Redemption = new Spell(Player.GetSpellSlot("itemredemption"), Range);
+            }
         }
 
         public override void OnTick(EventArgs args)

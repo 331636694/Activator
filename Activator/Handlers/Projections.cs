@@ -50,7 +50,7 @@ namespace Activator.Handlers
                 hpred.Name = data.SDataName;
             }
 
-            if (sender != null)
+            if (sender is Obj_AI_Hero)
             {
                 hpred.Attacker = sender;
             }
