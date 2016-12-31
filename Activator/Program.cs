@@ -478,9 +478,7 @@ namespace Activator
                 var p = new Priority { ItemId = item.Id, Position = item.Priority, Type = item };
 
                 if (!Lists.Priorities.ContainsKey(item.Name))
-                {
-                    Lists.Priorities.Add(item.Name, p);
-                }
+                     Lists.Priorities.Add(item.Name, p);
             }
 
             foreach (var spell in Lists.Spells)
@@ -560,12 +558,12 @@ namespace Activator
         {
             foreach (Champion unit in Heroes.Where(h => h.Player.Team != Player.Team))
             {
-                Menu menu = new Menu(unit.Player.ChampionName, unit.Player.NetworkId + "menu");
+                Menu menu = new Menu(unit.Player.ChampionName, unit.Player.ChampionName + "menu");
 
                 // new menu per spell
-                foreach (Gamedata entry in Gamedata.Spells)
+                foreach (Gamedata entry in Gamedata.CachedSpells)
                 {
-                    if (entry.ChampionName == unit.Player.ChampionName.ToLower())
+                    if (entry.ChampionName.ToLower() == unit.Player.ChampionName.ToLower())
                     {
                         Menu newmenu = new Menu(entry.SDataName, entry.SDataName);
 
