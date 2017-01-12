@@ -133,7 +133,7 @@ namespace Activator
                             var type = (HitType) Enum.Parse(typeof (HitType),
                                 Origin.Item("testdamagetype").GetValue<StringList>().SelectedValue);
 
-                            Projections.PredictTheDamage(caster, target, new Gamedata { SDataName = "KurisuQtPie" }, type, "debug.Test");
+                            Projections.EmulateDamage(caster, target, new Gamedata { SDataName = "KurisuQtPie" }, type, "debug.Test");
                             eventArgs.Process = false;
                         }
                     };
