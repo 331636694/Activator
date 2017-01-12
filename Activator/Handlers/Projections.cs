@@ -36,8 +36,8 @@ namespace Activator.Handlers
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnStealth;
         }
 
-        public static void PredictTheDamage(Obj_AI_Base sender, Champion hero, Gamedata data, HitType dmgType,
-             string notes = null, float dmgEntry = 0f, int expiry = 500)
+        public static void EmulateDamage(Obj_AI_Base sender, Champion hero, Gamedata data, HitType dmgType, 
+            string notes = null, float dmgEntry = 0f, int expiry = 500)
         {
             var hpred = new HPInstance();
             hpred.HitType = dmgType;
@@ -362,7 +362,7 @@ namespace Activator.Handlers
 
                         if (Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
                         {
-                            PredictTheDamage(missile.SpellCaster, hero, data, HitType.Spell, "missile.OnCreate", 0f, (int) endtime);
+                            EmulateDamage(missile.SpellCaster, hero, data, HitType.Spell, "missile.OnCreate", 0f, (int) endtime);
                         }
                     }
                 }
@@ -431,7 +431,7 @@ namespace Activator.Handlers
                                 if (args.SData.Name.ToLower().Contains("crit"))
                                     dmg += (int) Math.Max(attacker.GetAutoAttackDamage(hero.Player, true), 0);
 
-                                PredictTheDamage(attacker, hero, new Gamedata(), HitType.AutoAttack, "enemy.AutoAttack", dmg);
+                                EmulateDamage(attacker, hero, new Gamedata(), HitType.AutoAttack, "enemy.AutoAttack", dmg);
                             }
                         }
 
@@ -473,7 +473,7 @@ namespace Activator.Handlers
 
                                 if (Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
                                 {
-                                    PredictTheDamage(attacker, hero, data, HitType.Spell, "enemy.SelfAoE");
+                                    EmulateDamage(attacker, hero, data, HitType.Spell, "enemy.SelfAoE");
                                 }
                             }
                         }
@@ -552,7 +552,7 @@ namespace Activator.Handlers
 
                                 if (Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
                                 {
-                                    PredictTheDamage(attacker, hero, data, HitType.Spell, "enemy.Skillshot", 0f, (int) endtime);
+                                    EmulateDamage(attacker, hero, data, HitType.Spell, "enemy.Skillshot", 0f, (int) endtime);
                                 }
                             }
                         }
@@ -582,7 +582,7 @@ namespace Activator.Handlers
 
                             if (Activator.Origin.Item(data.SDataName + "predict").GetValue<bool>())
                             {
-                                PredictTheDamage(attacker, hero, data, HitType.Spell, "enemy.TargetSpell", 0f, (int) endtime);
+                                EmulateDamage(attacker, hero, data, HitType.Spell, "enemy.TargetSpell", 0f, (int) endtime);
                             }
                         }
 
@@ -595,10 +595,10 @@ namespace Activator.Handlers
 
             #region Turret
 
-            if (sender.IsEnemy && sender.Type == GameObjectType.obj_AI_Turret && args.Target.Type == Player.Type)
+            if (sender.IsEnemy && sender.Type == GameObjectType.obj_AI_Turret && args.Target is Obj_AI_Hero)
             {
                 var turret = sender as Obj_AI_Turret;
-                if (turret != null && turret.IsValid<Obj_AI_Turret>())
+                if (turret != null && turret.IsValid)
                 {
                     foreach (var hero in Activator.Allies())
                     {
@@ -607,8 +607,8 @@ namespace Activator.Handlers
                             if (turret.Distance(hero.Player.ServerPosition) <= 900 &&
                                 Player.Distance(hero.Player.ServerPosition) <= 1000)
                             {
-                                PredictTheDamage(turret, hero, new Gamedata(), HitType.TurretAttack, "enemy.Turret");
-                            }                         
+                                EmulateDamage(turret, hero, new Gamedata(), HitType.TurretAttack, "enemy.Turret");
+                            }                       
                         }
                     }
                 }
@@ -630,7 +630,7 @@ namespace Activator.Handlers
                             if (hero.Player.Distance(minion.ServerPosition) <= 750 &&
                                 Player.Distance(hero.Player.ServerPosition) <= 1000)
                             {
-                                PredictTheDamage(minion, hero, new Gamedata(), HitType.MinionAttack, "enemy.Minion");
+                                EmulateDamage(minion, hero, new Gamedata(), HitType.MinionAttack, "enemy.Minion");
                             }
                         }
                     }
@@ -667,7 +667,7 @@ namespace Activator.Handlers
                                     dmg = dmg * 2;
                                 }
 
-                                PredictTheDamage(attacker, hero, new Gamedata(), HitType.Spell, "enemy.GankplankBarrel", dmg);
+                                EmulateDamage(attacker, hero, new Gamedata(), HitType.Spell, "enemy.GankplankBarrel", dmg);
                             }
                         }
                     }
@@ -693,19 +693,19 @@ namespace Activator.Handlers
                             if (args.SData.Name.ToLower() == "bilgewatercutlass")
                             {
                                 var dmg = (float) attacker.GetItemDamage(hero.Player, Damage.DamageItems.Bilgewater);
-                                PredictTheDamage(attacker, hero, new Gamedata(), HitType.Item, "enemy.ItemCast", dmg);
+                                EmulateDamage(attacker, hero, new Gamedata(), HitType.Item, "enemy.ItemCast", dmg);
                             }
 
                             if (args.SData.Name.ToLower() == "itemswordoffeastandfamine")
                             {
                                 var dmg = (float) attacker.GetItemDamage(hero.Player, Damage.DamageItems.Botrk);
-                                PredictTheDamage(attacker, hero, new Gamedata(), HitType.Item, "enemy.ItemCast", dmg);
+                                EmulateDamage(attacker, hero, new Gamedata(), HitType.Item, "enemy.ItemCast", dmg);
                             }
 
                             if (args.SData.Name.ToLower() == "hextechgunblade")
                             {
                                 var dmg = (float) attacker.GetItemDamage(hero.Player, Damage.DamageItems.Hexgun);
-                                PredictTheDamage(attacker, hero, new Gamedata(), HitType.Item, "enemy.ItemCast", dmg);
+                                EmulateDamage(attacker, hero, new Gamedata(), HitType.Item, "enemy.ItemCast", dmg);
                             }
                         }
                     }
@@ -719,7 +719,7 @@ namespace Activator.Handlers
                                 if (attacker.Distance(hero.Player.ServerPosition) <= 375)
                                 {
                                     var dmg = (float) attacker.GetItemDamage(hero.Player, Damage.DamageItems.Tiamat);
-                                    PredictTheDamage(attacker, hero, new Gamedata(), HitType.Item, "enemy.ItemCast", dmg);
+                                    EmulateDamage(attacker, hero, new Gamedata(), HitType.Item, "enemy.ItemCast", dmg);
                                 }
                             }
                         }
@@ -759,7 +759,7 @@ namespace Activator.Handlers
                         {
                             if (100 + hero.Player.BoundingRadius > projdist)
                             {
-                                PredictTheDamage(sender, hero, data, HitType.Spell, "enemy.LucianQ");
+                                EmulateDamage(sender, hero, data, HitType.Spell, "enemy.LucianQ");
                             }
                         }
                     }
@@ -785,7 +785,7 @@ namespace Activator.Handlers
                 {
                     if (entry.SDataName.ToLower() == args.SData.Name.ToLower())
                     {
-                        PredictTheDamage(sender, hero, new Gamedata { SDataName = "Stealth" }, HitType.Stealth, "process.OnStealth");
+                        EmulateDamage(sender, hero, new Gamedata { SDataName = "Stealth" }, HitType.Stealth, "process.OnStealth");
                         break;
                     }
                 }

@@ -54,7 +54,7 @@ namespace Activator.Handlers
                         {
                             if (ally.Player.Distance(enemy.Player) <= aura.Radius + 35)
                             {
-                                Projections.PredictTheDamage(enemy.Player, ally, data, HitType.Buff, "aura.DoT");
+                                Projections.EmulateDamage(enemy.Player, ally, data, HitType.Buff, "aura.DoT");
                             }
                         }
 
@@ -70,7 +70,7 @@ namespace Activator.Handlers
                         {
                             if (ally.Player.Distance(enemy.Player) <= aura.Radius + 35)
                             {
-                                Projections.PredictTheDamage(enemy.Player, ally, data, HitType.Buff, "aura.Evade");
+                                Projections.EmulateDamage(enemy.Player, ally, data, HitType.Buff, "aura.Evade");
                             }
                         }
 
@@ -90,7 +90,7 @@ namespace Activator.Handlers
                 {
                     if (args.Buff.Name == "rengarralertsound")
                     {
-                        Projections.PredictTheDamage(sender, ally,
+                        Projections.EmulateDamage(sender, ally,
                             new Gamedata { SDataName = "Stealth"}, HitType.Stealth, "handlers.OnBuffAdd");
                     }
                 }
@@ -149,7 +149,7 @@ namespace Activator.Handlers
                                 if (Utils.GameTimeTickCount - aura.TickLimiter >= 250)
                                 {
                                     // ReSharper disable once PossibleNullReferenceException
-                                    Projections.PredictTheDamage(owner, hero, data, HitType.Buff, "aura.Evade");
+                                    Projections.EmulateDamage(owner, hero, data, HitType.Buff, "aura.Evade");
                                     aura.TickLimiter = Utils.GameTimeTickCount;
                                 }
                             }
@@ -166,7 +166,7 @@ namespace Activator.Handlers
                         }
 
                         // ReSharper disable once PossibleNullReferenceException
-                        Projections.PredictTheDamage(owner, hero, data, HitType.Buff, "aura.DoT");
+                        Projections.EmulateDamage(owner, hero, data, HitType.Buff, "aura.DoT");
                         aura.TickLimiter = Utils.GameTimeTickCount;
                     }
                 }            
