@@ -296,9 +296,9 @@ namespace Activator
             };
 
             int itemid = (int) args.Id;
-            if (jungleItems.Any(x => itemid.Equals(x)))
+            if (itemid > 0)
             {
-                SmiteName = Player.GetSpell(SpellSlot.Summoner2).Name;
+                ReassignSmite(jungleItems, itemid);
             }
 
             foreach (CoreItem item in Lists.Items)
@@ -316,6 +316,17 @@ namespace Activator
                         Lists.BoughtItems.Add(item);
                         Game.PrintChat("<b><font color=\"#FF3366\">Activator#</font></b> - <font color=\"#FFF280\">" + item.Name + "</font> active!");
                     }
+                }
+            }
+        }
+
+        private static void ReassignSmite(int[] jungleItems, int itemid)
+        {
+            if (Player.GetSpell(Smite).State != SpellState.Unknown)
+            {
+                if (jungleItems.Any(itemid.Equals))
+                {
+                    SmiteName = Player.GetSpell(Smite).Name;
                 }
             }
         }
